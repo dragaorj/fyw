@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://fyw.studio/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://fyw.studio/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fyw.studio/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://fyw.studio/?lang=es" />
+    <lastmod>2026-11-04</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://fyw.studio/privacidade.html</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://fyw.studio/projetos/aurora-bank.html</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://fyw.studio/projetos/verde.html</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://fyw.studio/projetos/nomade.html</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://fyw.studio/projetos/pulso.html</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://fyw.studio/projetos/orbe.html</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://fyw.studio/projetos/lumen.html</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://fyw.studio/projetos/kora.html</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://fyw.studio/projetos/atlas.html</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://fyw.studio/projetos/brisa.html</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://fyw.studio/projetos/prisma.html</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://fyw.studio/projetos/oca.html</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://fyw.studio/projetos/helio.html</loc>
+    <lastmod>2026-11-04</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url><loc>https://fyw.studio/projetos.html</loc><priority>0.8</priority></url>
+</urlset>

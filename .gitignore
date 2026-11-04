@@ -1,0 +1,11 @@
+# Referências e vídeos usados só durante a criação
+_refs/
+# Versões antigas salvas localmente
+_backup/
+# Configurações locais do editor/assistente
+.claude/
+.vscode/
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini

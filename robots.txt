@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /_refs/
+
+Sitemap: https://fyw.studio/sitemap.xml

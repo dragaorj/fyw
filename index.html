@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fyw — Sites, marcas e sistemas que vendem</title>
+  <meta name="description" content="Fyw — design e tecnologia que vendem. Criamos sites, marcas, apps e sistemas sob medida que transformam visitas em clientes." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#EEEDE9" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0B0B0B" media="(prefers-color-scheme: dark)" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="canonical" href="https://fyw.studio/" />
+  <link rel="alternate" hreflang="pt-BR" href="https://fyw.studio/" />
+  <link rel="alternate" hreflang="en" href="https://fyw.studio/?lang=en" />
+  <link rel="alternate" hreflang="es" href="https://fyw.studio/?lang=es" />
+  <link rel="alternate" hreflang="x-default" href="https://fyw.studio/" />
+  <link rel="icon" href="assets/img/favicon-dark.svg" type="image/svg+xml" media="(prefers-color-scheme: light)" />
+  <link rel="icon" href="assets/img/favicon-light.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)" />
+  <link rel="apple-touch-icon" href="assets/img/favicon-dark.svg" />
+  <link rel="manifest" href="site.webmanifest" />
+  <!-- Open Graph / Social -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Fyw" />
+  <meta property="og:title" content="Fyw — Sites, marcas e sistemas que vendem" />
+  <meta property="og:description" content="Fyw — design e tecnologia que vendem. Criamos sites, marcas, apps e sistemas sob medida que transformam visitas em clientes." />
+  <meta property="og:url" content="https://fyw.studio/" />
+  <meta property="og:image" content="https://fyw.studio/assets/img/og.jpg" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:locale:alternate" content="es_ES" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Fyw",
+    "url": "https://fyw.studio/",
+    "logo": "https://fyw.studio/assets/img/favicon-dark.svg",
+    "email": "fyw.ggwp@gmail.com",
+    "foundingDate": "2023",
+    "founder": {"@type": "Person", "name": "Marlon Dias", "jobTitle": "Fundador e Web Designer Sênior"},
+    "slogan": "Projetos que vendem.",
+    "description": "Fyw — design e tecnologia que vendem. Criamos sites, marcas, apps e sistemas sob medida que transformam visitas em clientes.",
+    "areaServed": ["BR", "PT", "US", "ES"],
+    "knowsLanguage": ["pt-BR", "en", "es"],
+    "sameAs": [],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Serviços",
+      "itemListElement": [
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Branding e Rebranding"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "UI/UX e Web Design"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Desenvolvimento de Apps e Sistemas"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Design Systems"}}
+      ]
+    }
+  }
+  </script>
+  <script>
+    (function () {
+      var d = document.documentElement;
+      try {
+        var t = localStorage.getItem('fio-theme');
+        if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        d.setAttribute('data-theme', t);
+        var a = JSON.parse(localStorage.getItem('fio-a11y') || '{}');
+        if (a.size) d.style.setProperty('--fs-scale', a.size);
+        ['contrast', 'motion', 'clean', 'links', 'spacing'].forEach(function (k) { if (a[k]) d.classList.add('a11y-' + k); });
+      } catch (e) {}
+    })();
+    // Paleta sorteada a cada visita (não fica salva): cor de destaque + cores/posições das manchas
+    (function () {
+      var d = document.documentElement, R = Math.random, s = function (k, v) { d.style.setProperty(k, v); };
+      var acc = [['#C8F53C', '#0B0B0B'], ['#FF6A2B', '#0B0B0B'], ['#2F6BFF', '#EEEDE9'], ['#7B5CFF', '#EEEDE9']][Math.floor(R() * 4)];
+      s('--accent', acc[0]); s('--accent-ink', acc[1]); s('--accent-dot', acc[0] === '#C8F53C' ? '#2F9E44' : acc[0]);
+      var hues = ['#B49CFF', '#8DB4FF', '#FFA36B', '#C8F53C', '#FF9BD2', '#7FE3C8'];
+      for (var i = hues.length - 1; i > 0; i--) { var j = Math.floor(R() * (i + 1)), t = hues[i]; hues[i] = hues[j]; hues[j] = t; }
+      for (var k = 1; k <= 4; k++) {
+        s('--au' + k, hues[k - 1]);
+        s('--a' + k + 'x', Math.round(-10 + R() * 75) + 'cqw');
+        s('--a' + k + 'y', Math.round(-10 + R() * 70) + 'cqh');
+      }
+      var glass = ['#FF6A2B', '#1E7A4C', '#7B5CFF', '#FFB45E', '#2F6BFF', '#C8F53C'];
+      for (var m = glass.length - 1; m > 0; m--) { var n = Math.floor(R() * (m + 1)), u = glass[m]; glass[m] = glass[n]; glass[n] = u; }
+      for (var g = 1; g <= 4; g++) s('--g' + g, glass[g - 1]);
+    })();
+  </script>
+  <link rel="preconnect" href="https://www.youtube-nocookie.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://picsum.photos" />
+  <link rel="dns-prefetch" href="https://fastly.picsum.photos" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet" /></noscript>
+  <link rel="stylesheet" href="assets/css/style.css?v=20261106r" />
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="fyw-logo" viewBox="0 0 804 513"><path fill="currentColor" d="M167.766 0C181.085 1.8904e-05 193.839 1.00516 206.027 3.01562C206.198 3.04375 206.368 3.07158 206.537 3.09961C220.661 5.43922 228.408 19.8275 223.516 33.2822L209.876 70.793C207.405 77.5889 200.003 81.2363 192.833 80.293C188.058 79.5391 183.723 79.1621 179.828 79.1621C170.153 79.1621 163.241 81.2352 159.095 85.3818C155.074 89.5284 152.435 94.995 151.179 101.78L149.037 114.597H210.108C223.005 114.597 233.69 124.603 234.537 137.472L246.111 313.392C246.176 314.376 246.993 315.141 247.979 315.141C248.742 315.141 249.429 314.678 249.715 313.971L324.103 129.905C327.842 120.653 336.822 114.597 346.801 114.597H441.707C455.024 114.597 465.899 125.242 466.184 138.556L469.413 289.691C469.429 290.427 470.03 291.015 470.766 291.016C471.329 291.016 471.835 290.666 472.033 290.139L532.082 130.461C535.671 120.917 544.8 114.597 554.997 114.597H615.826C628.855 114.597 639.602 124.802 640.275 137.813L648.055 288.215C648.092 288.939 648.691 289.508 649.416 289.508C649.995 289.508 650.511 289.141 650.702 288.594L705.722 131.009C709.153 121.18 718.425 114.597 728.835 114.597H778.771C796.24 114.597 808.088 132.368 801.369 148.494L701.143 389.039C697.341 398.162 688.427 404.104 678.544 404.104H604.75C592.145 404.104 581.601 394.534 580.383 381.988L567.62 250.533C567.524 249.548 566.696 248.796 565.706 248.796C564.936 248.796 564.239 249.256 563.937 249.964L504.44 389.24C500.589 398.256 491.73 404.104 481.927 404.104H408.282C395.55 404.104 384.942 394.344 383.885 381.655L373.26 254.16L285.808 428.229C277.766 444.188 267.713 458.513 255.65 471.204C243.713 484.021 229.012 494.135 211.546 501.549C194.08 508.962 173.221 512.67 148.97 512.67C136.907 512.67 125.661 511.728 115.231 509.843C114.447 509.711 113.671 509.574 112.901 509.434C99.0337 506.908 93.0004 491.746 99.043 479.011L113.313 448.936C118.767 437.442 132.057 432.648 144.661 434.378C144.841 434.403 145.021 434.427 145.2 434.45C152.111 435.33 158.206 434.827 163.483 432.942C168.761 431.058 173.096 427.476 176.488 422.198C178.671 418.803 179.504 414.715 178.824 410.736L141.115 189.989H136.44L104.082 383.657C102.11 395.457 91.8992 404.104 79.9355 404.104H25.5361C10.4039 404.104 -1.10516 390.513 1.38867 375.588L32.4004 189.989H24.4883C9.32791 189.989 -2.18827 176.35 0.352539 161.404L4.8457 134.976C6.8464 123.207 17.0438 114.597 28.9814 114.597H44.9971L46.3828 106.304C50.2781 82.4294 57.7549 62.6384 68.8125 46.9316C79.9957 31.2249 94.0061 19.4761 110.844 11.6855C127.807 3.89499 146.781 0 167.766 0Z"/></symbol></svg>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <filter id="flute" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feImage href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'38'%20height%3D'38'%3E%3Cdefs%3E%3ClinearGradient%20id%3D'g'%3E%3Cstop%20offset%3D'0'%20stop-color%3D'rgb(0%2C128%2C0)'%2F%3E%3Cstop%20offset%3D'.82'%20stop-color%3D'rgb(255%2C128%2C0)'%2F%3E%3Cstop%20offset%3D'1'%20stop-color%3D'rgb(0%2C128%2C0)'%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D'38'%20height%3D'38'%20fill%3D'url(%23g)'%2F%3E%3C%2Fsvg%3E" x="0" y="0" width="38" height="38" preserveAspectRatio="none" result="s"/>
+      <feTile in="s" result="map"/>
+      <feDisplacementMap in="SourceGraphic" in2="map" scale="70" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="wave" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+      <feTurbulence id="wave-turb" type="fractalNoise" baseFrequency="0.0028 0.009" numOctaves="1" seed="3" result="noise"/>
+      <feDisplacementMap id="wave-disp" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="flute-wide" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+      <feImage href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'64'%20height%3D'64'%3E%3Cdefs%3E%3ClinearGradient%20id%3D'g'%3E%3Cstop%20offset%3D'0'%20stop-color%3D'rgb(0%2C128%2C0)'%2F%3E%3Cstop%20offset%3D'.82'%20stop-color%3D'rgb(255%2C128%2C0)'%2F%3E%3Cstop%20offset%3D'1'%20stop-color%3D'rgb(0%2C128%2C0)'%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D'64'%20height%3D'64'%20fill%3D'url(%23g)'%2F%3E%3C%2Fsvg%3E" x="0" y="0" width="64" height="64" preserveAspectRatio="none" result="s"/>
+      <feTile in="s" result="map"/>
+      <feDisplacementMap in="SourceGraphic" in2="map" scale="120" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </svg>
+
+  <a class="skip-link" href="#main" data-i18n="a11y.skip">Pular para o conteúdo</a>
+
+  <!-- ACESSIBILIDADE -->
+  <div class="a11y-panel" id="a11y-panel" role="dialog" aria-modal="false" aria-labelledby="a11y-title" hidden>
+    <div class="a11y-head">
+      <h2 id="a11y-title" data-i18n="a11y.title">Acessibilidade</h2>
+      <button class="a11y-close" data-i18n-aria="a11y.close" aria-label="Fechar">×</button>
+    </div>
+
+  </div>
+  <div class="cursor" aria-hidden="true"><span class="cursor-label" data-i18n="cursor.view">Ver</span></div>
+
+  <!-- NAV -->
+  <header class="nav">
+    <a href="#top" class="logo" aria-label="Fyw — início"><svg viewBox="0 0 804 513" aria-hidden="true"><use href="#fyw-logo"/></svg></a>
+    <nav class="nav-links" aria-label="Principal">
+      <a href="#story" class="pill" data-i18n="nav.story">Sobre</a>
+      <a href="#services" class="pill" data-i18n="nav.services">Serviços</a>
+      <a href="#work" class="pill" data-i18n="nav.work">Trabalhos</a>
+      <a href="#clients" class="pill" data-i18n="nav.clients">Clientes</a>
+      <a href="#contact" class="pill" data-i18n="nav.contact">Contato</a>
+      <span class="nav-ind" aria-hidden="true"></span>
+    </nav>
+    <div class="nav-opts" aria-label="Preferências">
+      <div class="lang nav-lang" role="group" aria-label="Idioma"><button data-lang="pt">PT</button><button data-lang="en">EN</button><button data-lang="es">ES</button></div>
+      <button class="icon-btn no-theme" data-i18n-aria="theme.toggle" aria-label="Alternar tema claro/escuro"><svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="currentColor"/></svg></button>
+      <button class="icon-btn no-a11y" data-i18n-aria="a11y.open" aria-label="Opções de acessibilidade"><svg class="a11y-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><circle cx="12" cy="4" r="2.1"/><path d="M20.75 6.99c-.14-.55-.69-.87-1.24-.75C17.13 6.77 14.48 7 12 7s-5.13-.23-7.51-.76c-.55-.12-1.1.2-1.24.75-.14.56.2 1.13.75 1.26 1.61.36 3.35.61 5 .75v12c0 .55.45 1 1 1s1-.45 1-1v-5h2v5c0 .55.45 1 1 1s1-.45 1-1V9c1.65-.14 3.39-.39 4.99-.75.56-.13.9-.7.76-1.26z"/></svg></button>
+    </div>
+    <div class="nav-tools">
+      <div class="lang" role="group" aria-label="Idioma">
+        <button data-lang="pt">PT</button><button data-lang="en">EN</button><button data-lang="es">ES</button>
+      </div>
+      <button class="a11y-btn icon-btn" aria-controls="a11y-panel" aria-expanded="false" data-i18n-aria="a11y.open" aria-label="Opções de acessibilidade">
+        <svg class="a11y-ico" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><circle cx="12" cy="4" r="2.1"/><path d="M20.75 6.99c-.14-.55-.69-.87-1.24-.75C17.13 6.77 14.48 7 12 7s-5.13-.23-7.51-.76c-.55-.12-1.1.2-1.24.75-.14.56.2 1.13.75 1.26 1.61.36 3.35.61 5 .75v12c0 .55.45 1 1 1s1-.45 1-1v-5h2v5c0 .55.45 1 1 1s1-.45 1-1V9c1.65-.14 3.39-.39 4.99-.75.56-.13.9-.7.76-1.26z"/></svg>
+      </button>
+      <button class="theme-toggle icon-btn" data-i18n-aria="theme.toggle" aria-label="Alternar tema claro/escuro">
+        <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="currentColor"/></svg>
+      </button>
+      <a href="#contact" class="btn btn-ink hide-sm" data-magnetic>
+        <span class="btn-roll"><span data-i18n="nav.cta">Vamos conversar</span><span aria-hidden="true" data-i18n="nav.cta">Vamos conversar</span></span>
+        <i class="btn-arrow"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></i>
+      </a>
+      <button class="menu-btn" aria-expanded="false" aria-controls="mobile-menu" data-i18n-aria="nav.menu" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Menu" hidden><span class="fg-layer" aria-hidden="true"></span>
+    <div class="mm-tabs" role="tablist" aria-label="Menu">
+      <button class="mm-tab is-on" role="tab" id="mm-tab-main" aria-selected="true" aria-controls="mm-pane-main" data-pane="main" data-i18n="mm.tab.menu">Menu principal</button>
+      <button class="mm-tab" role="tab" id="mm-tab-a11y" aria-selected="false" aria-controls="mm-pane-a11y" data-pane="a11y" tabindex="-1" data-i18n="mm.tab.a11y">Acessibilidade</button>
+    </div>
+    <div class="mm-pane" id="mm-pane-main" role="tabpanel" aria-labelledby="mm-tab-main" data-pane="main">
+      <a href="#story" data-i18n="nav.story">Sobre</a><a href="#services" data-i18n="nav.services">Serviços</a><a href="#work" data-i18n="nav.work">Trabalhos</a><a href="#clients" data-i18n="nav.clients">Clientes</a><a href="#contact" data-i18n="nav.contact">Contato</a>
+      <div class="mm-row">
+        <div class="lang mm-lang" role="group" aria-label="Idioma"><button data-lang="pt">PT</button><button data-lang="en">EN</button><button data-lang="es">ES</button></div>
+        <button class="icon-btn mm-theme" data-i18n-aria="theme.toggle" aria-label="Alternar tema claro/escuro"><svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="currentColor"/></svg></button>
+      </div>
+  
+    </div>
+    <div class="mm-pane mm-a11y-pane" id="mm-pane-a11y" role="tabpanel" aria-labelledby="mm-tab-a11y" data-pane="a11y" hidden>
+      <div class="a11y-size">
+        <span data-i18n="a11y.size">Tamanho do texto</span>
+        <div class="a11y-stepper">
+          <button data-size="-1" data-i18n-aria="a11y.smaller" aria-label="Diminuir texto">A−</button>
+          <output class="a11y-size-val" aria-live="polite">100%</output>
+          <button data-size="1" data-i18n-aria="a11y.bigger" aria-label="Aumentar texto">A+</button>
+        </div>
+      </div>
+      <div class="a11y-opts">
+        <button class="a11y-opt" data-opt="contrast" aria-pressed="false"><i>◐</i><span data-i18n="a11y.contrast">Alto contraste</span></button>
+        <button class="a11y-opt" data-opt="motion" aria-pressed="false"><i>⏸</i><span data-i18n="a11y.motion">Sem animações</span></button>
+        <button class="a11y-opt" data-opt="clean" aria-pressed="false"><i>☰</i><span data-i18n="a11y.clean">Modo leitura limpo</span></button>
+        <button class="a11y-opt" data-opt="links" aria-pressed="false"><i>⎁</i><span data-i18n="a11y.links">Destacar links</span></button>
+        <button class="a11y-opt" data-opt="spacing" aria-pressed="false"><i>↔</i><span data-i18n="a11y.spacing">Espaçamento de leitura</span></button>
+      </div>
+      <button class="a11y-reset" data-i18n="a11y.reset">Restaurar padrão</button>
+    </div>
+  </nav>
+
+  <main id="main">
+    <span id="top"></span>
+    <!-- 1 · HERO: "fio" atrás da casa -->
+    <section class="hero">
+      <div class="hero-stage">
+        <div class="hero-video" aria-hidden="true" data-yt-light="WLcljbREoZM" data-yt-dark="8npvhQPUXSU"></div>
+        <div class="aura" aria-hidden="true"><i class="a1"></i><i class="a2"></i><i class="a3"></i><i class="a4"></i></div>
+        <div class="hero-content">
+          <h1 class="hero-title"><span class="sr-only" data-i18n="hero.headline">Seu site deveria vender por você.</span><span class="ht-type" aria-hidden="true">Você está deixando
+dinheiro na mesa</span><span class="ht-caret" aria-hidden="true"></span></h1>
+          <div class="hfan" aria-hidden="true">
+            <div class="hf-card" data-project="lumen" style="--i:0;--r:-9deg"><div class="fc-in"><img data-src="https://picsum.photos/seed/fyw-p6/480/576" width="480" height="576" decoding="async" alt=""></div></div>
+            <div class="hf-card" data-project="kora" style="--i:1;--r:6deg"><div class="fc-in"><img data-src="https://picsum.photos/seed/fyw-p7/480/576" width="480" height="576" decoding="async" alt=""></div></div>
+            <div class="hf-card" data-project="aurora-bank" style="--i:2;--r:-4deg"><div class="fc-in"><img data-src="https://picsum.photos/seed/fyw-p1/480/576" width="480" height="576" decoding="async" alt=""></div><span class="hf-tag t-o is-rest"></span></div>
+            <div class="hf-card" data-project="verde" style="--i:3;--r:8deg"><div class="fc-in"><img data-src="https://picsum.photos/seed/fyw-p2/480/576" width="480" height="576" decoding="async" alt=""></div></div>
+            <div class="hf-card" data-project="nomade" style="--i:4;--r:-2deg"><div class="fc-in"><img data-src="https://picsum.photos/seed/fyw-p3/480/576" width="480" height="576" decoding="async" alt=""></div><span class="hf-tag t-v is-rest"></span></div>
+            <div class="hf-card" data-project="pulso" style="--i:5;--r:5deg"><div class="fc-in"><img data-src="https://picsum.photos/seed/fyw-p4/480/576" width="480" height="576" decoding="async" alt=""></div></div>
+            <div class="hf-card" data-project="orbe" style="--i:6;--r:-7deg"><div class="fc-in"><img data-src="https://picsum.photos/seed/fyw-p5/480/576" width="480" height="576" decoding="async" alt=""></div><span class="hf-tag t-b is-rest"></span></div>
+            <div class="hf-card" data-project="atlas" style="--i:7;--r:4deg"><div class="fc-in"><img data-src="https://picsum.photos/seed/fyw-p8/480/576" width="480" height="576" decoding="async" alt=""></div></div>
+            <div class="hf-card" data-project="brisa" style="--i:8;--r:-5deg"><div class="fc-in"><img data-src="https://picsum.photos/seed/fyw-p9/480/576" width="480" height="576" decoding="async" alt=""></div></div>
+          </div>
+          <p class="hero-sub" data-i18n="hero.sub">Nós criamos sites, marcas e sistemas sob medida que transformam visitas em clientes para empresas do mundo todo.</p>
+          <div class="hero-ctas">
+            <a href="#contact" class="btn btn-ink btn-pulse btn-hero">
+              <span class="bh-glow" aria-hidden="true"></span>
+              <span class="bh-glass" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="btn-roll"><span data-i18n="nav.cta">Vamos conversar</span><span aria-hidden="true" data-i18n="nav.cta">Vamos conversar</span></span>
+              <i class="btn-arrow"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 5 · TRABALHOS: imagem abre no meio do texto -->
+    <section class="work" id="work">
+      <div class="work-card">
+        <div class="work-head">
+          <span><span data-i18n="work.label">Trabalhos</span></span>
+          <span data-i18n="work.title">Projetos que geram resultado</span>
+        </div>
+        <div class="work-list">
+          <a href="projetos/aurora-bank.html" class="work-row" data-cursor="view">
+            <span class="wr-n">/01</span>
+            <span class="wr-title"><span>Aurora</span><span class="wr-thumb"><img src="https://picsum.photos/seed/fyw-p1/400/260" width="400" height="260" decoding="async" alt="" loading="lazy"></span><span>Bank</span></span>
+            <span class="wr-more">/<span data-i18n="work.more">Ver mais</span></span>
+            <span class="wr-detail"><span class="wr-detail-in"><span data-i18n="w.1">Identidade visual · Fintech · São Paulo</span></span></span>
+          </a>
+          <a href="projetos/verde.html" class="work-row" data-cursor="view">
+            <span class="wr-n">/02</span>
+            <span class="wr-title"><span>Verde</span><span class="wr-thumb"><img src="https://picsum.photos/seed/fyw-p2/400/260" width="400" height="260" decoding="async" alt="" loading="lazy"></span><span>Mercado</span></span>
+            <span class="wr-more">/<span data-i18n="work.more">Ver mais</span></span>
+            <span class="wr-detail"><span class="wr-detail-in"><span data-i18n="w.2">E-commerce · Varejo · Curitiba</span></span></span>
+          </a>
+          <a href="projetos/nomade.html" class="work-row" data-cursor="view">
+            <span class="wr-n">/03</span>
+            <span class="wr-title"><span>Nômade</span><span class="wr-thumb"><img src="https://picsum.photos/seed/fyw-p3/400/260" width="400" height="260" decoding="async" alt="" loading="lazy"></span><span>App</span></span>
+            <span class="wr-more">/<span data-i18n="work.more">Ver mais</span></span>
+            <span class="wr-detail"><span class="wr-detail-in"><span data-i18n="w.3">App mobile · Viagens · Lisboa</span></span></span>
+          </a>
+          <a href="projetos/pulso.html" class="work-row" data-cursor="view">
+            <span class="wr-n">/04</span>
+            <span class="wr-title"><span>Pulso</span><span class="wr-thumb"><img src="https://picsum.photos/seed/fyw-p4/400/260" width="400" height="260" decoding="async" alt="" loading="lazy"></span><span>Health</span></span>
+            <span class="wr-more">/<span data-i18n="work.more">Ver mais</span></span>
+            <span class="wr-detail"><span class="wr-detail-in"><span data-i18n="w.4">Design System · Saúde · Remoto</span></span></span>
+          </a>
+          <a href="projetos/orbe.html" class="work-row" data-cursor="view">
+            <span class="wr-n">/05</span>
+            <span class="wr-title"><span>Orbe</span><span class="wr-thumb"><img src="https://picsum.photos/seed/fyw-p5/400/260" width="400" height="260" decoding="async" alt="" loading="lazy"></span><span>Studio</span></span>
+            <span class="wr-more">/<span data-i18n="work.more">Ver mais</span></span>
+            <span class="wr-detail"><span class="wr-detail-in"><span data-i18n="w.5">Rebranding · Arquitetura · Rio</span></span></span>
+          </a>
+        </div>
+        <div class="work-more">
+          <a href="projetos.html" class="btn btn-accent"><span class="btn-roll"><span data-i18n="work.all">Ver todos os projetos</span><span aria-hidden="true" data-i18n="work.all">Ver todos os projetos</span></span><i class="btn-arrow"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></i></a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 4 · SERVIÇOS -->
+    <section class="services section tone" id="services">
+      <div class="section-head">
+        <h2 class="title" data-split data-i18n="services.title">Tudo o que sua marca precisa para vender.</h2>
+      </div>
+      <ul class="svc-list">
+        <li class="svc"><span class="svc-n">01</span><h3 data-i18n="svc.1.t">Branding</h3><p data-i18n="svc.1.d">Identidade, naming e rebranding.</p><span class="svc-arrow"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></span></li>
+        <li class="svc"><span class="svc-n">02</span><h3 data-i18n="svc.2.t">UI/UX & Web</h3><p data-i18n="svc.2.d">Sites e interfaces que convertem.</p><span class="svc-arrow"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></span></li>
+        <li class="svc"><span class="svc-n">03</span><h3 data-i18n="svc.3.t">Apps & Sistemas</h3><p data-i18n="svc.3.d">Produtos digitais do zero ao ar.</p><span class="svc-arrow"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></span></li>
+        <li class="svc"><span class="svc-n">04</span><h3 data-i18n="svc.4.t">Design Systems</h3><p data-i18n="svc.4.d">Escala e consistência para o seu time.</p><span class="svc-arrow"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></span></li>
+      </ul>
+      <div class="svc-cta">
+        <p data-i18n="svc.cta.q">Não sabe por onde começar?</p>
+        <a href="#contact" class="btn btn-ink" data-magnetic>
+          <span class="btn-roll"><span data-i18n="svc.cta.btn">Pedir orçamento</span><span aria-hidden="true" data-i18n="svc.cta.btn">Pedir orçamento</span></span>
+          <i class="btn-arrow"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></i>
+        </a>
+      </div>
+    </section>
+
+
+    <!-- 3 · STATEMENT palavra por palavra -->
+    <section class="about section">
+      <p class="statement" data-i18n-html="about.statement">Antes de desenhar qualquer pixel, entendemos o seu negócio. <span class="chip c1"></span> É assim que um site deixa de ser vitrine e vira uma <span class="chip c2"></span> máquina de vendas.</p>
+      <div class="stats">
+        <div class="stat"><b data-count="150">0</b><em>+</em><span data-i18n="stats.projects">projetos entregues</span></div>
+        <div class="stat"><b data-count="10">0</b><em></em><span data-i18n="stats.years">anos de estrada</span></div>
+        <div class="stat"><b data-count="4">0</b><em></em><span data-i18n="stats.countries">países atendidos</span></div>
+        <div class="stat"><b data-count="92">0</b><em>%</em><span data-i18n="stats.return">clientes que voltam</span></div>
+      </div>
+    </section>
+
+
+
+    <!-- 6 · GRADE QUE AMPLIA -->
+    <section class="zoom">
+      <div class="zoom-intro">
+        <h2 class="zoom-intro-title" data-split data-i18n="zoom.intro">Feito para impressionar. Pensado para vender.</h2>
+      </div>
+      <div class="zoom-pin">
+        <div class="zoom-grid">
+          <div class="zg"><img src="https://picsum.photos/seed/fyw-p1/480/600" width="480" height="600" decoding="async" alt="" loading="lazy"></div>
+          <div class="zg"><img src="https://picsum.photos/seed/fyw-p2/480/600" width="480" height="600" decoding="async" alt="" loading="lazy"></div>
+          <div class="zg"><img src="https://picsum.photos/seed/fyw-p3/480/600" width="480" height="600" decoding="async" alt="" loading="lazy"></div>
+          <div class="zg"><img src="https://picsum.photos/seed/fyw-p4/480/600" width="480" height="600" decoding="async" alt="" loading="lazy"></div>
+          <div class="zg"><img src="https://picsum.photos/seed/fyw-p5/480/600" width="480" height="600" decoding="async" alt="" loading="lazy"></div>
+          <div class="zg"><img src="https://picsum.photos/seed/fyw-p6/480/600" width="480" height="600" decoding="async" alt="" loading="lazy"></div>
+          <div class="zg"><img src="https://picsum.photos/seed/fyw-p7/480/600" width="480" height="600" decoding="async" alt="" loading="lazy"></div>
+          <div class="zg zg-center"><img src="https://picsum.photos/seed/fyw-p1/1400/1000" width="1400" height="1000" decoding="async" alt="" loading="lazy"><div class="zg-wave" aria-hidden="true"><img src="https://picsum.photos/seed/fyw-p1/1400/1000" width="1400" height="1000" decoding="async" alt="" loading="lazy"></div></div>
+          <div class="zg"><img src="https://picsum.photos/seed/fyw-p8/480/600" width="480" height="600" decoding="async" alt="" loading="lazy"></div>
+          <div class="zg"><img src="https://picsum.photos/seed/fyw-p9/480/600" width="480" height="600" decoding="async" alt="" loading="lazy"></div>
+          <div class="zg"><img src="https://picsum.photos/seed/fyw-p10/480/600" width="480" height="600" decoding="async" alt="" loading="lazy"></div>
+          <div class="zg"><img src="https://picsum.photos/seed/fyw-p11/480/600" width="480" height="600" decoding="async" alt="" loading="lazy"></div>
+          <div class="zg"><img src="https://picsum.photos/seed/fyw-p12/480/600" width="480" height="600" decoding="async" alt="" loading="lazy"></div>
+          <div class="zg"><img src="https://picsum.photos/seed/fyw-p2/480/600" width="480" height="600" decoding="async" alt="" loading="lazy"></div>
+          <div class="zg"><img src="https://picsum.photos/seed/fyw-p4/480/600" width="480" height="600" decoding="async" alt="" loading="lazy"></div>
+        </div>
+        <div class="zoom-final">
+          <h2 class="zoom-title" data-i18n="zoom.title">Seu cliente decide em segundos.</h2>
+          <p class="zoom-sub" data-i18n="zoom.sub">Nós fazemos esses segundos trabalharem a seu favor.</p>
+          <a href="#contact" class="btn btn-accent zoom-cta"><span class="btn-roll"><span data-i18n="nav.cta">Vamos conversar</span><span aria-hidden="true" data-i18n="nav.cta">Vamos conversar</span></span><i class="btn-arrow"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></i></a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- COMO FUNCIONA -->
+    <section class="process section tone" id="process">
+      <div class="section-head">
+        <h2 class="title" data-split data-i18n="process.title">Do briefing ao ar, sem dor de cabeça.</h2>
+      </div>
+      <ol class="proc">
+        <li class="proc-track" aria-hidden="true"><i class="proc-fill"></i></li>
+        <li class="proc-card"><span class="proc-fx" aria-hidden="true"></span><span class="proc-dot" aria-hidden="true"></span><span class="proc-n" aria-hidden="true">01</span><span class="proc-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l.9-4.4A8 8 0 1 1 20 12Z"/><path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01"/></svg></span><h3 data-i18n="step.1.t">Conversa</h3><p data-i18n="step.1.d">Entendemos seu negócio, seus objetivos e o problema a resolver.</p></li>
+        <li class="proc-card"><span class="proc-fx" aria-hidden="true"></span><span class="proc-dot" aria-hidden="true"></span><span class="proc-n" aria-hidden="true">02</span><span class="proc-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="m14.8 9.2-1.9 3.7-3.7 1.9 1.9-3.7 3.7-1.9Z"/></svg></span><h3 data-i18n="step.2.t">Estratégia</h3><p data-i18n="step.2.d">Desenhamos uma solução sob medida para a dor do seu negócio, com escopo e prazos claros.</p></li>
+        <li class="proc-card"><span class="proc-fx" aria-hidden="true"></span><span class="proc-dot" aria-hidden="true"></span><span class="proc-n" aria-hidden="true">03</span><span class="proc-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8.5 8-4 4 4 4M15.5 8l4 4-4 4M13.5 5.5l-3 13"/></svg></span><h3 data-i18n="step.3.t">Design & código</h3><p data-i18n="step.3.d">Desenhamos e programamos do zero, em código puro, com validações a cada etapa.</p></li>
+        <li class="proc-card"><span class="proc-fx" aria-hidden="true"></span><span class="proc-dot" aria-hidden="true"></span><span class="proc-n" aria-hidden="true">04</span><span class="proc-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19c0-3 1-5 3-6M12 15c-1.5 0-3-1.5-3-3 0-5 4-8.5 10-9-.5 6-4 10-9 10"/><circle cx="14.5" cy="9.5" r="1.5"/></svg></span><h3 data-i18n="step.4.t">Lançamento</h3><p data-i18n="step.4.d">Publicamos, medimos e seguimos juntos no suporte.</p></li>
+      </ol>
+    </section>
+
+
+    <!-- HISTÓRIA -->
+    <section class="story" id="story">
+      <div class="story-inner">
+        <div class="story-side">
+          <p class="story-year" aria-hidden="true"><span>2</span><span>0</span><span>2</span><span>3</span></p>
+          <p class="story-since" data-i18n="story.since">Desde 2023</p>
+        </div>
+        <div class="story-main">
+          <h2 class="story-title" data-split data-i18n="story.title">Qualidade acima
+de quantidade.</h2>
+          <div class="story-text">
+            <p data-i18n="story.p1">A Fyw nasceu em 2023 da ideia de Marlon Dias, web designer sênior com mais de 15 anos de experiência em multinacionais e grandes empresas de design e tecnologia.</p>
+            <p data-i18n="story.p2">O objetivo era claro: construir, do zero, um estúdio que entregasse sites e produtos digitais de alto nível — escolhendo profundidade em vez de volume.</p>
+            <p data-i18n="story.p3">Hoje, a Fyw atende marcas internacionais e multinacionais como Latimpacto, Global Fire e Pacto Global, sempre com a mesma premissa: entender o problema antes de desenhar qualquer solução.</p>
+          </div>
+          <blockquote class="story-quote">
+            <p data-i18n="story.quote">Não fazemos só algo bonito. Resolvemos problemas.</p>
+          </blockquote>
+        </div>
+      </div>
+      <ol class="pillars">
+        <li class="pillar"><span class="pillar-n">01</span><span class="pillar-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c.6 4.6 3.4 7.4 8 8-4.6.6-7.4 3.4-8 8-.6-4.6-3.4-7.4-8-8 4.6-.6 7.4-3.4 8-8Z"/></svg></span><span class="flute-sheen pillar-sheen" aria-hidden="true"></span><h3 data-i18n="pil.1.t">Qualidade > quantidade</h3><p data-i18n="pil.1.d">Poucos projetos por vez e atenção total a cada detalhe.</p></li>
+        <li class="pillar"><span class="pillar-n">02</span><span class="pillar-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l.9-4.4A8 8 0 1 1 20 12Z"/><path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01"/></svg></span><span class="flute-sheen pillar-sheen" aria-hidden="true"></span><h3 data-i18n="pil.2.t">Experiência do cliente</h3><p data-i18n="pil.2.d">Processo claro, comunicação próxima e prazos cumpridos.</p></li>
+        <li class="pillar"><span class="pillar-n">03</span><span class="pillar-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".8" fill="currentColor"/></svg></span><span class="flute-sheen pillar-sheen" aria-hidden="true"></span><h3 data-i18n="pil.3.t">Problemas resolvidos</h3><p data-i18n="pil.3.d">Design com propósito: cada decisão tem um porquê e um resultado.</p></li>
+      </ol>
+    </section>
+
+
+    <!-- 7 · CLIENTES flutuando -->
+    <section class="clients" id="clients">
+      <div class="clients-head">
+        <h2 class="clients-title" data-split data-i18n="clients.title">Marcas que confiam na Fyw.</h2>
+        <p class="clients-sub" data-i18n="clients.sub">De startups brasileiras a organizações internacionais.</p>
+      </div>
+      <ul class="logo-wall">
+          <li class="lw-cell" data-region="intl">
+            <div class="lw-inner">
+              <span class="lw-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18 12 5l8 13Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg><span>Latimpacto</span></span>
+              <span class="lw-info">
+                <span class="lw-reg"><i class="lw-dot"></i><span data-i18n="clients.intl">Internacional</span></span>
+                <span class="lw-svc">Branding · Website</span>
+                
+              </span>
+            </div>
+          </li>
+          <li class="lw-cell" data-region="intl">
+            <div class="lw-inner">
+              <span class="lw-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg><span>Impact Hub</span></span>
+              <span class="lw-info">
+                <span class="lw-reg"><i class="lw-dot"></i><span data-i18n="clients.intl">Internacional</span></span>
+                <span class="lw-svc">Website · UI/UX</span>
+                
+              </span>
+            </div>
+          </li>
+          <li class="lw-cell" data-region="intl">
+            <div class="lw-inner">
+              <span class="lw-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 12h17M12 3.5c3 3.2 3 13.8 0 17M12 3.5c-3 3.2-3 13.8 0 17" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>Pacto Global</span></span>
+              <span class="lw-info">
+                <span class="lw-reg"><i class="lw-dot"></i><span data-i18n="clients.intl">Internacional</span></span>
+                <span class="lw-svc">Design · Conteúdo digital</span>
+                
+              </span>
+            </div>
+          </li>
+          <li class="lw-cell" data-region="intl">
+            <div class="lw-inner">
+              <span class="lw-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c2.5 3 5 5.6 5 9.3A5 5 0 0 1 7 12.3c0-1.8.8-3.2 2-4.3.2 1.6 1 2.6 2 3 0-3 .3-5.4 1-8Z" fill="currentColor"/></svg><span>Global Fire</span></span>
+              <span class="lw-info">
+                <span class="lw-reg"><i class="lw-dot"></i><span data-i18n="clients.intl">Internacional</span></span>
+                <span class="lw-svc">Website</span>
+                
+              </span>
+            </div>
+          </li>
+          <li class="lw-cell" data-region="br">
+            <a class="lw-inner" href="projetos/kora.html">
+              <span class="lw-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="2" fill="currentColor"/><rect x="13" y="13" width="8" height="8" rx="4" fill="currentColor"/></svg><span>Kora</span></span>
+              <span class="lw-info">
+                <span class="lw-reg"><i class="lw-dot"></i><span data-i18n="clients.br">Brasil</span></span>
+                <span class="lw-svc">Website</span>
+                <span class="lw-more"><span data-i18n="work.check">Ver projeto</span><i class="lw-go"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></i></span>
+              </span>
+            </a>
+          </li>
+          <li class="lw-cell" data-region="br">
+            <a class="lw-inner" href="projetos/brisa.html">
+              <span class="lw-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 14c4-6 8 6 12 0s6-4 8-2" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg><span>Brisa</span></span>
+              <span class="lw-info">
+                <span class="lw-reg"><i class="lw-dot"></i><span data-i18n="clients.br">Brasil</span></span>
+                <span class="lw-svc">Branding</span>
+                <span class="lw-more"><span data-i18n="work.check">Ver projeto</span><i class="lw-go"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></i></span>
+              </span>
+            </a>
+          </li>
+          <li class="lw-cell" data-region="br">
+            <a class="lw-inner" href="projetos/atlas.html">
+              <span class="lw-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="12" r="6" fill="currentColor"/><circle cx="16" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="2.4"/></svg><span>Atlas</span></span>
+              <span class="lw-info">
+                <span class="lw-reg"><i class="lw-dot"></i><span data-i18n="clients.br">Brasil</span></span>
+                <span class="lw-svc">UI/UX</span>
+                <span class="lw-more"><span data-i18n="work.check">Ver projeto</span><i class="lw-go"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></i></span>
+              </span>
+            </a>
+          </li>
+          <li class="lw-cell" data-region="br">
+            <a class="lw-inner" href="projetos/oca.html">
+              <span class="lw-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V8l8-5 8 5v12h-5v-6H9v6Z" fill="currentColor"/></svg><span>Oca</span></span>
+              <span class="lw-info">
+                <span class="lw-reg"><i class="lw-dot"></i><span data-i18n="clients.br">Brasil</span></span>
+                <span class="lw-svc">Website</span>
+                <span class="lw-more"><span data-i18n="work.check">Ver projeto</span><i class="lw-go"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></i></span>
+              </span>
+            </a>
+          </li>
+          <li class="lw-cell" data-region="br">
+            <a class="lw-inner" href="projetos/prisma.html">
+              <span class="lw-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 22 12 12 22 2 12Z" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M12 7l5 5-5 5-5-5Z" fill="currentColor"/></svg><span>Prisma</span></span>
+              <span class="lw-info">
+                <span class="lw-reg"><i class="lw-dot"></i><span data-i18n="clients.br">Brasil</span></span>
+                <span class="lw-svc">App</span>
+                <span class="lw-more"><span data-i18n="work.check">Ver projeto</span><i class="lw-go"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></i></span>
+              </span>
+            </a>
+          </li>
+          <li class="lw-cell" data-region="br">
+            <a class="lw-inner" href="projetos/helio.html">
+              <span class="lw-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 7h7l-5.6 4.3L18.5 21 12 16.5 5.5 21l2.1-7.7L2 9h7Z" fill="currentColor"/></svg><span>Hélio</span></span>
+              <span class="lw-info">
+                <span class="lw-reg"><i class="lw-dot"></i><span data-i18n="clients.br">Brasil</span></span>
+                <span class="lw-svc">Sistema</span>
+                <span class="lw-more"><span data-i18n="work.check">Ver projeto</span><i class="lw-go"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></i></span>
+              </span>
+            </a>
+          </li>
+          <li class="lw-cell" data-region="br">
+            <div class="lw-inner">
+              <span class="lw-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 20 12 4l9 16Z" fill="currentColor"/></svg><span>Vértice</span></span>
+              <span class="lw-info">
+                <span class="lw-reg"><i class="lw-dot"></i><span data-i18n="clients.br">Brasil</span></span>
+                <span class="lw-svc">Branding</span>
+                
+              </span>
+            </div>
+          </li>
+          <li class="lw-cell lw-next">
+            <a href="#contact" class="lw-cta">
+              <span class="lw-cta-t" data-i18n="clients.next">Sua marca pode ser a próxima.</span>
+              <span class="lw-cta-l"><span data-i18n="nav.cta">Vamos conversar</span><i class="lw-go"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></i></span>
+            </a>
+          </li>
+      </ul>
+    </section>
+
+
+    <!-- DEPOIMENTOS -->
+    <section class="testimonials tone" id="testimonials">
+      <div class="section-head t-head">
+        <div>
+          <h2 class="title" data-split data-i18n="testi.title">Quem contrata, recomenda.</h2>
+          <p class="t-sub" data-i18n="testi.sub">O que nossos clientes dizem sobre trabalhar com a Fyw.</p>
+        </div>
+      </div>
+      <div class="t-wall">
+          <div class="t-col t-col-1"><div class="t-track">
+            <figure class="t-card">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.1">O novo site dobrou nossos pedidos de orçamento em três meses. A Fyw entendeu o negócio antes de desenhar qualquer coisa.</blockquote>
+              <figcaption><span class="t-av t-orange">AR</span><span><b>Ana Ribeiro</b><small>CEO · Aurora Bank</small></span></figcaption>
+            </figure>
+            <figure class="t-card">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.4">O design system acelerou nosso time. Hoje lançamos telas em dias, não em semanas.</blockquote>
+              <figcaption><span class="t-av t-lime">RC</span><span><b>Rafael Costa</b><small>CTO · Pulso</small></span></figcaption>
+            </figure>
+            <figure class="t-card">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.7">Finalmente um site que trabalha por nós. Chegam contatos novos todos os dias.</blockquote>
+              <figcaption><span class="t-av t-blue">BS</span><span><b>Beatriz Santos</b><small>Comercial · Kora</small></span></figcaption>
+            </figure>
+            <figure class="t-card">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.2">Processo claro, prazos cumpridos e um resultado que superou o que imaginávamos.</blockquote>
+              <figcaption><span class="t-av t-violet">CM</span><span><b>Carlos Mendes</b><small>Marketing · Verde</small></span></figcaption>
+            </figure>
+            <figure class="t-card" aria-hidden="true">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.1">O novo site dobrou nossos pedidos de orçamento em três meses. A Fyw entendeu o negócio antes de desenhar qualquer coisa.</blockquote>
+              <figcaption><span class="t-av t-orange">AR</span><span><b>Ana Ribeiro</b><small>CEO · Aurora Bank</small></span></figcaption>
+            </figure>
+            <figure class="t-card" aria-hidden="true">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.4">O design system acelerou nosso time. Hoje lançamos telas em dias, não em semanas.</blockquote>
+              <figcaption><span class="t-av t-lime">RC</span><span><b>Rafael Costa</b><small>CTO · Pulso</small></span></figcaption>
+            </figure>
+            <figure class="t-card" aria-hidden="true">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.7">Finalmente um site que trabalha por nós. Chegam contatos novos todos os dias.</blockquote>
+              <figcaption><span class="t-av t-blue">BS</span><span><b>Beatriz Santos</b><small>Comercial · Kora</small></span></figcaption>
+            </figure>
+            <figure class="t-card" aria-hidden="true">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.2">Processo claro, prazos cumpridos e um resultado que superou o que imaginávamos.</blockquote>
+              <figcaption><span class="t-av t-violet">CM</span><span><b>Carlos Mendes</b><small>Marketing · Verde</small></span></figcaption>
+            </figure>
+          </div></div>
+          <div class="t-col t-col-2"><div class="t-track">
+            <figure class="t-card">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.5">O rebranding deu à marca a maturidade que faltava. Nossos clientes perceberam na hora.</blockquote>
+              <figcaption><span class="t-av t-violet">ML</span><span><b>Mariana Lopes</b><small>Sócia · Orbe Studio</small></span></figcaption>
+            </figure>
+            <figure class="t-card">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.8">Atenção a cada detalhe. Dá para sentir a diferença de quem faz poucos projetos por vez.</blockquote>
+              <figcaption><span class="t-av t-lime">LF</span><span><b>Lucas Fernandes</b><small>CEO · Atlas</small></span></figcaption>
+            </figure>
+            <figure class="t-card">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.3">O app ficou lindo, mas o melhor foi ver a retenção dos usuários subir mês após mês.</blockquote>
+              <figcaption><span class="t-av t-blue">JP</span><span><b>Juliana Prado</b><small>Produto · Nômade</small></span></figcaption>
+            </figure>
+            <figure class="t-card">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.6">Comunicação próxima do início ao fim. Parecia que a Fyw fazia parte da nossa equipe.</blockquote>
+              <figcaption><span class="t-av t-orange">PA</span><span><b>Pedro Alves</b><small>Fundador · Lumen</small></span></figcaption>
+            </figure>
+            <figure class="t-card" aria-hidden="true">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.5">O rebranding deu à marca a maturidade que faltava. Nossos clientes perceberam na hora.</blockquote>
+              <figcaption><span class="t-av t-violet">ML</span><span><b>Mariana Lopes</b><small>Sócia · Orbe Studio</small></span></figcaption>
+            </figure>
+            <figure class="t-card" aria-hidden="true">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.8">Atenção a cada detalhe. Dá para sentir a diferença de quem faz poucos projetos por vez.</blockquote>
+              <figcaption><span class="t-av t-lime">LF</span><span><b>Lucas Fernandes</b><small>CEO · Atlas</small></span></figcaption>
+            </figure>
+            <figure class="t-card" aria-hidden="true">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.3">O app ficou lindo, mas o melhor foi ver a retenção dos usuários subir mês após mês.</blockquote>
+              <figcaption><span class="t-av t-blue">JP</span><span><b>Juliana Prado</b><small>Produto · Nômade</small></span></figcaption>
+            </figure>
+            <figure class="t-card" aria-hidden="true">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.6">Comunicação próxima do início ao fim. Parecia que a Fyw fazia parte da nossa equipe.</blockquote>
+              <figcaption><span class="t-av t-orange">PA</span><span><b>Pedro Alves</b><small>Fundador · Lumen</small></span></figcaption>
+            </figure>
+          </div></div>
+          <div class="t-col t-col-3"><div class="t-track">
+            <figure class="t-card">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.3">O app ficou lindo, mas o melhor foi ver a retenção dos usuários subir mês após mês.</blockquote>
+              <figcaption><span class="t-av t-blue">JP</span><span><b>Juliana Prado</b><small>Produto · Nômade</small></span></figcaption>
+            </figure>
+            <figure class="t-card">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.6">Comunicação próxima do início ao fim. Parecia que a Fyw fazia parte da nossa equipe.</blockquote>
+              <figcaption><span class="t-av t-orange">PA</span><span><b>Pedro Alves</b><small>Fundador · Lumen</small></span></figcaption>
+            </figure>
+            <figure class="t-card">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.1">O novo site dobrou nossos pedidos de orçamento em três meses. A Fyw entendeu o negócio antes de desenhar qualquer coisa.</blockquote>
+              <figcaption><span class="t-av t-orange">AR</span><span><b>Ana Ribeiro</b><small>CEO · Aurora Bank</small></span></figcaption>
+            </figure>
+            <figure class="t-card">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.8">Atenção a cada detalhe. Dá para sentir a diferença de quem faz poucos projetos por vez.</blockquote>
+              <figcaption><span class="t-av t-lime">LF</span><span><b>Lucas Fernandes</b><small>CEO · Atlas</small></span></figcaption>
+            </figure>
+            <figure class="t-card" aria-hidden="true">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.3">O app ficou lindo, mas o melhor foi ver a retenção dos usuários subir mês após mês.</blockquote>
+              <figcaption><span class="t-av t-blue">JP</span><span><b>Juliana Prado</b><small>Produto · Nômade</small></span></figcaption>
+            </figure>
+            <figure class="t-card" aria-hidden="true">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.6">Comunicação próxima do início ao fim. Parecia que a Fyw fazia parte da nossa equipe.</blockquote>
+              <figcaption><span class="t-av t-orange">PA</span><span><b>Pedro Alves</b><small>Fundador · Lumen</small></span></figcaption>
+            </figure>
+            <figure class="t-card" aria-hidden="true">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.1">O novo site dobrou nossos pedidos de orçamento em três meses. A Fyw entendeu o negócio antes de desenhar qualquer coisa.</blockquote>
+              <figcaption><span class="t-av t-orange">AR</span><span><b>Ana Ribeiro</b><small>CEO · Aurora Bank</small></span></figcaption>
+            </figure>
+            <figure class="t-card" aria-hidden="true">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.8">Atenção a cada detalhe. Dá para sentir a diferença de quem faz poucos projetos por vez.</blockquote>
+              <figcaption><span class="t-av t-lime">LF</span><span><b>Lucas Fernandes</b><small>CEO · Atlas</small></span></figcaption>
+            </figure>
+          </div></div>
+          <div class="t-col t-col-4"><div class="t-track">
+            <figure class="t-card">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.7">Finalmente um site que trabalha por nós. Chegam contatos novos todos os dias.</blockquote>
+              <figcaption><span class="t-av t-blue">BS</span><span><b>Beatriz Santos</b><small>Comercial · Kora</small></span></figcaption>
+            </figure>
+            <figure class="t-card">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.2">Processo claro, prazos cumpridos e um resultado que superou o que imaginávamos.</blockquote>
+              <figcaption><span class="t-av t-violet">CM</span><span><b>Carlos Mendes</b><small>Marketing · Verde</small></span></figcaption>
+            </figure>
+            <figure class="t-card">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.5">O rebranding deu à marca a maturidade que faltava. Nossos clientes perceberam na hora.</blockquote>
+              <figcaption><span class="t-av t-violet">ML</span><span><b>Mariana Lopes</b><small>Sócia · Orbe Studio</small></span></figcaption>
+            </figure>
+            <figure class="t-card">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.4">O design system acelerou nosso time. Hoje lançamos telas em dias, não em semanas.</blockquote>
+              <figcaption><span class="t-av t-lime">RC</span><span><b>Rafael Costa</b><small>CTO · Pulso</small></span></figcaption>
+            </figure>
+            <figure class="t-card" aria-hidden="true">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.7">Finalmente um site que trabalha por nós. Chegam contatos novos todos os dias.</blockquote>
+              <figcaption><span class="t-av t-blue">BS</span><span><b>Beatriz Santos</b><small>Comercial · Kora</small></span></figcaption>
+            </figure>
+            <figure class="t-card" aria-hidden="true">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.2">Processo claro, prazos cumpridos e um resultado que superou o que imaginávamos.</blockquote>
+              <figcaption><span class="t-av t-violet">CM</span><span><b>Carlos Mendes</b><small>Marketing · Verde</small></span></figcaption>
+            </figure>
+            <figure class="t-card" aria-hidden="true">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.5">O rebranding deu à marca a maturidade que faltava. Nossos clientes perceberam na hora.</blockquote>
+              <figcaption><span class="t-av t-violet">ML</span><span><b>Mariana Lopes</b><small>Sócia · Orbe Studio</small></span></figcaption>
+            </figure>
+            <figure class="t-card" aria-hidden="true">
+              <div class="t-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9Z"/></svg></div>
+              <blockquote data-i18n="testi.4">O design system acelerou nosso time. Hoje lançamos telas em dias, não em semanas.</blockquote>
+              <figcaption><span class="t-av t-lime">RC</span><span><b>Rafael Costa</b><small>CTO · Pulso</small></span></figcaption>
+            </figure>
+          </div></div>
+      </div>
+    </section>
+
+    <!-- 8 · FAIXA -->
+    <section class="band-wrap" aria-hidden="true">
+      <div class="band">
+        <div class="band-track">
+          <span class="band-set">
+            <b data-i18n="band.1">Branding</b><i class="band-dot"></i><b data-i18n="band.2">UI/UX</b><i class="band-dot"></i><b data-i18n="band.3">Web</b><i class="band-dot"></i><b data-i18n="band.4">Apps</b><i class="band-dot"></i><b data-i18n="band.5">Sistemas</b><i class="band-dot"></i><b data-i18n="band.6">Design Systems</b><i class="band-dot"></i>
+          </span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 9 · FAQ -->
+    <section class="faq section" id="faq">
+      <div class="section-head">
+        <h2 class="title" data-split data-i18n="faq.title">Ainda com dúvidas?</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <h3><button class="faq-q" aria-expanded="false" aria-controls="faq-a1" id="faq-q1"><span class="faq-n">01</span><span class="faq-t" data-i18n="faq.1.q">O que está incluso no branding?</span><i class="faq-icon" aria-hidden="true"></i></button></h3>
+          <div class="faq-a" id="faq-a1" role="region" aria-labelledby="faq-q1"><div><p data-i18n="faq.1.a">Estratégia, naming, logo, cores, tipografia e manual de marca. No rebranding, partimos do que já funciona e evoluímos o resto.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3><button class="faq-q" aria-expanded="false" aria-controls="faq-a2" id="faq-q2"><span class="faq-n">02</span><span class="faq-t" data-i18n="faq.2.q">Como funciona um projeto de UI/UX e site?</span><i class="faq-icon" aria-hidden="true"></i></button></h3>
+          <div class="faq-a" id="faq-a2" role="region" aria-labelledby="faq-q2"><div><p data-i18n="faq.2.a">Pesquisa, wireframes, design e desenvolvimento. Entregamos sites rápidos, responsivos e prontos para o Google.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3><button class="faq-q" aria-expanded="false" aria-controls="faq-a3" id="faq-q3"><span class="faq-n">03</span><span class="faq-t" data-i18n="faq.3.q">Vocês desenvolvem apps e sistemas?</span><i class="faq-icon" aria-hidden="true"></i></button></h3>
+          <div class="faq-a" id="faq-a3" role="region" aria-labelledby="faq-q3"><div><p data-i18n="faq.3.a">Sim. Apps iOS e Android e sistemas web sob medida — do protótipo ao lançamento, com suporte depois.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3><button class="faq-q" aria-expanded="false" aria-controls="faq-a4" id="faq-q4"><span class="faq-n">04</span><span class="faq-t" data-i18n="faq.4.q">O que é um design system?</span><i class="faq-icon" aria-hidden="true"></i></button></h3>
+          <div class="faq-a" id="faq-a4" role="region" aria-labelledby="faq-q4"><div><p data-i18n="faq.4.a">Uma biblioteca de componentes e regras que deixa seu produto consistente e faz o time trabalhar mais rápido.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3><button class="faq-q" aria-expanded="false" aria-controls="faq-a5" id="faq-q5"><span class="faq-n">05</span><span class="faq-t" data-i18n="faq.5.q">Quanto tempo leva um projeto?</span><i class="faq-icon" aria-hidden="true"></i></button></h3>
+          <div class="faq-a" id="faq-a5" role="region" aria-labelledby="faq-q5"><div><p data-i18n="faq.5.a">Branding: 3 a 6 semanas. Sites: 4 a 8 semanas. Apps e sistemas: conforme o escopo.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3><button class="faq-q" aria-expanded="false" aria-controls="faq-a6" id="faq-q6"><span class="faq-n">06</span><span class="faq-t" data-i18n="faq.6.q">Como recebo um orçamento?</span><i class="faq-icon" aria-hidden="true"></i></button></h3>
+          <div class="faq-a" id="faq-a6" role="region" aria-labelledby="faq-q6"><div><p data-i18n="faq.6.a">Conte sua ideia pelo e-mail ou botão abaixo. Enviamos uma proposta em até 48 horas.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3><button class="faq-q" aria-expanded="false" aria-controls="faq-a7" id="faq-q7"><span class="faq-n">07</span><span class="faq-t" data-i18n="faq.7.q">Vocês atendem empresas de fora do Brasil?</span><i class="faq-icon" aria-hidden="true"></i></button></h3>
+          <div class="faq-a" id="faq-a7" role="region" aria-labelledby="faq-q7"><div><p data-i18n="faq.7.a">Sim. Trabalhamos de forma remota com equipes de vários países, com reuniões e entregas em português, inglês ou espanhol.</p></div></div>
+        </div>
+        <div class="faq-item">
+          <h3><button class="faq-q" aria-expanded="false" aria-controls="faq-a8" id="faq-q8"><span class="faq-n">08</span><span class="faq-t" data-i18n="faq.8.q">Vocês usam WordPress, Framer ou templates?</span><i class="faq-icon" aria-hidden="true"></i></button></h3>
+          <div class="faq-a" id="faq-a8" role="region" aria-labelledby="faq-q8"><div><p data-i18n="faq.8.a">Não. Todo projeto da Fyw é feito do zero, em código 100% puro — sem templates, sem temas prontos e sem plataformas como WordPress, Framer ou Webflow. E nada é genérico: cada projeto é sob medida, pensado para a dor específica de cada cliente. O resultado é um site mais rápido, mais seguro e feito exatamente para o seu negócio.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 10 · CTA -->
+    <section class="cta section" id="contact">
+      <div class="glass-bg" aria-hidden="true"><div class="gb-aura"><i class="g1"></i><i class="g2"></i><i class="g3"></i><i class="g4"></i></div><span class="flute-sheen"></span></div>
+      <h2 class="cta-title" data-split data-i18n="cta.title">Pronto para ter um site que vende?</h2>
+      <div class="cta-row">
+        <a href="mailto:fyw.ggwp@gmail.com" class="btn btn-accent" data-magnetic>
+          <span class="btn-roll"><span data-i18n="cta.btn">Quero meu projeto</span><span aria-hidden="true" data-i18n="cta.btn">Quero meu projeto</span></span>
+          <i class="btn-arrow"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></i>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-card">
+      <svg class="line-logo footer-line" viewBox="0 0 808 517" aria-hidden="true"><path pathLength="1" d="M169.766 2C183.085 2.00002 195.839 3.00516 208.028 5.01562C208.198 5.04375 208.368 5.07158 208.538 5.09961C222.662 7.43922 230.409 21.8275 225.516 35.2822L211.876 72.793C209.405 79.5889 202.003 83.2363 194.833 82.293C190.059 81.5391 185.724 81.1621 181.829 81.1621C172.153 81.1621 165.242 83.2352 161.095 87.3818C157.074 91.5284 154.436 96.995 153.179 103.78L151.038 116.597H212.109C225.006 116.597 235.691 126.603 236.538 139.472L248.112 315.392C248.177 316.376 248.994 317.141 249.98 317.141C250.743 317.141 251.429 316.678 251.715 315.971L326.103 131.905C329.842 122.653 338.822 116.597 348.801 116.597H443.708C457.025 116.597 467.9 127.242 468.184 140.556L471.414 291.691C471.43 292.427 472.03 293.015 472.766 293.016C473.33 293.016 473.835 292.666 474.034 292.139L534.083 132.461C537.672 122.917 546.801 116.597 556.998 116.597H617.827C630.856 116.597 641.603 126.802 642.276 139.813L650.055 290.215C650.093 290.939 650.691 291.508 651.417 291.508C651.996 291.508 652.512 291.141 652.703 290.594L707.722 133.009C711.154 123.18 720.425 116.597 730.835 116.597H780.771C798.24 116.597 810.088 134.368 803.37 150.494L703.143 391.039C699.342 400.162 690.428 406.104 680.544 406.104H606.75C594.146 406.104 583.601 396.534 582.383 383.988L569.621 252.533C569.525 251.548 568.697 250.796 567.707 250.796C566.936 250.796 566.24 251.256 565.937 251.964L506.441 391.24C502.59 400.256 493.731 406.104 483.927 406.104H410.283C397.55 406.104 386.943 396.344 385.885 383.655L375.26 256.16L287.808 430.229C279.766 446.188 269.714 460.513 257.651 473.204C245.714 486.021 231.012 496.135 213.546 503.549C196.08 510.962 175.221 514.67 150.97 514.67C138.907 514.67 127.661 513.728 117.232 511.843C116.448 511.711 115.671 511.574 114.902 511.434C101.034 508.908 95.0009 493.746 101.043 481.011L115.314 450.936C120.768 439.442 134.058 434.648 146.662 436.378C146.842 436.403 147.021 436.427 147.201 436.45C154.112 437.33 160.206 436.827 165.484 434.942C170.761 433.058 175.096 429.476 178.489 424.198C180.671 420.803 181.504 416.715 180.825 412.736L143.116 191.989H138.441L106.083 385.657C104.111 397.457 93.8997 406.104 81.936 406.104H27.5366C12.4043 406.104 0.895329 392.513 3.38916 377.588L34.4009 191.989H26.4888C11.3284 191.989 -0.187782 178.35 2.35303 163.404L6.84619 136.976C8.84688 125.207 19.0443 116.597 30.9819 116.597H46.9976L48.3833 108.304C52.2786 84.4294 59.7554 64.6384 70.813 48.9316C81.9962 33.225 96.0066 21.4761 112.844 13.6855C129.808 5.89499 148.782 2 169.766 2Z"/></svg>
+      <div class="footer-top">
+        <h2 class="footer-title" data-i18n="footer.title">Seu próximo cliente está procurando você agora.</h2>
+      </div>
+      <div class="footer-cols">
+        <div class="f-col">
+          <span class="f-h" data-i18n="footer.contact">Contato</span>
+          <a href="mailto:fyw.ggwp@gmail.com">fyw.ggwp@gmail.com</a>
+          <span class="f-note" data-i18n="footer.reply">Respondemos em até 48h.</span>
+        </div>
+        <div class="f-col">
+          <span class="f-h" data-i18n="footer.nav">Navegação</span>
+          <a href="#story" data-i18n="nav.story">Sobre</a><a href="#services" data-i18n="nav.services">Serviços</a><a href="#work" data-i18n="nav.work">Trabalhos</a><a href="#contact" data-i18n="nav.contact">Contato</a>
+        </div>
+        <div class="f-col">
+          <span class="f-h" data-i18n="footer.social">Redes</span>
+          <a href="#">Instagram</a><a href="#">LinkedIn</a><a href="#">Behance</a><a href="#">Dribbble</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <svg class="footer-mark" viewBox="0 0 804 513" aria-hidden="true"><use href="#fyw-logo"/></svg>
+        <span>© 2026 Fyw. <span data-i18n="footer.rights">Todos os direitos reservados.</span></span>
+        <span class="fb-links"><a href="privacidade.html" data-i18n="footer.privacy">Privacidade</a><button class="link-btn cookie-open" data-i18n="footer.cookies">Cookies</button></span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="dock" aria-label="Navegação rápida">
+    <a href="#top" class="dock-btn dock-logo" aria-label="Fyw — voltar ao início"><svg viewBox="0 0 804 513" aria-hidden="true"><use href="#fyw-logo"/></svg></a>
+    <button class="dock-btn dock-menu" aria-controls="mobile-menu" aria-expanded="false" data-i18n-aria="nav.menu" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+    <button class="dock-btn dock-top" data-i18n-aria="footer.top" aria-label="Voltar ao topo"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></button>
+  </div>
+  <button class="fab-top" data-i18n-aria="footer.top" aria-label="Voltar ao topo">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <!-- COOKIES -->
+  <div class="cookie" role="region" aria-labelledby="cookie-title" hidden><span class="fg-layer" aria-hidden="true"></span>
+    <p id="cookie-title" class="cookie-title" data-i18n="cookie.title">Cookies</p>
+    <p class="cookie-text"><span data-i18n="cookie.text">Usamos cookies essenciais e, com sua permissão, de análise para melhorar sua experiência.</span> <a href="privacidade.html" data-i18n="cookie.more">Política de Privacidade</a></p>
+    <div class="cookie-actions">
+      <button class="btn btn-ghost btn-compact cookie-deny" data-i18n="cookie.deny">Recusar</button>
+      <button class="btn btn-ink btn-compact cookie-accept" data-i18n="cookie.accept">Aceitar</button>
+    </div>
+  </div>
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script defer src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script defer src="assets/js/i18n.js?v=20261106t"></script>
+  <script defer src="assets/js/projects.js"></script>
+  <script defer src="assets/js/main.js?v=20261106s"></script>
+</body>
+</html>
