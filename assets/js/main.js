@@ -467,14 +467,18 @@
       chunk(() => {
       /* --- Textos: parágrafos surgem palavra a palavra, com blur suave --- */
       const blurWords = el => {
-        const words = el.textContent.trim().split(/\s+/);
-        el.innerHTML = words.map(w => '<span class="bw">' + w + '</span>').join(' ');
+        // mantém negrito/itálico: cada palavra vira um span, preservando os espaços originais
+        const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+        const wrap = s => esc(s).replace(/\S+/g, w => '<span class="bw">' + w + '</span>');
+        el.innerHTML = [...el.childNodes].map(n => n.nodeType === 1
+          ? '<' + n.localName + '>' + wrap(n.textContent) + '</' + n.localName + '>'
+          : wrap(n.textContent)).join('').trim();
         return $$('.bw', el);
       };
       const heroSub = $('.hero-sub');
       if (heroSub) gsap.from(blurWords(heroSub), { y: 10, filter: 'blur(8px)', duration: 0.9, ease: 'power3.out', stagger: 0.02, delay: intro ? 0.5 : 0.1, clearProps: 'filter' });
       $$('.zoom-sub, .clients-sub, .story-text p, .proc-card p, .pillar p, .svc p, .stat span, .t-head p, .faq-head p').forEach(el => chunk(() => {
-        if (!el.textContent.trim() || el.querySelector('*')) return;
+        if (!el.textContent.trim() || el.querySelector(':not(strong):not(b):not(em)')) return;
         const w = blurWords(el);
         gsap.from(w, { opacity: 0, y: 14, filter: 'blur(8px)', duration: 1.3, ease: 'power2.out', stagger: 0.035, clearProps: 'filter',
           scrollTrigger: { trigger: el, start: 'top 90%', once: true } });
@@ -646,13 +650,16 @@
         const track = $('.band-track', wrap), set = $('.band-set', wrap); if (!track || !set) return;
         if (track.children.length < 2) { const c2 = set.cloneNode(true); c2.setAttribute('aria-hidden', 'true'); track.appendChild(c2); }
         const dir = wrap.classList.contains('band-top') ? -1 : 1;
-        const loop = dir > 0 ? gsap.to(track, { xPercent: -50, ease: 'none', duration: 26, repeat: -1 }) : gsap.fromTo(track, { xPercent: -50 }, { xPercent: 0, ease: 'none', duration: 26, repeat: -1 });
+        // cópia colorida do texto (aparece só onde o mouse está) andando junto com a faixa
+        const hi = $('.band-hi', wrap); let tracks = track;
+        if (hi && !hi.firstChild) { const tc = track.cloneNode(true); hi.appendChild(tc); tracks = [track, tc]; }
+        const loop = dir > 0 ? gsap.to(tracks, { xPercent: -50, ease: 'none', duration: 26, repeat: -1 }) : gsap.fromTo(tracks, { xPercent: -50 }, { xPercent: 0, ease: 'none', duration: 26, repeat: -1 });
         ScrollTrigger.create({
           trigger: wrap, start: 'top bottom', end: 'bottom top',
           onUpdate: self => {
             const v = gsap.utils.clamp(-6, 6, self.getVelocity() / 300);
-            gsap.to(loop, { timeScale: v < 0 ? v - 1 : v + 1, duration: 0.3, overwrite: true });
-            gsap.to(loop, { timeScale: v < 0 ? -1 : 1, duration: 1.2, delay: 0.3 });
+            gsap.to(loop, { timeScale: 1 + Math.abs(v), duration: 0.3, overwrite: true });
+            gsap.to(loop, { timeScale: 1, duration: 1.2, delay: 0.3 });
           }
         });
       });
@@ -802,9 +809,10 @@
   if (finePointer && hasGsap && !a11y.motion && !a11y.clean) {
     const cur = $('.cursor');
     d.classList.add('has-cursor');
-    const xTo = gsap.quickTo(cur, 'x', { duration: 0.35, ease: 'power3' });
-    const yTo = gsap.quickTo(cur, 'y', { duration: 0.35, ease: 'power3' });
-    addEventListener('mousemove', e => { xTo(e.clientX); yTo(e.clientY); }, { passive: true });
+    // segue o mouse sem atraso, como a seta do sistema (1 atualização por quadro, só transform)
+    let mx = -50, my = -50, craf = 0;
+    const place = () => { craf = 0; cur.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0)'; };
+    addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; if (!craf) craf = requestAnimationFrame(place); }, { passive: true });
     document.addEventListener('mouseover', e => {
       const v = e.target.closest('[data-cursor="view"]');
       const h = e.target.closest('a, button, .svc, .wheel-card, .fl');
@@ -1046,7 +1054,7 @@
   /* ---------------- Brilhos de cor que seguem o mouse (leve: 1 leitura por quadro, só transform) ---------------- */
   (function () {
     if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-    const SEL = '.mobile-menu, .proc-card, .pillar, .story-quote, .t-card, .btn-hero, .cta.section';
+    const SEL = '.mobile-menu, .proc-card, .pillar, .story-quote, .t-card, .btn-hero, .cta.section, .sm, .band';
     // posição de repouso de cada brilho (fração da largura/altura do elemento)
     const REST = el => el.matches('.mobile-menu') ? [0.92, 0] : el.matches('.proc-card, .pillar') ? [0.85, 0.05] : el.matches('.story-quote') ? [0.85, 0.5] : [0.5, 0.5];
     const put = (el, x, y, w, h) => {
@@ -1063,14 +1071,43 @@
       const el = ev.target.closest && ev.target.closest(SEL);
       if (el !== cur) { if (cur) { cur.classList.remove('is-glow'); rest(cur); } cur = el; if (el) el.classList.add('is-glow'); }
       if (!el) return;
+      el.classList.add('is-glow');
       const r = el.getBoundingClientRect();
       put(el, ev.clientX - r.left, ev.clientY - r.top, r.width, r.height);
     };
     addEventListener('pointermove', e => { ev = e; if (!raf) raf = requestAnimationFrame(frame); }, { passive: true });
     document.addEventListener('pointerleave', () => { if (cur) { cur.classList.remove('is-glow'); rest(cur); } cur = null; });
+    // faixas: o efeito só existe com o mouse em cima — saiu (ou a página rolou), apaga
+    document.querySelectorAll('.band').forEach(b => b.addEventListener('pointerleave', () => b.classList.remove('is-glow')));
+    addEventListener('scroll', () => { document.querySelectorAll('.band.is-glow').forEach(b => b.classList.remove('is-glow')); }, { passive: true });
   })();
 
   /* ---------------- Init ---------------- */
+  // "vitrine → máquina de vendas": o site se monta sozinho quando aparece; o seletor também troca no clique
+  (() => {
+    const sm = document.querySelector('.sm'); if (!sm) return;
+    const d = document.documentElement;
+    const opts = sm.querySelectorAll('.sm-opt');
+    const set = m => { sm.classList.add('is-s1'); sm.classList.toggle('is-s2', m === 2); opts.forEach(o => o.setAttribute('aria-pressed', String(+o.dataset.mode === m))); };
+    let auto = [];
+    opts.forEach(o => o.addEventListener('click', () => { auto.forEach(clearTimeout); auto = []; set(+o.dataset.mode); }));
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches || d.classList.contains('a11y-motion') || d.classList.contains('a11y-clean');
+    if (still || !('IntersectionObserver' in window)) { set(2); return; }
+    const io = new IntersectionObserver(es => {
+      if (!es.some(x => x.isIntersecting)) return;
+      io.disconnect();
+      auto.push(setTimeout(() => sm.classList.add('is-s1'), 900));
+      auto.push(setTimeout(() => set(2), 2600));
+    }, { threshold: 0.5 });
+    io.observe(sm);
+  })();
+  // vidro vivo (cards + CTA): as cores só se mexem enquanto estão na tela
+  (() => {
+    const els = document.querySelectorAll('.pillar, .proc-card, .story-quote, .cta.section');
+    if (!('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('is-live')); return; }
+    const io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('is-live', e.isIntersecting)), { rootMargin: '80px 0px' });
+    els.forEach(e => io.observe(e));
+  })();
   if ('scrollRestoration' in history && !location.hash) { history.scrollRestoration = 'manual'; window.scrollTo(0, 0); }
   renderA11y();
   applyTexts();

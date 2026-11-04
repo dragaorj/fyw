@@ -83,6 +83,19 @@
       var glass = ['#FF6A2B', '#1E7A4C', '#7B5CFF', '#FFB45E', '#2F6BFF', '#C8F53C'];
       for (var m = glass.length - 1; m > 0; m--) { var n = Math.floor(R() * (m + 1)), u = glass[m]; glass[m] = glass[n]; glass[n] = u; }
       for (var g = 1; g <= 4; g++) s('--g' + g, glass[g - 1]);
+      // cores das seções (cards, depoimentos, marcas, faixa, menu, linha do processo): nova ordem a cada carregamento
+      var fams = [
+        ['#FF6A2B', '#7B5CFF', '#12A594', '#E8478B'],
+        ['#2F6BFF', '#FF6A2B', '#E8478B', '#12A594'],
+        ['#7B5CFF', '#2F9E44', '#FF6A2B', '#2F6BFF'],
+        ['#E8478B', '#2F6BFF', '#2F9E44', '#7B5CFF'],
+        ['#12A594', '#7B5CFF', '#FF6A2B', '#2F6BFF'],
+        ['#FF6A2B', '#2F6BFF', '#2F9E44', '#E8478B']
+      ];
+      var cs = fams[Math.floor(R() * fams.length)].slice();
+      for (var q = cs.length - 1; q > 0; q--) { var r = Math.floor(R() * (q + 1)), v = cs[q]; cs[q] = cs[r]; cs[r] = v; }
+      for (var c = 1; c <= 4; c++) { s('--c' + c, cs[c - 1]); s('--g' + c, cs[c - 1]); }
+      s('--c5', cs[0]); s('--c6', cs[1]);
     })();
   </script>
   <link rel="preconnect" href="https://www.youtube-nocookie.com" />
@@ -92,7 +105,7 @@
   <link rel="dns-prefetch" href="https://fastly.picsum.photos" />
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet" /></noscript>
-  <link rel="stylesheet" href="assets/css/style.css?v=20261107z" />
+  <link rel="stylesheet" href="assets/css/style.css?v=20261108p" />
   <script>(function(){try{var d=document.documentElement,a=JSON.parse(localStorage.getItem('fio-a11y')||'{}');if(matchMedia('(hover: hover) and (pointer: fine)').matches&&!a.motion&&!a.clean)d.classList.add('has-cursor');}catch(e){}})();</script>
 </head>
 <body>
@@ -308,7 +321,32 @@ dinheiro na mesa</span><span class="ht-caret" aria-hidden="true"></span></h1>
 
     <!-- 3 · STATEMENT palavra por palavra -->
     <section class="about section">
-      <p class="statement" data-i18n-html="about.statement">Antes de desenhar qualquer pixel, entendemos o seu negócio. <span class="chip c1"></span> É assim que um site deixa de ser vitrine e vira uma <span class="chip c2"></span> máquina de vendas.</p>
+      <div class="ab-grid">
+        <div class="ab-copy">
+          <p class="ab-eyebrow"><i></i><span data-i18n="ab.eyebrow">Estratégia antes do pixel</span></p>
+          <p class="statement" data-i18n-html="about.statement">Antes de desenhar qualquer pixel, entendemos o seu negócio. <span class="chip c1"></span> É assim que um site deixa de ser vitrine e vira uma <span class="chip c2"></span> máquina de vendas.</p>
+        </div>
+        <div class="sm">
+          <div class="sm-mode" role="group"><button type="button" class="sm-opt" data-mode="1" aria-pressed="true" data-i18n="sm.before">Vitrine</button><button type="button" class="sm-opt" data-mode="2" aria-pressed="false" data-i18n="sm.after">Máquina de vendas</button></div>
+          <div class="sm-win" aria-hidden="true">
+            <div class="sm-bar"><i></i><i></i><i></i><span class="sm-url" data-i18n="sm.url">seunegocio.com.br</span></div>
+            <div class="sm-page">
+              <div class="sm-nav"><b></b><span></span><span></span><span></span><em></em></div>
+              <div class="sm-hero">
+                <div class="sm-txt"><div class="sm-h1"><span></span><span></span></div><div class="sm-p"></div><div class="sm-p is-short"></div><div class="sm-btn" data-i18n="sm.cta">Pedir orçamento</div></div>
+                <div class="sm-art"></div>
+              </div>
+              <div class="sm-cards"><div></div><div></div><div></div></div>
+            </div>
+          </div>
+          <div class="sm-chart" aria-hidden="true"><span class="sm-cl" data-i18n="sm.conv">Conversões</span><b>+148%</b><svg viewBox="0 0 160 48" preserveAspectRatio="none"><path class="sm-area" d="M2 40C30 38 40 30 62 30S96 18 112 16S146 6 158 4V48H2Z"/><path class="sm-line" pathLength="1" d="M2 40C30 38 40 30 62 30S96 18 112 16S146 6 158 4"/><circle cx="158" cy="4" r="3.5"/></svg></div>
+          <ul class="sm-toasts" aria-hidden="true">
+            <li class="sm-t sm-t1"><span class="sm-ti"><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4ZM4 7l8 6 8-6"/></svg></span><span class="sm-tt"><b data-i18n="sm.t1">Novo orçamento</b><small data-i18n="sm.t1s">pelo site · agora</small></span></li>
+            <li class="sm-t sm-t2"><span class="sm-ti"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span class="sm-tt"><b data-i18n="sm.t2">Venda confirmada</b><small data-i18n="sm.t2s">R$ 2.480 · há 2 min</small></span></li>
+            <li class="sm-t sm-t3"><span class="sm-ti"><svg viewBox="0 0 24 24"><path d="M5 5h14v10H9l-4 4Z"/></svg></span><span class="sm-tt"><b data-i18n="sm.t3">Nova mensagem</b><small data-i18n="sm.t3s">WhatsApp · há 5 min</small></span></li>
+          </ul>
+        </div>
+      </div>
       <div class="stats">
         <div class="stat"><b data-count="150">0</b><em>+</em><span data-i18n="stats.projects">projetos entregues</span></div>
         <div class="stat"><b data-count="10">0</b><em></em><span data-i18n="stats.years">anos de estrada</span></div>
@@ -358,10 +396,10 @@ dinheiro na mesa</span><span class="ht-caret" aria-hidden="true"></span></h1>
       </div>
       <ol class="proc">
         <li class="proc-track" aria-hidden="true"><i class="proc-fill"></i></li>
-        <li class="proc-card"><span class="proc-fx" aria-hidden="true"></span><span class="proc-dot" aria-hidden="true"></span><span class="proc-n" aria-hidden="true">01</span><span class="proc-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l.9-4.4A8 8 0 1 1 20 12Z"/><path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01"/></svg></span><h3 data-i18n="step.1.t">Conversa</h3><p data-i18n="step.1.d">Entendemos seu negócio, seus objetivos e o problema a resolver.</p></li>
-        <li class="proc-card"><span class="proc-fx" aria-hidden="true"></span><span class="proc-dot" aria-hidden="true"></span><span class="proc-n" aria-hidden="true">02</span><span class="proc-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="m14.8 9.2-1.9 3.7-3.7 1.9 1.9-3.7 3.7-1.9Z"/></svg></span><h3 data-i18n="step.2.t">Estratégia</h3><p data-i18n="step.2.d">Desenhamos uma solução sob medida para a dor do seu negócio, com escopo e prazos claros.</p></li>
-        <li class="proc-card"><span class="proc-fx" aria-hidden="true"></span><span class="proc-dot" aria-hidden="true"></span><span class="proc-n" aria-hidden="true">03</span><span class="proc-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8.5 8-4 4 4 4M15.5 8l4 4-4 4M13.5 5.5l-3 13"/></svg></span><h3 data-i18n="step.3.t">Design & código</h3><p data-i18n="step.3.d">Desenhamos e programamos do zero, em código puro, com validações a cada etapa.</p></li>
-        <li class="proc-card"><span class="proc-fx" aria-hidden="true"></span><span class="proc-dot" aria-hidden="true"></span><span class="proc-n" aria-hidden="true">04</span><span class="proc-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19c0-3 1-5 3-6M12 15c-1.5 0-3-1.5-3-3 0-5 4-8.5 10-9-.5 6-4 10-9 10"/><circle cx="14.5" cy="9.5" r="1.5"/></svg></span><h3 data-i18n="step.4.t">Lançamento</h3><p data-i18n="step.4.d">Publicamos, medimos e seguimos juntos no suporte.</p></li>
+        <li class="proc-card"><span class="lg-hover" aria-hidden="true"></span><span class="proc-fx" aria-hidden="true"></span><span class="proc-dot" aria-hidden="true"></span><span class="proc-n" aria-hidden="true">01</span><span class="proc-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l.9-4.4A8 8 0 1 1 20 12Z"/><path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01"/></svg></span><h3 data-i18n="step.1.t">Conversa</h3><p data-i18n="step.1.d">Entendemos seu negócio, seus objetivos e o problema a resolver.</p></li>
+        <li class="proc-card"><span class="lg-hover" aria-hidden="true"></span><span class="proc-fx" aria-hidden="true"></span><span class="proc-dot" aria-hidden="true"></span><span class="proc-n" aria-hidden="true">02</span><span class="proc-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="m14.8 9.2-1.9 3.7-3.7 1.9 1.9-3.7 3.7-1.9Z"/></svg></span><h3 data-i18n="step.2.t">Estratégia</h3><p data-i18n="step.2.d">Desenhamos uma solução sob medida para a dor do seu negócio, com escopo e prazos claros.</p></li>
+        <li class="proc-card"><span class="lg-hover" aria-hidden="true"></span><span class="proc-fx" aria-hidden="true"></span><span class="proc-dot" aria-hidden="true"></span><span class="proc-n" aria-hidden="true">03</span><span class="proc-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8.5 8-4 4 4 4M15.5 8l4 4-4 4M13.5 5.5l-3 13"/></svg></span><h3 data-i18n="step.3.t">Design & código</h3><p data-i18n="step.3.d">Desenhamos e programamos do zero, em código puro, com validações a cada etapa.</p></li>
+        <li class="proc-card"><span class="lg-hover" aria-hidden="true"></span><span class="proc-fx" aria-hidden="true"></span><span class="proc-dot" aria-hidden="true"></span><span class="proc-n" aria-hidden="true">04</span><span class="proc-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19c0-3 1-5 3-6M12 15c-1.5 0-3-1.5-3-3 0-5 4-8.5 10-9-.5 6-4 10-9 10"/><circle cx="14.5" cy="9.5" r="1.5"/></svg></span><h3 data-i18n="step.4.t">Lançamento</h3><p data-i18n="step.4.d">Publicamos, medimos e seguimos juntos no suporte.</p></li>
       </ol>
     </section>
 
@@ -377,19 +415,19 @@ dinheiro na mesa</span><span class="ht-caret" aria-hidden="true"></span></h1>
           <h2 class="story-title" data-split data-i18n="story.title">Qualidade acima
 de quantidade.</h2>
           <div class="story-text">
-            <p data-i18n="story.p1">A Fyw nasceu em 2023 da ideia de Marlon Dias, web designer sênior com mais de 15 anos de experiência em multinacionais e grandes empresas de design e tecnologia.</p>
+            <p data-i18n-html="story.p1">A Fyw nasceu em 2023 da ideia de <strong>Marlon Dias</strong>, web designer sênior com mais de 15 anos de experiência em multinacionais e grandes empresas de design e tecnologia.</p>
             <p data-i18n="story.p2">O objetivo era claro: construir, do zero, um estúdio que entregasse sites e produtos digitais de alto nível — escolhendo profundidade em vez de volume.</p>
             <p data-i18n="story.p3">Hoje, a Fyw atende marcas internacionais e multinacionais como Latimpacto, Global Fire e Pacto Global, sempre com a mesma premissa: entender o problema antes de desenhar qualquer solução.</p>
           </div>
-          <blockquote class="story-quote">
+          <blockquote class="story-quote"><span class="lg-hover" aria-hidden="true"></span>
             <p data-i18n="story.quote">Não fazemos só algo bonito. Resolvemos problemas.</p>
           </blockquote>
         </div>
       </div>
       <ol class="pillars">
-        <li class="pillar"><span class="pillar-n">01</span><span class="pillar-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c.6 4.6 3.4 7.4 8 8-4.6.6-7.4 3.4-8 8-.6-4.6-3.4-7.4-8-8 4.6-.6 7.4-3.4 8-8Z"/></svg></span><span class="flute-sheen pillar-sheen" aria-hidden="true"></span><h3 data-i18n="pil.1.t">Qualidade > quantidade</h3><p data-i18n="pil.1.d">Poucos projetos por vez e atenção total a cada detalhe.</p></li>
-        <li class="pillar"><span class="pillar-n">02</span><span class="pillar-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l.9-4.4A8 8 0 1 1 20 12Z"/><path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01"/></svg></span><span class="flute-sheen pillar-sheen" aria-hidden="true"></span><h3 data-i18n="pil.2.t">Experiência do cliente</h3><p data-i18n="pil.2.d">Processo claro, comunicação próxima e prazos cumpridos.</p></li>
-        <li class="pillar"><span class="pillar-n">03</span><span class="pillar-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".8" fill="currentColor"/></svg></span><span class="flute-sheen pillar-sheen" aria-hidden="true"></span><h3 data-i18n="pil.3.t">Problemas resolvidos</h3><p data-i18n="pil.3.d">Design com propósito: cada decisão tem um porquê e um resultado.</p></li>
+        <li class="pillar"><span class="lg-hover" aria-hidden="true"></span><span class="pillar-n">01</span><span class="pillar-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c.6 4.6 3.4 7.4 8 8-4.6.6-7.4 3.4-8 8-.6-4.6-3.4-7.4-8-8 4.6-.6 7.4-3.4 8-8Z"/></svg></span><span class="flute-sheen pillar-sheen" aria-hidden="true"></span><h3 data-i18n="pil.1.t">Qualidade > quantidade</h3><p data-i18n="pil.1.d">Poucos projetos por vez e atenção total a cada detalhe.</p></li>
+        <li class="pillar"><span class="lg-hover" aria-hidden="true"></span><span class="pillar-n">02</span><span class="pillar-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l.9-4.4A8 8 0 1 1 20 12Z"/><path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01"/></svg></span><span class="flute-sheen pillar-sheen" aria-hidden="true"></span><h3 data-i18n="pil.2.t">Experiência do cliente</h3><p data-i18n="pil.2.d">Processo claro, comunicação próxima e prazos cumpridos.</p></li>
+        <li class="pillar"><span class="lg-hover" aria-hidden="true"></span><span class="pillar-n">03</span><span class="pillar-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r=".8" fill="currentColor"/></svg></span><span class="flute-sheen pillar-sheen" aria-hidden="true"></span><h3 data-i18n="pil.3.t">Problemas resolvidos</h3><p data-i18n="pil.3.d">Design com propósito: cada decisão tem um porquê e um resultado.</p></li>
       </ol>
     </section>
 
@@ -523,7 +561,7 @@ de quantidade.</h2>
 
     <!-- DEPOIMENTOS -->
     <section class="band-wrap band-top" aria-hidden="true">
-      <div class="band">
+      <div class="band"><div class="band-hi" aria-hidden="true"></div>
         <div class="band-track">
           <span class="band-set">
             <b data-i18n="band.1">Branding</b><i class="band-dot"></i><b data-i18n="band.2">UI/UX</b><i class="band-dot"></i><b data-i18n="band.3">Web</b><i class="band-dot"></i><b data-i18n="band.4">Apps</b><i class="band-dot"></i><b data-i18n="band.5">Sistemas</b><i class="band-dot"></i><b data-i18n="band.6">Design Systems</b><i class="band-dot"></i>
@@ -713,7 +751,7 @@ de quantidade.</h2>
 
     <!-- 8 · FAIXA -->
     <section class="band-wrap" aria-hidden="true">
-      <div class="band">
+      <div class="band"><div class="band-hi" aria-hidden="true"></div>
         <div class="band-track">
           <span class="band-set">
             <b data-i18n="band.1">Branding</b><i class="band-dot"></i><b data-i18n="band.2">UI/UX</b><i class="band-dot"></i><b data-i18n="band.3">Web</b><i class="band-dot"></i><b data-i18n="band.4">Apps</b><i class="band-dot"></i><b data-i18n="band.5">Sistemas</b><i class="band-dot"></i><b data-i18n="band.6">Design Systems</b><i class="band-dot"></i>
@@ -831,8 +869,8 @@ de quantidade.</h2>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script defer src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script defer src="assets/js/i18n.js?v=20261107s"></script>
+  <script defer src="assets/js/i18n.js?v=20261108e"></script>
   <script defer src="assets/js/projects.js"></script>
-  <script defer src="assets/js/main.js?v=20261107y"></script>
+  <script defer src="assets/js/main.js?v=20261108q"></script>
 </body>
 </html>
