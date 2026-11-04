@@ -3931,3 +3931,24 @@ html body .btn:has(> .btn-arrow) { position: relative; }
   width: max(102cqw, 280cqh); aspect-ratio: 16 / 9; translate: -50% -45.1%;
   background: url("../img/hero-poster.webp?v=2") center / 100% 100% no-repeat;
 }
+
+
+/* "Antes de desenhar…": frase curta e pílulas coloridas menores e mais discretas */
+.statement .chip { width: 1.05em; height: .58em; margin: -.12em .08em 0; }
+
+/* =========================================================
+   Tipografia fluida no desktop: os textos grandes acompanham a largura da tela
+   (notebook menor, ultrawide no máximo) — celular continua como está
+   ========================================================= */
+@media (min-width: 900px) {
+  html body .band-set { font-size: clamp(2.5rem, 4.6vw, 5.5rem) !important; }
+  html body .band { padding-block: clamp(20px, 2.1vw, 40px) !important; }
+  html body .clients h2 { font-size: clamp(2.5rem, 4.6vw, 5.5rem) !important; }
+  html body .cta-title { font-size: clamp(3rem, 6.25vw, 7.5rem) !important; }
+  html body .story-title { font-size: clamp(2.75rem, 4.8vw, 5.75rem) !important; }
+  html body .zoom-title { font-size: clamp(3rem, 5.8vw, 7rem) !important; }
+  html body .title, html body .t-head h2, html body .faq-head h2 { font-size: clamp(2.25rem, 3.35vw, 4rem) !important; }
+  html body .svc h3 { font-size: clamp(2.25rem, 3.35vw, 4rem) !important; }
+  html body .statement { font-size: clamp(2rem, 3.15vw, 3.75rem) !important; }
+  html body .stat b { font-size: clamp(2.5rem, 3.75vw, 4.5rem) !important; }
+}

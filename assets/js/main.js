@@ -507,7 +507,7 @@
       gsap.set(chips, { scale: 0, width: 0 });
       const stl = gsap.timeline({ scrollTrigger: { trigger: st, start: 'top 82%', end: 'bottom 30%', scrub: 1.4 } });
       parts.forEach((p, i) => {
-        if (p.classList && p.classList.contains('chip')) stl.to(p, { scale: 1, width: '1.6em', ease: 'power2.inOut', duration: 2.4 }, i * 0.5);
+        if (p.classList && p.classList.contains('chip')) stl.to(p, { scale: 1, width: '1.05em', ease: 'power2.inOut', duration: 2.4 }, i * 0.5);
         else if (p.classList && p.classList.contains('word')) stl.to(p, { opacity: 1, duration: 1.2, ease: 'sine.inOut' }, i * 0.5);
       });
 
