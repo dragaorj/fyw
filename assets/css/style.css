@@ -2045,8 +2045,8 @@ body.has-cookie .dock { bottom: 200px; }
 
 /* Serviços: círculo no hover na mesma cor do título (sem cor de destaque) */
 
-/* Celular: doca enxuta (só menu + topo, lado a lado, menor) */
-@media (max-width: 599px) {
+/* (desativado) doca em pílula no celular — agora o celular usa a mesma doca do computador */
+@media (max-width: 0px) {
   .dock { grid-auto-flow: column; gap: 4px; padding: 4px; border-radius: 99px; right: 10px; bottom: 10px;
     background: color-mix(in srgb, #0B0B0B 88%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
   .dock.on-dark { background: color-mix(in srgb, #EEEDE9 90%, transparent); }
@@ -3753,3 +3753,59 @@ html[data-theme="dark"] .pillar .pillar-ico, html[data-theme="dark"] .proc .proc
 .band.is-glow .band-hi { opacity: 1; }
 .a11y-clean .band-hi, .a11y-contrast .band-hi { display: none; }
 .band-hi { z-index: 2; }
+.band-hi { transition: opacity .35s ease-out; }
+
+
+/* ================= Celular: correções ================= */
+/* 1) nada sai para os lados: cards voadores do topo e faixas inclinadas cortados na horizontal */
+.hf-layer { width: 100% !important; overflow-x: clip; }
+.band-wrap { overflow-x: clip !important; overflow-y: visible !important; }
+@supports not (overflow-x: clip) { html, body { overflow-x: hidden; } .band-wrap { overflow: hidden !important; } }
+
+/* 2) trabalhos: no celular só aparecem 3 — o botão "ver todos" surge quando a 3ª linha termina */
+@media (max-width: 599px) {
+  .hf-written-gate .work-list:has(.work-row:nth-child(3).is-written) + .work-more { opacity: 1; }
+  .work-more { padding-top: 28px !important; }
+}
+
+/* 3) cantos sempre arredondados (o brilho não "fura" a borda no iPhone) */
+.pillar, .proc-card, .story-quote { clip-path: inset(0 round var(--radius-lg, 28px)); }
+
+/* 4) doca no celular: logo + menu + topo empilhados, como no computador */
+@media (max-width: 599px) {
+  .dock { grid-auto-flow: row; right: 12px; bottom: 12px; gap: 6px; padding: 0; background: none; }
+  .dock-btn { width: 46px; height: 46px; }
+}
+
+/* 5) exemplo "máquina de vendas" no celular: janela inteira, gráfico e avisos organizados embaixo */
+@media (max-width: 599px) {
+  .sm { padding-bottom: 0; gap: 14px; }
+  .sm-win { transform: none !important; }
+  .sm-page { padding: 14px; gap: 14px; }
+  .sm-hero { grid-template-columns: 1fr .8fr; gap: 12px; }
+  .sm-cards div { height: 36px; }
+  .sm-chart { position: relative; left: auto !important; bottom: auto; width: calc(100% - 24px); margin: -34px 12px 0; z-index: 2; grid-template-columns: 1fr auto; }
+  .sm-chart svg { height: 36px; }
+  .sm-toasts { position: relative; right: auto !important; top: auto !important; width: 100%; display: grid; gap: 8px; justify-items: stretch; padding: 0 12px; translate: none !important; }
+  .sm-t { width: 100%; padding: 10px 14px 10px 10px; translate: 0 12px; }
+  .sm-t3 { display: flex !important; }
+  .sm.is-s2 .sm-t { translate: 0 0; animation: none !important; }
+  .sm-tt b, .sm-tt small { white-space: normal; }
+}
+
+/* 6) depoimentos no celular: carrossel para o lado (arrastar para ver os outros) */
+@media (max-width: 599px) {
+  .t-wall { display: flex !important; height: auto !important; min-height: 0 !important; overflow-x: auto; overflow-y: hidden;
+    scroll-snap-type: x mandatory; gap: 12px; padding: 6px 16px 18px; margin-inline: -16px; scroll-padding-inline: 16px;
+    -webkit-mask-image: none !important; mask-image: none !important; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .t-wall::-webkit-scrollbar { display: none; }
+  .t-col, .t-col-2, .t-col-3, .t-col-4, .t-track { display: contents !important; }
+  .t-track { animation: none !important; }
+  .t-card { flex: none; width: 82vw; scroll-snap-align: start; }
+  .t-card[aria-hidden="true"], .t-card.t-dup { display: none !important; }
+  .t-hint { display: flex; }
+}
+.t-hint { display: none; justify-content: center; gap: 6px; margin-top: 4px; }
+.t-hint i { width: 6px; height: 6px; border-radius: 50%; background: color-mix(in srgb, var(--ink) 20%, transparent); transition: background-color .3s, width .3s; }
+.t-hint i.is-on { width: 18px; border-radius: 99px; background: var(--ink); }
+@media (max-width: 599px) { .t-hint { display: flex; } }

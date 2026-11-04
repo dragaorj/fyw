@@ -1061,7 +1061,8 @@
       el.style.setProperty('--gx', x.toFixed(0) + 'px'); el.style.setProperty('--gy', y.toFixed(0) + 'px');
       el.style.setProperty('--nx', (x / w - 0.5).toFixed(3)); el.style.setProperty('--ny', (y / h - 0.5).toFixed(3));
     };
-    const rest = el => { const w = el.offsetWidth, h = el.offsetHeight, f = REST(el); put(el, w * f[0], h * f[1], w, h); };
+    // faixa: ao sair, o brilho apaga onde está (não volta para o centro)
+    const rest = el => { if (el.matches('.band') && el.style.getPropertyValue('--gx')) return; const w = el.offsetWidth, h = el.offsetHeight, f = REST(el); put(el, w * f[0], h * f[1], w, h); };
     const all = () => document.querySelectorAll(SEL).forEach(rest);
     all(); addEventListener('resize', () => { clearTimeout(window.__glR); window.__glR = setTimeout(all, 200); });
     const mm = document.querySelector('.mobile-menu'); if (mm) new MutationObserver(() => { if (!mm.hidden) rest(mm); }).observe(mm, { attributes: true, attributeFilter: ['hidden'] });
@@ -1096,10 +1097,31 @@
     const io = new IntersectionObserver(es => {
       if (!es.some(x => x.isIntersecting)) return;
       io.disconnect();
-      auto.push(setTimeout(() => sm.classList.add('is-s1'), 900));
-      auto.push(setTimeout(() => set(2), 2600));
+      // mostra rápido a parte que interessa (vendas); no celular já entra pronto
+      if (matchMedia('(max-width: 599px)').matches) { set(2); return; }
+      auto.push(setTimeout(() => sm.classList.add('is-s1'), 150));
+      auto.push(setTimeout(() => set(2), 800));
     }, { threshold: 0.5 });
     io.observe(sm);
+  })();
+  // depoimentos (celular): cada depoimento uma vez só + bolinhas mostrando onde está
+  (() => {
+    const wall = document.querySelector('.t-wall'); if (!wall) return;
+    const seen = new Set();
+    wall.querySelectorAll('.t-card:not([aria-hidden="true"])').forEach(card => {
+      const k = (card.querySelector('blockquote') || card).getAttribute('data-i18n') || card.textContent.trim();
+      if (seen.has(k)) card.classList.add('t-dup'); else seen.add(k);
+    });
+    const cards = [...wall.querySelectorAll('.t-card:not([aria-hidden="true"]):not(.t-dup)')];
+    const hint = document.createElement('div'); hint.className = 't-hint'; hint.setAttribute('aria-hidden', 'true');
+    cards.forEach(() => hint.appendChild(document.createElement('i')));
+    wall.after(hint);
+    const dots = [...hint.children]; if (dots[0]) dots[0].classList.add('is-on');
+    let raf = 0;
+    wall.addEventListener('scroll', () => { if (raf) return; raf = requestAnimationFrame(() => {
+      raf = 0; const w = cards[0] ? cards[0].offsetWidth + 12 : 1; const i = Math.min(dots.length - 1, Math.round(wall.scrollLeft / w));
+      dots.forEach((d, n) => d.classList.toggle('is-on', n === i));
+    }); }, { passive: true });
   })();
   // vidro vivo (cards + CTA): as cores só se mexem enquanto estão na tela
   (() => {
