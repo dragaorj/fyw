@@ -476,7 +476,7 @@
         return $$('.bw', el);
       };
       const heroSub = $('.hero-sub');
-      if (heroSub) gsap.from(blurWords(heroSub), { y: 10, filter: 'blur(8px)', duration: 0.9, ease: 'power3.out', stagger: 0.02, delay: intro ? 0.5 : 0.1, clearProps: 'filter' });
+      if (heroSub) gsap.from(blurWords(heroSub), { y: 10, opacity: 0, duration: 0.8, ease: 'power3.out', stagger: 0.02, delay: intro ? 0.3 : 0.1 });
       $$('.zoom-sub, .clients-sub, .story-text p, .proc-card p, .pillar p, .svc p, .stat span, .t-head p, .faq-head p').forEach(el => chunk(() => {
         if (!el.textContent.trim() || el.querySelector(':not(strong):not(b):not(em)')) return;
         const w = blurWords(el);
@@ -688,7 +688,14 @@
       });
       const idle = window.requestIdleCallback ? (f => requestIdleCallback(f, { timeout: 1200 })) : (f => setTimeout(f, 60));
       const runQ = () => { const f = Q.shift(); if (!f) { ScrollTrigger.refresh(); return; } if (ctx) ctx.add(f); idle(runQ); };
-      idle(runQ);
+      // 1º pedaço (texto do topo) já; o resto da página só no 1º movimento do visitante ou ~4s após carregar (abertura fica leve)
+      const first = Q.shift(); if (first) { if (ctx) ctx.add(first); else first(); }
+      let qStarted = false;
+      const startQ = () => { if (qStarted) return; qStarted = true; QEV.forEach(ev => removeEventListener(ev, startQ)); idle(runQ); };
+      const QEV = ['scroll', 'wheel', 'touchstart', 'pointerdown', 'keydown'];
+      QEV.forEach(ev => addEventListener(ev, startQ, { passive: true, once: true }));
+      const qLater = () => setTimeout(startQ, 4000);
+      if (document.readyState === 'complete') qLater(); else addEventListener('load', qLater, { once: true });
     });
 
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => ScrollTrigger.refresh());
@@ -700,7 +707,7 @@
     if (window.Matter) return Promise.resolve();
     return new Promise((res, rej) => {
       const s = document.createElement('script');
-      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js';
+      s.src = 'assets/vendor/matter.min.js';
       s.onload = res; s.onerror = rej; document.head.appendChild(s);
     });
   }
@@ -932,6 +939,21 @@
   addEventListener('resize', layoutWheel);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutWheel);
 
+  /* ---------------- Projetos em ordem aleatória a cada visita (cards do topo + linhas de Trabalhos combinando) ---------------- */
+  (function () {
+    const fan = $('.hfan'), list = $('.work-list'); if (!fan || !list) return;
+    const cards = [...$$('.hf-card', fan)]; if (cards.length < 7) return;
+    const mid = cards.slice(2, 7), poses = mid.map(c => c.getAttribute('style'));
+    // etiquetas fixas nas posições 3, 5 e 7 (saem dos cards e voltam para quem cair nessas posições)
+    const tags = [cards[2], cards[4], cards[6]].map(c => { const t = c.querySelector('.hf-tag.is-rest'); if (t) t.remove(); return t; });
+    const sh = mid.slice(); for (let i = sh.length - 1; i > 0; i--) { const k = Math.floor(Math.random() * (i + 1)); [sh[i], sh[k]] = [sh[k], sh[i]]; }
+    sh.forEach((c, i) => { fan.insertBefore(c, cards[7]); c.setAttribute('style', poses[i]); });
+    [sh[0], sh[2], sh[4]].forEach((c, i) => { if (tags[i]) c.appendChild(tags[i]); });
+    const bySlug = {}; $$('.work-row', list).forEach(r => { bySlug[(r.getAttribute('href') || '').split('/').pop().replace('.html', '')] = r; });
+    sh.forEach(c => { const r = bySlug[c.dataset.project]; if (r) list.appendChild(r); });
+    $$('.work-row', list).forEach((r, i) => { const n = $('.wr-n', r); if (n) n.textContent = '/0' + (i + 1); });
+  })();
+
   /* ---------------- Vídeo de fundo do hero: um por tema, os dois ficam prontos (troca instantânea) ---------------- */
   window.__fywVideoReady = new Promise(res => { window.__fywVideoDone = res; });
   (function () {
@@ -951,6 +973,13 @@
       if (!/youtube/.test(e.origin)) return;
       let d; try { d = typeof e.data === "string" ? JSON.parse(e.data) : e.data; } catch (err) { return; }
       if (!d) return;
+      // nunca mostra o começo nem o fim do vídeo (telas "8K Ultra HD"): se chegar perto, pula para outro trecho do meio
+      if (d.event === "infoDelivery" && d.info && typeof d.info.currentTime === "number") {
+        const ct = d.info.currentTime;
+        if (ct < 25 || ct > 895) for (const id in P) if (P[id].f.contentWindow === e.source) {
+          try { P[id].f.contentWindow.postMessage(JSON.stringify({ event: "command", func: "seekTo", args: [30 + Math.floor(Math.random() * 730), true] }), "*"); } catch (err) {}
+        }
+      }
       const playing = (d.event === "onStateChange" && d.info === 1) || (d.event === "infoDelivery" && d.info && d.info.playerState === 1);
       if (!playing) return;
       for (const id in P) if (P[id].f.contentWindow === e.source) onPlaying(id);
@@ -971,7 +1000,9 @@
     }
     function create(id) {
       const f = document.createElement("iframe");
-      f.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&mute=1&controls=0&loop=1&playlist=" + id + "&enablejsapi=1&origin=" + encodeURIComponent(location.origin) + "&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&cc_load_policy=0";
+      // cada visita começa num ponto diferente do vídeo (~16 min); nunca perto do começo nem do fim (lá aparecem as telas "8K Ultra HD")
+      const start = 30 + Math.floor(Math.random() * 730), end = 900;
+      f.src = "https://www.youtube-nocookie.com/embed/" + id + "?start=" + start + "&end=" + end + "&autoplay=1&mute=1&controls=0&loop=1&playlist=" + id + "&enablejsapi=1&origin=" + encodeURIComponent(location.origin) + "&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&cc_load_policy=0";
       f.title = "Vídeo de fundo"; f.setAttribute("tabindex", "-1");
       f.allow = "autoplay; encrypted-media; picture-in-picture";
       f.style.opacity = "0";
@@ -994,7 +1025,9 @@
     const go = () => { if (started) return; started = true; EV.forEach(ev => removeEventListener(ev, go)); show(); };
     const EV = ["pointermove", "pointerdown", "touchstart", "wheel", "keydown", "scroll"];
     EV.forEach(ev => addEventListener(ev, go, { passive: true, once: true }));
-    go(); // carrega o vídeo já na abertura (junto com o site)
+    // a capa do vídeo já aparece na hora; o vídeo (pesado, de terceiros) entra no 1º movimento ou logo depois do carregamento
+    const later = () => setTimeout(go, 6000);
+    if (document.readyState === 'complete') later(); else addEventListener('load', later, { once: true });
   })();
 
   /* ---------------- Hero: título digitando (3 frases em loop) ---------------- */
@@ -1119,9 +1152,25 @@
     const dots = [...hint.children]; if (dots[0]) dots[0].classList.add('is-on');
     let raf = 0;
     wall.addEventListener('scroll', () => { if (raf) return; raf = requestAnimationFrame(() => {
-      raf = 0; const w = cards[0] ? cards[0].offsetWidth + 12 : 1; const i = Math.min(dots.length - 1, Math.round(wall.scrollLeft / w));
+      raf = 0; const w = cards[0] ? cards[0].offsetWidth + (parseFloat(getComputedStyle(wall).columnGap) || 12) : 1; const i = Math.min(dots.length - 1, Math.round(wall.scrollLeft / w));
       dots.forEach((d, n) => d.classList.toggle('is-on', n === i));
     }); }, { passive: true });
+    // celular: passa sozinho a cada 4s (pausa ao tocar/arrastar, volta depois; só com a seção na tela)
+    const mq = matchMedia('(max-width: 599px)');
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches || d.classList.contains('a11y-motion') || d.classList.contains('a11y-clean');
+    if (!still && cards.length > 1) {
+      let timer = 0, visible = false, holdUntil = 0;
+      const step = () => {
+        if (!mq.matches || !visible || Date.now() < holdUntil) return;
+        const w = cards[0].offsetWidth + (parseFloat(getComputedStyle(wall).columnGap) || 12), n = Math.round(wall.scrollLeft / w);
+        const next = n + 1 >= cards.length ? 0 : n + 1;
+        wall.scrollTo({ left: next * w, behavior: 'smooth' });
+      };
+      const run = () => { clearInterval(timer); timer = setInterval(step, 4000); };
+      const hold = () => { holdUntil = Date.now() + 7000; };
+      ['touchstart', 'pointerdown', 'wheel'].forEach(ev => wall.addEventListener(ev, hold, { passive: true }));
+      new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible) run(); else clearInterval(timer); }, { threshold: 0.4 }).observe(wall);
+    }
   })();
   // vidro vivo (cards + CTA): as cores só se mexem enquanto estão na tela
   (() => {
@@ -1163,9 +1212,10 @@
       bar.style.setProperty('--p', p.toFixed(3)); pct.textContent = Math.round(p * 100) + '%';
       if (doneAt && performance.now() - doneAt >= 300) finish();
     }, 40);
-    const pageReady = new Promise(r => document.readyState === 'complete' ? r() : addEventListener('load', r, { once: true }));
-    const cap = new Promise(r => setTimeout(r, 2200));
-    Promise.race([Promise.all([pageReady, window.__fywVideoReady]), cap]).then(() => { doneAt = performance.now(); setTimeout(finish, 450); });
+    // pronto = fontes carregadas (não espera fotos nem o vídeo, que entram depois sem atrapalhar)
+    const pageReady = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+    const cap = new Promise(r => setTimeout(r, 1000));
+    Promise.race([pageReady, cap]).then(() => { doneAt = performance.now(); setTimeout(finish, 200); });
   } else { if (loaderEl) loaderEl.remove(); begin(); }
   firstRun = false;
 })();

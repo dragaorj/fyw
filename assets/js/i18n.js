@@ -2,6 +2,9 @@
 // Edite aqui. Chips inline no statement: <span class="chip c1"></span>
 window.FIO_I18N = {
   pt: {
+    'ab.text': 'Não importa o seu nicho: todo negócio precisa de um lugar para explicar o que faz, qual dor resolve e como resolve. O Instagram é vitrine — mostra, mas não detalha. É no site que o cliente entende a sua solução, confia e decide comprar.',
+    'faq.0.q': 'Já tenho Instagram. Preciso mesmo de um site?',
+    'faq.0.a': 'Sim. O Instagram mostra, mas não explica. No site você detalha o que o seu negócio faz, mostra como resolve a dor do cliente, responde as dúvidas dele e transforma interesse em contato — 24h por dia, num espaço que é seu, sem depender de algoritmo.',
     'ab.eyebrow': 'Estratégia antes do pixel',
     'sm.before': 'Vitrine',
     'sm.after': 'Máquina de vendas',
@@ -109,6 +112,9 @@ window.FIO_I18N = {
     'cursor.view': 'Ver'
   },
   en: {
+    'ab.text': 'Whatever your niche, every business needs a place to explain what it does, which pain it solves and how. Instagram is a showcase — it shows, but it doesn’t explain. Your website is where customers understand your solution, trust you and decide to buy.',
+    'faq.0.q': 'I already have Instagram. Do I really need a website?',
+    'faq.0.a': 'Yes. Instagram shows, but it doesn’t explain. On your website you detail what your business does, show how you solve the customer’s pain, answer their questions and turn interest into leads — 24/7, in a space you own, without depending on an algorithm.',
     'ab.eyebrow': 'Strategy before pixels',
     'sm.before': 'Showcase',
     'sm.after': 'Sales machine',
@@ -216,6 +222,9 @@ window.FIO_I18N = {
     'cursor.view': 'View'
   },
   es: {
+    'ab.text': 'No importa tu nicho: todo negocio necesita un lugar para explicar qué hace, qué dolor resuelve y cómo lo resuelve. Instagram es una vitrina — muestra, pero no detalla. Es en el sitio donde el cliente entiende tu solución, confía y decide comprar.',
+    'faq.0.q': 'Ya tengo Instagram. ¿Realmente necesito un sitio web?',
+    'faq.0.a': 'Sí. Instagram muestra, pero no explica. En el sitio detallas lo que hace tu negocio, muestras cómo resuelves el dolor del cliente, respondes sus dudas y conviertes el interés en contacto — 24 horas al día, en un espacio que es tuyo, sin depender de un algoritmo.',
     'ab.eyebrow': 'Estrategia antes del píxel',
     'sm.before': 'Vitrina',
     'sm.after': 'Máquina de ventas',
