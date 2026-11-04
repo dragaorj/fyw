@@ -4029,3 +4029,11 @@ html body .story-year { overflow: clip; overflow-clip-margin: 12px; }
 /* CTA e rodapé colados (sem faixa do fundo entre eles), em todas as páginas e telas */
 html body .cta + footer, html body .cta.section + .footer, html body .pp2-cta + footer { margin-top: 0 !important; }
 html body .cta.section { margin-bottom: 0 !important; }
+
+/* Páginas internas: conteúdo com a mesma margem lateral da home (--edge) — a doca fica na margem, nada passa por baixo dela */
+html body.pp2 .pp2-sec, html body.legal-page main > section, html body.legal-page .legal-body {
+  padding-left: var(--edge) !important; padding-right: var(--edge) !important; max-width: none !important; margin-inline: 0 !important;
+}
+html body.pp2 .pp2-hero { padding-left: var(--edge) !important; padding-right: var(--edge) !important; }
+html body.pp2 .pp2-hero-in { max-width: none !important; margin-inline: 0 !important; }
+html body.pj2 .pj2-filters, html body.pj2 .pj2-grid { padding-left: var(--edge) !important; padding-right: var(--edge) !important; max-width: none !important; margin-inline: 0 !important; }
