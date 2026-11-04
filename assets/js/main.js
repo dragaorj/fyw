@@ -284,7 +284,7 @@
              em Trabalhos e atravessa a linha "escrevendo" o nome do projeto --- */
       const fanEl = $('.hfan');
       const allCards = fanEl ? $$('.hf-card', fanEl) : [];
-      const fCards = allCards.filter(el => getComputedStyle(el).display !== 'none');
+      const fCards = innerWidth < 600 ? [] : allCards.filter(el => getComputedStyle(el).display !== 'none');
       if (fCards.length) {
         const n = fCards.length, mid = (n - 1) / 2, mob = innerWidth < 600;
         const probe = document.createElement('i'); probe.className = 'hf-probe'; fanEl.appendChild(probe);
@@ -1026,8 +1026,8 @@
     const EV = ["pointermove", "pointerdown", "touchstart", "wheel", "keydown", "scroll"];
     EV.forEach(ev => addEventListener(ev, go, { passive: true, once: true }));
     // a capa do vídeo já aparece na hora; o vídeo (pesado, de terceiros) entra no 1º movimento ou logo depois do carregamento
-    const later = () => setTimeout(go, 6000);
-    if (document.readyState === 'complete') later(); else addEventListener('load', later, { once: true });
+    // o vídeo começa a carregar já na abertura (a capa cobre o instante até ele tocar)
+    go();
   })();
 
   /* ---------------- Hero: título digitando (3 frases em loop) ---------------- */
@@ -1184,6 +1184,7 @@
   applyTexts();
   // cards do hero: imagens e etiquetas sempre (com ou sem animações)
   (function () {
+    if (innerWidth < 600) return; // celular: sem cards no topo (nem baixa as fotos)
     const PJ = window.FYW_PROJECTS || {}, TC = ['t-o', 't-v', 't-b'];
     $$('.hf-card').forEach((el, i) => {
       const im = el.querySelector('img[data-src]'); if (im) { im.src = im.dataset.src; im.removeAttribute('data-src'); }

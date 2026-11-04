@@ -90,6 +90,26 @@
   document.body.appendChild(panel);
   const sheet = panel.querySelector('.sv-sheet'), body = panel.querySelector('.sv-body'), xBtn = panel.querySelector('.sv-x');
   let cur = 0, lastFocus = null, closing = 0;
+  // rolagem automática suave do conteúdo (para no fim ou quando a pessoa mexe)
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let arRaf = 0, arDelay = 0, arLast = 0, arPos = 0, arV = 0;
+  const autoStop = () => { cancelAnimationFrame(arRaf); clearTimeout(arDelay); arRaf = 0; };
+  const autoStart = () => {
+    autoStop();
+    if (still || document.documentElement.classList.contains('a11y-motion')) return;
+    arDelay = setTimeout(() => {
+      arLast = 0; arPos = body.scrollTop; arV = 0;
+      const step = t => {
+        const dt = arLast ? Math.min(50, t - arLast) : 16; arLast = t;
+        arV = Math.min(42, arV + dt * 0.05);            // acelera devagar até ~42px/s
+        arPos += arV * dt / 1000; body.scrollTop = arPos;
+        if (body.scrollTop + body.clientHeight >= body.scrollHeight - 1) { arRaf = 0; return; }
+        arRaf = requestAnimationFrame(step);
+      };
+      arRaf = requestAnimationFrame(step);
+    }, 1100);
+  };
+  ['wheel', 'touchstart', 'pointerdown', 'keydown'].forEach(ev => sheet.addEventListener(ev, autoStop, { passive: true }));
 
   function render(i) {
     const l = L(), u = UI[l], s = S[l][i], n = String(i + 1).padStart(2, '0');
@@ -110,7 +130,7 @@
         '<a href="#contact" class="btn btn-ink sv-cta" data-close><span class="btn-roll"><span>' + u.cta + '</span><span aria-hidden="true">' + u.cta + '</span></span><i class="btn-arrow">' + ARROW + '</i></a>' +
         '<button type="button" class="sv-next" data-next><span>' + u.next + '</span><b>' + esc(next.t) + '</b><i>' + ARROW + '</i></button>' +
       '</footer>';
-    body.scrollTop = 0;
+    body.scrollTop = 0; autoStart();
     sheet.classList.remove('is-swap'); void sheet.offsetWidth; sheet.classList.add('is-swap');
   }
 
@@ -125,6 +145,7 @@
   }
   function close(toContact) {
     if (panel.hidden) return;
+    autoStop();
     panel.classList.remove('is-open');
     document.documentElement.classList.remove('sv-lock');
     if (window.fywLenis) window.fywLenis.start();
