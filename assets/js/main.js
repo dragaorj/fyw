@@ -527,7 +527,7 @@
       chunk(() => {
       /* --- História --- */
       gsap.from('.story-year span', { yPercent: 100, duration: 1.4, ease: E, stagger: 0.08, scrollTrigger: { trigger: '.story-year', start: 'top 85%' } });
-      gsap.fromTo('.story-year', { yPercent: 12 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: '.story', start: 'top bottom', end: 'bottom top', scrub: true } });
+      gsap.fromTo('.story-year', { yPercent: 0 }, { yPercent: -6, ease: 'none', scrollTrigger: { trigger: '.story', start: 'top bottom', end: 'bottom top', scrub: true } });
       if (false) gsap.from('.story-text p', { y: 30, opacity: 0, duration: 1.1, ease: E, stagger: 0.12, scrollTrigger: { trigger: '.story-text', start: 'top 85%' } });
       gsap.from('.story-quote', { clipPath: 'inset(0 100% 0 0 round 20px)', duration: 1.4, ease: 'expo.inOut', scrollTrigger: { trigger: '.story-quote', start: 'top 85%' } });
       gsap.from('.pillar', { y: 80, opacity: 0, duration: 1.2, ease: E, stagger: 0.1, scrollTrigger: { trigger: '.pillars', start: 'top 85%' } });
@@ -938,6 +938,25 @@
   window.__fywLayoutWheel = layoutWheel;
   addEventListener('resize', layoutWheel);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutWheel);
+
+  /* ---------------- "2023" do fundo: a base do número termina junto com o título (nunca sobre os parágrafos) ---------------- */
+  (function () {
+    const side = $('.story-side'), year = $('.story-year'), title = $('.story-title'), inner = $('.story-inner');
+    if (!side || !year || !title || !inner) return;
+    const place = () => {
+      year.style.removeProperty('font-size');
+      const t = title.getBoundingClientRect(), i = inner.getBoundingClientRect();
+      const avail = t.bottom - i.top - 8;
+      // se não couber entre o topo e o fim do título, o número diminui até caber
+      if (year.offsetHeight > avail) year.style.setProperty('font-size', Math.max(96, Math.floor(avail / 0.8)) + 'px', 'important');
+      const top = Math.max(8, Math.round(t.bottom - i.top - year.offsetHeight));
+      side.style.setProperty('top', top + 'px', 'important');
+    };
+    place();
+    addEventListener('resize', () => { clearTimeout(window.__yrT); window.__yrT = setTimeout(place, 120); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
+    addEventListener('load', place, { once: true });
+  })();
 
   /* ---------------- Projetos em ordem aleatória a cada visita (cards do topo + linhas de Trabalhos combinando) ---------------- */
   (function () {

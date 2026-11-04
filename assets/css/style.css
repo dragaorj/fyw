@@ -3968,7 +3968,7 @@ html body .btn:has(> .btn-arrow) { position: relative; }
 .sv-body::-webkit-scrollbar { display: none; width: 0; height: 0; }
 
 /* "2023" do fundo: fica dentro da seção (não é cortado pela seção de cima em nenhuma tela) */
-html body .story-side { top: 8px !important; inset: 8px 0 auto 0 !important; }
+html body .story-side { inset: 8px 0 auto 0; }
 
 /* Menu › Acessibilidade: "Restaurar padrão" como botão de verdade (pílula com ícone que gira no hover) */
 html body .a11y-reset, html body .mm-a11y-pane .a11y-reset {
@@ -4018,3 +4018,14 @@ html body .pp2-hero, html body .pj2-hero { border-radius: 0 !important; }
 /* Páginas internas: botão de menu na barra do topo, ao lado de "Todos os projetos" */
 .pp2 .nav .nav-tools, .legal-page .nav .nav-tools { display: flex; align-items: center; gap: 8px; }
 .pp2 .nav .menu-btn, .legal-page .nav .menu-btn { display: grid !important; }
+
+/* "2023": do respiro do topo até, no máximo, o fim do título — espalhado pela largura toda */
+@media (min-width: 600px) {
+  html body .story-year { display: flex !important; justify-content: space-between !important; width: 100%; font-size: clamp(9rem, 21.5vw, 24rem) !important; letter-spacing: 0 !important; }
+}
+/* a entrada dos dígitos (sobem de baixo) fica recortada na área do número — nunca passa por cima do texto */
+html body .story-year { overflow: clip; overflow-clip-margin: 12px; }
+
+/* CTA e rodapé colados (sem faixa do fundo entre eles), em todas as páginas e telas */
+html body .cta + footer, html body .cta.section + .footer, html body .pp2-cta + footer { margin-top: 0 !important; }
+html body .cta.section { margin-bottom: 0 !important; }
