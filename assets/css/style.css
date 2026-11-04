@@ -3952,3 +3952,17 @@ html body .btn:has(> .btn-arrow) { position: relative; }
   html body .statement { font-size: clamp(2rem, 3.15vw, 3.75rem) !important; }
   html body .stat b { font-size: clamp(2.5rem, 3.75vw, 4.5rem) !important; }
 }
+
+/* Espaço entre seções proporcional à tela (largura e altura): respiro sem exagero em notebook e ultrawide */
+@media (min-width: 600px) {
+  html body .section, html body .story, html body .clients {
+    padding-top: clamp(56px, min(6.5vw, 11vh), 128px) !important;
+    padding-bottom: clamp(56px, min(6.5vw, 11vh), 128px) !important;
+  }
+  /* seções seguidas com o mesmo fundo: o espaço não dobra */
+  html body .story + .clients { padding-top: clamp(56px, min(5vw, 9vh), 104px) !important; }
+}
+
+/* Painel de serviços: rola sem mostrar a barra de rolagem */
+.sv-body { scrollbar-width: none !important; -ms-overflow-style: none; }
+.sv-body::-webkit-scrollbar { display: none; width: 0; height: 0; }
