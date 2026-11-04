@@ -2,6 +2,7 @@
 // Edite aqui. Chips inline no statement: <span class="chip c1"></span>
 window.FIO_I18N = {
   pt: {
+    'footer.credit': 'Website desenvolvido por',
     'hero.type1': 'Você está deixando\ndinheiro na mesa', 'hero.type2': 'Seu site deveria\nvender por você', 'hero.type3': 'Se seu site não vende\n24h por dia',
     'mm.tab.menu': 'Menu principal', 'mm.tab.a11y': 'Acessibilidade',
     'faq.8.q': 'Vocês usam WordPress, Framer ou templates?', 'faq.8.a': 'Não. Todo projeto da Fyw é feito do zero, em código 100% puro — sem templates, sem temas prontos e sem plataformas como WordPress, Framer ou Webflow. E nada é genérico: cada projeto é sob medida, pensado para a dor específica de cada cliente. O resultado é um site mais rápido, mais seguro e feito exatamente para o seu negócio.',
@@ -96,6 +97,7 @@ window.FIO_I18N = {
     'cursor.view': 'Ver'
   },
   en: {
+    'footer.credit': 'Website developed by',
     'hero.type1': 'You\'re leaving\nmoney on the table', 'hero.type2': 'Your website should\nsell for you', 'hero.type3': 'If your website isn\'t selling\n24/7',
     'mm.tab.menu': 'Main menu', 'mm.tab.a11y': 'Accessibility',
     'faq.8.q': 'Do you use WordPress, Framer or templates?', 'faq.8.a': 'No. Every Fyw project is built from scratch in 100% pure code — no templates, no ready-made themes and no platforms like WordPress, Framer or Webflow. And nothing is generic: every project is tailor-made for each client\'s specific pain point. The result is a faster, safer website made exactly for your business.',
@@ -190,6 +192,7 @@ window.FIO_I18N = {
     'cursor.view': 'View'
   },
   es: {
+    'footer.credit': 'Sitio web desarrollado por',
     'hero.type1': 'Estás dejando\ndinero sobre la mesa', 'hero.type2': 'Tu sitio debería\nvender por ti', 'hero.type3': 'Si tu sitio no vende\n24h al día',
     'mm.tab.menu': 'Menú principal', 'mm.tab.a11y': 'Accesibilidad',
     'faq.8.q': '¿Usan WordPress, Framer o plantillas?', 'faq.8.a': 'No. Todo proyecto de Fyw se hace desde cero, en código 100% puro — sin plantillas, sin temas prediseñados y sin plataformas como WordPress, Framer o Webflow. Y nada es genérico: cada proyecto es a medida, pensado para el dolor específico de cada cliente. El resultado es un sitio más rápido, más seguro y hecho exactamente para tu negocio.',

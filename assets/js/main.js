@@ -799,8 +799,9 @@
   }
 
   /* ---------------- Cursor ---------------- */
-  if (finePointer && hasGsap) {
+  if (finePointer && hasGsap && !a11y.motion && !a11y.clean) {
     const cur = $('.cursor');
+    d.classList.add('has-cursor');
     const xTo = gsap.quickTo(cur, 'x', { duration: 0.35, ease: 'power3' });
     const yTo = gsap.quickTo(cur, 'y', { duration: 0.35, ease: 'power3' });
     addEventListener('mousemove', e => { xTo(e.clientX); yTo(e.clientY); }, { passive: true });
@@ -1089,18 +1090,23 @@
   const begin = () => { if (wantsMotion()) startMotion(true); else setCountsFinal(); };
   if (loaderEl && !d.classList.contains('no-loader')) {
     const bar = $('.loader-bar i', loaderEl), pct = $('.loader-pct', loaderEl);
-    let p = 0, target = 0.82, done = false;
-    const paint = () => { bar.style.setProperty('--p', p.toFixed(3)); pct.textContent = Math.round(p * 100) + '%'; };
-    const tick = () => { p += (target - p) * (done ? 0.25 : 0.06); if (done && p > 0.995) p = 1; paint(); if (p < 1) requestAnimationFrame(tick); else finish(); };
-    const pageReady = new Promise(r => document.readyState === 'complete' ? r() : addEventListener('load', r, { once: true }));
-    const cap = new Promise(r => setTimeout(r, 3000));
-    Promise.race([Promise.all([pageReady, window.__fywVideoReady]), cap]).then(() => { done = true; target = 1; });
-    let finished = false;
+    // progresso pelo tempo (não depende da taxa de quadros): sobe rápido até ~85%, completa quando tudo está pronto
+    const t0 = performance.now(); let doneAt = 0, finished = false;
     const finish = () => {
-      if (finished) return; finished = true;
-      setTimeout(() => { loaderEl.classList.add('is-out'); begin(); setTimeout(() => loaderEl.remove(), 1100); }, 180);
+      if (finished) return; finished = true; clearInterval(iv);
+      bar.style.setProperty('--p', '1'); pct.textContent = '100%';
+      setTimeout(() => { loaderEl.classList.add('is-out'); begin(); setTimeout(() => loaderEl.remove(), 1100); }, 220);
     };
-    requestAnimationFrame(tick);
+    const iv = setInterval(() => {
+      const t = performance.now() - t0;
+      let p = 0.85 * (1 - Math.exp(-t / 600));
+      if (doneAt) p = p + (1 - p) * Math.min(1, (performance.now() - doneAt) / 300);
+      bar.style.setProperty('--p', p.toFixed(3)); pct.textContent = Math.round(p * 100) + '%';
+      if (doneAt && performance.now() - doneAt >= 300) finish();
+    }, 40);
+    const pageReady = new Promise(r => document.readyState === 'complete' ? r() : addEventListener('load', r, { once: true }));
+    const cap = new Promise(r => setTimeout(r, 2200));
+    Promise.race([Promise.all([pageReady, window.__fywVideoReady]), cap]).then(() => { doneAt = performance.now(); setTimeout(finish, 450); });
   } else { if (loaderEl) loaderEl.remove(); begin(); }
   firstRun = false;
 })();
