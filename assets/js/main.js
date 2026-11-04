@@ -394,6 +394,11 @@
         fCards.forEach((el, i) => { el.style.zIndex = baseZ[i]; });
 
         // etiqueta acompanha o card no hover e segue o mouse (magnética), voltando com mola ao sair
+        // foco: ao passar o mouse num card, o resto do hero desfoca suavemente e o card cresce
+        if (finePointer) fCards.forEach(card => {
+          card.addEventListener('mouseenter', () => { if (!card.classList.contains('is-live')) return; card.classList.add('is-hot'); document.documentElement.classList.add('hf-focus'); });
+          card.addEventListener('mouseleave', () => { card.classList.remove('is-hot'); document.documentElement.classList.remove('hf-focus'); });
+        });
         if (finePointer) fCards.forEach(card => {
           const tag = card.querySelector('.hf-tag'); if (!tag) return;
           const o = { x: 0, y: 0, s: 1, r: 0 };
@@ -917,7 +922,12 @@
     const box = $(".hero-video"); if (!box) return;
     const saveData = navigator.connection && navigator.connection.saveData;
     if (sysReduced || a11y.motion || a11y.clean || saveData) return;
-    const idFor = t => (t || document.documentElement.dataset.theme) === 'dark' ? box.dataset.ytDark : box.dataset.ytLight;
+    // cada tema tem uma lista de vídeos; sorteia um ao carregar e a cada troca de tema (claro só com claro, escuro só com escuro)
+    const themeNow = () => document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+    const pool = t => (t === 'dark' ? box.dataset.ytDark : box.dataset.ytLight || '').split(',').map(s => s.trim()).filter(Boolean);
+    const pick = t => { const p = pool(t); return p[Math.floor(Math.random() * p.length)]; };
+    const chosen = { light: pick('light'), dark: pick('dark') };
+    const idFor = t => chosen[t || themeNow()];
     const P = {}; // id -> { f, playing }
     let active = null;
     const cmd = (f, func) => { try { f.contentWindow.postMessage(JSON.stringify({ event: "command", func, args: [] }), "*"); } catch (e) {} };
@@ -938,7 +948,8 @@
       Object.keys(P).forEach(k => { P[k].f.style.opacity = k === id ? "1" : "0"; });
       box.classList.add("is-ready");
       // depois que um está tocando, prepara o outro tema em segundo plano
-      const other = idFor(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+      const ot = themeNow() === 'dark' ? 'light' : 'dark'; chosen[ot] = pick(ot);
+      const other = idFor(ot);
       if (other && !P[other]) setTimeout(() => create(other), 1200);
     }
     function create(id) {
