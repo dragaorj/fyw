@@ -2992,3 +2992,39 @@ html, body { overflow-x: clip; }
 }
 /* o brilho do CTA de fora (atrás do botão) fica parado e só muda de cor: menos repintura */
 .hero .btn-hero .bh-glow { background: linear-gradient(90deg, #FF6A2B, #7B5CFF, #2F6BFF, #2F9E44) !important; }
+
+/* =========================================================
+   CTA do hero: brilho branco percorrendo a borda devagar
+   ========================================================= */
+@property --bang { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+@keyframes bangSpin { to { --bang: 360deg; } }
+.hero .btn.btn-hero::before {
+  content: "" !important; display: block !important; position: absolute; inset: -1px !important; border-radius: inherit; z-index: 3; pointer-events: none;
+  padding: 1.5px; border: 0 !important; box-shadow: none !important; opacity: 1 !important; transform: none !important; scale: none !important;
+  background: conic-gradient(from var(--bang), transparent 0 62%, rgba(255,255,255,.15) 70%, rgba(255,255,255,.95) 80%, rgba(255,255,255,.15) 88%, transparent 94%) !important;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  animation: bangSpin 7s linear infinite !important;
+}
+.a11y-motion .hero .btn.btn-hero::before { animation: none !important; }
+
+/* Hover do CTA: uma cor por visita (a cor de destaque sorteada), seguindo o mouse — igual ao menu */
+.hero .btn-hero .bh-glass i:nth-child(1) {
+  width: 190px !important; height: 190px !important; animation: none !important; filter: blur(22px) !important;
+  background: radial-gradient(circle, var(--accent) 0%, color-mix(in srgb, var(--accent) 45%, transparent) 45%, transparent 70%) !important;
+}
+.hero .btn-hero.is-glow .bh-glass i:nth-child(1) { opacity: .75 !important; }
+.hero .btn-hero .bh-glow { animation: none !important; background: var(--accent) !important; filter: blur(24px) !important; }
+
+/* Menu: seta em círculo, no padrão das setas do site */
+.mm-pane > a:not(.btn)::after {
+  content: "" !important; width: 34px; height: 34px; border-radius: 50%; flex: none;
+  background: #0B0B0B url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23EEEDE9' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7M8.5 7H17v8.5'/%3E%3C/svg%3E") center / 16px no-repeat;
+  box-shadow: inset 0 1px 1px rgba(238,237,233,.25), 0 6px 14px -8px rgba(11,11,11,.5);
+  opacity: 0; translate: -14px 0; scale: .8;
+  transition: opacity .35s, translate .5s var(--glow-ease, ease), scale .5s var(--glow-ease, ease) !important;
+}
+.mm-pane > a:not(.btn):hover::after, .mm-pane > a:not(.btn):focus-visible::after { opacity: 1; translate: -6px 0; scale: 1; }
+[data-theme="dark"] .mm-pane > a:not(.btn)::after {
+  background: #EEEDE9 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230B0B0B' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7M8.5 7H17v8.5'/%3E%3C/svg%3E") center / 16px no-repeat;
+}
