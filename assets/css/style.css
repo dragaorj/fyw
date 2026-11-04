@@ -3125,3 +3125,19 @@ html.a11y-motion:not([data-theme="dark"]) .hero-stage.hero-stage.hero-stage, htm
 html.no-loader .loader { display: none !important; }
 /* botão do menu no topo: mesmo fundo do modo escuro também no claro */
 :root:not([data-theme="dark"]) body:not(.legal-page) .nav .menu-btn { background-color: color-mix(in srgb, #161615 70%, transparent) !important; }
+
+/* Topo: botões acompanham o tema (claro = vidro claro com detalhes pretos; escuro = vidro escuro) */
+:root:not([data-theme="dark"]) body:not(.legal-page) .nav .menu-btn {
+  color: #0B0B0B !important; background-color: color-mix(in srgb, #EEEDE9 82%, transparent) !important;
+  background-image: linear-gradient(180deg, rgba(238,237,233,.6) 0%, rgba(238,237,233,0) 60%) !important;
+  box-shadow: inset 0 1.5px 1px rgba(238,237,233,.9), inset 0 -1.5px 2px rgba(11,11,11,.08), 0 10px 22px -12px rgba(11,11,11,.45) !important;
+}
+:root:not([data-theme="dark"]) body:not(.legal-page) .nav .menu-btn span { background: #0B0B0B !important; }
+:root:not([data-theme="dark"]) .hero .btn.btn-hero {
+  color: #0B0B0B !important;
+  background: linear-gradient(180deg, rgba(238,237,233,.82) 0%, rgba(238,237,233,.58) 100%) !important;
+  border-color: rgba(238,237,233,.85) !important;
+  box-shadow: inset 0 1.5px 1px rgba(238,237,233,.95), inset 0 -1.5px 2px rgba(11,11,11,.06), 0 22px 34px -16px rgba(11,11,11,.4) !important;
+}
+:root:not([data-theme="dark"]) .hero .btn-hero .btn-roll > span { text-shadow: none !important; }
+:root:not([data-theme="dark"]) .hero .bh-glass::before { background: radial-gradient(120% 90% at 50% -10%, rgba(238,237,233,.7), transparent 55%) !important; }
