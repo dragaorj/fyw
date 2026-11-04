@@ -595,7 +595,7 @@
           .set({}, {}, 2.3);
       });
       // onda: ondula ao redor do cursor; mais forte com movimento rápido, acalma quando para
-      if (finePointer) {
+      if (false && finePointer) { // efeito de onda desativado (pesava)
         const zc = $('.zg-center'), turb = document.getElementById('wave-turb'), disp = document.getElementById('wave-disp');
         const st = { amp: 0, t: 0, lx: 0, ly: 0 };
         let active = false;

@@ -3367,3 +3367,17 @@ body:not(.legal-page) .nav .menu-btn span, :root:not([data-theme="dark"]) body:n
 }
 /* película do vídeo do topo um pouco mais escura (nos dois temas) */
 :root:not([data-theme="dark"]) .hero-video::after, [data-theme="dark"] .hero-video::after { background: color-mix(in srgb, #0B0B0B 48%, transparent) !important; }
+/* crédito do autor centralizado, numa linha própria no fim do rodapé */
+.footer-bottom { flex-wrap: wrap !important; }
+.fb-credit { order: 99; flex: 1 0 100%; width: 100%; text-align: center; margin-top: 14px; display: block; }
+/* crédito à direita, antes de Privacidade e Cookies */
+.fb-credit { order: 0 !important; flex: none !important; width: auto !important; margin: 0 0 0 auto !important; text-align: right !important; display: inline !important; }
+.fb-credit + .fb-links { margin-left: 28px !important; }
+@media (max-width: 599px) { .fb-credit { flex: 1 0 100% !important; margin: 8px 0 0 !important; text-align: left !important; } .fb-credit + .fb-links { margin-left: 0 !important; } }
+
+/* Galeria: sem efeito de onda no hover; título sem sombra recortada (sombra suave atrás do bloco de texto) */
+.zg-wave { display: none !important; }
+.zoom-title, .zoom-title * { text-shadow: none !important; }
+.zoom-final { isolation: isolate; }
+.zoom-final::before { content: ""; position: absolute; z-index: -1; left: 50%; top: 50%; width: min(1100px, 120%); height: 140%; translate: -50% -50%;
+  background: radial-gradient(closest-side, rgba(11,11,11,.42), transparent); pointer-events: none; }
