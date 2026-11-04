@@ -277,7 +277,6 @@
         const tl = gsap.timeline({ defaults: { ease: E } });
         tl.from('.hero-stage', { clipPath: 'inset(5% 5% 5% 5% round 28px)', duration: 1.6 }, 0)
           .from('.aura i', { scale: 0.4, opacity: 0, duration: 2.2, stagger: 0.15 }, 0)
-          .from('.hero-ctas', { y: 24, opacity: 0, duration: 1.1 }, 2.7)
           .from('.nav', { y: -90, opacity: 0, duration: 1.2, clearProps: 'all' }, 0.6);
       }
 
@@ -305,7 +304,7 @@
         const ROT = fCards.map(el => parseFloat(el.style.getPropertyValue('--r')) || 0);
         const PILE = [-6, 4, -2, 7, -4, 3, -7, 5, -3];
         const S = fCards.map(() => ({ x: 0, y: 0, r: 0, s: 1, a: 1 }));
-        const fanOff = (i, w) => { const sp = w * (mob ? 0.52 : 0.6); return { x: (i - mid) * sp, y: Math.abs(i - mid) * w * (mob ? 0.03 : 0.05), r: ROT[i] }; };
+        const fanOff = (i, w) => { const sp = w * (mob ? 0.64 : 0.6); return { x: (i - mid) * sp, y: Math.abs(i - mid) * w * (mob ? 0.03 : 0.05), r: ROT[i] }; };
         const pile = i => ({ x: (i % 3 - 1) * 4, y: 0, r: PILE[i % PILE.length] });
         // card i -> linha de trabalho (os 5 do meio vão para as 5 linhas; os outros saem de cena)
         const rowsAll = $$('.work-row');
@@ -392,6 +391,10 @@
         } else S.forEach((st, i) => Object.assign(st, { x: FL[i].x, y: FL[i].y, r: FL[i].r }));
         const baseZ = fCards.map((el, i) => mob ? 50 - Math.round(Math.abs(i - mid) * 10) : (el.querySelector('.hf-tag') ? 40 + i : i + 1));
         fCards.forEach((el, i) => { el.style.zIndex = baseZ[i]; });
+        // etiqueta nunca fica atrás de outro card: se o vizinho da esquerda está na frente, ela vai para o canto direito
+        fCards.forEach((el, i) => { const tag = el.querySelector('.hf-tag'); if (!tag) return;
+          if (mob) tag.classList.add('is-rest');
+          tag.classList.toggle('at-right', i > 0 && baseZ[i - 1] > baseZ[i]); });
 
         // etiqueta acompanha o card no hover e segue o mouse (magnética), voltando com mola ao sair
         // foco: ao passar o mouse num card, o resto do hero desfoca suavemente e o card cresce
@@ -433,7 +436,7 @@
         ScrollTrigger.addEventListener('refresh', () => { measure(); dirty = true; });
         document.fonts && document.fonts.ready.then(() => { measure(); dirty = true; });
         gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.8 } })
-          .fromTo('.hero-title, .hero-sub, .hero-ctas', { opacity: 1, y: 0 }, { opacity: 0.15, y: -30, ease: 'none', immediateRender: false }, 0);
+          .fromTo('.hero .hero-content', { opacity: 1, y: 0 }, { opacity: 0.15, y: -30, ease: 'none', immediateRender: false }, 0);
         // parallax: o vídeo do fundo fica parado enquanto o conteúdo do hero rola por cima
         gsap.to('.hero-video', { y: () => $('.hero').offsetHeight, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true, invalidateOnRefresh: true } });
       }
@@ -638,17 +641,20 @@
       });
       chunk(() => {
       /* --- Faixa: marquee guiado pela velocidade --- */
-      const track = $('.band-track');
-      const set = $('.band-set');
-      if (track.children.length < 2) { const c2 = set.cloneNode(true); c2.setAttribute('aria-hidden', 'true'); track.appendChild(c2); }
-      const loop = gsap.to(track, { xPercent: -50, ease: 'none', duration: 26, repeat: -1 });
-      ScrollTrigger.create({
-        trigger: '.band-wrap', start: 'top bottom', end: 'bottom top',
-        onUpdate: self => {
-          const v = gsap.utils.clamp(-6, 6, self.getVelocity() / 300);
-          gsap.to(loop, { timeScale: v < 0 ? v - 1 : v + 1, duration: 0.3, overwrite: true });
-          gsap.to(loop, { timeScale: v < 0 ? -1 : 1, duration: 1.2, delay: 0.3 });
-        }
+      // todas as faixas: a de cima corre no sentido contrário
+      $$('.band-wrap').forEach((wrap, k) => {
+        const track = $('.band-track', wrap), set = $('.band-set', wrap); if (!track || !set) return;
+        if (track.children.length < 2) { const c2 = set.cloneNode(true); c2.setAttribute('aria-hidden', 'true'); track.appendChild(c2); }
+        const dir = wrap.classList.contains('band-top') ? -1 : 1;
+        const loop = dir > 0 ? gsap.to(track, { xPercent: -50, ease: 'none', duration: 26, repeat: -1 }) : gsap.fromTo(track, { xPercent: -50 }, { xPercent: 0, ease: 'none', duration: 26, repeat: -1 });
+        ScrollTrigger.create({
+          trigger: wrap, start: 'top bottom', end: 'bottom top',
+          onUpdate: self => {
+            const v = gsap.utils.clamp(-6, 6, self.getVelocity() / 300);
+            gsap.to(loop, { timeScale: v < 0 ? v - 1 : v + 1, duration: 0.3, overwrite: true });
+            gsap.to(loop, { timeScale: v < 0 ? -1 : 1, duration: 1.2, delay: 0.3 });
+          }
+        });
       });
 
       });
@@ -918,10 +924,11 @@
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutWheel);
 
   /* ---------------- Vídeo de fundo do hero: um por tema, os dois ficam prontos (troca instantânea) ---------------- */
+  window.__fywVideoReady = new Promise(res => { window.__fywVideoDone = res; });
   (function () {
-    const box = $(".hero-video"); if (!box) return;
+    const box = $(".hero-video"); if (!box) { window.__fywVideoDone(); return; }
     const saveData = navigator.connection && navigator.connection.saveData;
-    if (sysReduced || a11y.motion || a11y.clean || saveData) return;
+    if (sysReduced || a11y.motion || a11y.clean || saveData) { window.__fywVideoDone(); return; }
     // cada tema tem uma lista de vídeos; sorteia um ao carregar e a cada troca de tema (claro só com claro, escuro só com escuro)
     const themeNow = () => document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
     const pool = t => (t === 'dark' ? box.dataset.ytDark : box.dataset.ytLight || '').split(',').map(s => s.trim()).filter(Boolean);
@@ -945,6 +952,7 @@
       else cmd(p.f, "pauseVideo"); // o do outro tema fica pronto, pausado
     }
     function reveal(id) {
+      if (window.__fywVideoDone) window.__fywVideoDone();
       Object.keys(P).forEach(k => { P[k].f.style.opacity = k === id ? "1" : "0"; });
       box.classList.add("is-ready");
       // depois que um está tocando, prepara o outro tema em segundo plano
@@ -977,6 +985,7 @@
     const go = () => { if (started) return; started = true; EV.forEach(ev => removeEventListener(ev, go)); show(); };
     const EV = ["pointermove", "pointerdown", "touchstart", "wheel", "keydown", "scroll"];
     EV.forEach(ev => addEventListener(ev, go, { passive: true, once: true }));
+    go(); // carrega o vídeo já na abertura (junto com o site)
   })();
 
   /* ---------------- Hero: título digitando (3 frases em loop) ---------------- */
@@ -1075,6 +1084,23 @@
       tag.textContent = pj.type;
     });
   })();
-  if (wantsMotion()) startMotion(true); else setCountsFinal();
+  // tela de carregamento: sobe até 100% quando a página e o vídeo estão prontos (no máximo ~3s)
+  const loaderEl = $('.loader');
+  const begin = () => { if (wantsMotion()) startMotion(true); else setCountsFinal(); };
+  if (loaderEl && !d.classList.contains('no-loader')) {
+    const bar = $('.loader-bar i', loaderEl), pct = $('.loader-pct', loaderEl);
+    let p = 0, target = 0.82, done = false;
+    const paint = () => { bar.style.setProperty('--p', p.toFixed(3)); pct.textContent = Math.round(p * 100) + '%'; };
+    const tick = () => { p += (target - p) * (done ? 0.25 : 0.06); if (done && p > 0.995) p = 1; paint(); if (p < 1) requestAnimationFrame(tick); else finish(); };
+    const pageReady = new Promise(r => document.readyState === 'complete' ? r() : addEventListener('load', r, { once: true }));
+    const cap = new Promise(r => setTimeout(r, 3000));
+    Promise.race([Promise.all([pageReady, window.__fywVideoReady]), cap]).then(() => { done = true; target = 1; });
+    let finished = false;
+    const finish = () => {
+      if (finished) return; finished = true;
+      setTimeout(() => { loaderEl.classList.add('is-out'); begin(); setTimeout(() => loaderEl.remove(), 1100); }, 180);
+    };
+    requestAnimationFrame(tick);
+  } else { if (loaderEl) loaderEl.remove(); begin(); }
   firstRun = false;
 })();
