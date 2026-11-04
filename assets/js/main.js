@@ -527,7 +527,7 @@
       chunk(() => {
       /* --- História --- */
       gsap.from('.story-year span', { yPercent: 100, duration: 1.4, ease: E, stagger: 0.08, scrollTrigger: { trigger: '.story-year', start: 'top 85%' } });
-      gsap.fromTo('.story-year', { yPercent: 10 }, { yPercent: -18, ease: 'none', scrollTrigger: { trigger: '.story', start: 'top bottom', end: 'bottom top', scrub: true } });
+      gsap.fromTo('.story-year', { yPercent: 12 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: '.story', start: 'top bottom', end: 'bottom top', scrub: true } });
       if (false) gsap.from('.story-text p', { y: 30, opacity: 0, duration: 1.1, ease: E, stagger: 0.12, scrollTrigger: { trigger: '.story-text', start: 'top 85%' } });
       gsap.from('.story-quote', { clipPath: 'inset(0 100% 0 0 round 20px)', duration: 1.4, ease: 'expo.inOut', scrollTrigger: { trigger: '.story-quote', start: 'top 85%' } });
       gsap.from('.pillar', { y: 80, opacity: 0, duration: 1.2, ease: E, stagger: 0.1, scrollTrigger: { trigger: '.pillars', start: 'top 85%' } });

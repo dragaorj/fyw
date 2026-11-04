@@ -3966,3 +3966,6 @@ html body .btn:has(> .btn-arrow) { position: relative; }
 /* Painel de serviços: rola sem mostrar a barra de rolagem */
 .sv-body { scrollbar-width: none !important; -ms-overflow-style: none; }
 .sv-body::-webkit-scrollbar { display: none; width: 0; height: 0; }
+
+/* "2023" do fundo: fica dentro da seção (não é cortado pela seção de cima em nenhuma tela) */
+html body .story-side { top: 8px !important; inset: 8px 0 auto 0 !important; }
