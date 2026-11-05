@@ -268,7 +268,7 @@
     gsap.registerPlugin(ScrollTrigger);
 
     if (typeof window.Lenis !== 'undefined') {
-      lenis = new Lenis({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 1 });
+      lenis = new Lenis({ lerp: 0.085, smoothWheel: true, wheelMultiplier: 1 }); window.__lenis = lenis;
       lenis.on('scroll', ScrollTrigger.update);
       window.fywLenis = lenis;
       tickerFn = t => lenis.raf(t * 1000);
@@ -311,12 +311,15 @@
         const ROT = fCards.map(el => parseFloat(el.style.getPropertyValue('--r')) || 0);
         const PILE = [-6, 4, -2, 7, -4, 3, -7, 5, -3];
         const S = fCards.map(() => ({ x: 0, y: 0, r: 0, s: 1, a: 1 }));
+        // celular: o leque mostra todos os cards e dá para arrastar para os lados (pan)
+        const H = { pan: 0, to: 0 };
         const fanOff = (i, w) => { const sp = w * (mob ? 0.64 : 0.6); return { x: (i - mid) * sp, y: Math.abs(i - mid) * w * (mob ? 0.03 : 0.05), r: ROT[i] }; };
         const pile = i => ({ x: (i % 3 - 1) * 4, y: 0, r: PILE[i % PILE.length] });
         // card i -> linha de trabalho (os 5 do meio vão para as 5 linhas; os outros saem de cena)
         const rowsAll = $$('.work-row');
         // a lista mostra no máximo uma linha por card visível (no celular há menos cards)
-        rowsAll.forEach((r, k) => { r.hidden = k >= n; });
+        // no celular a lista mostra só 3 projetos (o resto em "Ver todos os projetos")
+        rowsAll.forEach((r, k) => { r.hidden = k >= (mob ? 3 : n); });
         const rows = rowsAll.filter(r => !r.hidden);
         const firstMapped = rows.length >= n ? 0 : Math.max(0, Math.round(mid) - Math.floor(rows.length / 2));
         const rowOf = i => { const k = i - firstMapped; return k >= 0 && k < rows.length ? k : -1; };
@@ -344,7 +347,8 @@
           if (!G) measure();
           fCards.forEach((el, i) => {
             const st = S[i];
-            let cx = G.fx + st.x, cy = G.fy + st.y, w = G.fw * st.s, hgt = w, rot = st.r, op = st.a, rad = 14;
+            const tg0 = ease(clamp01(A.p / GATHER));
+            let cx = G.fx + st.x + (mob ? H.pan * (1 - tg0) : 0), cy = G.fy + st.y, w = G.fw * st.s, hgt = w, rot = st.r, op = st.a, rad = 14;
             const k = rowOf(i);
             // 1) junta todos no meio, um em cima do outro
             const pl = pile(i), tg = ease(clamp01(A.p / GATHER));
@@ -376,7 +380,7 @@
               }
             }
             // na pilha, o próximo a descer fica por cima
-            const z = A.p > 0.02 ? (k < 0 ? 1 : 100 - k) : baseZ[i];
+            const z = A.p > 0.02 ? (k < 0 ? 1 : 100 - k) : (mob ? 50 - Math.round(Math.abs(i - mid + H.pan / (G.fw * 0.64)) * 10) : baseZ[i]);
             const props = { x: cx - w / 2, y: cy - hgt / 2, width: w, height: hgt, rotation: rot, autoAlpha: op, '--fr': rad + 'px', zIndex: z };
             if (capture) { capture[i] = props; return; }
             gsap.set(el, props);
@@ -432,12 +436,35 @@
           const target = clamp01(y / (G.heroH * 0.9)) * PMAX;
           const d = target - A.p;
           if (Math.abs(d) > 0.0004) { A.p += d * 0.2; dirty = true; } else if (A.p !== target) { A.p = target; dirty = true; }
+          if (mob && H.pan !== H.to) { const dp = H.to - H.pan; H.pan = Math.abs(dp) < 0.3 ? H.to : H.pan + dp * 0.22; dirty = true; }
           // os nomes só se apagam quando a lista sai da tela e sobra só o hero
           if (namesOn && G.workTop > y + innerHeight) {
             namesOn = false; G.rows.forEach(R => R.chars.forEach(ch => { if (ch.on) { ch.on = false; ch.el.classList.remove('on'); } }));
           }
           if (dirty || y !== lastY) { lastY = y; dirty = false; render(); const on = A.p > GATHER; if (on !== workOn) { workOn = on; $('.work').classList.toggle('is-on', on); } }
         });
+        // celular: arrastar o leque para os lados (o card mais perto do centro vem para a frente); ao soltar, encaixa num card
+        if (mob) {
+          const spX = () => G.fw * 0.64, maxP = () => mid * spX();
+          const clampP = v => Math.max(-maxP(), Math.min(maxP(), v));
+          let t0 = null, moved = false;
+          const onFan = t => { if (A.p > 0.02) return false; const r = fanEl.getBoundingClientRect(); return t.clientY >= r.top - 20 && t.clientY <= r.bottom + 20; };
+          addEventListener('touchstart', e => { const t = e.touches[0]; if (e.touches.length !== 1 || !onFan(t)) { t0 = null; return; } t0 = { x: t.clientX, y: t.clientY, p: H.to, ax: 0, lx: t.clientX, lt: performance.now(), v: 0 }; moved = false; }, { passive: true });
+          addEventListener('touchmove', e => {
+            if (!t0) return; const t = e.touches[0], dx = t.clientX - t0.x, dy = t.clientY - t0.y;
+            if (!t0.ax) { if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return; t0.ax = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y'; }
+            if (t0.ax !== 'x') return;
+            e.preventDefault(); moved = true;
+            const now = performance.now(); t0.v = (t.clientX - t0.lx) / Math.max(1, now - t0.lt); t0.lx = t.clientX; t0.lt = now;
+            const raw = t0.p + dx, m = maxP();
+            H.to = raw > m ? m + (raw - m) * 0.3 : raw < -m ? -m + (raw + m) * 0.3 : raw; H.pan = H.to; dirty = true;
+          }, { passive: false });
+          addEventListener('touchend', () => {
+            if (!t0) return; if (t0.ax === 'x') { const s = spX(); H.to = clampP(Math.round((H.to + t0.v * 220) / s) * s); } t0 = null;
+          }, { passive: true });
+          // depois de arrastar, o toque não abre o projeto
+          document.addEventListener('click', e => { if (moved && e.target.closest && e.target.closest('.hf-card')) { e.preventDefault(); e.stopImmediatePropagation(); } moved = false; }, true);
+        }
         const remeasure = () => { measure(); const F2 = L(); if (!intro || S[0].a === 1) S.forEach((st, i) => Object.assign(st, { x: F2[i].x, y: F2[i].y, r: F2[i].r })); dirty = true; };
         addEventListener('resize', () => { clearTimeout(window.__hfR); window.__hfR = setTimeout(remeasure, 150); });
         ScrollTrigger.addEventListener('refresh', () => { measure(); dirty = true; });

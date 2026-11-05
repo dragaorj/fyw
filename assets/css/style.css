@@ -4784,3 +4784,86 @@ html body .hf-card .fc-veil .veil-logo { max-width: 100% !important; }
 .hf-card[data-project="latimpacto"] { --lw: 86%; }
 .fc-veil { padding-left: 12% !important; padding-right: 12% !important; }
 .hf-card[data-project="pacto-global"] { --lw: 90%; }
+
+/* ===== "Vitrine → Máquina de vendas": avisos e gráfico em vidro, flutuando e reagindo ao mouse ===== */
+.sm-t, .sm-chart {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--bg) 78%, transparent), color-mix(in srgb, var(--bg) 52%, transparent)) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(1.5); backdrop-filter: blur(18px) saturate(1.5);
+  border: 1px solid rgba(255,255,255,.6) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), inset 0 -1px 0 rgba(255,255,255,.15), 0 22px 44px -24px rgba(11,11,11,.45) !important;
+}
+[data-theme="dark"] .sm-t, [data-theme="dark"] .sm-chart {
+  background: linear-gradient(135deg, rgba(30,30,28,.72), rgba(20,20,19,.5)) !important;
+  border-color: rgba(255,255,255,.12) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 26px 50px -26px rgba(0,0,0,.85) !important;
+}
+/* flutuam o tempo todo, cada um no seu ritmo */
+.sm.is-s2 .sm-t1 { animation: smBob 5.2s ease-in-out 1.2s infinite; }
+.sm.is-s2 .sm-t2 { animation: smBob 6.4s ease-in-out 1.8s infinite reverse; }
+.sm.is-s2 .sm-t3 { animation: smBob 5.8s ease-in-out 2.4s infinite; }
+.sm.is-s2 .sm-chart { animation: smBob 7s ease-in-out 2s infinite reverse; }
+@keyframes smBob { 0%, 100% { transform: translate3d(0, 0, 0) rotate(0); } 50% { transform: translate3d(0, -7px, 0) rotate(-.6deg); } }
+/* com o mouse em cima, cada um se move numa profundidade diferente */
+.sm-t, .sm-chart { transition: opacity .7s var(--e), translate 1.1s cubic-bezier(.16,1,.3,1), scale .5s cubic-bezier(.16,1,.3,1), box-shadow .4s; }
+.sm.is-s2.is-glow .sm-t1 { translate: calc(var(--nx, 0) * 34px) calc(var(--ny, 0) * 22px); }
+.sm.is-s2.is-glow .sm-t2 { translate: calc(var(--nx, 0) * 20px) calc(var(--ny, 0) * 14px); }
+.sm.is-s2.is-glow .sm-t3 { translate: calc(var(--nx, 0) * 44px) calc(var(--ny, 0) * 28px); }
+.sm.is-s2.is-glow .sm-chart { translate: calc(var(--nx, 0) * -30px) calc(var(--ny, 0) * -20px); }
+.sm.is-glow .sm-toasts { translate: none; }
+/* passar o mouse direto no card: cresce um pouco e o ícone gira */
+.sm-toasts, .sm-chart { pointer-events: auto; }
+.sm.is-s2 .sm-t:hover, .sm.is-s2 .sm-chart:hover { scale: 1.06; box-shadow: inset 0 1px 0 rgba(255,255,255,.75), 0 30px 54px -24px rgba(11,11,11,.5) !important; }
+.sm-ti { transition: transform .6s cubic-bezier(.2,.8,.2,1); }
+.sm-t:hover .sm-ti { transform: rotate(-12deg) scale(1.08); }
+/* ponto do gráfico pulsando */
+.sm.is-s2 .sm-chart circle { animation: smDot 1.8s ease-out 2.2s infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes smDot { 0% { transform: scale(1); } 40% { transform: scale(1.6); } 100% { transform: scale(1); } }
+@media (max-width: 599px) { .sm.is-s2 .sm-t, .sm.is-s2 .sm-chart { animation: none !important; } }
+@media (prefers-reduced-motion: reduce) { .sm-t, .sm-chart, .sm-chart circle { animation: none !important; } }
+/* botão dentro da resposta do FAQ */
+.faq-a .faq-cta { margin-top: 18px; display: inline-flex; }
+/* botão da resposta alinhado ao texto, com espaço embaixo */
+.faq-a .faq-cta { margin: -6px 0 30px; }
+@media (min-width: 900px) { .faq-a .faq-cta { margin-left: 104px; } }
+@media (max-width: 899px) { .faq-a .faq-cta { margin-left: 0; } }
+.faq-a .faq-cta { margin: 0 !important; }
+.faq-a p.faq-cta-p { margin-top: -10px; }
+
+/* avisos da "Máquina de vendas": clicáveis, abrem um mini pop-up */
+.sm-t { cursor: pointer; }
+.sm-t.is-active { scale: 1.06; box-shadow: inset 0 1px 0 rgba(255,255,255,.75), 0 0 0 2px color-mix(in srgb, var(--sc, var(--ink)) 45%, transparent), 0 30px 54px -24px rgba(11,11,11,.5) !important; }
+.smp { position: absolute; z-index: 6; width: 268px; padding: 16px; border-radius: 18px; color: var(--ink);
+  background: linear-gradient(150deg, color-mix(in srgb, var(--bg) 86%, transparent), color-mix(in srgb, var(--bg) 66%, transparent));
+  -webkit-backdrop-filter: blur(22px) saturate(1.5); backdrop-filter: blur(22px) saturate(1.5);
+  border: 1px solid rgba(255,255,255,.65); box-shadow: inset 0 1px 0 rgba(255,255,255,.75), 0 34px 70px -30px rgba(11,11,11,.55);
+  opacity: 0; visibility: hidden; transform: translateX(10px) scale(.96); transform-origin: right top;
+  transition: opacity .3s ease, transform .45s cubic-bezier(.16,1,.3,1), visibility .3s; font-size: 13px; line-height: 1.4; }
+.smp.is-on { opacity: 1; visibility: visible; transform: none; }
+[data-theme="dark"] .smp { background: linear-gradient(150deg, rgba(30,30,28,.9), rgba(18,18,17,.82)); border-color: rgba(255,255,255,.12); }
+.smp-h { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.smp-h b { flex: 1; font-weight: 600; font-size: 14px; }
+.smp-ico { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--ink); color: var(--bg); }
+.smp-ico svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.smp-x { width: 26px; height: 26px; border-radius: 50%; border: 0; background: rgba(11,11,11,.06); color: inherit; font-size: 16px; line-height: 1; cursor: pointer; }
+.smp dl { display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; margin: 0; }
+.smp dt { color: var(--muted); } .smp dd { margin: 0; text-align: right; font-weight: 500; }
+.smp-q { margin: 12px 0 0; padding: 10px 12px; border-radius: 12px; background: rgba(11,11,11,.05); font-style: italic; }
+.smp-pix { display: flex; justify-content: space-between; align-items: baseline; padding: 12px; margin-bottom: 12px; border-radius: 12px; background: color-mix(in srgb, #2F9E44 14%, transparent); }
+.smp-pix span { color: var(--muted); } .smp-pix b { font-size: 20px; letter-spacing: -.02em; color: #237A35; }
+[data-theme="dark"] .smp-pix b { color: #6FD38A; }
+.smp-chat { display: grid; gap: 6px; }
+.smp-chat p { margin: 0; padding: 8px 11px; border-radius: 14px; max-width: 88%; }
+.smp-chat .in { background: rgba(11,11,11,.06); border-bottom-left-radius: 4px; justify-self: start; }
+.smp-chat .out { background: #D9FDD3; color: #0B0B0B; border-bottom-right-radius: 4px; justify-self: end; }
+.smp-f { display: flex; justify-content: flex-end; gap: 6px; margin-top: 12px; font-weight: 600; font-size: 12.5px; }
+.smp-f i { font-style: normal; transition: transform .3s; } .smp:hover .smp-f i { transform: translateX(3px); }
+@media (max-width: 599px) { .smp { position: absolute; left: 12px !important; right: 12px !important; width: auto; top: auto !important; bottom: 100%; transform-origin: center bottom; } }
+
+/* cursor acima do formulário de contato */
+.cursor { z-index: 2147483000 !important; }
+
+/* formulário de contato: botão ocupa a largura toda no mobile */
+@media (max-width: 767px) { .lf .btn.lf-send { width: 100% !important; display: flex !important; } }
+
+/* Hero mobile: todos os cards do desktop, arrastando para os lados */
+@media (max-width: 599px) { .hfan > .hf-card:nth-child(n) { display: block !important; } }
