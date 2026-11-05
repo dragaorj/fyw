@@ -939,6 +939,24 @@
   addEventListener('resize', layoutWheel);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutWheel);
 
+  /* ---------------- Galeria "Feito para impressionar": em telas altas o título desce para perto das fotos ---------------- */
+  (function () {
+    const intro = $('.zoom-intro'), grid = $('.zoom-grid'); if (!intro || !grid) return;
+    const GAP = 96;
+    const fit = () => {
+      intro.style.removeProperty('margin-bottom');
+      if (innerHeight <= innerWidth) { if (window.ScrollTrigger) ScrollTrigger.refresh(); return; } // só telas em pé
+      const gap = grid.getBoundingClientRect().top - intro.getBoundingClientRect().bottom;
+      const pull = Math.round(gap - GAP);
+      if (pull > 40) intro.style.setProperty('margin-bottom', (-pull) + 'px');
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+    };
+    const run = () => { if (!document.querySelector('.pin-spacer .zoom-pin') || window.scrollY < 10) fit(); };
+    run();
+    addEventListener('resize', () => { clearTimeout(window.__zgT); window.__zgT = setTimeout(fit, 200); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(run);
+  })();
+
   /* ---------------- "2023" do fundo: a base do número termina junto com o título (nunca sobre os parágrafos) ---------------- */
   (function () {
     const side = $('.story-side'), year = $('.story-year'), title = $('.story-title'), inner = $('.story-inner');
