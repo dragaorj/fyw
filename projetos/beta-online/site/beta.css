@@ -817,3 +817,41 @@ b,strong{font-weight:700}
 .info-fab .i{width:28px;font-size:17px}
 .info-fab::before,.info-fab::after{width:42px;left:2px}
 @media (max-width:760px){.info-fab{width:42px;height:42px}}
+/* gota com a própria foto do topo: o topo se estende para baixo e é recortado no formato da gota */
+.hero{--dh:clamp(34px,2.6vw,50px);--dw:calc(var(--dh) * 200 / 46);padding-bottom:var(--dh);margin-bottom:calc(-1 * var(--dh));
+  -webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - var(--dh)) no-repeat,url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 46' preserveAspectRatio='none'%3E%3Cpath d='M0 0C42 0 54 5 67 21C80 38 89 46 100 46C111 46 120 38 133 21C146 5 158 0 200 0Z'/%3E%3C/svg%3E") bottom center/var(--dw) calc(var(--dh) + 1px) no-repeat;
+  mask:linear-gradient(#000 0 0) top/100% calc(100% - var(--dh)) no-repeat,url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 46' preserveAspectRatio='none'%3E%3Cpath d='M0 0C42 0 54 5 67 21C80 38 89 46 100 46C111 46 120 38 133 21C146 5 158 0 200 0Z'/%3E%3C/svg%3E") bottom center/var(--dw) calc(var(--dh) + 1px) no-repeat;
+  position:relative;z-index:2}
+.down{bottom:0;transform:translateX(-50%);width:var(--dw);height:var(--dh);aspect-ratio:auto}
+.down .drop{display:none}
+.down .ico{top:18%}
+.jobs{padding-top:calc(clamp(40px,4vw,76px) + var(--dh,40px))}
+/* aba "i" num vermelho mais fechado (aparece também sobre áreas vermelhas) */
+.info-fab{background:#A3181B;box-shadow:0 10px 24px -10px rgba(80,0,0,.8)}
+.info-fab::before,.info-fab::after{background:#A3181B}
+/* celular: foto em cima e todo o texto sobre o vermelho */
+@media (max-width:760px){
+  .hero{--phh:clamp(270px,78vw,360px);display:block;min-height:0}
+  .hero .ph{position:absolute;top:0;left:0;right:0;height:var(--phh);background-position:70% 30%}
+  .hero::before{background:linear-gradient(180deg,rgba(205,35,35,0) 0,rgba(205,35,35,0) calc(var(--phh) * .45),rgba(205,35,35,.85) calc(var(--phh) - 40px),var(--red) var(--phh),var(--red) 100%)}
+  .hero .wrap{position:relative;inset:auto;margin:0 auto;padding:calc(var(--phh) - 8px) 0 calc(48px + var(--dh))}
+  .hero h1{font-size:30px}
+}
+/* faixas arrastáveis */
+.offers,.picks,.track,.ttrack,.chats{cursor:grab;-webkit-user-select:none;user-select:none}
+.is-grab{cursor:grabbing}
+.offers img,.track img,.chats img{-webkit-user-drag:none}
+@media (max-width:760px){.offers{scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}.offer{scroll-snap-align:start}}
+/* banner da opinião (Home): texto à esquerda, pesquisa encaixa à direita */
+.opin .wrap{grid-template-columns:minmax(0,1fr) auto;align-items:center}
+.opin .wrap>.rv{max-width:540px}
+.survey-slot.is-right{justify-self:end;width:min(400px,100%);min-height:1px}
+.survey-slot.is-right:has(.pop){margin:0}
+@media (max-width:760px){.opin .wrap{grid-template-columns:1fr}.survey-slot.is-right{justify-self:stretch;width:100%}}
+/* cursor da Fyw (bolinha) também nestas páginas */
+@media (hover:hover) and (pointer:fine){
+  html.has-dot,html.has-dot *{cursor:none!important}
+  .fyw-dot{position:fixed;left:0;top:0;z-index:999;pointer-events:none;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:#fff;mix-blend-mode:difference;transition:width .4s cubic-bezier(.2,.7,.2,1),height .4s cubic-bezier(.2,.7,.2,1),margin .4s cubic-bezier(.2,.7,.2,1),opacity .3s}
+  .fyw-dot.is-hover{width:44px;height:44px;margin:-22px 0 0 -22px}
+  .fyw-dot.is-hidden{opacity:0}
+}

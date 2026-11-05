@@ -132,6 +132,40 @@
 
   $$('.school [data-carousel]').forEach(function (car) { drift($('.track', car), $('.prev', car), $('.next', car)); });
 
+  // arrastar com o mouse nas faixas que rolam para o lado (ofertas, cursos, cards, depoimentos)
+  $$('.offers, .picks, .track, .ttrack, .chats, .cgrid').forEach(function (el) {
+    var down = false, moved = false, sx = 0, sl = 0, snap = '';
+    el.addEventListener('pointerdown', function (e) {
+      if (e.pointerType !== 'mouse' || el.scrollWidth <= el.clientWidth + 2) return;
+      down = true; moved = false; sx = e.clientX; sl = el.scrollLeft; snap = el.style.scrollSnapType; el.style.scrollSnapType = 'none'; el.style.scrollBehavior = 'auto'; el.classList.add('is-grab');
+    });
+    addEventListener('pointermove', function (e) { if (!down) return; var dx = e.clientX - sx; if (Math.abs(dx) > 4) moved = true; el.scrollLeft = sl - dx; });
+    addEventListener('pointerup', function (e) {
+      if (!down) return; down = false; el.classList.remove('is-grab'); el.style.scrollBehavior = '';
+      if (el.classList.contains('is-drift')) { el.style.scrollSnapType = snap; return; }
+      var dx = e.clientX - sx, kids = Array.prototype.slice.call(el.children).filter(function (c) { return c.offsetWidth; });
+      var pad = parseFloat(getComputedStyle(el).paddingLeft) || 0, base = kids.length ? kids[0].offsetLeft : 0;
+      var idx = 0, best = 1e9; kids.forEach(function (c, q) { var d = Math.abs(c.offsetLeft - base - sl); if (d < best) { best = d; idx = q; } });
+      if (Math.abs(dx) > 40) idx = Math.max(0, Math.min(kids.length - 1, idx + (dx < 0 ? 1 : -1)));
+      var to = kids[idx] ? kids[idx].offsetLeft - base : el.scrollLeft;
+      el.scrollTo({ left: to, behavior: 'smooth' });
+      setTimeout(function () { el.style.scrollSnapType = snap; }, 450);
+    });
+    el.addEventListener('click', function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+    el.addEventListener('dragstart', function (e) { e.preventDefault(); });
+  });
+
+  // cursor da Fyw: bolinha que segue o mouse (vale também dentro das molduras do portfólio)
+  if (matchMedia('(hover: hover) and (pointer: fine)').matches && !reduce) {
+    var dot = document.createElement('div'); dot.className = 'fyw-dot'; dot.setAttribute('aria-hidden', 'true'); document.body.appendChild(dot);
+    document.documentElement.classList.add('has-dot');
+    var cx = -50, cy = -50, craf = 0;
+    var cplace = function () { craf = 0; dot.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0)'; };
+    addEventListener('pointermove', function (e) { cx = e.clientX; cy = e.clientY; dot.classList.remove('is-hidden'); if (!craf) craf = requestAnimationFrame(cplace); }, { passive: true });
+    document.addEventListener('mouseover', function (e) { dot.classList.toggle('is-hover', !!(e.target.closest && e.target.closest('a, button, label, input, textarea, summary, .chip, .pin'))); });
+    document.addEventListener('mouseleave', function () { dot.classList.add('is-hidden'); });
+  }
+
   // contador da oferta (conta para baixo)
   $$('[data-timer]').forEach(function (t) {
     var s = +t.dataset.timer;

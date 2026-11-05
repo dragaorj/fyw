@@ -4607,3 +4607,6 @@ html body .pp2-duo .pp2-card { min-height: 0; padding: clamp(22px, 2.4vw, 30px);
 .bds-more { display: flex; width: max-content; margin: 18px auto 0; }
 .bds-more i svg { transition: transform .4s; }
 .bds-more[aria-expanded="true"] i svg { transform: rotate(180deg); }
+.pp2-svc-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+.pp2-svc-row .pp2-year { height: 36px; display: inline-flex; align-items: center; }
+.pp2-svc-row .pp2-svc { flex: none; }

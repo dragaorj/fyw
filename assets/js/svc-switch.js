@@ -41,6 +41,8 @@
     if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); var n = btns[(i + (e.key === 'ArrowRight' ? 1 : btns.length - 1)) % btns.length]; n.focus(); apply(n.dataset.svc); }
   });
   addEventListener('resize', function () { var on = sw.querySelector('.is-on'); if (on) place(on); });
+  if ('ResizeObserver' in window) new ResizeObserver(function () { var on = sw.querySelector('.is-on'); if (on) place(on); }).observe(sw);
+  setTimeout(function () { var on = sw.querySelector('.is-on'); if (on) place(on); }, 600);
   var start = (location.hash || '').slice(1);
   apply(btns.some(function (b) { return b.dataset.svc === start; }) ? start : btns[0].dataset.svc, true);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { var on = sw.querySelector('.is-on'); if (on) place(on); });

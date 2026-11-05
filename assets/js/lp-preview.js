@@ -53,6 +53,9 @@
       f.style.transform = 'scale(' + k + ')';
     }
     fit();
+    // a bolinha do cursor da página some enquanto o mouse está dentro da moldura (lá dentro há outra)
+    var pc = document.querySelector('.cursor');
+    if (pc) { f.addEventListener('mouseenter', function () { pc.classList.add('is-hidden'); }); f.addEventListener('mouseleave', function () { pc.classList.remove('is-hidden'); }); }
     if ('ResizeObserver' in window) new ResizeObserver(fit).observe(box); else addEventListener('resize', fit);
     function win() { try { return f.contentWindow; } catch (e) { return null; } }
     autoScroll(box, {

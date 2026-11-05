@@ -290,6 +290,7 @@ html:not(.in-frame) .ft{padding-bottom:max(84px,calc(20 * var(--k)))}
   .soc svg{width:calc(10 * var(--k));height:calc(10 * var(--k))}
   .fyw-back{left:12px;bottom:12px;height:38px;font-size:12px}
 }
+@media (hover:hover) and (pointer:fine){html.has-dot,html.has-dot *{cursor:none!important}.fyw-dot{position:fixed;left:0;top:0;z-index:999;pointer-events:none;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:#fff;mix-blend-mode:difference;transition:width .4s cubic-bezier(.2,.7,.2,1),height .4s cubic-bezier(.2,.7,.2,1),margin .4s cubic-bezier(.2,.7,.2,1),opacity .3s}.fyw-dot.is-hover{width:44px;height:44px;margin:-22px 0 0 -22px}.fyw-dot.is-hidden{opacity:0}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
 </head>
@@ -408,6 +409,8 @@ html:not(.in-frame) .ft{padding-bottom:max(84px,calc(20 * var(--k)))}
 
 <script>
 (function(){
+  // cursor da Fyw (bolinha)
+  if(matchMedia("(hover: hover) and (pointer: fine)").matches&&!matchMedia("(prefers-reduced-motion: reduce)").matches){var dot=document.createElement("div");dot.className="fyw-dot";document.body.appendChild(dot);document.documentElement.classList.add("has-dot");var cx=-50,cy=-50,cr=0;addEventListener("pointermove",function(e){cx=e.clientX;cy=e.clientY;dot.classList.remove("is-hidden");if(!cr)cr=requestAnimationFrame(function(){cr=0;dot.style.transform="translate3d("+cx+"px,"+cy+"px,0)";});},{passive:true});document.addEventListener("mouseover",function(e){dot.classList.toggle("is-hover",!!(e.target.closest&&e.target.closest("a,button,input,.card")));});document.addEventListener("mouseleave",function(){dot.classList.add("is-hidden");});}
   var root=document.documentElement, hd=document.querySelector('.hd'), menu=document.getElementById('menu'), burger=document.querySelector('.burger');
   // menu fixo ganha fundo depois que sai do topo
   function solid(){hd.classList.toggle('is-solid',scrollY>20);}
