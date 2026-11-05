@@ -4253,8 +4253,8 @@ html body .lw-has-mark .lw-logo, html body .lw-has-mark:hover .lw-logo, html bod
 html body .lw-has-mark .lw-info { flex-wrap: nowrap; }
 
 /* ===== Jogo pela Integridade (São Paulo FC): topo escuro com o vermelho do clube e os escudos ===== */
-.pj-jpi .jpi-hero { background: radial-gradient(90% 80% at 85% 0%, rgba(220,20,20,.35), transparent 60%), linear-gradient(170deg, #1A0B0C 0%, #111111 55%, #0B0B0B 100%); }
-.pj-jpi .jpi-hero .pp2-fx { background: #DC1414; opacity: .45; }
+.pj-beta .beta-hero { background: radial-gradient(90% 80% at 85% 0%, rgba(205,35,35,.38), transparent 60%), linear-gradient(170deg, #1A0B0C 0%, #111111 55%, #0B0B0B 100%); color: #EEEDE9; }
+.pj-beta .beta-hero .pp2-fx { background: #CD2323; opacity: .45; }
 .jpi-logos { display: flex; align-items: center; gap: 16px; color: #EEEDE9; margin-bottom: 6px; }
 .jpi-logos i { width: 1px; height: 40px; background: rgba(238,237,233,.25); }
 .jpi-spfc { width: auto; height: clamp(52px, 6vw, 72px); }
@@ -4329,22 +4329,22 @@ html body .jpi-logos i { height: clamp(36px, 3.4vw, 48px); }
 .sv-pj:hover .sv-pj-img img { transform: scale(1.05); }
 
 /* ===== Beta Online: topo claro (diferente dos projetos escuros), preto + vermelho só nos detalhes ===== */
-.pj-beta .beta-hero { background: #F8F8F8; color: #0F1115; }
-.pj-beta .beta-hero::after { background: repeating-linear-gradient(90deg, rgba(15,17,21,.045) 0 1px, transparent 1px 36px); }
-.pj-beta .beta-hero .pp2-fx { background: #CD2323; opacity: .16; }
-.pj-beta .beta-hero .pp2-title { color: #0F1115; }
-.pj-beta .beta-hero .pp2-meta { border-top-color: rgba(15,17,21,.12); }
-.pj-beta .beta-hero .pp2-meta dt { color: rgba(15,17,21,.5); }
-.pj-beta .beta-hero .pp2-meta dd { color: #0F1115; }
-.pj-beta .beta-hero .pp2-meta dd .flag { box-shadow: 0 0 0 1px rgba(15,17,21,.15); }
-.pj-beta .beta-hero .pp2-chip { color: #0F1115; background: rgba(15,17,21,.06); border-color: rgba(15,17,21,.12); }
-.pj-beta .beta-hero .pp2-chip.is-accent { color: #fff; background: #CD2323; border-color: transparent; }
-.pj-beta .beta-hero .pp2-brand { color: #0F1115; }
-.pj-beta .beta-hero .pp2-live i { background: rgba(255,255,255,.22); }
-.beta-sq { position: absolute; z-index: -1; pointer-events: none; right: -6vw; top: -6vw; width: clamp(160px, 26vw, 420px); aspect-ratio: 1; background: #CD2323; border-radius: 6px; opacity: .08; transform: rotate(12deg); }
-.pj-beta .nav .logo { color: #0F1115; }
-.pj-beta .pp2-back { color: #0F1115; background: rgba(15,17,21,.06); border-color: rgba(15,17,21,.14); box-shadow: none; }
-.pj-beta .pp2-back:hover { background: rgba(15,17,21,.1); }
+.pj-jpi .jpi-hero { background: #F8F8F8; color: #0F1115; }
+.pj-jpi .jpi-hero::after { background: repeating-linear-gradient(90deg, rgba(15,17,21,.045) 0 1px, transparent 1px 36px); }
+.pj-jpi .jpi-hero .pp2-fx { background: #DC1414; opacity: .16; }
+.pj-jpi .jpi-hero .pp2-title { color: #0F1115; }
+.pj-jpi .jpi-hero .pp2-meta { border-top-color: rgba(15,17,21,.12); }
+.pj-jpi .jpi-hero .pp2-meta dt { color: rgba(15,17,21,.5); }
+.pj-jpi .jpi-hero .pp2-meta dd { color: #0F1115; }
+.pj-jpi .jpi-hero .pp2-meta dd .flag { box-shadow: 0 0 0 1px rgba(15,17,21,.15); }
+.pj-jpi .jpi-hero .pp2-chip { color: #0F1115; background: rgba(15,17,21,.06); border-color: rgba(15,17,21,.12); }
+.pj-jpi .jpi-hero .pp2-chip.is-accent { color: #fff; background: #DC1414; border-color: transparent; }
+.pj-jpi .jpi-hero .pp2-brand { color: #0F1115; }
+.pj-jpi .jpi-hero .pp2-live i { background: rgba(255,255,255,.22); }
+.beta-sq { position: absolute; z-index: -1; pointer-events: none; right: -6vw; top: -6vw; width: clamp(160px, 26vw, 420px); aspect-ratio: 1; background: #DC1414; border-radius: 6px; opacity: .08; transform: rotate(12deg); }
+.pj-jpi .nav .logo { color: #0F1115; }
+.pj-jpi .pp2-back { color: #0F1115; background: rgba(15,17,21,.06); border-color: rgba(15,17,21,.14); box-shadow: none; }
+.pj-jpi .pp2-back:hover { background: rgba(15,17,21,.1); }
 .pp2-chip.is-status i { width: 7px; height: 7px; border-radius: 50%; background: #FDB200; margin-right: 7px; box-shadow: 0 0 0 3px rgba(253,178,0,.2); }
 
 /* abas de páginas na prévia do site */
@@ -4468,9 +4468,9 @@ html[data-theme="dark"] .lw-mark.is-color path[fill="#242424"] { fill: #EEEDE9; 
 .mm-logo { height: 30px; width: auto; flex: none; } .mm-links { display: flex; gap: 14px; font-size: .8125rem; font-weight: 600; white-space: nowrap; } .mm-links span { display: inline-flex; align-items: center; gap: 2px; } .bds .mm-links svg { width: 14px; height: 14px; }
 .mm-search { margin-left: auto; color: var(--g9); display: grid; } .mm-bar .b-btn { flex: none; }
 @media (max-width: 1099px) { .mm-links { display: none; } }
-/* Beta (topo claro): logo e menu escuros */
-:root body.pj-beta.pj-beta.pj-beta .nav.nav .logo.logo, :root body.pj-beta.pj-beta.pj-beta .nav.nav .logo.logo svg { color: #0F1115 !important; }
-:root body.pj-beta.pj-beta.pj-beta .nav.nav .menu-btn.menu-btn { background: #0F1115 !important; background-color: #0F1115 !important; color: #FFFFFF !important; border-color: transparent !important; }
+/* SPFC (topo claro): logo e menu escuros */
+:root body.pj-jpi.pj-jpi.pj-jpi .nav.nav .logo.logo, :root body.pj-jpi.pj-jpi.pj-jpi .nav.nav .logo.logo svg { color: #0F1115 !important; }
+:root body.pj-jpi.pj-jpi.pj-jpi .nav.nav .menu-btn.menu-btn { background: #0F1115 !important; background-color: #0F1115 !important; color: #FFFFFF !important; border-color: transparent !important; }
 /* design system do Beta: nada passa da largura no celular */
 .bds > *, .bds-block > *, .bds-2 > *, .bds-3 > *, .f-grid > *, .c-grid > * { min-width: 0; }
 .s-adv input { width: 0; } .t-seg { overflow-x: auto; scrollbar-width: none; }
@@ -4541,3 +4541,18 @@ html body .pp2-duo .pp2-card { min-height: 0; padding: clamp(22px, 2.4vw, 30px);
 /* celular: barra de status sob a ilha, a página começa logo abaixo dela */
 .lp-phone .lp-scroll.is-live .lp-live { top: 34px; }
 .lp-phone .lp-scroll.is-live::before { content: ""; position: absolute; inset: 0 0 auto; height: 34px; background: #0B0B0B; z-index: 0; }
+
+/* cards do topo um pouco maiores */
+.hero-stage { --fw: clamp(130px, min(14.6vw, 25.5vh), 248px); }
+@media (max-width: 599px) { .hero-stage { --fw: clamp(108px, 32vw, 152px); } }
+
+/* ===== alinhamento: logo e botão do menu na mesma margem do conteúdo (--edge), em todo o site ===== */
+@media (min-width: 900px) {
+  html body .nav.nav { left: calc(var(--edge) - 20px) !important; right: calc(var(--edge) - 8px) !important; padding-left: 20px !important; padding-right: 8px !important; }
+}
+@media (max-width: 899px) {
+  html body .nav.nav { left: 8px !important; right: 8px !important; padding-left: max(6px, calc(var(--edge) - 8px)) !important; padding-right: max(6px, calc(var(--edge) - 8px)) !important; }
+}
+/* logos dos clientes no topo dos projetos: um pouco menores */
+@media (min-width: 900px) { .pp2-brand .pb-logo { height: clamp(52px, 4.4vw, 76px); } .pp2-brand .pb-sub { height: clamp(60px, 5.1vw, 88px); } }
+@media (max-width: 899px) { .pp2-brand .pb-logo { height: 32px; } .pp2-brand .pb-sub { height: 36px; } }

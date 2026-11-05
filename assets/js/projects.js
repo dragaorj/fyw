@@ -5,7 +5,7 @@
    aponta para o projeto pelo "slug" (nome da página em /projetos).
    ========================================================= */
 window.FYW_PROJECTS = {
-  'beta-online': { name: 'Beta Online', type: 'Design System', color: '#CD2323', title: 'Beta Online', sub: 'Design system · Web design', svc: [3, 1], img: 'assets/img/projetos/beta-online/thumb.webp' },
+  'beta-online': { name: 'Beta Online', type: 'Design System', color: '#0F1115', title: 'Beta Online', sub: 'Design system · Web design', svc: [3, 1], img: 'assets/img/projetos/beta-online/thumb.webp' },
   'jogo-pela-integridade': { name: 'SPFC', type: 'Web Design', color: '#DC1414', title: 'São Paulo FC', sub: 'Jogo pela Integridade', svc: [1], img: 'assets/img/projetos/jogo-pela-integridade/thumb.webp?v=2' },
   'kyoto':       { name: 'Kyoto',         type: 'Branding', color: '#0178FF', title: 'Kyoto Rice', sub: 'Branding · Packaging · Web design', svc: [0, 1], img: 'assets/img/projetos/kyoto/thumb.webp?v=2' },
   'aurora-bank': { name: 'Aurora Bank',   type: 'Branding' },
