@@ -5,20 +5,22 @@
   'use strict';
   var TO = 'fyw.ggwp@gmail.com';
   var ENDPOINT = 'https://formsubmit.co/ajax/' + TO;
+  /* Web3Forms (https://web3forms.com): cole aqui a Access Key que chega no e-mail fyw.ggwp@gmail.com. É pública, pode ficar no site. */
+  var W3F_KEY = '';
   var SEL = 'a.btn[href$="#contact"], a.lw-cta, a.zoom-cta, [data-form-link], a.btn[href^="mailto:fyw"], [data-open-form]';
 
   var T = {
-    pt: { kicker: 'Vamos conversar', title: 'Conte sobre o seu projeto', sub: 'Responda em menos de 1 minuto. Enviamos uma proposta em até 48 horas.',
+    pt: { kicker: 'Vamos conversar', title: 'Conte sobre o seu projeto', sub: 'Entramos em contato em até 48 horas.',
       name: 'Nome', phone: 'WhatsApp', email: 'E-mail', need: 'Do que você precisa?', msg: 'Mensagem', msgPh: 'Conte mais sobre o seu projeto.',
       svc: ['Branding', 'UI/UX & Web', 'Apps & Sistemas', 'Design System', 'Outro'], send: 'Enviar', sending: 'Enviando…',
       okT: 'Recebemos sua mensagem!', okP: 'Obrigado pelo contato. Em até 48 horas você recebe a nossa resposta.', okB: 'Fechar',
       err: 'Não deu para enviar agora. Tente de novo ou escreva para ', req: 'Preencha nome, e-mail e mensagem.', close: 'Fechar', badEmail: 'Confira o e-mail.', badName: 'Digite seu nome e sobrenome.', badPhone: 'Digite um WhatsApp válido com DDD.', badMsg: 'Conte um pouco mais na mensagem (mínimo 15 caracteres).' },
-    en: { kicker: "Let's talk", title: 'Tell us about your project', sub: 'It takes less than a minute. We send a proposal within 48 hours.',
+    en: { kicker: "Let's talk", title: 'Tell us about your project', sub: 'We will get in touch within 48 hours.',
       name: 'Name', phone: 'Phone', email: 'E-mail', need: 'What do you need?', msg: 'Message', msgPh: 'Tell us more about your project.',
       svc: ['Branding', 'UI/UX & Web', 'Apps & Systems', 'Design System', 'Other'], send: 'Send', sending: 'Sending…',
       okT: 'Message received!', okP: 'Thanks for reaching out. You will hear from us within 48 hours.', okB: 'Close',
       err: 'Could not send right now. Try again or write to ', req: 'Please fill in name, e-mail and message.', close: 'Close', badEmail: 'Please check the e-mail.', badName: 'Please enter your first and last name.', badPhone: 'Please enter a valid phone number.', badMsg: 'Tell us a bit more in the message (at least 15 characters).' },
-    es: { kicker: 'Hablemos', title: 'Cuéntanos sobre tu proyecto', sub: 'Toma menos de un minuto. Enviamos una propuesta en hasta 48 horas.',
+    es: { kicker: 'Hablemos', title: 'Cuéntanos sobre tu proyecto', sub: 'Te contactamos en hasta 48 horas.',
       name: 'Nombre', phone: 'WhatsApp', email: 'E-mail', need: '¿Qué necesitas?', msg: 'Mensaje', msgPh: 'Cuéntanos más sobre tu proyecto.',
       svc: ['Branding', 'UI/UX y Web', 'Apps y Sistemas', 'Design System', 'Otro'], send: 'Enviar', sending: 'Enviando…',
       okT: '¡Recibimos tu mensaje!', okP: 'Gracias por escribir. En hasta 48 horas recibirás nuestra respuesta.', okB: 'Cerrar',
@@ -54,7 +56,7 @@
     '.lf-x:hover{background:rgba(11,11,11,.06);transform:rotate(90deg)}[data-theme="dark"] .lf-x{border-color:rgba(255,255,255,.18)}' +
     '.lf-x svg{width:16px;height:16px}' +
     '.lf-k{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;opacity:.7}' +
-    '.lf-k i{width:8px;height:8px;border-radius:50%;background:#FF6A2B;box-shadow:0 0 0 4px rgba(255,106,43,.18)}' +
+    '.lf-k i{width:8px;height:8px;border-radius:50%;background:var(--lf-acc,#FF6A2B);box-shadow:0 0 0 4px color-mix(in srgb,var(--lf-acc,#FF6A2B) 22%,transparent)}' +
     '.lf h2{font-size:clamp(1.6rem,3vw,2.2rem);line-height:1.05;letter-spacing:-.03em;font-weight:500;margin:12px 44px 8px 0}' +
     '.lf-sub{font-size:.95rem;opacity:.7;margin:0 0 22px}' +
     '.lf-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}' +
@@ -62,8 +64,8 @@
     '.lf-f label,.lf-need{font-size:.78rem;font-weight:600;opacity:.75}' +
     '.lf-f input,.lf-f textarea{font:inherit;font-size:1rem;color:inherit;background:rgba(255,255,255,.65);border:1px solid rgba(11,11,11,.14);border-radius:14px;padding:13px 15px;outline:none;transition:border-color .25s,box-shadow .25s,background .25s;width:100%;-webkit-appearance:none;appearance:none}' +
     '[data-theme="dark"] .lf-f input,[data-theme="dark"] .lf-f textarea{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.14)}' +
-    '.lf-f input:focus,.lf-f textarea:focus{border-color:#0B0B0B;box-shadow:0 0 0 4px rgba(200,245,60,.45)}' +
-    '[data-theme="dark"] .lf-f input:focus,[data-theme="dark"] .lf-f textarea:focus{border-color:#C8F53C}' +
+    '.lf-f input:focus,.lf-f textarea:focus,.lf-f input:focus-visible,.lf-f textarea:focus-visible{outline:none !important;border-color:var(--lf-acc,#FF6A2B) !important;box-shadow:0 0 0 4px color-mix(in srgb,var(--lf-acc,#FF6A2B) 22%,transparent)}' +
+    '[data-theme="dark"] .lf-f input:focus,[data-theme="dark"] .lf-f textarea:focus{border-color:var(--lf-acc,#FF6A2B)}' +
     '.lf-f textarea{resize:none;min-height:110px;line-height:1.5}' +
     '.lf-f.is-bad input,.lf-f.is-bad textarea{border-color:#E5484D;box-shadow:0 0 0 4px rgba(229,72,77,.15)}' +
     '.lf-chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 14px}' +
@@ -71,16 +73,27 @@
     '.lf-chip span{display:inline-flex;align-items:center;height:40px;padding:0 16px;border-radius:99px;border:1px solid rgba(11,11,11,.16);font-size:.9rem;cursor:pointer;white-space:nowrap;transition:background .25s,color .25s,border-color .25s,transform .25s}' +
     '[data-theme="dark"] .lf-chip span{border-color:rgba(255,255,255,.18)}' +
     '.lf-chip span:hover{transform:translateY(-1px)}' +
-    '.lf-chip input:checked+span{background:#0B0B0B;color:#C8F53C;border-color:#0B0B0B}' +
-    '[data-theme="dark"] .lf-chip input:checked+span{background:#C8F53C;color:#0B0B0B;border-color:#C8F53C}' +
-    '.lf-chip input:focus-visible+span{box-shadow:0 0 0 3px rgba(200,245,60,.6)}' +
+    '.lf-chip input:checked+span{background:var(--lf-acc,#FF6A2B);color:#fff;border-color:var(--lf-acc,#FF6A2B)}' +
+    
+    '.lf-chip input:focus-visible+span{box-shadow:0 0 0 3px color-mix(in srgb,var(--lf-acc,#FF6A2B) 35%,transparent)}' +
     '.lf .lf-send{width:100%;justify-content:space-between;margin-top:6px}' +
-    '.lf-send[disabled]{opacity:.6;pointer-events:none}' +
+    '.lf-send[disabled]{pointer-events:none}.lf-send{position:relative;overflow:hidden;isolation:isolate}' +
+    '.lf-bar{position:absolute;left:0;top:0;bottom:0;width:0;z-index:-1;border-radius:99px;pointer-events:none;opacity:0;overflow:hidden;background:linear-gradient(90deg,color-mix(in srgb,var(--lf-acc,#FF6A2B) 55%,#0B0B0B),var(--lf-acc,#FF6A2B));box-shadow:0 0 28px -2px var(--lf-acc,#FF6A2B)}' +
+    '.lf-bar::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.38) 50%,transparent 70%);background-size:220% 100%;animation:lfShine 1.15s linear infinite}' +
+    '@keyframes lfShine{from{background-position:120% 0}to{background-position:-100% 0}}@keyframes lfStripe{from{background-position:0 0}to{background-position:-28px 0}}' +
+    '.lf-send.is-loading .lf-bar{opacity:1;width:86%;transition:width 2.6s cubic-bezier(.22,.8,.3,1),opacity .25s}' +
+    '.lf-send.is-done .lf-bar{opacity:1;width:100%;transition:width .45s cubic-bezier(.16,1,.3,1)}' +
+    '.lf-send .btn-arrow{position:relative}.lf-send .btn-arrow svg{transition:opacity .25s,transform .35s cubic-bezier(.16,1,.3,1)}' +
+    '.lf-send .btn-arrow::before{content:"";position:absolute;inset:7px;border-radius:50%;border:2px solid currentColor;border-right-color:transparent;opacity:0;transform:scale(.4);transition:opacity .25s,transform .35s}' +
+    '.lf-send.is-loading .btn-arrow svg{opacity:0;transform:scale(.4) rotate(-45deg)}.lf-send.is-loading .btn-arrow::before{opacity:1;transform:scale(1);animation:lfSpin .7s linear infinite}' +
+    '.lf-send.is-done .btn-arrow::before{opacity:0;animation:none}.lf-send .lf-chk{position:absolute;inset:0;display:grid;place-items:center;opacity:0;transform:scale(.3);transition:opacity .3s,transform .45s cubic-bezier(.34,1.56,.64,1)}.lf-send.is-done .lf-chk{opacity:1;transform:scale(1)}' +
+    '.lf-send .lf-chk svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}' +
+    '@keyframes lfSpin{to{transform:rotate(360deg)}}@media (prefers-reduced-motion:reduce){.lf-bar::before,.lf-send .btn-arrow::before{animation:none!important}}' +
     '.lf-msg{font-size:.85rem;margin-top:12px;min-height:1.2em;color:#C2373C}' +
     '.lf-ok{display:none;text-align:center;padding:30px 4px 6px}.lf.is-sent .lf-ok{display:block}.lf.is-sent form,.lf.is-sent .lf-head{display:none}' +
-    '.lf-ok b{display:grid;place-items:center;width:64px;height:64px;margin:0 auto 18px;border-radius:50%;background:#C8F53C;color:#0B0B0B}' +
+    '.lf-ok b{display:grid;place-items:center;width:64px;height:64px;margin:0 auto 18px;border-radius:50%;background:var(--lf-acc,#FF6A2B);color:#fff;box-shadow:0 14px 30px -10px var(--lf-acc,#FF6A2B)}' +
     '.lf-ok b svg{width:28px;height:28px}.lf-ok h2{margin:0 0 8px}.lf-ok p{opacity:.75;margin:0 auto 26px;max-width:32ch}' +
-    '.lf.is-sent .lf-ok b{position:relative;animation:lfPop .7s cubic-bezier(.34,1.56,.64,1) both}.lf.is-sent .lf-ok b::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #C8F53C;animation:lfRing 1.4s .25s ease-out both}' +
+    '.lf.is-sent .lf-ok b{position:relative;animation:lfPop .7s cubic-bezier(.34,1.56,.64,1) both}.lf.is-sent .lf-ok b::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--lf-acc,#FF6A2B);animation:lfRing 1.4s .25s ease-out both}' +
     '.lf.is-sent .lf-ok b path{stroke-dasharray:24;stroke-dashoffset:24;animation:lfDraw .5s .35s ease forwards}' +
     '.lf.is-sent .lf-ok h2,.lf.is-sent .lf-ok p,.lf.is-sent .lf-ok .btn{animation:lfUp .6s cubic-bezier(.16,1,.3,1) both}.lf.is-sent .lf-ok h2{animation-delay:.2s}.lf.is-sent .lf-ok p{animation-delay:.3s}.lf.is-sent .lf-ok .btn{animation-delay:.4s}' +
     '@keyframes lfPop{0%{transform:scale(0)}100%{transform:scale(1)}}@keyframes lfRing{0%{transform:scale(1);opacity:.9}100%{transform:scale(1.9);opacity:0}}@keyframes lfDraw{to{stroke-dashoffset:0}}@keyframes lfUp{0%{opacity:0;transform:translateY(14px)}100%{opacity:1;transform:none}}' +
@@ -137,6 +150,7 @@
     build(); if (!form || rLang !== lang() || root.classList.contains('is-sent')) render();
     lastFocus = document.activeElement;
     root.classList.remove('is-sent');
+    var acc = document.querySelector('.btn-arrow'); if (acc) { var cc = getComputedStyle(acc).backgroundColor; if (cc && cc !== 'rgba(0, 0, 0, 0)') root.style.setProperty('--lf-acc', cc); }
     root.classList.add('is-open'); root.setAttribute('aria-hidden', 'false');
     lockY = scrollY; var b = document.body.style; b.position = 'fixed'; b.top = -lockY + 'px'; b.left = '0'; b.right = '0'; b.width = '100%'; document.documentElement.classList.add('lf-lock');
     if (window.__lenis && window.__lenis.stop) window.__lenis.stop();
@@ -160,22 +174,35 @@
     var svc = Array.prototype.slice.call(form.querySelectorAll('input[name="servico"]:checked')).map(function (i) { return i.value; }).join(', ') || '—';
     var btn = form.querySelector('.lf-send'), lbls = btn.querySelectorAll('.btn-roll > span'), orig = lbls[0].textContent; var setL = function (s) { lbls.forEach(function (x) { x.textContent = s; }); };
     btn.disabled = true; setL(t.sending); msg.textContent = '';
+    var bar = btn.querySelector('.lf-bar'); if (!bar) { bar = document.createElement('span'); bar.className = 'lf-bar'; bar.setAttribute('aria-hidden', 'true'); btn.insertBefore(bar, btn.firstChild); }
+    var ar = btn.querySelector('.btn-arrow'); if (ar) { btn.style.setProperty('--lf-acc', getComputedStyle(ar).backgroundColor); if (!ar.querySelector('.lf-chk')) { var ck = document.createElement('span'); ck.className = 'lf-chk'; ck.innerHTML = '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>'; ar.appendChild(ck); } }
+    btn.classList.remove('is-done'); void bar.offsetWidth; btn.classList.add('is-loading'); var t0 = Date.now();
+    var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+    var tf = function (u, o, ms) { var c = window.AbortController ? new AbortController() : null; if (c) { o.signal = c.signal; setTimeout(function () { c.abort(); }, ms); } return fetch(u, o); };
     var okJson = function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || j.success === 'false' || j.success === false) throw new Error(j.message || 'erro'); }); };
     // 1º: e-mail no visual do site (/api/contact, Resend). Se não estiver configurado, cai no FormSubmit.
     var svcList = svc === '—' ? [] : svc.split(', ');
-    fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: n, whatsapp: p, email: m, services: svcList, message: x, page: location.href, lang: lang(), _honey: form._honey.value }) })
-    .then(okJson).catch(function () { return fetch(ENDPOINT, {
+    tf('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: n, whatsapp: p, email: m, services: svcList, message: x, page: location.href, lang: lang(), _honey: form._honey.value }) }, 10000)
+    .then(okJson)
+    .catch(function () { if (!W3F_KEY) throw 0; return tf('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ access_key: W3F_KEY, subject: 'Novo contato do site da Fyw — ' + n + (svc !== '—' ? ' (' + svc + ')' : ''), from_name: 'Site Fyw', replyto: m, botcheck: form._honey.value,
+        'Nome': n, 'WhatsApp': p, 'Abrir conversa no WhatsApp': 'https://wa.me/' + (lang() === 'pt' ? '55' : '') + p.replace(/D/g, ''), 'E-mail': m, 'Do que precisa': svc, 'Mensagem': x || '—',
+        'Enviado em': new Date().toLocaleString('pt-BR', { dateStyle: 'full', timeStyle: 'short' }), 'Página de origem': location.href }) }, 12000).then(okJson); })
+    .catch(function () { return tf(ENDPOINT, {
       method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({ _subject: 'Novo contato do site da Fyw — ' + n + (svc !== '—' ? ' (' + svc + ')' : ''), _template: 'table', _captcha: 'false', _replyto: m,
         'Nome': n, 'WhatsApp': p, 'Abrir conversa no WhatsApp': 'https://wa.me/' + (lang() === 'pt' ? '55' : '') + p.replace(/\D/g, ''),
         'E-mail': m, 'Do que precisa': svc, 'Mensagem': x || '—',
         'Enviado em': new Date().toLocaleString('pt-BR', { dateStyle: 'full', timeStyle: 'short' }),
         'Idioma do site': ({ pt: 'Português', en: 'Inglês', es: 'Espanhol' })[lang()], 'Página de origem': location.href })
-    }).then(okJson); })
-      .then(function () { form.reset(); clearDraft(); root.classList.add('is-sent'); var ok = root.querySelector('.lf-ok [data-lf-close]'); if (ok) ok.focus({ preventScroll: true }); })
+    }, 15000).then(okJson); })
+      // a barra enche até o fim (mínimo ~1,2 s para ser vista) e só então aparece a mensagem de sucesso
+      .then(function () { return wait(Math.max(0, 1200 - (Date.now() - t0))); })
+      .then(function () { btn.classList.add('is-done'); return wait(480); })
+      .then(function () { form.reset(); clearDraft(); root.classList.add('is-sent'); box.setAttribute('tabindex', '-1'); box.focus({ preventScroll: true }); })
       .catch(function () { msg.innerHTML = t.err + '<a href="mailto:' + TO + '">' + TO + '</a>.'; })
-      .then(function () { btn.disabled = false; setL(orig); });
+      .then(function () { btn.disabled = false; setL(orig); btn.classList.remove('is-loading', 'is-done'); });
   }
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest(SEL);

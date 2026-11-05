@@ -4873,3 +4873,6 @@ html body .hf-card .fc-veil .veil-logo { max-width: 100% !important; }
 
 /* Páginas de projeto: topo sem vazio acima do título */
 html body .pp2-hero.is-text { min-height: 0 !important; }
+
+/* formulário: caixa recebe foco após enviar, sem contorno */
+.lf-box:focus { outline: none; }
