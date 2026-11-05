@@ -34,7 +34,7 @@
       for (var k = 1; k <= 4; k++) { s('--g' + k, hues[k - 1]); }
     })();
   </script>
-  <link rel="stylesheet" href="../assets/css/style.css?v=20261119p" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=20261119q" />
   <script>
     // Paleta sorteada a cada visita (não fica salva): cor de destaque + cores/posições das manchas
     (function () {
@@ -241,21 +241,22 @@
     </section>
 
     <section class="pp2-sec lp-sec">
-      <div class="lp-tabs" role="tablist" aria-label="Páginas do site" data-rv><button type="button" role="tab" class="lp-tab is-on" aria-selected="true" data-d="../assets/img/projetos/beta-online/lp-desktop.webp" data-dw="1000" data-dh="4452" data-m="../assets/img/projetos/beta-online/lp-mobile.webp" data-mw="500" data-mh="9631" data-title="Beta Online — Home">Home</button><button type="button" role="tab" class="lp-tab" aria-selected="false" data-d="../assets/img/projetos/beta-online/lp-home2-desktop.webp" data-dw="1000" data-dh="4452" data-m="../assets/img/projetos/beta-online/lp-home2-mobile.webp" data-mw="500" data-mh="10803" data-title="Beta Online — Home V2">Home V2</button><button type="button" role="tab" class="lp-tab" aria-selected="false" data-d="../assets/img/projetos/beta-online/lp-inst-desktop.webp" data-dw="1000" data-dh="3307" data-m="../assets/img/projetos/beta-online/lp-inst-mobile.webp" data-mw="500" data-mh="7798" data-title="Beta Online — Institucional">Institucional</button></div>
+      <div class="lp-tabs" role="tablist" aria-label="Páginas do site" data-rv><button type="button" role="tab" class="lp-tab is-on" aria-selected="true" data-src="beta-online/site/?v=1" data-title="Beta Online — Home">Home</button><button type="button" role="tab" class="lp-tab" aria-selected="false" data-src="beta-online/site/home-v2.html?v=1" data-title="Beta Online — Home V2">Home V2</button><button type="button" role="tab" class="lp-tab" aria-selected="false" data-src="beta-online/site/institucional.html?v=1" data-title="Beta Online — Institucional">Institucional</button></div>
       <div class="lp-stage" data-rv>
         <figure class="lp-browser">
           <div class="lp-bar" aria-hidden="true"><i></i><i></i><i></i><span class="lp-title">Beta Online — Home</span></div>
           <div class="lp-scroll" data-lenis-prevent tabindex="0" role="region" aria-label="Site do Beta Online no desktop (role para ver)">
-            <img src="../assets/img/projetos/beta-online/lp-desktop.webp" width="1000" height="4452" alt="Página completa do novo site na versão desktop" loading="lazy" decoding="async">
+            <div class="lp-live" data-w="1440"><iframe src="beta-online/site/?v=1" title="Site do Beta Online no desktop" width="1440" height="900" loading="lazy"></iframe></div>
           </div>
         </figure>
         <figure class="lp-phone">
           <div class="lp-scroll" data-lenis-prevent tabindex="0" role="region" aria-label="Site do Beta Online no celular (role para ver)">
-            <img src="../assets/img/projetos/beta-online/lp-mobile.webp" width="500" height="9631" alt="Página completa do novo site na versão para celular" loading="lazy" decoding="async">
+            <div class="lp-live" data-w="390"><iframe src="beta-online/site/?v=1" title="Site do Beta Online no celular" width="390" height="844" loading="lazy"></iframe></div>
           </div>
         </figure>
       </div>
-      <p class="lp-hint" data-rv>As telas rolam sozinhas — role ou toque para navegar</p>
+      <p class="lp-hint" data-rv>As telas rolam sozinhas — role, toque e navegue como no site real</p>
+      <a class="pp2-live is-gal lp-open" href="beta-online/site/" target="_blank" rel="noopener"><span>Abrir o site</span><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></i></a>
     </section>
 
     <section class="pp2-sec pp2-gal-sec">
@@ -435,7 +436,7 @@
   </div>
   <script src="../assets/js/i18n.js?v=20261115b"></script>
   <script src="../assets/js/menu-inner.js?v=20261110b"></script>
-  <script defer src="../assets/js/lp-preview.js?v=7"></script>
+  <script defer src="../assets/js/lp-preview.js?v=8"></script>
   <script src="../assets/js/autoscroll.js?v=20261111b"></script>
 </body>
 </html>

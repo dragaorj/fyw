@@ -63,6 +63,7 @@
     });
     f.addEventListener('load', function () {
       fit();
+      if (box._reset) box._reset();
       wrap.classList.add('is-ready');
       try {
         var d = f.contentWindow.document;
@@ -83,6 +84,12 @@
       if (dImg) { dImg.width = +b.dataset.dw; dImg.height = +b.dataset.dh; dImg.src = b.dataset.d; }
       if (mImg) { mImg.width = +b.dataset.mw; mImg.height = +b.dataset.mh; mImg.src = b.dataset.m; }
       if (title && b.dataset.title) title.textContent = b.dataset.title;
+      // páginas de verdade: troca o endereço dos iframes (navegador e celular) e o botão "Abrir o site"
+      if (b.dataset.src) {
+        sec.querySelectorAll('.lp-live').forEach(function (w) { w.classList.remove('is-ready'); var f = w.querySelector('iframe'); if (f) f.src = b.dataset.src; });
+        var open = sec.querySelector('.lp-open'); if (open) open.href = b.dataset.src.replace(/\?.*$/, '');
+        return;
+      }
       sec.querySelectorAll('.lp-scroll').forEach(function (s) { if (s._reset) s._reset(); else s.scrollTop = 0; });
     });
   });
