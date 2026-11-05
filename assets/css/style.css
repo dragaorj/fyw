@@ -4521,3 +4521,23 @@ html body .pp2-duo .pp2-card { min-height: 0; padding: clamp(22px, 2.4vw, 30px);
 .pp2-duo .pp2-card h2 { font-size: clamp(1.375rem, 1.8vw, 1.75rem); padding-right: 64px; }
 .pp2-duo .pp2-card p { grid-column: 1 / -1; max-width: 62ch; font-size: 1rem; }
 .pp2-duo .pp2-n { top: 16px; right: 22px; font-size: clamp(2.5rem, 4vw, 3.5rem); }
+
+/* moldura do celular: capinha com borda metálica, ilha no topo e botões laterais */
+.lp-phone { position: relative; padding: 9px; border-radius: 48px;
+  background: linear-gradient(145deg, #3A3A39 0%, #141413 32%, #0B0B0B 60%, #2B2B2A 100%);
+  box-shadow: 0 50px 90px -40px rgba(0,0,0,.65), 0 0 0 1px rgba(255,255,255,.06), inset 0 0 0 1.5px #4A4A48, inset 0 0 0 4px #0B0B0B; }
+.lp-phone .lp-scroll { aspect-ratio: 9 / 19.5; border-radius: 39px; }
+.lp-phone::before { content: ""; position: absolute; z-index: 3; top: 19px; left: 50%; width: 30%; height: 22px; transform: translateX(-50%);
+  border-radius: 99px; background: #050505; box-shadow: inset 0 0 0 1px rgba(255,255,255,.05); pointer-events: none; }
+.lp-phone::after { content: ""; position: absolute; z-index: -1; top: 22%; right: -3px; width: 4px; height: 13%; border-radius: 0 3px 3px 0;
+  background: #2A2A29;
+  box-shadow: calc(-100cqw - 2px) -40% 0 0 #2A2A29, calc(-100cqw - 2px) 70% 0 0 #2A2A29; }
+.lp-phone { container-type: inline-size; }
+
+/* a página dentro da moldura nunca vaza pelos cantos arredondados (o iframe em escala ignora o overflow em alguns navegadores) */
+.lp-phone .lp-scroll { clip-path: inset(0 round 39px); isolation: isolate; }
+.lp-browser { clip-path: inset(0 round 14px); isolation: isolate; }
+.lp-scroll.is-live .lp-live { clip-path: inset(0); }
+/* celular: barra de status sob a ilha, a página começa logo abaixo dela */
+.lp-phone .lp-scroll.is-live .lp-live { top: 34px; }
+.lp-phone .lp-scroll.is-live::before { content: ""; position: absolute; inset: 0 0 auto; height: 34px; background: #0B0B0B; z-index: 0; }

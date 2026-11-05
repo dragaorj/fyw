@@ -49,7 +49,7 @@
     function fit() {
       var k = s();
       f.style.width = W + 'px';
-      f.style.height = Math.ceil(box.clientHeight / k) + 2 + 'px';
+      f.style.height = Math.ceil((wrap.clientHeight || box.clientHeight) / k) + 2 + 'px';
       f.style.transform = 'scale(' + k + ')';
     }
     fit();
