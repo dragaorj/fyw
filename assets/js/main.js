@@ -306,7 +306,7 @@
           const pj = PJ[el.dataset.project]; if (!pj) return;
           let tag = el.querySelector('.hf-tag');
           if (!tag) { tag = document.createElement('span'); tag.className = 'hf-tag ' + TC[i % 3]; el.appendChild(tag); }
-          tag.textContent = pj.type;
+          tag.textContent = pj.name; const tt = document.createElement("span"); tt.className = "hf-tt"; tt.textContent = " · " + pj.type; tag.appendChild(tt);
         });
         const ROT = fCards.map(el => parseFloat(el.style.getPropertyValue('--r')) || 0);
         const PILE = [-6, 4, -2, 7, -4, 3, -7, 5, -3];
@@ -1000,6 +1000,9 @@
     addEventListener('load', place, { once: true });
   })();
 
+  /* ---------------- Cards do topo com página própria: clique abre o projeto ---------------- */
+  document.addEventListener('click', e => { const c = e.target.closest && e.target.closest('.hf-card[data-href]'); if (c) location.href = c.dataset.href; });
+
   /* ---------------- Projetos em ordem aleatória a cada visita (cards do topo + linhas de Trabalhos combinando) ---------------- */
   (function () {
     const fan = $('.hfan'), list = $('.work-list'); if (!fan || !list) return;
@@ -1008,6 +1011,8 @@
     // etiquetas fixas nas posições 3, 5 e 7 (saem dos cards e voltam para quem cair nessas posições)
     const tags = [cards[2], cards[4], cards[6]].map(c => { const t = c.querySelector('.hf-tag.is-rest'); if (t) t.remove(); return t; });
     const sh = mid.slice(); for (let i = sh.length - 1; i > 0; i--) { const k = Math.floor(Math.random() * (i + 1)); [sh[i], sh[k]] = [sh[k], sh[i]]; }
+    // card marcado com data-center (projeto em destaque) fica sempre no meio
+    const ci = sh.findIndex(c => c.hasAttribute('data-center')); if (ci > -1) { const m = Math.floor(sh.length / 2); [sh[ci], sh[m]] = [sh[m], sh[ci]]; }
     sh.forEach((c, i) => { fan.insertBefore(c, cards[7]); c.setAttribute('style', poses[i]); });
     [sh[0], sh[2], sh[4]].forEach((c, i) => { if (tags[i]) c.appendChild(tags[i]); });
     const bySlug = {}; $$('.work-row', list).forEach(r => { bySlug[(r.getAttribute('href') || '').split('/').pop().replace('.html', '')] = r; });
@@ -1336,7 +1341,7 @@
       const pj = PJ[el.dataset.project]; if (!pj) return;
       let tag = el.querySelector('.hf-tag');
       if (!tag) { tag = document.createElement('span'); tag.className = 'hf-tag ' + TC[i % 3]; el.appendChild(tag); }
-      tag.textContent = pj.type;
+      tag.textContent = pj.name; const tt = document.createElement("span"); tt.className = "hf-tt"; tt.textContent = " · " + pj.type; tag.appendChild(tt);
     });
   })();
   // tela de carregamento: sobe até 100% quando a página e o vídeo estão prontos (no máximo ~3s)

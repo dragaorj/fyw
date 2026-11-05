@@ -4147,3 +4147,90 @@ html body .loader.is-fast .loader-bar i { transition-duration: .16s; }
 html body .story-year { justify-content: center !important; letter-spacing: -.045em !important; }
 html body .story-year span { flex: none !important; }
 @media (min-width: 600px) { html body .story-year { font-size: clamp(9rem, 27vw, 30rem) !important; } }
+
+/* ===== Projeto Kyoto: azul da marca, sol nascente e estampa de grãos em vetor (leve: tudo SVG na página) ===== */
+.pj-kyoto .ky-hero { background: linear-gradient(165deg, #00224A 0%, #001A39 60%, #00132B 100%); }
+.pj-kyoto .ky-hero .pp2-fx { background: #0178FF; opacity: .55; }
+.ky-grains { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; color: #EEEDE9; opacity: .1;
+  -webkit-mask-image: linear-gradient(200deg, #000 10%, transparent 65%); mask-image: linear-gradient(200deg, #000 10%, transparent 65%); }
+.ky-sun { position: absolute; z-index: -1; pointer-events: none; color: #EEEDE9; opacity: .94;
+  width: clamp(132px, 40vw, 500px); height: auto; right: max(16px, 6vw); top: clamp(92px, 15vh, 170px);
+  animation: kySun 1.8s cubic-bezier(.16,1,.3,1) both; }
+@keyframes kySun { from { transform: translateY(28px); opacity: 0; } }
+.ky-vert { display: none; }
+@media (min-width: 900px) {
+  .ky-vert { display: block; position: absolute; z-index: -1; right: max(24px, 2.4vw); bottom: 64px; writing-mode: vertical-rl;
+    font-size: .8125rem; letter-spacing: .55em; color: rgba(238,237,233,.5); }
+  .ky-sun { right: max(64px, 9vw); }
+}
+@media (prefers-reduced-motion: reduce) { .ky-sun { animation: none; } }
+html.a11y-motion .ky-sun { animation: none; }
+
+.ky-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 900px) { .ky-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+.ky-palette { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.ky-palette li { background: var(--c); color: var(--t); border-radius: 20px; min-height: 128px; padding: 16px 18px;
+  display: flex; flex-direction: column; justify-content: flex-end; gap: 2px; border: 1px solid rgba(11,11,11,.08); }
+.ky-palette li:first-child { grid-column: span 2; min-height: 168px; }
+.ky-palette b { font-weight: 500; font-size: 1rem; }
+.ky-palette span { font-size: .8125rem; opacity: .7; font-variant-numeric: tabular-nums; letter-spacing: .02em; }
+@media (min-width: 900px) {
+  .ky-palette { grid-template-columns: 2fr repeat(4, minmax(0, 1fr)); }
+  .ky-palette li, .ky-palette li:first-child { grid-column: auto; min-height: 220px; padding: 22px 24px; }
+}
+[data-theme="dark"] .ky-palette li { border-color: rgba(238,237,233,.1); }
+
+/* card do topo com página própria: clicável */
+.hf-card[data-href] { cursor: pointer; }
+/* Kyoto no celular: topo mais alto para o sol ficar acima do conteúdo, sem cobrir as etiquetas */
+@media (max-width: 899px) {
+  html body.pj-kyoto .ky-hero { min-height: max(80svh, 600px); }
+  .ky-sun { width: min(46vw, 220px); top: 92px; right: 16px; }
+}
+@media (min-width: 900px) {
+  .ky-sun { top: 120px; width: min(30vw, calc(62svh - 180px), 460px); }
+}
+/* etiqueta dos cards do topo: "Nome · Serviço"; no celular só o nome (os cards ficam colados) */
+@media (max-width: 599px) { .hf-tag .hf-tt { display: none; } }
+/* Kyoto: topo sem o símbolo e sem a estampa (altura normal no celular) */
+@media (max-width: 899px) { html body.pj-kyoto .ky-hero { min-height: 62svh; } }
+/* cards de projeto: espaço reservado para o ícone (o título nunca passa por baixo dele) */
+html body .pp2-card { padding-top: calc(28px + 52px + 22px); }
+
+/* ===== Prévia de landing page nas páginas de projeto: telas que rolam por dentro ===== */
+.lp-head { display: grid; gap: 10px; max-width: 62ch; margin-bottom: 28px; }
+.lp-lead { margin: 0; font-size: clamp(1.25rem, 2vw, 1.75rem); line-height: 1.25; letter-spacing: -.02em; color: var(--ink); }
+.lp-stage { position: relative; display: grid; gap: 18px; padding: clamp(18px, 4vw, 56px); border-radius: var(--radius-lg, 24px);
+  background: radial-gradient(120% 90% at 85% 10%, color-mix(in srgb, var(--pa, #0178FF) 26%, transparent), transparent 60%), var(--surface-2, #E2E1DC); overflow: hidden; }
+[data-theme="dark"] .lp-stage { background: radial-gradient(120% 90% at 85% 10%, color-mix(in srgb, var(--pa, #0178FF) 30%, transparent), transparent 60%), #161615; }
+.lp-stage figure { margin: 0; }
+.lp-scroll { overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; -webkit-overflow-scrolling: touch; background: #fff; outline: none; }
+.lp-scroll::-webkit-scrollbar { display: none; }
+.lp-scroll img { display: block; width: 100%; height: auto; }
+.lp-scroll:focus-visible { box-shadow: inset 0 0 0 3px var(--pa, #0178FF); }
+.lp-browser { border-radius: 14px; overflow: hidden; background: #0B0B0B; box-shadow: 0 40px 80px -40px rgba(0,0,0,.55), 0 0 0 1px rgba(11,11,11,.12); }
+.lp-bar { display: flex; align-items: center; gap: 6px; height: 34px; padding: 0 14px; background: #1A1A19; }
+.lp-bar i { width: 10px; height: 10px; border-radius: 50%; background: #3A3A38; }
+.lp-bar span { margin-left: 10px; font-size: .75rem; color: rgba(238,237,233,.6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lp-browser .lp-scroll { height: min(62svh, 560px); }
+.lp-phone { justify-self: center; width: min(66vw, 280px); padding: 10px; border-radius: 42px; background: #0B0B0B;
+  box-shadow: 0 40px 80px -40px rgba(0,0,0,.6), inset 0 0 0 2px #2A2A28; }
+.lp-phone .lp-scroll { aspect-ratio: 9 / 19; border-radius: 32px; }
+.lp-hint { margin: 14px 0 0; font-size: .8125rem; color: var(--muted); text-align: center; }
+/* celular: só a versão de celular (a tela do desktop fica pequena demais para ler) */
+@media (max-width: 699px) { .lp-browser { display: none; } }
+@media (min-width: 700px) {
+  .lp-stage { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: clamp(20px, 3vw, 44px); }
+  .lp-phone { width: clamp(220px, 22vw, 300px); }
+  .lp-browser .lp-scroll { height: min(64svh, 620px); }
+}
+/* bandeira do país do projeto (SVG) */
+.flag { display: inline-block; width: 1.4em; height: .94em; vertical-align: -.12em; margin-right: .45em; border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(11,11,11,.14), 0 2px 6px -2px rgba(0,0,0,.25); flex: none; }
+.pp2-meta dd .flag { box-shadow: 0 0 0 1px rgba(238,237,233,.25); }
+/* celular: galeria mostra uma imagem por vez, sem a beirada da próxima aparecendo */
+@media (max-width: 599px) {
+  html body .pp2-gal { scroll-padding-inline: 0; gap: 16px; }
+  html body .pp2-slide { width: 100%; }
+}
