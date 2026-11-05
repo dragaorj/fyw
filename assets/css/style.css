@@ -4783,3 +4783,4 @@ html body .hf-card .fc-veil .veil-logo { max-width: 100% !important; }
 .hf-card[data-project="pacto-global"] { --lw: 72%; }
 .hf-card[data-project="latimpacto"] { --lw: 86%; }
 .fc-veil { padding-left: 12% !important; padding-right: 12% !important; }
+.hf-card[data-project="pacto-global"] { --lw: 90%; }
