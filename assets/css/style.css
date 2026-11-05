@@ -4234,3 +4234,69 @@ html body .pp2-card { padding-top: calc(28px + 52px + 22px); }
   html body .pp2-gal { scroll-padding-inline: 0; gap: 16px; }
   html body .pp2-slide { width: 100%; }
 }
+/* galeria em deslize contínuo: sem "ímã" de encaixe (ele travaria o movimento suave) */
+html body .pp2-gal.is-marquee { scroll-snap-type: none; }
+/* aviso de versão nas páginas de projeto */
+.pp2-note { display: flex; align-items: flex-start; gap: 10px; margin: 18px 0 0; max-width: 72ch; font-size: .8125rem; line-height: 1.5; color: var(--muted); }
+.pp2-note svg { flex: none; width: 18px; height: 18px; margin-top: 1px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; }
+/* logo real no mural de marcas (SVG em currentColor: segue a cor do tema e do hover) */
+html body .lw-logo .lw-mark { width: auto; height: clamp(46px, 4.6vw, 64px); }
+.lw-reg .flag { width: 1.25em; height: .84em; margin-right: .35em; }
+/* cliente com cor de marca (--brand): brilho do hover, logo, botão e região na cor do projeto */
+html body .logo-wall .lw-cell[style*="--brand"]::before { background: radial-gradient(260px circle at var(--cx, 50%) var(--cy, 50%), color-mix(in srgb, var(--brand) 28%, transparent), transparent 70%); }
+.lw-cell[style*="--brand"] .lw-mark { transition: color .45s var(--ease); }
+.lw-cell[style*="--brand"]:hover .lw-mark, .lw-cell[style*="--brand"]:focus-within .lw-mark { color: var(--brand); }
+html body .lw-cell[style*="--brand"] .lw-go { background: var(--brand) !important; color: #fff !important; }
+.lw-cell[style*="--brand"] .lw-reg { background: color-mix(in srgb, var(--brand) 12%, transparent); }
+/* logo da marca (SVG): fica parada; no hover só aparece embaixo uma linha enxuta (região + ver projeto) */
+html body .lw-has-mark .lw-logo, html body .lw-has-mark:hover .lw-logo, html body .lw-has-mark:focus-within .lw-logo { transform: none; }
+html body .lw-has-mark .lw-info { flex-wrap: nowrap; }
+
+/* ===== Jogo pela Integridade (São Paulo FC): topo escuro com o vermelho do clube e os escudos ===== */
+.pj-jpi .jpi-hero { background: radial-gradient(90% 80% at 85% 0%, rgba(220,20,20,.35), transparent 60%), linear-gradient(170deg, #1A0B0C 0%, #111111 55%, #0B0B0B 100%); }
+.pj-jpi .jpi-hero .pp2-fx { background: #DC1414; opacity: .45; }
+.jpi-logos { display: flex; align-items: center; gap: 16px; color: #EEEDE9; margin-bottom: 6px; }
+.jpi-logos i { width: 1px; height: 40px; background: rgba(238,237,233,.25); }
+.jpi-spfc { width: auto; height: clamp(52px, 6vw, 72px); }
+.jpi-mark { width: auto; height: clamp(50px, 5.6vw, 68px); }
+/* prévia com três telas: navegador, tablet e celular */
+.lp-tablet { justify-self: center; width: min(52vw, 250px); padding: 10px; border-radius: 26px; background: #0B0B0B; box-shadow: 0 40px 80px -40px rgba(0,0,0,.6), inset 0 0 0 2px #2A2A28; }
+.lp-tablet .lp-scroll { aspect-ratio: 3 / 4; border-radius: 16px; }
+@media (max-width: 699px) { .lp-tablet { display: none; } }
+@media (min-width: 700px) {
+  .lp-stage.lp-3 { grid-template-columns: minmax(0, 1fr) auto auto; }
+  .lp-stage.lp-3 .lp-tablet { width: clamp(180px, 17vw, 250px); }
+  .lp-stage.lp-3 .lp-phone { width: clamp(150px, 13vw, 210px); }
+}
+@media (min-width: 700px) and (max-width: 1099px) { .lp-stage.lp-3 .lp-tablet { display: none; } .lp-stage.lp-3 { grid-template-columns: minmax(0, 1fr) auto; } }
+/* telas em pé (ex.: 1080×1920): topo das páginas internas na altura do conteúdo, sem sobra enorme */
+@media (min-width: 600px) and (max-aspect-ratio: 4/5) {
+  html body .pp2-hero, html body .pp2-hero.is-text, html body .pj2-hero, html body.pj-kyoto .ky-hero { min-height: clamp(420px, 32svh, 600px) !important; }
+  html body .legal-hero { height: clamp(440px, 34svh, 620px) !important; min-height: 0 !important; }
+}
+/* logo com versão colorida: no hover troca a versão de uma cor pela original */
+.lw-has-color .lw-mark.is-color { position: absolute; left: 0; top: 0; opacity: 0; transition: opacity .45s var(--ease); }
+.lw-has-color .lw-mark:not(.is-color) { transition: opacity .45s var(--ease); }
+.lw-has-color:hover .lw-mark.is-color, .lw-has-color:focus-within .lw-mark.is-color { opacity: 1; }
+.lw-has-color:hover .lw-mark:not(.is-color), .lw-has-color:focus-within .lw-mark:not(.is-color) { opacity: 0; }
+/* escudos no topo do projeto: mesmo peso visual (o do evento tem texto em cima, então fica um pouco mais alto) */
+html body .jpi-logos { gap: clamp(14px, 1.6vw, 22px); }
+html body .jpi-spfc { height: clamp(46px, 4.4vw, 60px); }
+html body .jpi-mark { height: clamp(56px, 5.4vw, 74px); }
+html body .jpi-logos i { height: clamp(36px, 3.4vw, 48px); }
+/* botão "Ver site no ar" (projetos publicados) */
+.pp2-live { justify-self: start; display: inline-flex; align-items: center; gap: 12px; height: 48px; padding: 0 6px 0 22px; border-radius: 99px;
+  background: var(--pa, #0B0B0B); color: #fff; font-weight: 500; font-size: .9375rem; text-decoration: none; transition: transform .4s var(--ease), box-shadow .4s var(--ease); }
+.pp2-live i { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.18); }
+.pp2-live svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .4s var(--ease); }
+.pp2-live:hover { transform: translateY(-2px); box-shadow: 0 16px 34px -14px color-mix(in srgb, var(--pa, #0B0B0B) 70%, transparent); }
+.pp2-live:hover svg { transform: translate(2px, -2px); }
+.pp2-live.is-hero { margin-top: 6px; }
+/* linha de Projetos: bandeira ao lado do texto do detalhe */
+.wr-place { display: inline-flex; align-items: center; justify-content: center; }
+.pp2-live.is-gal { margin-top: 18px; }
+/* botões: texto sempre numa linha só (nunca quebra dentro do botão) */
+.btn, .pp2-live, .btn-roll, .btn-roll > span, .lw-more, .pp2-gal-btn { white-space: nowrap; }
+.pp2-live { max-width: 100%; }
+.pp2-live span { overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 380px) { .pp2-live { font-size: .875rem; padding-left: 18px; gap: 10px; } }

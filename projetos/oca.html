@@ -34,7 +34,7 @@
       for (var k = 1; k <= 4; k++) { s('--g' + k, hues[k - 1]); }
     })();
   </script>
-  <link rel="stylesheet" href="../assets/css/style.css?v=20261116a" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=20261117h" />
   <script>
     // Paleta sorteada a cada visita (não fica salva): cor de destaque + cores/posições das manchas
     (function () {
@@ -123,6 +123,7 @@
           <figure class="pp2-slide"><img src="https://picsum.photos/seed/fyw-p11-g/1400/900" width="1400" height="900" alt="Projeto Oca — imagem 5" loading="lazy" decoding="async"></figure>
           <figure class="pp2-slide"><img src="https://picsum.photos/seed/fyw-p11-h/1400/900" width="1400" height="900" alt="Projeto Oca — imagem 6" loading="lazy" decoding="async"></figure>
       </div>
+      <p class="pp2-note" data-rv><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6v.4"/></svg><span>As imagens mostram o projeto como foi entregue pela Fyw. A versão publicada pode ter passado por ajustes depois, a pedido do cliente.</span></p>
     </section>
 
     <section class="pp2-sec">
@@ -173,17 +174,32 @@
         gal.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') return; down = true; sx = e.clientX; sl = gal.scrollLeft; gal.classList.add('is-drag'); });
         addEventListener('pointerup', function () { down = false; gal.classList.remove('is-drag'); });
         gal.addEventListener('pointermove', function (e) { if (down) gal.scrollLeft = sl - (e.clientX - sx); });
-        // carrossel: passa sozinho para o lado; pausa enquanto a pessoa interage e volta ao início no fim
+        // carrossel contínuo: desliza direto e suave, em loop (as imagens se repetem no fim sem emenda);
+        // pausa enquanto a pessoa interage e continua de onde ela parou
         if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !document.documentElement.classList.contains('a11y-motion')) {
-          var pausedUntil = 0, vis = false, hold = function () { pausedUntil = Date.now() + 6000; };
+          var slides = Array.prototype.slice.call(gal.querySelectorAll('.pp2-slide'));
+          slides.forEach(function (s) { var c = s.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.querySelectorAll('img').forEach(function (i) { i.alt = ''; i.loading = 'lazy'; }); gal.appendChild(c); });
+          gal.classList.add('is-marquee');
+          var SPEED = 42, pausedUntil = 0, vis = false, raf = 0, last = 0, pos = 0;
+          var half = function () { return gal.scrollWidth / 2; };
+          var hold = function () { pausedUntil = performance.now() + 3500; };
           ['pointerdown', 'wheel', 'touchstart', 'keydown'].forEach(function (ev) { gal.addEventListener(ev, hold, { passive: true }); });
           document.querySelectorAll('.pp2-gal-btn').forEach(function (b) { b.addEventListener('click', hold); });
-          if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { vis = es[0].isIntersecting; }, { threshold: 0.4 }).observe(gal);
-          setInterval(function () {
-            if (!vis || down || Date.now() < pausedUntil || document.hidden) return;
-            var w = gal.querySelector('.pp2-slide').offsetWidth + 14, end = gal.scrollLeft + gal.clientWidth >= gal.scrollWidth - 8;
-            gal.scrollTo({ left: end ? 0 : gal.scrollLeft + w, behavior: 'smooth' });
-          }, 3800);
+          var step = function (t) {
+            raf = 0; if (!vis) return;
+            var dt = last ? Math.min(64, t - last) : 16; last = t;
+            if (down || performance.now() < pausedUntil) { pos = gal.scrollLeft; }
+            else {
+              pos += SPEED * dt / 1000;
+              if (pos >= half()) pos -= half();
+              gal.scrollLeft = pos;
+            }
+            if (gal.scrollLeft >= half()) { gal.scrollLeft -= half(); pos = gal.scrollLeft; }
+            raf = requestAnimationFrame(step);
+          };
+          var go = function () { if (!raf && vis) { last = 0; pos = gal.scrollLeft; raf = requestAnimationFrame(step); } };
+          if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { vis = es[0].isIntersecting; if (vis) go(); }, { threshold: 0.2 }).observe(gal);
+          else { vis = true; go(); }
         }
       }
       // brilho de cor que segue o mouse

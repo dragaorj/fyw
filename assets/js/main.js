@@ -306,7 +306,7 @@
           const pj = PJ[el.dataset.project]; if (!pj) return;
           let tag = el.querySelector('.hf-tag');
           if (!tag) { tag = document.createElement('span'); tag.className = 'hf-tag ' + TC[i % 3]; el.appendChild(tag); }
-          tag.textContent = pj.name; const tt = document.createElement("span"); tt.className = "hf-tt"; tt.textContent = " · " + pj.type; tag.appendChild(tt);
+          tag.textContent = pj.name; const tt = document.createElement("span"); tt.className = "hf-tt"; tt.textContent = " · " + pj.type; tag.appendChild(tt); if (pj.color) { tag.style.setProperty('--tc', pj.color, 'important'); tag.style.setProperty('color', '#fff', 'important'); }
         });
         const ROT = fCards.map(el => parseFloat(el.style.getPropertyValue('--r')) || 0);
         const PILE = [-6, 4, -2, 7, -4, 3, -7, 5, -3];
@@ -1341,7 +1341,7 @@
       const pj = PJ[el.dataset.project]; if (!pj) return;
       let tag = el.querySelector('.hf-tag');
       if (!tag) { tag = document.createElement('span'); tag.className = 'hf-tag ' + TC[i % 3]; el.appendChild(tag); }
-      tag.textContent = pj.name; const tt = document.createElement("span"); tt.className = "hf-tt"; tt.textContent = " · " + pj.type; tag.appendChild(tt);
+      tag.textContent = pj.name; const tt = document.createElement("span"); tt.className = "hf-tt"; tt.textContent = " · " + pj.type; tag.appendChild(tt); if (pj.color) { tag.style.setProperty('--tc', pj.color, 'important'); tag.style.setProperty('color', '#fff', 'important'); }
     });
   })();
   // tela de carregamento: sobe até 100% quando a página e o vídeo estão prontos (no máximo ~3s)

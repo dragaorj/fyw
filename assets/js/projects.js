@@ -5,7 +5,8 @@
    aponta para o projeto pelo "slug" (nome da página em /projetos).
    ========================================================= */
 window.FYW_PROJECTS = {
-  'kyoto':       { name: 'Kyoto',         type: 'Branding' },
+  'jogo-pela-integridade': { name: 'SPFC', type: 'Web Design', color: '#DC1414' },
+  'kyoto':       { name: 'Kyoto',         type: 'Branding', color: '#0178FF' },
   'aurora-bank': { name: 'Aurora Bank',   type: 'Branding' },
   'verde':       { name: 'Verde Mercado', type: 'E-commerce' },
   'nomade':      { name: 'Nômade App',    type: 'App' },
