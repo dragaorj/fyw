@@ -10,7 +10,7 @@
     'Arquitetura': ['Architecture', 'Arquitectura'], 'Investimentos': ['Investments', 'Inversiones'], 'Saúde': ['Health', 'Salud'], 'Varejo': ['Retail', 'Comercio minorista'],
     'Educação': ['Education', 'Educación'], 'Esporte · Evento': ['Sports · Event', 'Deporte · Evento'], 'Remoto': ['Remote', 'Remoto'],
     'Quioto, Japão': ['Kyoto, Japan', 'Kioto, Japón'], 'São Paulo, Brasil': ['São Paulo, Brazil', 'São Paulo, Brasil'], 'Brasil': ['Brazil', 'Brasil'],
-    'Lisboa': ['Lisbon', 'Lisboa'], 'Branding · UI/UX & Web': ['Branding · UI/UX & Web', 'Branding · UI/UX y Web'], 'Design System · UI/UX & Web': ['Design System · UI/UX & Web', 'Design System · UI/UX y Web'], 'São Paulo FC · UI/UX & Web': ['São Paulo FC · UI/UX & Web', 'São Paulo FC · UI/UX y Web'], 'Design System e UI/UX &amp; Web': ['Design System and UI/UX &amp; Web', 'Design System y UI/UX y Web'],
+    'Lisboa': ['Lisbon', 'Lisboa'], 'Branding · UI/UX & Web': ['Branding · UI/UX & Web', 'Branding · UI/UX y Web'], 'Design System · UI/UX & Web': ['Design System · UI/UX & Web', 'Design System · UI/UX y Web'], 'Jogo pela Integridade · UI/UX & Web': ['Game for Integrity · UI/UX & Web', 'Partido por la Integridad · UI/UX y Web'], 'Design System e UI/UX &amp; Web': ['Design System and UI/UX &amp; Web', 'Design System y UI/UX y Web'],
     'Branding e UI/UX &amp; Web': ['Branding and UI/UX &amp; Web', 'Branding y UI/UX y Web'], 'Branding e UI/UX & Web': ['Branding and UI/UX & Web', 'Branding y UI/UX y Web'], 'Design System e UI/UX & Web': ['Design System and UI/UX & Web', 'Design System y UI/UX y Web']
   };
   var D = {
