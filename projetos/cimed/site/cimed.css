@@ -647,3 +647,6 @@ html.is-lock,html.is-lock body{overflow:hidden}
 .nc-m>img{transition:none}
 @media (max-width:860px){ .about-ph{aspect-ratio:4/3.6} .about-badge{left:12px;right:12px;bottom:56px;max-width:none;padding:8px 14px 8px 8px}.about-badge b{height:40px;font-size:1rem} }
 .in-frame .hd.is-hide{transform:none}
+/* post de concentração: foto real do Lavitan Memória */
+.nc-prod,.post-cv-prod{background:radial-gradient(70% 70% at 50% 45%,#F4F4F4,#BDBDBD)}
+.nc-prod>img,.post-cv-prod>img{object-fit:contain!important}

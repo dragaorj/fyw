@@ -15,7 +15,7 @@ window.FYW_PROJECTS = {
   'pulso':       { name: 'Pulso Health',  type: 'Design System' },
   'orbe':        { name: 'Orbe Studio',   type: 'Rebranding' },
   'lumen':       { name: 'Lumen',         type: 'SaaS' },
-  'kora':        { name: 'Kora',          type: 'Website' },
+  'latimpacto':  { name: 'Latimpacto', type: 'UI/UX & Web', color: '#985CCC', title: 'Latimpacto', sub: 'Impact Minds', svc: [1], img: 'assets/img/projetos/latimpacto/thumb.webp' },
   'atlas':       { name: 'Atlas',         type: 'UI/UX' },
   'brisa':       { name: 'Brisa',         type: 'Branding' },
   'prisma':      { name: 'Prisma',        type: 'App' },

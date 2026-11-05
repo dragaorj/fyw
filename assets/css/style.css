@@ -4718,3 +4718,7 @@ html body.pp2.pj-cimed .pp2-hero .pp2-meta dt { color: rgba(11,11,11,.6) !import
 html body.pp2.pj-cimed .pp2-hero .pp2-chip { color: #0B0B0B !important; background: rgba(11,11,11,.08) !important; border-color: rgba(11,11,11,.16) !important; }
 html body.pp2.pj-cimed .pp2-hero .pp2-chip.is-accent { color: #FFC600 !important; background: #0B0B0B !important; border-color: transparent !important; }
 html body.pp2.pj-cimed .pp2-back { background: rgba(11,11,11,.08) !important; border-color: rgba(11,11,11,.16) !important; }
+/* Latimpacto: logo no topo e no mural */
+.pj-lat .pp2-brand .lt-word { height: clamp(26px, 2.6vw, 44px) !important; width: auto; aspect-ratio: 619/143; }
+@media (max-width: 899px) { .pj-lat .pp2-brand .lt-word { height: 22px !important; } }
+.lw-lat .lw-mark { height: clamp(22px, 2vw, 30px) !important; }

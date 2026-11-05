@@ -1,0 +1,11 @@
+:HL["/projetos/latimpacto/site/_next/static/media/068feab4deafcd0f-s.p.0_kz_z3o_slvt.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/projetos/latimpacto/site/_next/static/media/7dfbc8ac3aac3338.p.0z67wasdf3doh.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/projetos/latimpacto/site/_next/static/media/869d67bfbf6dcad1.p.20r9ojruem9mg.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/projetos/latimpacto/site/_next/static/media/Gloock_Regular-s.p.00mylonpezkya.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/projetos/latimpacto/site/_next/static/media/db545dba463279ae-s.p.1cp9-4nby68jc.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/projetos/latimpacto/site/_next/static/media/e63b65bb308a9351-s.p.3j3877k49yy0l.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/projetos/latimpacto/site/_next/static/media/f7095de3000afb68-s.p.2ytmazkdrg7t9.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/projetos/latimpacto/site/brand/latimpacto.svg","image"]
+2:[["children",{"s":"__PAGE__","h":128}]]
+1:[["children",{"s":{"n":"lang","t":"d","k":"en","s":["fonts"]},"h":48,"c":"$Q2"}]]
+0:{"b":"Khp-Eu3zsD9dj9RJ3yCrA","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

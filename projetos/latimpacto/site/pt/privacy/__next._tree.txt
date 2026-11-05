@@ -1,0 +1,7 @@
+:HL["/projetos/latimpacto/site/_next/static/media/7dfbc8ac3aac3338.p.0z67wasdf3doh.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/projetos/latimpacto/site/_next/static/media/869d67bfbf6dcad1.p.20r9ojruem9mg.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/projetos/latimpacto/site/_next/static/media/Gloock_Regular-s.p.00mylonpezkya.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+3:[["children",{"s":"__PAGE__","h":160}]]
+2:[["children",{"s":"privacy","h":64,"c":"$Q3"}]]
+1:[["children",{"s":{"n":"lang","t":"d","k":"pt","s":["fonts"]},"h":48,"c":"$Q2"}]]
+0:{"b":"Khp-Eu3zsD9dj9RJ3yCrA","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

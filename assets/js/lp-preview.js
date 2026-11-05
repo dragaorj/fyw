@@ -72,8 +72,8 @@
     function win() { try { return f.contentWindow; } catch (e) { return null; } }
     autoScroll(box, {
       scale: s,
-      top: function () { var w = win(); return w ? w.scrollY : 0; },
-      set: function (y) { var w = win(); if (w) w.scrollTo({ top: y, behavior: 'instant' }); },
+      top: function () { try { var w = win(); return w ? w.scrollY : 0; } catch (e) { return 0; } },
+      set: function (y) { try { var w = win(); if (w) w.scrollTo({ top: y, behavior: 'instant' }); } catch (e) {} },
       max: function () { var w = win(); try { return w.document.documentElement.scrollHeight - w.innerHeight; } catch (e) { return 0; } }
     });
     f.addEventListener('load', function () {

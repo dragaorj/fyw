@@ -4,7 +4,7 @@
   if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   var P = window.FYW_PROJECTS || {};
   // película e cor do logo por marca
-  var TONE = { cimed: ['rgba(224,170,0,.92)', '#0B0B0B', 'mono'], kyoto: ['rgba(0,28,64,.82)', '#7CBBFF', 'mono'], 'beta-online': ['rgba(74,4,6,.82)', null, 'color'], 'jogo-pela-integridade': ['rgba(6,6,6,.8)', null, 'color'] };
+  var TONE = { latimpacto: ['rgba(38,14,62,.86)', '#FFFFFF', 'mono'], cimed: ['rgba(224,170,0,.92)', '#0B0B0B', 'mono'], kyoto: ['rgba(0,28,64,.82)', '#7CBBFF', 'mono'], 'beta-online': ['rgba(74,4,6,.82)', null, 'color'], 'jogo-pela-integridade': ['rgba(6,6,6,.8)', null, 'color'] };
   function logoFor(slug) {
     var cell = '.lw-inner[href="projetos/' + slug + '.html"] ';
     var tone = TONE[slug] || [];
