@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jogo Pela Integridade 2026</title>
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://player.vimeo.com">
+<link rel="preconnect" href="https://i.vimeocdn.com" crossorigin="anonymous">
+<link rel="preconnect" href="https://f.vimeocdn.com" crossorigin="anonymous">
+<link rel="dns-prefetch" href="https://player.vimeo.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Asimovian&family=Google+Sans+Flex:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+  html, body { margin: 0; padding: 0; background: #111111; }
+  * { scrollbar-width: thin; scrollbar-color: #D30F15 transparent; }
+  ::-webkit-scrollbar { width: 6px; height: 6px; background: transparent; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #7A090D 0%, #D30F15 55%, #F0141B 100%); border-radius: 999px; }
+  html { scroll-behavior: smooth; }
+  @keyframes jpiBounce { 0%, 100% { transform: translateY(0); opacity: 0.7; } 50% { transform: translateY(9px); opacity: 1; } }
+  @keyframes jpiGlow { 0%, 100% { box-shadow: 0 0 10px rgba(211,15,21,0.25); } 50% { box-shadow: 0 0 18px rgba(211,15,21,0.45); } }
+  @keyframes jpiVeil { 0%, 40% { opacity: 1; } 100% { opacity: 0; } }
+  @keyframes jpiSpin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } html { scroll-behavior: auto; } }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: #F6C444; }
+  .jpi-cta .jpi-arrow { transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+  .jpi-cta:hover .jpi-arrow { transform: rotate(-45deg); }
+  .jpi-cta { transition: box-shadow 0.35s ease; }
+  .jpi-cta:hover { box-shadow: 0 0 22px rgba(211,15,21,0.55); }
+  .jpi-card { transition: transform 0.35s ease, box-shadow 0.35s ease; cursor: pointer; }
+  .jpi-card:hover { transform: translateY(-6px); box-shadow: 0 10px 28px rgba(0,0,0,0.35); }
+  .jpi-card img, .jpi-mosaic { transition: transform 0.5s ease, opacity 0.35s ease; }
+  .jpi-card:hover img { transform: scale(1.05); }
+  .jpi-mosaic { cursor: pointer; }
+  .jpi-mosaic:hover { opacity: 0.85; }
+  .jpi-tilt { transition: transform 0.4s ease, box-shadow 0.4s ease; }
+  .jpi-tilt:hover { transform: perspective(800px) rotateX(4deg) rotateY(-4deg) translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,0.35); }
+  .jpi-agcard { position: relative; overflow: hidden; }
+  .jpi-agcard .jpi-agbg { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transform: scale(1.15); transition: opacity 0.5s ease, transform 1.2s cubic-bezier(0.22,1,0.36,1); pointer-events: none; }
+  .jpi-agcard:hover .jpi-agbg { opacity: 1; transform: scale(1.02); }
+  .jpi-agcard:hover .jpi-agtxt { color: #F4F4F4 !important; }
+  .jpi-navdesk { display: flex; }
+  .jpi-burger { display: none; }
+  .jpi-arrows { display: none; }
+  @media (max-width: 767px) {
+    .jpi-navdesk { display: none !important; }
+    .jpi-burger { display: flex !important; }
+    .jpi-arrows { display: flex !important; }
+    [data-hero="6"] { margin-left: 0 !important; }
+    .jpi-rosterbtn { display: none !important; }
+    .jpi-roster { display: flex !important; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; -webkit-overflow-scrolling: touch; scroll-padding-left: 2px; }
+    .jpi-roster::-webkit-scrollbar { display: none; }
+    .jpi-roster > * { flex: 0 0 calc((100% - 32px) / 3); scroll-snap-align: start; }
+    .jpi-pinfo { padding: 8px 9px !important; }
+    .jpi-pname { font-size: 11px !important; }
+    .jpi-prole { font-size: 9px !important; letter-spacing: 0.14em !important; }
+    .jpi-logocard { padding: 10px 14px !important; min-width: 100px !important; min-height: 54px !important; }
+    .jpi-logocard img { max-height: 32px !important; max-width: 104px !important; }
+  }
+  button { font: inherit; }
+</style>
+</helmet>
+  <div id="jpi-loader" style="position:fixed;inset:0;z-index:9999;background:#050505;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(22px,3vh,34px);transition:opacity 0.65s ease">
+    <img src="assets/logo.svg" alt="" style="width:clamp(76px,8vw,108px);height:auto;animation:jpiSpin 1.8s linear infinite" />
+    <div id="jpi-loader-pct" style="font-family:'Asimovian',sans-serif;font-size:clamp(26px,3vw,40px);letter-spacing:0.08em;color:#F4F4F4;line-height:1">0%</div>
+    <div style="width:clamp(160px,22vw,280px);height:3px;border-radius:999px;background:rgba(244,244,244,0.16);overflow:hidden">
+      <div id="jpi-loader-bar" style="width:0%;height:100%;background:linear-gradient(90deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);transition:width 0.14s linear"></div>
+    </div>
+  </div>
+<div style="width:100%;min-height:100vh;background:{{ bg }};color:{{ fg }};font-family:'Google Sans Flex','Google Sans','DM Sans',Arial,sans-serif;transition:background 0.4s,color 0.4s">
+
+  <div aria-hidden="true" style="position:fixed;top:0;left:0;height:4px;z-index:120;background:linear-gradient(90deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);width:{{ progW }};transition:width 0.1s linear"></div>
+
+  <div style="position:fixed;top:4px;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:16px clamp(16px,4vw,64px)">
+    <nav class="jpi-navdesk" style="display:flex;align-items:center;gap:clamp(14px,2.5vw,36px);flex-wrap:wrap;border:1px solid rgba(147,147,147,0.5);border-radius:999px;padding:12px clamp(18px,3vw,34px);background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);font-family:'Asimovian',sans-serif">
+      <a href="#home" style="font-size:13px;letter-spacing:0.1em;transition:color 0.3s;color:{{ navC.home }}">{{ t.navHome }}</a>
+      <a href="#sobre" style="font-size:13px;letter-spacing:0.1em;transition:color 0.3s;color:{{ navC.sobre }}">{{ t.navAbout }}</a>
+      <a href="#agenda" style="font-size:13px;letter-spacing:0.1em;transition:color 0.3s;color:{{ navC.agenda }}">{{ t.navAgenda }}</a>
+      <a href="#apoiadores" style="font-size:13px;letter-spacing:0.1em;transition:color 0.3s;color:{{ navC.apoiadores }}">{{ t.navSupporters }}</a>
+      <a href="#faq" style="font-size:13px;letter-spacing:0.1em;transition:color 0.3s;color:{{ navC.faq }}">FAQ</a>
+    </nav>
+    <button class="jpi-burger" onClick="{{ toggleMenu }}" aria-label="Menu" style="display:none;align-items:center;justify-content:center;width:46px;height:46px;cursor:pointer;border:1px solid rgba(147,147,147,0.5);border-radius:999px;background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#F4F4F4" style-hover="color:#F6C444">{{ burgerIcon }}</button>
+    <div style="display:flex;gap:10px">
+      <button onClick="{{ toggleLang }}" style="cursor:pointer;border:1px solid rgba(147,147,147,0.5);border-radius:999px;padding:12px 20px;background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#F4F4F4;font-family:'Asimovian',sans-serif;font-size:13px;letter-spacing:0.1em" style-hover="color:#F6C444">{{ langLabel }}</button>
+      <button onClick="{{ toggleTheme }}" style="cursor:pointer;border:1px solid rgba(147,147,147,0.5);border-radius:999px;padding:12px 20px;background:rgba(17,17,17,0.45);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#F4F4F4;font-family:'Asimovian',sans-serif;font-size:13px;letter-spacing:0.1em" style-hover="color:#F6C444">{{ themeLabel }}</button>
+    </div>
+  </div>
+
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <div data-mm-overlay style="position:fixed;top:0;left:0;right:0;bottom:0;z-index:95;background:rgba(5,5,5,0.55)" onClick="{{ closeMenu }}"></div>
+    <nav data-mm-panel style="position:fixed;top:82px;left:16px;right:16px;z-index:99;display:flex;flex-direction:column;border:1px solid rgba(147,147,147,0.5);border-radius:20px;overflow:hidden;background:rgba(17,17,17,0.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);font-family:'Asimovian',sans-serif">
+      <a data-mm-link href="#home" onClick="{{ closeMenu }}" style="padding:16px 24px;font-size:14px;letter-spacing:0.1em;color:{{ navC.home }};border-bottom:1px solid rgba(147,147,147,0.25)">{{ t.navHome }}</a>
+      <a data-mm-link href="#sobre" onClick="{{ closeMenu }}" style="padding:16px 24px;font-size:14px;letter-spacing:0.1em;color:{{ navC.sobre }};border-bottom:1px solid rgba(147,147,147,0.25)">{{ t.navAbout }}</a>
+      <a data-mm-link href="#agenda" onClick="{{ closeMenu }}" style="padding:16px 24px;font-size:14px;letter-spacing:0.1em;color:{{ navC.agenda }};border-bottom:1px solid rgba(147,147,147,0.25)">{{ t.navAgenda }}</a>
+      <a data-mm-link href="#apoiadores" onClick="{{ closeMenu }}" style="padding:16px 24px;font-size:14px;letter-spacing:0.1em;color:{{ navC.apoiadores }};border-bottom:1px solid rgba(147,147,147,0.25)">{{ t.navSupporters }}</a>
+      <a data-mm-link href="#faq" onClick="{{ closeMenu }}" style="padding:16px 24px;font-size:14px;letter-spacing:0.1em;color:{{ navC.faq }}">FAQ</a>
+    </nav>
+  </sc-if>
+
+  <section data-screen-label="Hero" id="home" style="box-sizing:border-box;position:relative;min-height:max(540px,100svh);max-height:none;display:flex;flex-direction:column;justify-content:center;overflow:hidden;background:#050505;padding:clamp(56px,6.5vh,80px) clamp(16px,4vw,64px) clamp(72px,10vh,110px)">
+    <div aria-hidden="true" style="position:absolute;inset:0;overflow:hidden;pointer-events:none">
+      <video autoplay="autoplay" muted="muted" loop="loop" playsinline="playsinline" preload="auto" tabindex="-1" src="assets/hero.mp4" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:100%;height:100%;object-fit:cover;pointer-events:none"></video>
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,5,0.42) 0%,rgba(5,5,5,0.34) 30%,rgba(5,5,5,0.62) 60%,rgba(5,5,5,0.92) 85%,#050505 100%)"></div>
+      <div id="jpi-hero-veil" style="position:absolute;inset:0;background:#050505;display:none;pointer-events:none"></div>
+    </div>
+    <div style="position:relative;z-index:1;font-family:'Asimovian',sans-serif;color:#F4F4F4;line-height:1;width:100%">
+      <div data-hero="1" style="font-size:max(26px,min(6.1vw,11vh));letter-spacing:0.03em;padding-left:0">{{ t.heroL1 }}</div>
+      <div data-hero="2" style="font-size:max(32px,{{ heroL2Size }});padding-left:0;white-space:nowrap;margin-top:clamp(6px,1.6vw,34px);letter-spacing:0.01em">{{ t.heroL2 }}</div>
+      <div style="display:flex;flex-wrap:nowrap;justify-content:space-between;align-items:baseline;gap:clamp(14px,2vw,32px);margin-top:clamp(4px,0.6vw,14px)">
+        <div data-hero="4" style="flex:1 1 auto;min-width:0;font-family:'Asimovian',sans-serif;font-size:clamp(15px,1.25vw,26px);letter-spacing:0.05em;color:#F6C444">{{ t.heroSub }}</div>
+        <div data-hero="3" style="flex:0 0 auto;margin-left:auto;font-family:'Asimovian',sans-serif;font-size:max(26px,min(6.1vw,11vh));line-height:1;letter-spacing:0.04em;color:#F4F4F4">2026</div>
+      </div>
+    </div>
+    <div style="position:relative;z-index:1;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:clamp(20px,3vw,48px);margin-top:clamp(10px,1.2vw,22px)">
+      <p data-hero="5" style="margin:0;max-width:460px;min-width:0;font-size:clamp(14px,0.85vw,17px);line-height:1.6;color:#F4F4F4">{{ t.heroSupport }}</p>
+      <a data-hero="6" href="#final" class="jpi-cta" style="margin-left:auto;flex:0 0 auto;white-space:nowrap;display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);color:#F4F4F4;border-radius:999px;padding:10px 12px 10px 24px;font-size:15px;font-weight:500;animation:jpiGlow 3s ease-in-out infinite" style-hover="box-shadow:0 0 14px rgba(211,15,21,0.4);color:#F4F4F4">
+        <span>{{ t.heroCta }}</span>
+        <span class="jpi-arrow" style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:#F4F4F4;color:#D30F15"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span>
+      </a>
+    </div>
+    <div style="position:absolute;z-index:1;left:0;right:0;bottom:clamp(26px,5vh,54px);display:flex;justify-content:center;pointer-events:none">
+      <a data-hero="7" href="#sobre" style="pointer-events:auto;display:flex;flex-direction:column;align-items:center;gap:8px;padding:8px 16px;color:#F4F4F4" style-hover="color:#F6C444">
+        <span style="font-family:'Asimovian',sans-serif;font-size:12px;letter-spacing:0.2em">{{ t.scrollHint }}</span>
+        <span style="display:flex;font-size:22px;line-height:1;animation:jpiBounce 1.6s ease-in-out infinite">&#8595;</span>
+      </a>
+    </div>
+  </section>
+
+  <section data-screen-label="Sobre" id="sobre" style="scroll-margin-top:90px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));background:{{ panelBg }}">
+    <div style="position:relative;min-height:min(70vh,max(300px,38vw));background-image:linear-gradient(180deg,rgba(5,5,5,0.38),rgba(5,5,5,0.55)),url('assets/campo.webp');background-size:cover;background-position:center;display:flex;align-items:center">
+      <div style="display:flex;flex-direction:column;align-items:stretch;gap:clamp(18px,2.5vw,32px);padding:clamp(24px,4vw,56px);width:100%">
+        <img data-anim="up" src="assets/logo.svg" alt="Jogo pela Integridade 2026" style="display:block;align-self:center;width:clamp(64px,6.5vw,96px);aspect-ratio:220/248;height:auto;object-fit:contain;filter:drop-shadow(0 2px 14px rgba(0,0,0,0.5))">
+        <h2 data-anim="up" style="margin:0;font-family:'Asimovian',sans-serif;font-weight:400;font-size:clamp(26px,4.2vw,54px);line-height:1.3;color:#F4F4F4;text-shadow:0 2px 18px rgba(0,0,0,0.6);text-wrap:balance;text-align:center">{{ t.aboutTitle }}</h2>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;justify-content:center;gap:22px;padding:clamp(40px,6vw,96px)">
+      <div data-anim="up" style="font-family:'Asimovian',sans-serif;font-size:13px;letter-spacing:0.25em;color:#D30F15">{{ t.aboutEyebrow }}</div>
+      <p data-anim="up" style="margin:0;max-width:520px;font-size:15px;line-height:1.75;color:{{ fg }}">{{ t.aboutP1 }}</p>
+      <p data-anim="up" style="margin:0;max-width:520px;font-size:15px;line-height:1.75;color:{{ fgSoft }}">{{ t.aboutP2 }}</p>
+      <div data-anim="up" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px">
+        <sc-for list="{{ t.causes }}" as="c" hint-placeholder-count="4">
+          <div style="border:1px solid #939393;border-radius:999px;padding:8px 18px;font-family:'Asimovian',sans-serif;font-size:12px;letter-spacing:0.08em;color:{{ fg }}">{{ c }}</div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Agenda" id="agenda" style="scroll-margin-top:90px;padding:clamp(56px,9vw,120px) clamp(16px,4vw,64px)">
+    <div style="max-width:1440px;margin:0 auto">
+      <div data-anim="up" style="display:flex;flex-direction:column;gap:14px;margin-bottom:clamp(32px,5vw,56px)">
+        <div style="font-family:'Asimovian',sans-serif;font-size:13px;letter-spacing:0.25em;color:#F6C444">{{ t.agendaEyebrow }}</div>
+        <h2 style="margin:0;font-family:'Asimovian',sans-serif;font-weight:400;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.agendaTitle }}</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:18px">
+        <sc-for list="{{ t.agendaCards }}" as="card" hint-placeholder-count="4">
+          <div data-anim="up" class="jpi-tilt jpi-agcard" style="border:1px solid {{ line }};background:{{ cardBg }};padding:28px 26px;display:flex;flex-direction:column;gap:10px">
+            <div class="jpi-agbg" style="background-image:linear-gradient(rgba(5,5,5,0.45),rgba(5,5,5,0.72)),url('{{ card.img }}')"></div>
+            <div class="jpi-agtxt" style="position:relative;z-index:1;font-size:11px;letter-spacing:0.2em;color:#939393;transition:color 0.4s">{{ card.label }}</div>
+            <div style="position:relative;z-index:1;font-family:'Asimovian',sans-serif;font-size:clamp(20px,2vw,26px);line-height:1.25;color:{{ accentOrFg }}">{{ card.v }}</div>
+            <sc-if value="{{ card.d }}" hint-placeholder-val="{{ false }}">
+              <div class="jpi-agtxt" style="position:relative;z-index:1;font-size:13px;line-height:1.5;color:{{ fgSoft }};transition:color 0.4s">{{ card.d }}</div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <div data-anim="up" style="display:flex;justify-content:center;margin-top:36px">
+        <a href="{{ gcalUrl }}" target="_blank" rel="noopener" class="jpi-cta" style="display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);color:#F4F4F4;border-radius:999px;padding:12px 14px 12px 28px;font-size:15px;font-weight:500">
+          <span>{{ t.gcalLabel }}</span>
+          <span class="jpi-arrow" style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:#F4F4F4;color:#D30F15"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 11h18M12 15v4M10 17h4"></path></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Vídeo" id="video" style="scroll-margin-top:90px;background:#000000">
+    <div style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#000000">
+      <iframe src="{{ videoSrc }}" title="Jogo pela Integridade" style="position:absolute;inset:0;width:100%;height:100%;border:0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="allowfullscreen"></iframe>
+      <sc-if value="{{ videoMuted }}" hint-placeholder-val="{{ true }}">
+        <div onClick="{{ enableSound }}" style="position:absolute;inset:0;cursor:pointer;display:flex;align-items:flex-end;justify-content:center;padding-bottom:22px">
+          <div style="display:inline-flex;align-items:center;gap:10px;background:rgba(5,5,5,0.72);backdrop-filter:blur(10px);border:1px solid rgba(244,244,244,0.3);border-radius:999px;padding:10px 22px;color:#F4F4F4;font-size:14px;font-weight:500">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+            <span>{{ t.videoSoundLabel }}</span>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <section data-screen-label="Quem veste a camisa" id="camisa" style="scroll-margin-top:90px;padding:clamp(56px,9vw,120px) clamp(16px,4vw,64px);background:{{ altBg }}">
+    <div style="max-width:1440px;margin:0 auto">
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,72px);align-items:flex-end;margin-bottom:clamp(36px,5vw,64px)">
+        <div data-anim="up" style="display:flex;flex-direction:column;gap:14px;flex:1 1 340px">
+          <div style="font-family:'Asimovian',sans-serif;font-size:13px;letter-spacing:0.25em;color:#F6C444">{{ t.teamEyebrow }}</div>
+          <h2 style="margin:0;font-family:'Asimovian',sans-serif;font-weight:400;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.teamTitle }}</h2>
+        </div>
+        <p data-anim="up" style="margin:0;flex:1 1 380px;max-width:560px;font-size:15px;line-height:1.75;color:{{ fgSoft }}">{{ t.teamP }}</p>
+      </div>
+      <div data-anim="up" style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px">
+        <div style="font-family:'Asimovian',sans-serif;font-size:clamp(16px,1.8vw,20px);letter-spacing:0.06em;color:{{ fg }}">{{ t.teamGridTitle }}</div>
+        <div class="jpi-arrows" style="display:none;gap:10px">
+          <button onClick="{{ rosterPrev }}" aria-label="Anterior" style="cursor:pointer;width:40px;height:40px;border-radius:50%;border:1px solid #D30F15;background:transparent;color:#D30F15;display:flex;align-items:center;justify-content:center;transition:background 0.3s,color 0.3s,border-color 0.3s" style-hover="background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);border-color:transparent;color:#F4F4F4"><span style="display:flex;transform:scaleX(-1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span></button>
+          <button onClick="{{ rosterNext }}" aria-label="Próximo" style="cursor:pointer;width:40px;height:40px;border-radius:50%;border:1px solid #D30F15;background:transparent;color:#D30F15;display:flex;align-items:center;justify-content:center;transition:background 0.3s,color 0.3s,border-color 0.3s" style-hover="background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);border-color:transparent;color:#F4F4F4"><span style="display:flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span></button>
+        </div>
+      </div>
+      <div class="jpi-roster" ref="{{ rosterRef }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:16px">
+        <sc-for list="{{ players }}" as="p" hint-placeholder-count="5">
+          <div class="jpi-card" onClick="{{ p.open }}" style="display:flex;flex-direction:column;border-left:3px solid #F6C444;border-radius:0 12px 12px 0;overflow:hidden;background:{{ cardBg }}">
+            <div style="aspect-ratio:3/4;overflow:hidden"><img src="{{ p.src }}" alt="{{ p.name }}" loading="lazy" style="display:block;width:100%;height:100%;object-fit:cover;object-position:center top"></div>
+            <div class="jpi-pinfo" style="padding:12px 14px;display:flex;flex-direction:column;gap:4px">
+              <div class="jpi-pname" style="font-family:'Asimovian',sans-serif;font-size:14px;letter-spacing:0.04em;color:{{ fg }}">{{ p.name }}</div>
+              <div class="jpi-prole" style="font-size:11px;letter-spacing:0.18em;color:#D30F15">SPFC</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div class="jpi-rosterbtn" style="display:flex;justify-content:center;margin-top:32px">
+        <button onClick="{{ toggleRoster }}" class="jpi-cta" style="cursor:pointer;border:0;display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);color:#F4F4F4;border-radius:999px;padding:12px 28px;font-size:15px;font-weight:500">{{ rosterBtnLabel }}</button>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Programação" id="programacao" style="scroll-margin-top:90px;padding:clamp(56px,9vw,120px) clamp(16px,4vw,64px)">
+    <div style="max-width:1440px;margin:0 auto">
+      <div data-anim="up" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:clamp(32px,5vw,56px)">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="font-family:'Asimovian',sans-serif;font-size:13px;letter-spacing:0.25em;color:#F6C444">{{ t.schedEyebrow }}</div>
+          <h2 style="margin:0;font-family:'Asimovian',sans-serif;font-weight:400;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.schedTitle }}</h2>
+        </div>
+        <div style="font-size:12px;letter-spacing:0.2em;color:#939393">{{ t.schedTbc }}</div>
+      </div>
+      <div style="display:flex;flex-direction:column">
+        <sc-for list="{{ schedule }}" as="item" hint-placeholder-count="8">
+          <div data-anim="up" style="display:grid;grid-template-columns:72px 1fr;column-gap:clamp(16px,3vw,48px);align-items:baseline;padding:20px 0;border-top:1px solid {{ line }}">
+            <div style="font-family:'Asimovian',sans-serif;font-size:17px;color:#D30F15">{{ item.n }}</div>
+            <div style="font-size:clamp(15px,1.6vw,18px);font-weight:500;color:{{ fg }}">{{ item.t }}</div>
+          </div>
+        </sc-for>
+        <div style="border-top:1px solid {{ line }}"></div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Apoiadores" id="apoiadores" style="scroll-margin-top:90px;padding:clamp(56px,9vw,120px) clamp(16px,4vw,64px);background:{{ altBg }}">
+    <div style="max-width:1440px;margin:0 auto">
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,72px);align-items:flex-end;margin-bottom:clamp(36px,5vw,56px)">
+        <div data-anim="up" style="display:flex;flex-direction:column;gap:14px;flex:1 1 340px">
+          <div style="font-family:'Asimovian',sans-serif;font-size:13px;letter-spacing:0.25em;color:#F6C444">{{ t.supEyebrow }}</div>
+          <h2 style="margin:0;font-family:'Asimovian',sans-serif;font-weight:400;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.supTitle }}</h2>
+        </div>
+        <p data-anim="up" style="margin:0;flex:1 1 380px;max-width:560px;font-size:15px;line-height:1.75;color:{{ fgSoft }}">{{ t.supP }}</p>
+      </div>
+      <div style="display:flex;flex-direction:column">
+        <sc-for list="{{ tiers }}" as="tier" hint-placeholder-count="4">
+          <div data-anim="up" style="display:flex;flex-direction:column;align-items:center;gap:22px;padding:clamp(28px,3vw,44px) 0;border-top:1px solid {{ line }}">
+            <div style="font-family:'Asimovian',sans-serif;font-size:13px;letter-spacing:0.25em;text-align:center;color:#F6C444">{{ tier.label }}</div>
+            <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:stretch;gap:clamp(14px,1.6vw,24px)">
+              <sc-for list="{{ tier.logos }}" as="l" hint-placeholder-count="3">
+                <div class="jpi-logocard" style="background:#FFFFFF;border-radius:10px;padding:16px 26px;display:flex;align-items:center;justify-content:center;min-width:150px;min-height:84px">
+                  <img src="{{ l.src }}" alt="{{ l.name }}" loading="lazy" style="max-height:{{ tier.h }};max-width:190px;width:auto;height:auto;object-fit:contain">
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+        <div style="border-top:1px solid {{ line }}"></div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Retrospectiva" id="retrospectiva" style="scroll-margin-top:90px;padding:clamp(56px,9vw,120px) clamp(16px,4vw,64px)">
+    <div style="max-width:1440px;margin:0 auto">
+      <div data-anim="up" style="display:flex;flex-direction:column;gap:14px;margin-bottom:20px">
+        <div style="font-family:'Asimovian',sans-serif;font-size:13px;letter-spacing:0.25em;color:#F6C444">{{ t.retroEyebrow }}</div>
+        <h2 style="margin:0;font-family:'Asimovian',sans-serif;font-weight:400;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.retroTitle }}</h2>
+      </div>
+      <p data-anim="up" style="margin:0 0 clamp(32px,5vw,48px);max-width:560px;font-size:15px;line-height:1.75;color:{{ fgSoft }}">{{ t.retroP }}</p>
+      <div data-anim="up" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:14px">
+        <div class="jpi-mosaic" onClick="{{ openRetro1 }}" style="min-height:320px;border-radius:12px;overflow:hidden;background-image:url('assets/68d6aabeb6307f9ea353410f_summit-integridade_image1.avif');background-size:cover;background-position:center"></div>
+        <div style="display:grid;grid-template-rows:auto 1fr;gap:14px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <div class="jpi-mosaic" onClick="{{ openRetro2 }}" style="aspect-ratio:16/13;border-radius:12px;overflow:hidden;background-image:url('assets/68d6aabee778a4893a82ea53_summit-integridade_image2.avif');background-size:cover;background-position:center top"></div>
+            <div class="jpi-mosaic" onClick="{{ openRetro3 }}" style="aspect-ratio:16/13;border-radius:12px;overflow:hidden;background-image:url('assets/68d6aabe40264726799bb313_summit-integridade_image3.avif');background-size:cover;background-position:center top"></div>
+          </div>
+          <div class="jpi-mosaic" onClick="{{ openRetro4 }}" style="min-height:220px;border-radius:12px;overflow:hidden;background-image:url('assets/68d6aabe90470309f6dab79f_summit-integridade_image4.avif');background-size:cover;background-position:center"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section data-screen-label="FAQ" id="faq" style="scroll-margin-top:90px;padding:clamp(56px,9vw,120px) clamp(16px,4vw,64px);background:{{ altBg }}">
+    <div style="max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(32px,5vw,96px)">
+      <div data-anim="up" style="display:flex;flex-direction:column;gap:14px">
+        <div style="font-family:'Asimovian',sans-serif;font-size:13px;letter-spacing:0.25em;color:#F6C444">FAQ</div>
+        <h2 style="margin:0;font-family:'Asimovian',sans-serif;font-weight:400;font-size:clamp(28px,4vw,48px);line-height:1.15;color:{{ fg }}">{{ t.faqTitle }}</h2>
+      </div>
+      <div style="display:flex;flex-direction:column">
+        <sc-for list="{{ faqs }}" as="item" hint-placeholder-count="5">
+          <div data-anim="up" style="border-top:1px solid {{ line }};padding:20px 0">
+            <div onClick="{{ item.toggle }}" onKeyDown="{{ item.key }}" tabIndex="0" role="button" aria-expanded="{{ item.open }}" style="display:flex;justify-content:space-between;align-items:center;gap:24px;cursor:pointer;min-height:44px" style-hover="opacity:0.75" style-focus="outline:none">
+              <div style="font-size:clamp(15px,1.6vw,17px);font-weight:500;color:{{ fg }}">{{ item.q }}</div>
+              <div style="font-family:'Asimovian',sans-serif;font-size:22px;line-height:1;color:#D30F15">{{ item.sign }}</div>
+            </div>
+            <div style="display:grid;grid-template-rows:{{ item.rows }};transition:grid-template-rows 0.45s cubic-bezier(0.4,0,0.2,1)">
+              <div style="overflow:hidden">
+                <p style="margin:12px 0 8px;font-size:14px;line-height:1.7;color:{{ fgSoft }};max-width:640px;opacity:{{ item.fade }};transform:translateY({{ item.shift }});transition:opacity 0.4s ease 0.1s,transform 0.4s ease 0.1s">{{ item.a }}</p>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+        <div style="border-top:1px solid {{ line }}"></div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="CTA final" id="final" style="scroll-margin-top:90px;position:relative;background-image:linear-gradient(rgba(10,10,10,0.72),rgba(10,10,10,0.78)),url('assets/campo.webp');background-size:cover;background-position:center;padding:clamp(72px,12vw,150px) clamp(16px,4vw,64px)">
+    <div style="max-width:900px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center">
+      <h2 data-anim="up" style="margin:0;font-family:'Asimovian',sans-serif;font-weight:400;font-size:clamp(30px,5vw,58px);line-height:1.2;color:#F4F4F4">{{ t.finalTitle }}</h2>
+      <p data-anim="up" style="margin:0;max-width:540px;font-size:15px;line-height:1.7;color:#F4F4F4">{{ t.finalP }}</p>
+      <a data-anim="up" href="#home" class="jpi-cta" style="display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);color:#F4F4F4;border-radius:999px;padding:12px 14px 12px 28px;font-size:16px;font-weight:500;animation:jpiGlow 3s ease-in-out infinite" style-hover="box-shadow:0 0 14px rgba(211,15,21,0.4);color:#F4F4F4">
+        <span>{{ t.finalCta }}</span>
+        <span class="jpi-arrow" style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:#F4F4F4;color:#D30F15"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span>
+      </a>
+    </div>
+  </section>
+
+  <sc-if value="{{ lightboxOn }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeLightbox }}" style="position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.88);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px;cursor:zoom-out">
+      {{ lightboxImg }}
+      <div style="font-family:'Asimovian',sans-serif;font-size:16px;letter-spacing:0.08em;color:#F4F4F4">{{ lightboxName }}</div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showTop }}" hint-placeholder-val="{{ false }}">
+    <a href="#home" aria-label="Back to top" class="jpi-cta" style="position:fixed;right:clamp(16px,3vw,40px);bottom:clamp(16px,4vh,40px);z-index:90;display:flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#7A090D 0%,#D30F15 55%,#F0141B 100%);color:#F4F4F4;font-size:22px;animation:jpiGlow 3s ease-in-out infinite" style-hover="box-shadow:0 0 14px rgba(211,15,21,0.4);color:#F4F4F4"><span class="jpi-arrow" style="display:flex"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V5"></path><path d="M6 11l6-6 6 6"></path></svg></span></a>
+  </sc-if>
+
+  <footer style="position:relative;overflow:hidden;background:{{ footBg }};color:{{ fg }};border-top:1px solid {{ line }};transition:background 0.4s,color 0.4s">
+    <div style="padding:clamp(56px,7vw,96px) clamp(20px,6.3vw,130px) clamp(28px,3vw,44px)">
+      <div style="font-family:'Asimovian',sans-serif;line-height:1;color:{{ fg }}">
+        <div style="font-size:clamp(28px,4.6vw,88px);letter-spacing:0.02em">{{ t.brand }}</div>
+        <div style="display:flex;flex-wrap:wrap-reverse;justify-content:space-between;align-items:baseline;gap:16px;margin-top:clamp(10px,1.2vw,22px)">
+          <div style="font-family:'Asimovian',sans-serif;font-size:clamp(13px,1vw,19px);letter-spacing:0.12em;color:#F6C444">{{ t.heroSub }}</div>
+          <div style="font-size:clamp(28px,4.6vw,88px);letter-spacing:0.04em">2026</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:32px;margin-top:clamp(40px,5vw,72px);padding-top:clamp(28px,3vw,44px);border-top:1px solid {{ line }}">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="font-family:'Asimovian',sans-serif;font-size:12px;letter-spacing:0.25em;color:#F6C444">{{ t.footerOrgLabel }}</div>
+          <div style="font-size:13px;line-height:1.7;color:{{ fgSoft }}">{{ t.footerOrg }}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="font-family:'Asimovian',sans-serif;font-size:12px;letter-spacing:0.25em;color:#F6C444">{{ t.footerContactLabel }}</div>
+          <div style="font-size:13px;line-height:1.7;color:{{ fgSoft }}">{{ t.footerContact }}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="font-family:'Asimovian',sans-serif;font-size:12px;letter-spacing:0.25em;color:#F6C444">{{ t.footerNavLabel }}</div>
+          <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start">
+            <a href="#sobre" style="font-size:13px;color:{{ fg }}">{{ t.navAbout }}</a>
+            <a href="#agenda" style="font-size:13px;color:{{ fg }}">{{ t.navAgenda }}</a>
+            <a href="#apoiadores" style="font-size:13px;color:{{ fg }}">{{ t.navSupporters }}</a>
+            <a href="#faq" style="font-size:13px;color:{{ fg }}">FAQ</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid {{ line }};padding:20px clamp(20px,6.3vw,130px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;font-size:12px;color:{{ fgSoft }}">
+      <div>{{ t.rights }}</div>
+      <div>{{ t.devBy }} <a href="https://fyw.com.br/" target="_blank" rel="noopener" style="font-weight:700;color:{{ fg }}">Fyw</a></div>
+    </div>
+    <div aria-hidden="true" style="height:6px;background:linear-gradient(90deg,#7A090D 0%,#D30F15 50%,#F6C444 100%)"></div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { lang: 'pt', theme: 'dark', open: 0, active: 'home', showTop: false, prog: 0, showAllPlayers: false, lightbox: null, menuOpen: false };
+  componentDidMount() {
+    this._fitHero = () => {
+      const el = document.querySelector('[data-hero="2"]');
+      if (!el || !el.parentElement) return;
+      let sheet = document.getElementById('jpi-fit');
+      if (!sheet) { sheet = document.createElement('style'); sheet.id = 'jpi-fit'; document.head.appendChild(sheet); }
+      if (window.matchMedia('(max-width: 767px)').matches) { sheet.textContent = ''; return; }
+      const avail = el.parentElement.clientWidth;
+      if (!avail || !el.firstChild) return;
+      const setSize = (s) => { sheet.textContent = '[data-hero="2"]{font-size:' + s + 'px !important;letter-spacing:0 !important;}'; };
+      const textWidth = () => {
+        const r = document.createRange();
+        r.selectNodeContents(el);
+        const w = r.getBoundingClientRect().width;
+        return w;
+      };
+      let size = 200;
+      setSize(size);
+      for (let i = 0; i < 8; i++) {
+        const w = textWidth();
+        if (!w) return;
+        const next = size * (avail / w);
+        if (Math.abs(next - size) < 0.05) { size = next; break; }
+        size = next;
+        setSize(size);
+      }
+      size = Math.min(Math.max(32, size), window.innerHeight * 0.5);
+      setSize(size);
+      const sec = document.getElementById('home');
+      if (sec) {
+        for (let i = 0; i < 3; i++) {
+          const excess = sec.scrollHeight - sec.clientHeight;
+          if (excess <= 0.5 || size <= 60) break;
+          size = Math.max(60, size - excess);
+          setSize(size);
+        }
+      }
+    };
+    this._fitHero();
+    setTimeout(this._fitHero, 60);
+    setTimeout(this._fitHero, 600);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(this._fitHero);
+    window.addEventListener('resize', this._fitHero);
+    const fitParent = document.querySelector('[data-hero="2"]') && document.querySelector('[data-hero="2"]').parentElement;
+    if (fitParent && window.ResizeObserver) {
+      this._fitRO = new ResizeObserver(() => { clearTimeout(this._fitT); this._fitT = setTimeout(this._fitHero, 30); });
+      this._fitRO.observe(fitParent);
+    }
+    const heroL2 = document.querySelector('[data-hero="2"]');
+    if (heroL2 && window.MutationObserver) {
+      this._heroObs = new MutationObserver(() => this._fitHero());
+      this._heroObs.observe(heroL2, { childList: true, characterData: true, subtree: true });
+    }
+    (() => {
+      const box = document.getElementById('jpi-loader');
+      const pct = document.getElementById('jpi-loader-pct');
+      const bar = document.getElementById('jpi-loader-bar');
+      if (!box) return;
+      document.documentElement.style.overflow = 'hidden';
+      const vid = document.querySelector('#home video');
+      let p = 0, ready = false, done = false;
+      const markReady = () => { ready = true; };
+      if (vid) {
+        if (vid.readyState >= 3) ready = true;
+        vid.addEventListener('canplaythrough', markReady, { once: true });
+        vid.addEventListener('loadeddata', () => { if (vid.readyState >= 3) ready = true; });
+        vid.addEventListener('error', markReady, { once: true });
+      } else ready = true;
+      setTimeout(markReady, 9000);
+      const finish = () => {
+        if (done) return; done = true;
+        box.style.opacity = '0';
+        document.documentElement.style.overflow = '';
+        if (vid) { const pr = vid.play(); if (pr && pr.catch) pr.catch(() => {}); }
+        setTimeout(() => { box.style.display = 'none'; }, 700);
+      };
+      const tick = () => {
+        const cap = ready ? 100 : 92;
+        if (p < cap) p = Math.min(cap, p + (ready ? 1.15 : Math.max(0.22, (92 - p) * 0.02)));
+        if (pct) pct.textContent = Math.round(p) + '%';
+        if (bar) bar.style.width = p + '%';
+        if (p >= 100) { setTimeout(finish, 520); return; }
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    })();
+    this._mq = window.matchMedia('(max-width: 767px)');
+    this._mqCb = () => this.forceUpdate();
+    if (this._mq.addEventListener) this._mq.addEventListener('change', this._mqCb);
+    this._rosterTimer = setInterval(() => {
+      const el = this._rosterRef && this._rosterRef.current;
+      if (!el || !window.matchMedia('(max-width: 767px)').matches) return;
+      if (this._rosterHold) return;
+      const card = el.children[0];
+      const step = card ? card.getBoundingClientRect().width + 16 : el.clientWidth / 3;
+      if (el.scrollLeft + el.clientWidth >= el.scrollWidth - 8) el.scrollTo({ left: 0, behavior: 'smooth' });
+      else el.scrollBy({ left: step, behavior: 'smooth' });
+    }, 2600);
+    this._holdOn = () => { this._rosterHold = true; clearTimeout(this._holdT); };
+    this._holdOff = () => { clearTimeout(this._holdT); this._holdT = setTimeout(() => { this._rosterHold = false; }, 5000); };
+    setTimeout(() => {
+      const el = this._rosterRef && this._rosterRef.current;
+      if (el) { ['touchstart','pointerdown'].forEach(e => el.addEventListener(e, this._holdOn, { passive: true })); ['touchend','pointerup'].forEach(e => el.addEventListener(e, this._holdOff, { passive: true })); }
+    }, 500);
+    try {
+      const lang = localStorage.getItem('jpi-lang'); const theme = localStorage.getItem('jpi-theme');
+      const s = {};
+      if (lang === 'pt' || lang === 'en') s.lang = lang;
+      if (theme === 'dark' || theme === 'light') s.theme = theme;
+      if (Object.keys(s).length) this.setState(s);
+    } catch (e) {}
+    const spyIds = ['home', 'sobre', 'agenda', 'apoiadores', 'faq'];
+    const spySections = { camisa: 'agenda', programacao: 'agenda', retrospectiva: 'apoiadores', final: 'faq' };
+    this._onScroll = () => {
+      const mid = window.innerHeight * 0.4;
+      let current = 'home';
+      document.querySelectorAll('section[id]').forEach(sec => {
+        if (sec.getBoundingClientRect().top <= mid) current = sec.id;
+      });
+      const active = spyIds.includes(current) ? current : (spySections[current] || 'home');
+      const showTop = window.scrollY > window.innerHeight * 0.8;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const prog = max > 0 ? Math.min(100, Math.round((window.scrollY / max) * 1000) / 10) : 0;
+      if (active !== this.state.active || showTop !== this.state.showTop || prog !== this.state.prog) this.setState({ active, showTop, prog });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let tries = 0;
+    const iv = setInterval(() => {
+      tries++;
+      if (window.gsap && window.ScrollTrigger) {
+        clearInterval(iv);
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.from('[data-hero]', { y: 50, opacity: 0, duration: 1, stagger: 0.12, ease: 'power3.out', clearProps: 'opacity,transform' });
+        gsap.utils.toArray('[data-anim]').forEach(el => {
+          gsap.from(el, { y: 40, opacity: 0, duration: 0.9, ease: 'power3.out', clearProps: 'opacity,transform',
+            scrollTrigger: { trigger: el, start: 'top 88%', once: true } });
+        });
+      } else if (tries > 40) clearInterval(iv);
+    }, 100);
+  }
+  componentDidUpdate(prevProps, prevState) {
+    const wasOpen = this._mmWasOpen === true;
+    this._mmWasOpen = this.state.menuOpen;
+    if (!wasOpen && this.state.menuOpen && window.gsap) {
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce) return;
+      gsap.from('[data-mm-overlay]', { opacity: 0, duration: 0.35, ease: 'power2.out' });
+      gsap.from('[data-mm-panel]', { y: -18, opacity: 0, scale: 0.97, transformOrigin: 'top center', duration: 0.45, ease: 'power3.out', clearProps: 'opacity,transform' });
+      gsap.from('[data-mm-link]', { y: -10, opacity: 0, duration: 0.4, stagger: 0.06, delay: 0.08, ease: 'power3.out', clearProps: 'opacity,transform' });
+    }
+  }
+  componentWillUnmount() {
+    if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+    if (this._fitHero) window.removeEventListener('resize', this._fitHero);
+    if (this._heroObs) this._heroObs.disconnect();
+    if (this._fitRO) this._fitRO.disconnect();
+    clearTimeout(this._fitT);
+    clearInterval(this._rosterTimer); clearTimeout(this._holdT);
+  }
+  renderVals() {
+    const { lang, theme } = this.state;
+    const dark = theme === 'dark';
+    const pt = {
+      navHome: 'HOME', navAbout: 'SOBRE', navAgenda: 'AGENDA', navSupporters: 'APOIADORES',
+      heroL1: 'JOGO PELA', heroL2: 'INTEGRIDADE', brand: 'JOGO PELA INTEGRIDADE',
+      heroSub: 'UMA PARTIDA. UM SÓ TIME: O DA INTEGRIDADE.',
+      heroSupport: 'Diversos profissionais do mercado, ex-jogadores e demais esportistas reunidos em campo para celebrar os valores que movem o jogo — dentro e fora dele.',
+      heroCta: 'Garanta seu ingresso',
+      scrollHint: 'ROLE A PÁGINA',
+      videoSoundLabel: 'Ativar som',
+      aboutEyebrow: 'SOBRE O JOGO', aboutTitle: 'UM CAMPO ABERTO PARA A MUDANÇA',
+      aboutP1: 'O Jogo pela Integridade é uma partida simbólica que reúne participantes em equipes mistas, formadas em torno de causas fundamentais para o esporte e para a sociedade — como Saúde Mental, Enfrentamento ao Racismo, Sustentabilidade e Igualdade de Gênero.',
+      aboutP2: 'Mais do que uma partida, é um convite à reflexão: usar a força do futebol para colocar em campo temas que exigem atenção, diálogo e ação coletiva.',
+      causes: ['SAÚDE MENTAL', 'ENFRENTAMENTO AO RACISMO', 'SUSTENTABILIDADE', 'IGUALDADE DE GÊNERO'],
+      agendaEyebrow: 'DATA, HORA E LOCAL', agendaTitle: 'MARQUE NA AGENDA',
+      gcalLabel: 'Adicionar ao Google Agenda',
+      agendaCards: [
+        { label: 'DATA', v: '26/09/2026', img: 'assets/68d7010a4a940cb2f7094226b2848874.jpg' },
+        { label: 'HORÁRIO', v: '11H ÀS 18H', img: 'assets/8ecf9273c89d01af83a1e73842580297.jpg' },
+        { label: 'LOCAL', v: 'ESTÁDIO MORUMBIS', d: 'Acesso Portão 17, Avenida Giovanni Gronchi', img: 'assets/53d711a44fb56c68f14a75460e56379b.jpg' },
+        { label: 'ENTRADA', v: 'EVENTO PAGO', d: 'Acesso mediante ingresso', img: 'assets/f6bd6db8859930f360fa497d975cda7b.jpg' }
+      ],
+      teamEyebrow: 'QUEM VESTE A CAMISA', teamTitle: 'UNIDOS PELA INTEGRIDADE',
+      teamP: 'Amigos, parceiros, profissionais de compliance e ex-atletas se unem para celebrar o espírito esportivo e inspirar mudanças reais dentro e fora de campo. É futebol — mas também é diálogo, reflexão e celebração de tudo que o esporte pode ensinar.',
+      teamGridTitle: 'CONFIRA NOSSOS JOGADORES CONVOCADOS', playerPhoto: 'foto do jogador', playerWord: 'JOGADOR',
+      schedEyebrow: 'PROGRAMAÇÃO DO DIA', schedTitle: 'COMO VAI SER O DIA', schedTbc: 'A CONFIRMAR (TBC)',
+      schedItems: ['Credenciamento & Welcome coffee', 'Abertura', 'Aquecimento / apresentação das equipes', 'Partida 1', 'Partida 2', 'Partida 3', 'Encerramento', 'Coquetel de confraternização'],
+      supEyebrow: 'APOIADORES', supTitle: 'QUEM TORCE COM A GENTE',
+      supP: 'Marcas e instituições que acreditam que o esporte é uma plataforma poderosa para transformação social.',
+      logoPh: 'logo do apoiador',
+      retroEyebrow: 'RETROSPECTIVA', retroTitle: 'EDIÇÕES ANTERIORES — 03 ANOS DE JOGO',
+      retroP: 'Reviva os melhores momentos das edições passadas do Jogo pela Integridade.',
+      retroPhotos: ['foto — edição 2023', 'foto — edição 2024', 'foto — edição 2025'],
+      faqTitle: 'PERGUNTAS FREQUENTES',
+      faqItems: [
+        { q: 'O que é o Jogo pela Integridade?', a: 'É uma partida festiva que reúne ex-jogadores lendários, artistas, influenciadores, CEOs e autoridades para celebrar os valores do esporte e dar visibilidade a causas relevantes para a sociedade.' },
+        { q: 'Quando e onde acontece o jogo?', a: '26/09/2026, no Estádio MorumBIS. Avenida Giovanni Gronchi, altura do Portão 17.' },
+        { q: 'Quem pode participar?', a: 'O evento é fechado para convidados.' },
+        { q: 'Como funcionam as equipes?', a: 'Os participantes são divididos em equipes mistas, cada uma representando uma causa relevante para o esporte e a sociedade.' },
+        { q: 'Posso levar acompanhantes?', a: 'A definir — se aplicável, condições de convite.' }
+      ],
+      finalTitle: 'FAÇA PARTE DESSA PARTIDA PELA MUDANÇA',
+      finalP: 'Convide sua família e amigos para uma tarde inesquecível, onde a integridade é a estrela principal.',
+      finalCta: 'Quero meu convite',
+      footerOrg: 'Diretoria de ESG, Riscos e Compliance — São Paulo FC',
+      footerOrgLabel: 'ORGANIZAÇÃO',
+      footerContactLabel: 'CONTATO', footerContact: 'Produção do evento — Praça Roberto Gomes Pedrosa, 1 — MorumBIS, São Paulo, SP',
+      footerNavLabel: 'NAVEGAÇÃO', rights: '© 2026 Jogo pela Integridade — Todos os direitos reservados', devBy: 'Website desenvolvido por'
+    };
+    const en = {
+      navHome: 'HOME', navAbout: 'ABOUT', navAgenda: 'SCHEDULE', navSupporters: 'SUPPORTERS',
+      heroL1: 'PLAYING FOR', heroL2: 'INTEGRITY', brand: 'PLAYING FOR INTEGRITY',
+      heroSub: 'ONE MATCH. ONE TEAM: INTEGRITY.',
+      heroSupport: 'Market professionals, former players and athletes gathered on the pitch to celebrate the values that move the game — on and off the field.',
+      heroCta: 'Get your ticket',
+      scrollHint: 'SCROLL DOWN',
+      videoSoundLabel: 'Turn sound on',
+      aboutEyebrow: 'ABOUT THE GAME', aboutTitle: 'AN OPEN FIELD FOR CHANGE',
+      aboutP1: 'The Integrity Game is a symbolic match that brings participants together in mixed teams, formed around causes that are fundamental to sport and society — such as Mental Health, Fighting Racism, Sustainability and Gender Equality.',
+      aboutP2: 'More than a match, it is an invitation to reflect: using the power of football to bring to the field issues that demand attention, dialogue and collective action.',
+      causes: ['MENTAL HEALTH', 'FIGHTING RACISM', 'SUSTAINABILITY', 'GENDER EQUALITY'],
+      agendaEyebrow: 'DATE, TIME & VENUE', agendaTitle: 'SAVE THE DATE',
+      gcalLabel: 'Add to Google Calendar',
+      agendaCards: [
+        { label: 'DATE', v: '09/26/2026', img: 'assets/68d7010a4a940cb2f7094226b2848874.jpg' },
+        { label: 'TIME', v: '11AM TO 6PM', img: 'assets/8ecf9273c89d01af83a1e73842580297.jpg' },
+        { label: 'VENUE', v: 'MORUMBIS STADIUM', d: 'Gate 17 access, Giovanni Gronchi Avenue', img: 'assets/53d711a44fb56c68f14a75460e56379b.jpg' },
+        { label: 'ADMISSION', v: 'TICKETED EVENT', d: 'Entry with ticket only', img: 'assets/f6bd6db8859930f360fa497d975cda7b.jpg' }
+      ],
+      teamEyebrow: 'WHO WEARS THE SHIRT', teamTitle: 'UNITED FOR INTEGRITY',
+      teamP: 'Friends, partners, compliance professionals and former athletes come together to celebrate sportsmanship and inspire real change on and off the pitch. It is football — but also dialogue, reflection and a celebration of everything sport can teach.',
+      teamGridTitle: 'MEET OUR CALLED-UP PLAYERS', playerPhoto: 'player photo', playerWord: 'PLAYER',
+      schedEyebrow: 'DAY PROGRAMME', schedTitle: 'HOW THE DAY UNFOLDS', schedTbc: 'TO BE CONFIRMED (TBC)',
+      schedItems: ['Check-in & Welcome coffee', 'Opening', 'Warm-up / team presentation', 'Match 1', 'Match 2', 'Match 3', 'Closing', 'Networking cocktail'],
+      supEyebrow: 'SUPPORTERS', supTitle: 'WHO CHEERS WITH US',
+      supP: 'Brands and institutions that believe sport is a powerful platform for social transformation.',
+      logoPh: 'supporter logo',
+      retroEyebrow: 'RETROSPECTIVE', retroTitle: 'PAST EDITIONS — 3 YEARS OF THE GAME',
+      retroP: 'Relive the best moments from previous editions of the Integrity Game.',
+      retroPhotos: ['photo — 2023 edition', 'photo — 2024 edition', 'photo — 2025 edition'],
+      faqTitle: 'FREQUENTLY ASKED QUESTIONS',
+      faqItems: [
+        { q: 'What is the Integrity Game?', a: 'A festive match bringing together legendary former players, artists, influencers, CEOs and authorities to celebrate the values of sport and raise visibility for causes that matter to society.' },
+        { q: 'When and where does it happen?', a: '09/26/2026, at MorumBIS Stadium. Giovanni Gronchi Avenue, Gate 17.' },
+        { q: 'Who can attend?', a: 'The event is invitation-only.' },
+        { q: 'How do the teams work?', a: 'Participants are divided into mixed teams, each representing a cause relevant to sport and society.' },
+        { q: 'Can I bring guests?', a: 'To be defined — if applicable, invitation conditions will be announced.' }
+      ],
+      finalTitle: 'BE PART OF THIS MATCH FOR CHANGE',
+      finalP: 'Invite your family and friends to an unforgettable afternoon where integrity is the star of the show.',
+      finalCta: 'Request my invite',
+      footerOrg: 'ESG, Risk & Compliance Board — São Paulo FC',
+      footerOrgLabel: 'ORGANIZATION',
+      footerContactLabel: 'CONTACT', footerContact: 'Event production — Praça Roberto Gomes Pedrosa, 1 — MorumBIS, São Paulo, SP',
+      footerNavLabel: 'NAVIGATION', rights: '© 2026 Integrity Game — All rights reserved', devBy: 'Website developed by'
+    };
+    const t = lang === 'pt' ? pt : en;
+    const navC = {};
+    ['home', 'sobre', 'agenda', 'apoiadores', 'faq'].forEach(id => {
+      navC[id] = this.state.active === id ? '#F6C444' : '#F4F4F4';
+    });
+    const faqs = t.faqItems.map((f, i) => ({
+      ...f, open: this.state.open === i, sign: this.state.open === i ? '\u2212' : '+',
+      rows: this.state.open === i ? '1fr' : '0fr',
+      fade: this.state.open === i ? 1 : 0,
+      shift: this.state.open === i ? '0px' : '-6px',
+      toggle: () => this.setState(s => ({ open: s.open === i ? -1 : i })),
+      key: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.setState(s => ({ open: s.open === i ? -1 : i })); } }
+    }));
+    const schedule = t.schedItems.map((s, i) => ({ n: String(i + 1).padStart(2, '0'), t: s }));
+    const A = 'assets/apoiadores/';
+    const L = {
+      sap: { name: 'SAP Concur', src: A + '68d6d179b94c23cdf368bfcb_01-1-.avif' },
+      superbet: { name: 'Superbet', src: A + '68d6d1780ba5e632b18b4b52_02.avif' },
+      kpmg: { name: 'KPMG', src: A + '68d6d17819e73d3e0f89e283_03.avif' },
+      nexa: { name: 'Nexa', src: A + '68d6d290f65300c919e4bd56_Logo-Azul.png' },
+      urbano: { name: 'Urbano Vitalino Advogados', src: A + '68d6d290c1df3d32d38c559b_URBANO-VITALINO-1-1.png' },
+      lec: { name: 'LEC', src: A + '68d6d290c71afc34016d3bad_lec-pto.png' },
+      efcan: { name: 'EFCAN Advogados', src: A + '68d6d29007b337179905964a_Efcan-1.png' },
+      quiteria: { name: 'Maria Quitéria', src: A + '68d6d28f08b6687b3869f607_image-2.png' },
+      sde: { name: 'Sou do Esporte', src: A + '68d6d894fe93c8e65a4a27f2_3.avif' },
+      pacto: { name: 'Pacto pelo Esporte', src: A + '68d6d89436678906c6733449_logo-pacto-10-azul-1.avif' },
+      spfcu: { name: 'SPFC University', src: A + '68d6d894bf6bca7e78bbfb6f_Design-sem-nome-1.avif' },
+      unifut: { name: 'Universidade do Futebol', src: A + '68d6d894f0434f5b7a2b0fd0_logoemalta-1.avif' },
+      unidom: { name: 'UniDomBosco', src: A + '68d6d89427854cdd070cb8e0_Logo_UniDom_Color_Vetor_horiz-01-2.avif' },
+      negra: { name: 'Projeto Negralizando', src: A + '68d6d89427854cdd070cb8e3_LOGOTIPO_PROJETO-NEGRALIZANDO-3.avif' },
+      siga: { name: 'SIGA Latin America', src: A + '68d6d92d6cd5a2197a6d751d_SIGA-LATIN-AMERICA-Blue-Green-2.png' },
+      inova: { name: 'inova.são', src: A + '68d6dbbefa83d27e667e5700_Group.avif' },
+      house: { name: 'HouseXperience', src: A + '68d6dbbe7d39d6113112cf43_Alternative-06.avif' },
+      slim: { name: 'Slim Hotéis', src: A + '68d6dbbe03e44bbc98e0c914_image-96.avif' },
+      mb: { name: 'MB Eventos e Consultoria', src: A + '68e431e56697d5de12a158d0_mb-logo-1-p-1080.png' },
+      pit: { name: 'PIT — Programa Integridade Tricolor', src: A + '68d6dc80a0ddae1a7b9f7324_LOGOPIT_cor-1-.avif' },
+      spfc: { name: 'São Paulo FC', src: A + '68d4231e0081354c1029638e_03.png' }
+    };
+    const tiers = [
+      { label: lang === 'pt' ? 'DIAMANTE NEGRO PLATINUM' : 'PLATINUM BLACK DIAMOND', h: '58px', logos: [L.sap, L.superbet] },
+      { label: lang === 'pt' ? 'DIAMANTE NEGRO' : 'BLACK DIAMOND', h: '58px', logos: [L.kpmg] },
+      { label: lang === 'pt' ? 'DIAMANTE' : 'DIAMOND', h: '52px', logos: [L.nexa, L.urbano, L.lec, L.efcan] },
+      { label: lang === 'pt' ? 'ESTRELA' : 'STAR', h: '52px', logos: [L.quiteria] },
+      { label: lang === 'pt' ? 'APOIO INSTITUCIONAL' : 'INSTITUTIONAL SUPPORT', h: '48px', logos: [L.sde, L.pacto, L.spfcu, L.unifut, L.unidom, L.negra] },
+      { label: 'INTEGRITY PARTNER', h: '56px', logos: [L.siga] },
+      { label: lang === 'pt' ? 'PARCEIRO OFICIAL' : 'OFFICIAL PARTNER', h: '44px', logos: [L.inova, L.house, L.slim, L.mb] },
+      { label: lang === 'pt' ? 'REALIZAÇÃO' : 'ORGANIZED BY', h: '56px', logos: [L.pit, L.spfc] }
+    ];
+    // ROSTER: para adicionar jogadores, basta acrescentar { name, src } nesta lista (5 por fileira)
+    const J = 'assets/jogadores/';
+    const ROSTER = [
+      { name: 'Ana Carolina Nascimbem', src: J + '68e3d2f28002c10b4ba47f17_4-Nascimbe-p-1080.jpeg' },
+      { name: 'Marcello', src: J + '68e3d355a55cfbf9d8f589db_22-Marcell.jpeg' },
+      { name: 'Andressa', src: J + '68e3d262c956d235366469ec_1-Andress.jpeg' },
+      { name: 'Rafa Hurtado', src: J + '68e3d4bd338987b531d5863a_8-RafaHurtad.jpeg' },
+      { name: 'Cinthia', src: J + '68e3d3b9379ce6c831712b79_10-Cinthi.jpeg' },
+      { name: 'Cecília', src: J + '68e3d44749a6f19911e8f3d6_9-Cecilia.jpeg' },
+      { name: 'Ana Clara', src: J + '68e3d29fd70fd746dbaa1772_3-AnaClar.jpeg' },
+      { name: 'Adriana Tiga', src: J + '68e3d48d96482e78caf895fb_9-AdrianaTig.jpeg' },
+      { name: 'Rayssa', src: J + '68e3d3815f3209d762188286_23-Rayss.jpeg' },
+      { name: 'Nicoly', src: J + '68e3d3ebb9408d97ce48983d_9-Nicol.jpeg' }
+    ];
+    const openLb = (name, src) => () => this.setState({ lightbox: { name, src } });
+    const isMob = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches;
+    const visible = isMob ? ROSTER : (this.state.showAllPlayers ? ROSTER : ROSTER.slice(0, 5));
+    const players = visible.map(p => ({ ...p, open: openLb(p.name, p.src) }));
+    const retroImgs = [
+      'assets/68d6aabeb6307f9ea353410f_summit-integridade_image1.avif',
+      'assets/68d6aabee778a4893a82ea53_summit-integridade_image2.avif',
+      'assets/68d6aabe40264726799bb313_summit-integridade_image3.avif',
+      'assets/68d6aabe90470309f6dab79f_summit-integridade_image4.avif'
+    ];
+    return {
+      t, faqs, schedule, players, navC, tiers, showTop: this.state.showTop,
+      progW: this.state.prog + '%',
+      menuOpen: this.state.menuOpen,
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      videoMuted: !this.state.videoSound,
+      videoSrc: this.state.videoSound
+        ? 'https://player.vimeo.com/video/1119215167?autoplay=1&muted=0&loop=1&controls=1&playsinline=1&dnt=1'
+        : 'https://player.vimeo.com/video/1119215167?background=1&autoplay=1&muted=1&loop=1&playsinline=1&quality=540p&dnt=1',
+      enableSound: () => this.setState({ videoSound: true }),
+      rosterRef: this._rosterRef || (this._rosterRef = React.createRef()),
+      rosterPrev: () => { const el = this._rosterRef && this._rosterRef.current; if (el) { this._rosterHold = true; clearTimeout(this._holdT); this._holdT = setTimeout(() => { this._rosterHold = false; }, 6000); el.scrollBy({ left: -el.clientWidth * 0.94, behavior: 'smooth' }); } },
+      rosterNext: () => { const el = this._rosterRef && this._rosterRef.current; if (el) { this._rosterHold = true; clearTimeout(this._holdT); this._holdT = setTimeout(() => { this._rosterHold = false; }, 6000); el.scrollBy({ left: el.clientWidth * 0.94, behavior: 'smooth' }); } },
+      closeMenu: () => this.setState({ menuOpen: false }),
+      burgerIcon: this.state.menuOpen
+        ? React.createElement('svg', { width: 18, height: 18, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2.4, strokeLinecap: 'round' }, React.createElement('path', { d: 'M5 5l14 14M19 5L5 19' }))
+        : React.createElement('svg', { width: 18, height: 18, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2.4, strokeLinecap: 'round' }, React.createElement('path', { d: 'M4 6h16M4 12h16M4 18h16' })),
+      gcalUrl: 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+        + '&text=' + encodeURIComponent(lang === 'pt' ? 'Jogo pela Integridade 2026' : 'Integrity Game 2026')
+        + '&dates=20260926T140000Z/20260926T210000Z'
+        + '&details=' + encodeURIComponent(lang === 'pt' ? 'Uma partida. Um só time: o da integridade. Evento pago, acesso mediante ingresso.' : 'One match. One team: integrity. Ticketed event.')
+        + '&location=' + encodeURIComponent('Estádio MorumBIS — Portão 17, Av. Giovanni Gronchi, São Paulo, SP'),
+      rosterBtnLabel: this.state.showAllPlayers ? (lang === 'pt' ? 'Ver menos' : 'Show less') : (lang === 'pt' ? 'Ver mais' : 'Show more'),
+      toggleRoster: () => this.setState(s => ({ showAllPlayers: !s.showAllPlayers })),
+      lightboxOn: !!this.state.lightbox,
+      lightboxImg: this.state.lightbox ? React.createElement('img', { src: this.state.lightbox.src, alt: this.state.lightbox.name, style: { maxWidth: '92vw', maxHeight: '82vh', objectFit: 'contain', borderRadius: 10, borderLeft: '3px solid #F6C444' } }) : null,
+      lightboxName: this.state.lightbox ? this.state.lightbox.name : '',
+      closeLightbox: () => this.setState({ lightbox: null }),
+      openRetro1: openLb(lang === 'pt' ? 'Edições anteriores' : 'Past editions', retroImgs[0]),
+      openRetro2: openLb(lang === 'pt' ? 'Edições anteriores' : 'Past editions', retroImgs[1]),
+      openRetro3: openLb(lang === 'pt' ? 'Edições anteriores' : 'Past editions', retroImgs[2]),
+      openRetro4: openLb(lang === 'pt' ? 'Edições anteriores' : 'Past editions', retroImgs[3]),
+      heroL2Size: lang === 'pt' ? 'min(14.7vw,26.5vh)' : 'min(17.6vw,26.5vh)',
+      footBg: dark ? '#0A0A0A' : '#EAEAEA',
+      langLabel: lang === 'pt' ? 'EN' : 'PT',
+      themeLabel: dark ? (lang === 'pt' ? 'CLARO' : 'LIGHT') : (lang === 'pt' ? 'ESCURO' : 'DARK'),
+      toggleLang: () => { const v = lang === 'pt' ? 'en' : 'pt'; try { localStorage.setItem('jpi-lang', v); } catch (e) {} this.setState({ lang: v }); },
+      toggleTheme: () => { const v = dark ? 'light' : 'dark'; try { localStorage.setItem('jpi-theme', v); } catch (e) {} this.setState({ theme: v }); },
+      bg: dark ? '#111111' : '#F4F4F4',
+      altBg: dark ? '#161616' : '#FFFFFF',
+      panelBg: dark ? '#161616' : '#FFFFFF',
+      cardBg: dark ? '#1A1A1A' : '#FFFFFF',
+      fg: dark ? '#F4F4F4' : '#111111',
+      fgSoft: dark ? '#B9B9B9' : '#5A5A5A',
+      line: dark ? 'rgba(255,255,255,0.16)' : 'rgba(17,17,17,0.16)',
+      accentOrFg: '#F6C444',
+      phA: dark ? '#171717' : '#E9E9E9',
+      phB: dark ? '#1F1F1F' : '#DFDFDF'
+    };
+  }
+}
+</script>
+<style>
+html,body{scrollbar-width:none!important;-ms-overflow-style:none}
+html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}
+*{scrollbar-width:none!important}
+@media (hover:hover) and (pointer:fine){
+  html.fyw-has-dot,html.fyw-has-dot *{cursor:none!important}
+  .fyw-dot{position:fixed;left:0;top:0;z-index:2147483647;pointer-events:none;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:#fff;mix-blend-mode:difference;transition:width .4s cubic-bezier(.2,.7,.2,1),height .4s cubic-bezier(.2,.7,.2,1),margin .4s cubic-bezier(.2,.7,.2,1),opacity .3s}
+  .fyw-dot.is-hover{width:44px;height:44px;margin:-22px 0 0 -22px}
+  .fyw-dot.is-hidden{opacity:0}
+}
+</style>
+<script>
+/* Fyw: cursor ponto também dentro do site (cópia exibida no portfólio) */
+(function () {
+  if (!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+  function init() {
+    var dot = document.createElement('div'); dot.className = 'fyw-dot is-hidden'; dot.setAttribute('aria-hidden', 'true'); document.body.appendChild(dot);
+    document.documentElement.classList.add('fyw-has-dot');
+    var x = -50, y = -50, raf = 0;
+    addEventListener('pointermove', function (e) { x = e.clientX; y = e.clientY; dot.classList.remove('is-hidden'); if (!raf) raf = requestAnimationFrame(function () { raf = 0; dot.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)'; }); }, { passive: true });
+    document.addEventListener('mouseover', function (e) { dot.classList.toggle('is-hover', !!(e.target.closest && e.target.closest('a, button, [role=button], input, summary'))); });
+    document.addEventListener('mouseleave', function () { dot.classList.add('is-hidden'); });
+  }
+  if (document.body) init(); else document.addEventListener('DOMContentLoaded', init);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cimed — Saúde e bem-estar para todos os brasileiros</title>
+<meta name="description" content="Cimed: há quase 50 anos levando saúde de qualidade e acessível para todo o Brasil. Mais de 600 produtos, operação 100% verticalizada.">
+<meta name="theme-color" content="#FFC600">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="cimed.css?v=25">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="sym" viewBox="0 0 122 70"><path d="M85.6006 0.0302734C107.222 0.0304596 121.691 13.9701 121.691 34.8252C121.691 55.8818 107.226 69.743 85.6006 69.7432H36.0352C14.455 69.7432 0 55.8008 0 34.9863C7.92847e-05 13.9742 14.455 0.0323708 36.0352 0.0322266H57.6377L85.585 0L85.6006 0.0302734ZM76.0293 16.3643V53.4873H85.4844C96.4456 53.4872 102.884 46.6001 102.884 34.8232C102.884 23.248 96.4454 16.3644 85.4844 16.3643H76.0293ZM36.1357 16.3594C25.1937 16.3594 18.7697 23.2322 18.7695 34.9824C18.7695 46.5358 25.1936 53.4082 36.1357 53.4082L57.6377 53.4121V16.3662L36.1357 16.3594Z"/></symbol>
+  <symbol id="logo" viewBox="71 91 214 50"><path d="M180.502 91L166.298 114.32L152.091 91H139.968V141H152.819V113.542L163.347 131.785H169.246L179.774 113.542V141H192.625V91H180.502ZM259.288 91.025H239.376V140.999H259.288C274.688 140.999 285 131.006 285 115.941C285 101.02 274.685 91.0237 259.288 91.0237V91.025ZM259.216 129.293H252.483V102.733H259.216C267.022 102.733 271.606 107.658 271.606 115.939C271.606 124.365 267.022 129.293 259.216 129.293ZM213.056 121.499H229.887V110.076H213.056V102.65H231.321V91.0142H200.021V140.988H231.966V129.28H213.057L213.056 121.499ZM132.572 91.025H119.464V140.999H132.572V91.025ZM71 116.056C71 130.948 81.2933 140.922 96.661 140.922H112.045V129.238L96.7329 129.236C88.9408 129.236 84.3663 124.319 84.3663 116.053C84.3663 107.646 88.9408 102.729 96.7329 102.729L112.045 102.734V91.048H96.661C81.2933 91.0481 71 101.023 71 116.056Z"/></symbol>
+  <path id="ssP2" d="M1325.56 0.469727C1660.38 0.469884 1884.45 216.333 1884.45 539.288C1884.45 865.36 1660.43 1080 1325.56 1080H558.014C223.835 1080 0.000169552 864.104 0 541.782C0 216.398 223.835 0.500281 558.014 0.498047H892.547L1325.33 0L1325.56 0.469727ZM1177.35 253.412V828.281H1323.76C1493.5 828.281 1593.2 721.631 1593.2 539.26C1593.2 360.006 1493.5 253.412 1323.76 253.412H1177.35ZM559.577 253.338C390.133 253.338 290.659 359.764 290.659 541.726C290.659 720.635 390.133 827.053 559.577 827.053L892.547 827.108V253.445L559.577 253.338Z"/><mask id="ssM2" maskUnits="userSpaceOnUse" x="0" y="0" width="1885" height="1080"><use href="#ssP2" fill="#fff"/></mask>
+  <symbol id="arr" viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-srch" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 16l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+</svg>
+
+<header class="hd" id="hd">
+  <div class="hd-in">
+    <a class="hd-logo" href="#inicio" aria-label="Cimed — início"><svg><use href="#logo"/></svg></a>
+    <nav class="hd-nav" aria-label="Principal">
+      <a href="#inicio" class="is-on">Home</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#produtos">Produtos</a>
+      <a href="#novidades">Novidades</a>
+    </nav>
+    <div class="hd-act">
+      <button class="hd-search" type="button" aria-label="Buscar" data-open-search><svg><use href="#i-srch"/></svg></button>
+      <button class="hd-burger" type="button" aria-label="Abrir menu" aria-expanded="false"><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <nav>
+    <a href="#inicio">Home</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#produtos">Produtos</a>
+    <a href="#selecao">Seleção Brasileira</a>
+    <a href="#novidades">Novidades</a>
+  </nav>
+  <div class="drawer-ft">
+    <span>SAC 0800 704 4647</span>
+    <span>Seg a Sex · 8h às 17h</span>
+  </div>
+</div>
+
+<main>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <svg class="hero-sym" viewBox="0 0 1885 1080" fill="none" aria-hidden="true"><defs><path id="hsP" d="M1325.56 0.469727C1660.38 0.469884 1884.45 216.333 1884.45 539.288C1884.45 865.36 1660.43 1080 1325.56 1080H558.014C223.835 1080 0.000169552 864.104 0 541.782C0 216.398 223.835 0.500281 558.014 0.498047H892.547L1325.33 0L1325.56 0.469727ZM1177.35 253.412V828.281H1323.76C1493.5 828.281 1593.2 721.631 1593.2 539.26C1593.2 360.006 1493.5 253.412 1323.76 253.412H1177.35ZM559.577 253.338C390.133 253.338 290.659 359.764 290.659 541.726C290.659 720.635 390.133 827.053 559.577 827.053L892.547 827.108V253.445L559.577 253.338Z"/><mask id="hsM"><use href="#hsP" fill="#fff"/></mask><linearGradient id="hsG" gradientUnits="userSpaceOnUse" x1="-700" y1="0" x2="0" y2="300"><stop offset="0" stop-color="#FFC600" stop-opacity="0"/><stop offset=".5" stop-color="#FFC600" stop-opacity=".42"/><stop offset="1" stop-color="#FFC600" stop-opacity="0"/></linearGradient></defs><use href="#hsP" stroke="#E6E6E6" stroke-opacity=".38" stroke-width="40" mask="url(#hsM)"/><use href="#hsP" stroke="url(#hsG)" stroke-width="40" mask="url(#hsM)"/></svg>
+  <div class="wrap hero-in">
+    <div class="hero-txt">
+      <a class="sponsor rv" href="#selecao"><img src="img/cbf-badge.svg" alt="CBF" width="53" height="74"><span>Patrocinador Oficial<br>da Seleção Brasileira</span></a>
+      <h1 class="hero-h rv">Proporcionar <em>saúde</em> <br class="d">e <em>bem-estar</em> para <br class="d">todos os <em>brasileiros.</em></h1>
+      <p class="hero-sub rv">É isso que nos move.</p>
+      <a class="btn rv" href="#sobre"><span>Conheça nossa história</span><i><svg><use href="#arr"/></svg></i></a>
+      <dl class="stats rv">
+        <div><dt>R$ 3,6 BI</dt><dd>em Faturamento</dd></div>
+        <div><dt>+600</dt><dd>Produtos</dd></div>
+        <div><dt>100%</dt><dd>Verticalizada</dd></div>
+      </dl>
+    </div>
+  </div>
+  <figure class="hero-ph">
+    <img src="img/joao-adibe.webp" alt="João Adibe, CEO da Cimed, com moletom amarelo" width="800" height="800" fetchpriority="high">
+    <figcaption class="hero-q">
+      <q>Nosso compromisso é ampliar o acesso à saúde com eficiência industrial e escala nacional</q>
+      <b>João Adibe</b>
+      <span>CEO da Cimed</span>
+    </figcaption>
+  </figure>
+</section>
+
+<!-- MARCAS -->
+<section class="brands" aria-label="Nossas marcas">
+  <div class="mq" data-drift>
+    <div class="mq-track">
+      <img src="img/lg-bepantriz.webp" alt="Bepantriz" width="234" height="75">
+      <img src="img/lg-carmed.webp" alt="Carmed" width="234" height="75">
+      <img src="img/lg-lavitan.webp" alt="Lavitan" width="234" height="75">
+      <img src="img/lg-cimegripe.webp" alt="Cimegripe" width="234" height="75">
+      <img src="img/lg-nevralgex.webp" alt="Nevralgex" width="234" height="75">
+      <img src="img/lg-kmed.webp" alt="K-MED" width="234" height="75">
+      <img src="img/lg-xo.webp" alt="Xô Inseto" width="234" height="75">
+      <img src="img/lg-dermafeme.webp" alt="Dermafeme" width="234" height="75">
+    </div>
+  </div>
+</section>
+
+<!-- LAVITAN -->
+<section class="lav-sec" aria-label="Lavitan">
+  <div class="wrap">
+    <div class="lav" id="lav">
+      <div class="lav-art">
+        <img class="lav-w" src="img/shape-white.webp" alt="" aria-hidden="true">
+        <img class="lav-y" src="img/shape-yellow.webp" alt="" aria-hidden="true">
+        <img class="lav-bt" src="img/lavitan-bcaa-pdf.webp" alt="Lavitan BCAA, 100 cápsulas" width="335" height="576">
+      </div>
+      <img class="lav-logo" src="img/m-lavitan.webp" alt="Lavitan">
+      <svg class="lav-sym" aria-hidden="true"><use href="#sym"/></svg>
+      <div class="lav-txt">
+        <h2>Mais <em>disposição</em> e <em>foco</em> todos os <em>dias</em></h2>
+        <p>Combina vitaminas (A, C, D, Complexo B) e minerais (Ferro, Zinco, Magnésio) para suprir carências nutricionais e aumentar o vigor físico.</p>
+        <a class="btn btn-sm" href="#produtos" data-cat="vit"><span>Ver linha completa</span><i><svg><use href="#arr"/></svg></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section class="about" id="sobre">
+  <div class="wrap">
+    <div class="about-top">
+      <div>
+        <span class="eyebrow rv">Quem somos</span>
+        <h2 class="h2 rv">Quase <em>50 anos</em> cuidando da saúde dos brasileiros.</h2>
+      </div>
+      <div class="about-p rv">
+        <p>Desde 1977, a Cimed trabalha para que saúde de qualidade chegue a todo o Brasil. Do desenvolvimento à fabricação e à distribuição, a operação é 100% verticalizada, o que permite manter o padrão de qualidade e preços que cabem no bolso.</p>
+        <p>São mais de 600 produtos, entre medicamentos, vitaminas, higiene e beleza, presentes nas farmácias de norte a sul do país.</p>
+      </div>
+    </div>
+    <figure class="about-ph rv">
+      <img src="img/fabrica-full.webp" srcset="img/fabrica-full-m.webp 1000w, img/fabrica-full.webp 2000w" sizes="(max-width:860px) 100vw, 1300px" alt="Vista aérea do parque fabril da Cimed em Pouso Alegre (MG)" width="2000" height="1083" loading="lazy">
+      <figcaption><svg><use href="#sym"/></svg>Parque fabril Cimed · Pouso Alegre (MG)</figcaption>
+      <div class="about-badge"><b>100%</b><span>verticalizada, do desenvolvimento à distribuição</span></div>
+    </figure>
+    <h3 class="diff-h rv">O que nos torna <em>diferentes</em></h3>
+    <ul class="diff">
+      <li class="rv"><b>01</b><h4>Quase 50 anos</h4><p>Desde 1977 levando saúde de qualidade para milhões de brasileiros.</p></li>
+      <li class="rv"><b>02</b><h4>Qualidade certificada</h4><p>Produtos registrados na Anvisa e fabricados com rigorosos padrões de qualidade.</p></li>
+      <li class="rv"><b>03</b><h4>Presença nacional</h4><p>Nas farmácias de todo o país, sempre perto de quem precisa.</p></li>
+      <li class="rv"><b>04</b><h4>Preços acessíveis</h4><p>Qualidade que cabe no bolso, porque saúde é um direito de todos.</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- PRODUTOS -->
+<section class="prod" id="produtos">
+  <div class="wrap">
+    <div class="sec-hd">
+      <div>
+        <span class="eyebrow rv">Produtos</span>
+        <h2 class="h2 rv">Marcas que estão <em>sempre presentes</em> na sua farmácia.</h2>
+      </div>
+      <div class="tabs rv" role="tablist" aria-label="Categorias">
+        <button role="tab" class="is-on" aria-selected="true" data-f="*">Todas</button>
+        <button role="tab" aria-selected="false" data-f="rem">Remédios</button>
+        <button role="tab" aria-selected="false" data-f="vit">Vitaminas &amp; Nutrição</button>
+        <button role="tab" aria-selected="false" data-f="hig">Higiene &amp; Beleza</button>
+        <button role="tab" aria-selected="false" data-f="der">Dermocosméticos</button>
+      </div>
+    </div>
+    <ul class="pgrid" id="pgrid">
+      <li class="pc t-y" data-c="vit" data-p="lavitan" tabindex="0" role="button" aria-haspopup="dialog"><div class="pc-m"><img class="pc-ph" src="img/p-lavitan.webp" alt="Produto Lavitan" width="640" height="640" loading="lazy"><span class="pc-lg"><img src="img/lg-lavitan.webp" alt="Lavitan" width="234" height="75" loading="lazy"></span></div><div class="pc-b"><span>Vitaminas &amp; Nutrição</span><h3>Lavitan</h3><p>Vitaminas, minerais e suplementos para o dia a dia.</p></div></li>
+      <li class="pc t-k" data-c="rem" data-p="cimegripe" tabindex="0" role="button" aria-haspopup="dialog"><div class="pc-m"><img class="pc-ph" src="img/p-cimegripe.webp" alt="Produto Cimegripe" width="640" height="640" loading="lazy"><span class="pc-lg"><img src="img/lg-cimegripe.webp" alt="Cimegripe" width="234" height="75" loading="lazy"></span></div><div class="pc-b"><span>Remédios</span><h3>Cimegripe</h3><p>Antigripal para aliviar os sintomas da gripe e do resfriado.</p></div></li>
+      <li class="pc t-g" data-c="rem" data-p="nevralgex" tabindex="0" role="button" aria-haspopup="dialog"><div class="pc-m"><img class="pc-ph" src="img/p-nevralgex.webp" alt="Produto Nevralgex" width="640" height="640" loading="lazy"><span class="pc-lg"><img src="img/lg-nevralgex.webp" alt="Nevralgex" width="234" height="75" loading="lazy"></span></div><div class="pc-b"><span>Remédios</span><h3>Nevralgex</h3><p>Analgésico e relaxante muscular para dores do corpo.</p></div></li>
+      <li class="pc t-k" data-c="der" data-p="bepantriz" tabindex="0" role="button" aria-haspopup="dialog"><div class="pc-m"><img class="pc-ph" src="img/p-bepantriz.webp" alt="Produto Bepantriz" width="640" height="640" loading="lazy"><span class="pc-lg"><img src="img/lg-bepantriz.webp" alt="Bepantriz" width="234" height="75" loading="lazy"></span></div><div class="pc-b"><span>Dermocosméticos</span><h3>Bepantriz</h3><p>Cuidado e proteção para a pele, do bebê ao adulto.</p></div></li>
+      <li class="pc t-g" data-c="hig" data-p="carmed" tabindex="0" role="button" aria-haspopup="dialog"><div class="pc-m"><img class="pc-ph" src="img/p-carmed.webp" alt="Produto Carmed" width="640" height="640" loading="lazy"><span class="pc-lg"><img src="img/lg-carmed.webp" alt="Carmed" width="234" height="75" loading="lazy"></span></div><div class="pc-b"><span>Higiene &amp; Beleza</span><h3>Carmed</h3><p>Hidratante labial em sabores, cores e coleções.</p></div></li>
+      <li class="pc t-y" data-c="hig" data-p="xo" tabindex="0" role="button" aria-haspopup="dialog"><div class="pc-m"><img class="pc-ph" src="img/p-xo.webp" alt="Produto Xô Inseto" width="640" height="640" loading="lazy"><span class="pc-lg"><img src="img/lg-xo.webp" alt="Xô Inseto" width="234" height="75" loading="lazy"></span></div><div class="pc-b"><span>Higiene &amp; Beleza</span><h3>Xô Inseto</h3><p>Repelentes para proteger toda a família.</p></div></li>
+      <li class="pc t-k" data-c="hig" data-p="dermafeme" tabindex="0" role="button" aria-haspopup="dialog"><div class="pc-m"><img class="pc-ph" src="img/p-dermafeme.webp" alt="Produto Dermafeme" width="640" height="640" loading="lazy"><span class="pc-lg"><img src="img/lg-dermafeme.webp" alt="Dermafeme" width="234" height="75" loading="lazy"></span></div><div class="pc-b"><span>Higiene &amp; Beleza</span><h3>Dermafeme</h3><p>Cuidado íntimo feminino para todos os dias.</p></div></li>
+      <li class="pc t-g" data-c="hig" data-p="kmed" tabindex="0" role="button" aria-haspopup="dialog"><div class="pc-m"><img class="pc-ph" src="img/p-kmed.webp" alt="Produto K-MED" width="640" height="640" loading="lazy"><span class="pc-lg"><img src="img/lg-kmed.webp" alt="K-MED" width="234" height="75" loading="lazy"></span></div><div class="pc-b"><span>Higiene &amp; Beleza</span><h3>K-MED</h3><p>Linha de géis íntimos para o bem-estar do casal.</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- SELEÇÃO -->
+<section class="sel2" id="selecao">
+  <div class="wrap">
+    <div class="sel2-card">
+      <div class="sel2-art">
+        <svg class="sel2-sym" viewBox="0 0 1885 1080" fill="none" aria-hidden="true"><use href="#ssP2" stroke="#0B0B0B" stroke-opacity=".1" stroke-width="40" mask="url(#ssM2)"/></svg>
+        <div class="sel2-seal">
+          <svg class="sel2-ring" viewBox="0 0 300 300" aria-hidden="true"><defs><path id="ringP" d="M150,150 m-118,0 a118,118 0 1,1 236,0 a118,118 0 1,1 -236,0"/></defs><text><textPath href="#ringP" textLength="738">PATROCINADOR OFICIAL • SELEÇÃO BRASILEIRA • CIMED • </textPath></text></svg>
+          <img src="img/cbf-badge.svg" alt="CBF — Confederação Brasileira de Futebol" width="53" height="74">
+        </div>
+        <p class="sel2-cap">Patrocinador Oficial<br>da Seleção Brasileira</p>
+      </div>
+      <div class="sel2-txt">
+        <span class="eyebrow">Seleção Brasileira</span>
+        <h2 class="h2">Patrocinadora oficial da <em>Seleção Brasileira.</em></h2>
+        <p>A Cimed veste a camisa do Brasil e é a farmacêutica que acompanha a Seleção dentro e fora de campo, levando a mesma energia da torcida para a saúde de milhões de brasileiros.</p>
+        <ul class="sel2-chips">
+          <li>Única farmacêutica patrocinadora</li>
+          <li>Parceria renovada</li>
+          <li>@cimedesportes</li>
+        </ul>
+        <a class="btn" href="#novidades/selecao"><span>Conheça a parceria</span><i><svg><use href="#arr"/></svg></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPROMISSO -->
+<section class="comp" aria-label="Nosso compromisso">
+  <div class="wrap">
+    <span class="eyebrow rv">Nosso compromisso</span>
+    <h2 class="comp-h rv">Saúde de qualidade é um <em>direito de todos.</em></h2>
+  </div>
+  <div class="tick" data-drift="slow">
+    <div class="mq-track">
+      <span>Produtos que realmente funcionam</span><svg><use href="#sym"/></svg>
+      <span>Sempre presente na minha farmácia</span><svg><use href="#sym"/></svg>
+      <span>Marca brasileira de confiança</span><svg><use href="#sym"/></svg>
+      <span>Acesso à saúde para todos</span><svg><use href="#sym"/></svg>
+      <span>Qualidade que cabe no bolso</span><svg><use href="#sym"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- NOVIDADES -->
+<section class="news" id="novidades">
+  <div class="wrap">
+    <div class="sec-hd">
+      <div>
+        <span class="eyebrow rv">Novidades</span>
+        <h2 class="h2 rv">Notícias, bastidores e <em>dicas de saúde.</em></h2>
+      </div>
+    </div>
+    <div class="ngrid">
+      <a class="nc rv" href="#novidades/pouso-alegre">
+        <div class="nc-m"><img src="img/fabrica.webp" alt="" loading="lazy"></div>
+        <div class="nc-b"><span class="tag">Institucional</span><h3>Pouso Alegre: onde a Cimed fabrica saúde em escala nacional</h3><p>Como a operação verticalizada leva mais de 600 produtos às farmácias de todo o país.</p><small>5 min de leitura</small></div>
+      </a>
+      <a class="nc rv" href="#novidades/selecao">
+        <div class="nc-m nc-sel"><svg class="nc-sym" aria-hidden="true"><use href="#sym"/></svg><img src="img/cbf.svg" alt="" loading="lazy"></div>
+        <div class="nc-b"><span class="tag">Seleção Brasileira</span><h3>Cimed e Seleção: a parceria que veste a camisa da saúde</h3><p>O que significa ser a farmacêutica patrocinadora oficial da Seleção Brasileira.</p><small>4 min de leitura</small></div>
+      </a>
+      <a class="nc rv" href="#novidades/concentracao">
+        <div class="nc-m nc-lav"><img class="nc-y" src="img/shape-yellow.webp" alt="" loading="lazy"><img class="nc-b2" src="img/lavitan-bcaa.webp" alt="" loading="lazy"></div>
+        <div class="nc-b"><span class="tag">Saúde &amp; bem-estar</span><h3>Como melhorar a concentração: 7 hábitos para o dia a dia</h3><p>Sono, alimentação, pausas e outras atitudes simples que ajudam a manter o foco.</p><small>6 min de leitura</small></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="nl-sec">
+  <div class="wrap">
+    <div class="nl">
+      <svg class="nl-sym" aria-hidden="true"><use href="#sym"/></svg>
+      <div>
+        <h2>Receba novidades e <em>dicas de saúde</em> no seu e-mail.</h2>
+        <p>Lançamentos, conteúdos de bem-estar e notícias da Cimed. Sem excesso, prometemos.</p>
+      </div>
+      <form class="nl-f" novalidate>
+        <label class="sr" for="nl-e">Seu e-mail</label>
+        <input id="nl-e" type="email" placeholder="Seu melhor e-mail" autocomplete="email" required>
+        <button class="btn" type="submit"><span>Assinar</span><i><svg><use href="#arr"/></svg></i></button>
+        <p class="nl-msg" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="ft">
+  <div class="wrap">
+    <div class="ft-top">
+      <div class="ft-brand">
+        <svg class="ft-logo"><use href="#logo"/></svg>
+        <p>Proporcionar saúde e bem-estar para todos os brasileiros. É isso que nos move.</p>
+        <div class="ft-soc">
+          <a href="https://www.instagram.com/cimedco/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.linkedin.com/company/grupocimed/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.youtube.com/@_CIMED" target="_blank" rel="noopener">YouTube</a>
+        </div>
+      </div>
+      <div class="ft-col">
+        <h4>Produtos</h4>
+        <a href="#produtos" data-cat="der">Dermocosméticos</a>
+        <a href="#produtos" data-cat="hig">Higiene &amp; Beleza</a>
+        <a href="#produtos" data-cat="rem">Remédios</a>
+        <a href="#produtos" data-cat="vit">Vitaminas &amp; Nutrição</a>
+      </div>
+      <div class="ft-col">
+        <h4>Institucional</h4>
+        <a href="#sobre">Nossa história</a>
+        <a href="#sobre">Missão e valores</a>
+        <a href="#sobre">Qualidade</a>
+        <a href="#novidades">Imprensa</a>
+      </div>
+      <div class="ft-col">
+        <h4>Fale conosco</h4>
+        <a href="tel:08007044647" class="ft-sac">0800 704 4647</a>
+        <span>Seg a Sex · 8h às 17h</span>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <span>© 2026 Cimed. Todos os direitos reservados.</span>
+      <nav><a href="#inicio">Política de Privacidade</a><a href="#inicio">Termos de Uso</a><a href="#inicio">Cookies</a></nav>
+    </div>
+  </div>
+  <p class="ft-warn">Se persistirem os sintomas, o médico deverá ser consultado.</p>
+</footer>
+
+<!-- BUSCA -->
+<div class="srch" id="srch" aria-hidden="true" role="dialog" aria-label="Buscar">
+  <div class="srch-in">
+    <div class="srch-bar">
+      <svg><use href="#i-srch"/></svg>
+      <input type="search" placeholder="Busque por marcas, produtos ou notícias" aria-label="Buscar">
+      <button type="button" class="srch-x" aria-label="Fechar busca"><svg><use href="#x"/></svg></button>
+    </div>
+    <ul class="srch-res"></ul>
+  </div>
+</div>
+
+<!-- PRODUTO -->
+<div class="pm" id="pm" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="pm-t">
+  <div class="pm-card">
+    <button type="button" class="pm-x" aria-label="Fechar"><svg><use href="#x"/></svg></button>
+    <div class="pm-m"><img alt=""><span class="pc-lg"><img alt=""></span></div>
+    <div class="pm-b">
+      <span class="pm-cat"></span>
+      <h3 id="pm-t"></h3>
+      <p class="pm-pres"></p>
+      <dl class="pm-dl"></dl>
+      <p class="pm-warn"></p>
+      <a class="btn btn-sm pm-go" target="_blank" rel="noopener"><span>Ver no site da Cimed</span><i><svg><use href="#arr"/></svg></i></a>
+    </div>
+  </div>
+</div>
+
+<!-- POST -->
+<div class="post" id="post" aria-hidden="true" role="dialog" aria-label="Notícia">
+  <div class="post-bar">
+    <svg class="post-logo"><use href="#logo"/></svg>
+    <button type="button" class="post-x" aria-label="Fechar notícia"><span>Fechar</span><svg><use href="#x"/></svg></button>
+  </div>
+  <div class="post-sc"><article class="post-art"></article></div>
+</div>
+
+<template id="tp-pouso-alegre">
+  <span class="tag">Institucional</span>
+  <h1>Pouso Alegre: onde a Cimed fabrica saúde em <em>escala nacional</em></h1>
+  <p class="post-meta">Novidades · 5 min de leitura</p>
+  <figure class="post-cv"><img src="img/fabrica.webp" alt="Vista aérea do parque fabril da Cimed"></figure>
+  <p class="lead">É no sul de Minas Gerais, em Pouso Alegre, que a Cimed concentra a estrutura que sustenta a sua promessa: ampliar o acesso à saúde com eficiência industrial.</p>
+  <h2>Do desenvolvimento à farmácia</h2>
+  <p>A Cimed é uma empresa 100% verticalizada. Na prática, isso significa que as etapas mais importantes da cadeia, do desenvolvimento dos produtos à fabricação, armazenagem e distribuição, ficam sob o mesmo guarda-chuva. O resultado é mais controle sobre a qualidade, prazos e custos.</p>
+  <p>É esse modelo que permite manter um portfólio com mais de 600 produtos, entre medicamentos, vitaminas, higiene e beleza, presentes nas farmácias de todo o Brasil.</p>
+  <h2>Investimento para crescer</h2>
+  <p>O parque fabril de Pouso Alegre recebeu apoio do BNDES, que aprovou um financiamento de R$ 100 milhões para a fábrica da Cimed na cidade. A parceria com o banco segue presente na expansão da estrutura logística da empresa na região.</p>
+  <blockquote>“Nosso compromisso é ampliar o acesso à saúde com eficiência industrial e escala nacional.”<cite>João Adibe, CEO da Cimed</cite></blockquote>
+  <h2>Escala que vira acesso</h2>
+  <p>Produzir em escala é o que torna possível chegar com preço justo a quem mais precisa. Para a Cimed, cada nova linha de produção e cada metro de armazém têm o mesmo objetivo: fazer com que saúde de qualidade caiba no bolso de todos os brasileiros.</p>
+</template>
+
+<template id="tp-selecao">
+  <span class="tag">Seleção Brasileira</span>
+  <h1>Cimed e Seleção: a parceria que veste a <em>camisa da saúde</em></h1>
+  <p class="post-meta">Novidades · 4 min de leitura</p>
+  <figure class="post-cv post-cv-sel"><svg aria-hidden="true"><use href="#sym"/></svg><img src="img/cbf.svg" alt="CBF"></figure>
+  <p class="lead">Amarelo é a cor da Cimed, e também a da camisa mais famosa do futebol. Não por acaso, a empresa é patrocinadora oficial da Seleção Brasileira.</p>
+  <h2>A única farmacêutica no time</h2>
+  <p>Entre os patrocinadores da CBF, a Cimed ocupa um lugar único: é a farmacêutica que acompanha a Seleção. A parceria foi renovada ao longo dos anos e se tornou uma das mais reconhecidas da marca.</p>
+  <h2>Mais que uma marca na camisa</h2>
+  <p>Para a Cimed, o futebol é uma forma de estar perto das pessoas. A mesma paixão que reúne o país em dia de jogo é a que move a empresa a levar saúde e bem-estar para todos os cantos do Brasil.</p>
+  <p>Nas campanhas, nas farmácias e nas redes, como no perfil @cimedesportes, a parceria aproxima marcas como Lavitan, Carmed e Cimegripe de milhões de torcedores.</p>
+  <blockquote>Proporcionar saúde e bem-estar para todos os brasileiros. É isso que nos move.<cite>Propósito Cimed</cite></blockquote>
+</template>
+
+<template id="tp-concentracao">
+  <span class="tag">Saúde &amp; bem-estar</span>
+  <h1>Como melhorar a concentração: <em>7 hábitos</em> para o dia a dia</h1>
+  <p class="post-meta">Novidades · 6 min de leitura</p>
+  <figure class="post-cv post-cv-lav"><img class="pcy" src="img/shape-yellow.webp" alt=""><img class="pcb" src="img/lavitan-bcaa.webp" alt="Lavitan BCAA"></figure>
+  <p class="lead">Dias cheios, telas por todos os lados e notificações sem fim. Manter o foco virou um desafio, mas alguns hábitos simples fazem diferença.</p>
+  <h2>1. Durma bem</h2>
+  <p>O sono é quando o cérebro organiza o que foi aprendido e recupera energia. Ter horários regulares para dormir e acordar é um dos passos mais importantes para render melhor durante o dia.</p>
+  <h2>2. Beba água</h2>
+  <p>Mesmo uma desidratação leve pode causar cansaço e dificuldade de atenção. Deixe uma garrafa por perto e beba ao longo do dia, sem esperar a sede.</p>
+  <h2>3. Capriche na alimentação</h2>
+  <p>Frutas, verduras, legumes, grãos integrais e boas fontes de proteína fornecem as vitaminas e minerais de que o corpo precisa. Refeições muito pesadas, por outro lado, tendem a dar sono.</p>
+  <h2>4. Faça pausas</h2>
+  <p>Trabalhar em blocos de tempo, com pequenos intervalos entre eles, ajuda a manter a atenção. Levante, alongue-se e descanse os olhos da tela.</p>
+  <h2>5. Mexa o corpo</h2>
+  <p>A atividade física melhora a circulação, o humor e a disposição. Uma caminhada curta já ajuda a voltar mais focado para a tarefa.</p>
+  <h2>6. Uma coisa de cada vez</h2>
+  <p>Fazer várias tarefas ao mesmo tempo dá a sensação de produtividade, mas divide a atenção. Liste as prioridades do dia e silencie as notificações quando precisar se concentrar.</p>
+  <h2>7. Fique de olho nas carências</h2>
+  <p>Quando a alimentação não dá conta, vitaminas e minerais podem ajudar a suprir carências nutricionais. Converse com um médico ou nutricionista antes de começar qualquer suplementação.</p>
+  <p class="post-note">Este conteúdo é informativo e não substitui a orientação de um profissional de saúde. Se persistirem os sintomas, o médico deverá ser consultado.</p>
+</template>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="cimed.js?v=13"></script>
+</body>
+</html>

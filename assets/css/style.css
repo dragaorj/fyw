@@ -4610,3 +4610,111 @@ html body .pp2-duo .pp2-card { min-height: 0; padding: clamp(22px, 2.4vw, 30px);
 .pp2-svc-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
 .pp2-svc-row .pp2-year { height: 36px; display: inline-flex; align-items: center; }
 .pp2-svc-row .pp2-svc { flex: none; }
+/* chip do ano com a mesma altura e tipografia do switch de serviços */
+.pp2-svc-row { align-items: stretch; }
+.pp2-svc-row .pp2-year { height: auto; min-height: 46px; padding: 0 20px; font-size: .875rem; font-weight: 500; }
+@media (max-width: 599px) { .pp2-svc-row .pp2-year { min-height: 42px; padding: 0 16px; font-size: .8125rem; } }
+
+/* ===== Kyoto · vitrine de Branding: logo vetorial sendo desenhado ===== */
+.ky-mark-sec{padding-top:clamp(28px,4vw,56px)}
+.ky-mark{--mx:50%;--my:40%;position:relative;overflow:hidden;display:grid;place-items:center;min-height:clamp(380px,46vw,640px);border-radius:clamp(20px,2.4vw,32px);background:radial-gradient(90% 80% at 50% 38%,#0A3E80 0%,#00224A 52%,#00122A 100%);box-shadow:inset 0 0 0 1px rgba(124,187,255,.12);isolation:isolate}
+.ky-mark-lines{position:absolute;inset:0;z-index:0;background:repeating-linear-gradient(90deg,rgba(124,187,255,.10) 0 1px,transparent 1px 64px);-webkit-mask-image:radial-gradient(600px circle at var(--mx) var(--my),#000,transparent 70%);mask-image:radial-gradient(600px circle at var(--mx) var(--my),#000,transparent 70%);opacity:0;transition:opacity 1.2s}
+.ky-mark.go .ky-mark-lines{opacity:1}
+.ky-mark::after{content:"";position:absolute;left:50%;top:38%;width:46%;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%) scale(.6);background:radial-gradient(closest-side,rgba(1,120,255,.35),transparent);opacity:0;z-index:0;transition:opacity 1.6s 1s,transform 2.4s 1s cubic-bezier(.2,.7,.2,1)}
+.ky-mark.go::after{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.ky-logo{position:relative;z-index:1;width:min(62%,640px);height:auto;overflow:visible;color:#EEEDE9}
+.ky-guides *{stroke:rgba(124,187,255,.38);stroke-width:1;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1}
+.ky-mark.go .ky-guides *{animation:kyDraw 1.4s var(--d,0s) cubic-bezier(.65,0,.25,1) forwards,kyFade 1s calc(var(--d,0s) + 3.4s) ease forwards}
+.ky-logo .s{fill:currentColor;transform-box:fill-box;transform-origin:50% 50%;transform:scaleX(0);opacity:0}
+.ky-mark.go .ky-logo .s{animation:kyBar .9s var(--d,0s) cubic-bezier(.2,.85,.2,1) forwards}
+.ky-logo .l{fill:transparent;stroke:currentColor;stroke-width:1.2;vector-effect:non-scaling-stroke;stroke-dasharray:1;stroke-dashoffset:1}
+.ky-mark.go .ky-logo .l{animation:kyDraw 1.3s var(--d,0s) cubic-bezier(.65,0,.25,1) forwards,kyFill .7s calc(var(--d,0s) + .9s) ease forwards}
+.ky-logo .k{fill:currentColor;opacity:0;transform-box:fill-box;transform-origin:50% 100%;transform:translateY(40%)}
+.ky-mark.go .ky-logo .k{animation:kyUp .6s var(--d,0s) cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes kyDraw{to{stroke-dashoffset:0}}
+@keyframes kyFade{to{opacity:.35}}
+@keyframes kyFill{to{fill:currentColor;stroke-width:0}}
+@keyframes kyBar{0%{opacity:0;transform:scaleX(0)}30%{opacity:1}100%{opacity:1;transform:none}}
+@keyframes kyUp{to{opacity:1;transform:none}}
+.ky-mark-notes{position:absolute;left:clamp(16px,2.4vw,32px);bottom:clamp(16px,2.4vw,28px);z-index:2;display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.ky-mark-notes li{display:inline-flex;align-items:center;gap:8px;height:32px;padding:0 12px 0 6px;border-radius:99px;background:rgba(238,237,233,.08);box-shadow:inset 0 0 0 1px rgba(124,187,255,.18);color:rgba(238,237,233,.85);font-size:.75rem;white-space:nowrap;opacity:0;transform:translateY(10px);transition:opacity .6s,transform .6s cubic-bezier(.2,.7,.2,1)}
+.ky-mark-notes b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#0178FF;color:#fff;font-size:.625rem;font-weight:600}
+.ky-mark.go .ky-mark-notes li{opacity:1;transform:none}
+.ky-mark.go .ky-mark-notes li:nth-child(1){transition-delay:1.2s}.ky-mark.go .ky-mark-notes li:nth-child(2){transition-delay:2.1s}.ky-mark.go .ky-mark-notes li:nth-child(3){transition-delay:2.9s}
+.ky-mark-replay{position:absolute;right:clamp(14px,2vw,24px);bottom:clamp(14px,2vw,24px);z-index:2;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;border:0;background:rgba(238,237,233,.1);color:#EEEDE9;cursor:pointer;transition:background .3s,transform .5s cubic-bezier(.2,.7,.2,1)}
+.ky-mark-replay:hover{background:#0178FF;transform:rotate(-180deg)}
+.ky-mark-replay svg{width:18px;height:18px}
+@media (max-width:599px){
+  .ky-mark{min-height:360px}
+  .ky-logo{width:84%}
+  .ky-mark-notes{right:64px}
+  .ky-mark-notes li{height:28px;font-size:.6875rem}
+}
+@media (prefers-reduced-motion:reduce){ .ky-logo .s,.ky-logo .k{opacity:1;transform:none}.ky-logo .l{fill:currentColor;stroke-width:0}.ky-guides *{stroke-dashoffset:0;opacity:.35} }
+
+/* ===== Cimed (página do projeto): hero claro com amarelo ===== */
+.pj-cimed .cm-hero { background: #FFFFFF; color: #0B0B0B; }
+.pj-cimed .cm-hero::after { background: repeating-linear-gradient(90deg, rgba(11,11,11,.04) 0 1px, transparent 1px 36px); }
+.pj-cimed .cm-hero .pp2-fx { background: #FFC600; opacity: .28; }
+.pj-cimed .cm-hero .pp2-title { color: #0B0B0B; }
+.pj-cimed .cm-hero .pp2-meta { border-top-color: rgba(11,11,11,.12); }
+.pj-cimed .cm-hero .pp2-meta dt { color: rgba(11,11,11,.5); }
+.pj-cimed .cm-hero .pp2-meta dd { color: #0B0B0B; }
+.pj-cimed .cm-hero .pp2-meta dd .flag { box-shadow: 0 0 0 1px rgba(11,11,11,.15); }
+.pj-cimed .cm-hero .pp2-chip { color: #0B0B0B; background: rgba(11,11,11,.06); border-color: rgba(11,11,11,.12); }
+.pj-cimed .cm-hero .pp2-chip.is-accent { color: #0B0B0B; background: #FFC600; border-color: transparent; }
+.pj-cimed .cm-hero .pp2-brand { color: #0B0B0B; }
+.pj-cimed .cm-hero .pp2-brand i { background: rgba(11,11,11,.16); }
+.pj-cimed .nav .logo { color: #0B0B0B; }
+.pj-cimed .pp2-back { color: #0B0B0B; background: rgba(11,11,11,.06); border-color: rgba(11,11,11,.14); box-shadow: none; }
+.pj-cimed .pp2-back:hover { background: rgba(11,11,11,.1); }
+:root body.pj-cimed.pj-cimed.pj-cimed .nav.nav .logo.logo, :root body.pj-cimed.pj-cimed.pj-cimed .nav.nav .logo.logo svg { color: #0B0B0B !important; }
+:root body.pj-cimed.pj-cimed.pj-cimed .nav.nav .menu-btn.menu-btn { background: #0B0B0B !important; background-color: #0B0B0B !important; color: #FFFFFF !important; border-color: transparent !important; }
+.pj-cimed .pp2-live { color: #0B0B0B; }
+.pj-cimed .pp2-brand .cm-sym { width: auto; aspect-ratio: 122/70; }
+.pj-cimed .pp2-brand .cm-word { width: auto; aspect-ratio: 214/50; }
+/* Cimed: só a palavra no hero, no tamanho dos outros logos */
+.pj-cimed .pp2-brand .cm-word { height: clamp(26px, 2.5vw, 42px) !important; }
+@media (max-width: 899px) { .pj-cimed .pp2-brand .cm-word { height: 22px !important; } }
+/* CTA das páginas de projeto: sempre em duas linhas equilibradas */
+html body .pp2-cta .cta-title { max-width: 24ch !important; text-wrap: balance; font-size: clamp(1.6rem, calc((100vw - 40px) / 13.6), 6.25rem) !important; }
+/* frame com site de outro domínio: imagem do site enquanto ele carrega */
+.lp-live.has-poster { background: #111 no-repeat center top / 100% auto; }
+.lp-live.has-poster iframe { opacity: 0; transition: opacity .8s ease; }
+.lp-live.has-poster.is-shown iframe { opacity: 1; }
+.lw-cimed .lw-mark { height: clamp(22px, 2vw, 30px) !important; }
+
+/* ===== Topo das páginas de projeto: padrão Kyoto para todos (tom escuro da cor do projeto + luz mais clara passando),
+   igual no modo claro e no escuro ===== */
+html body.pp2:not(.pj-kyoto):not(.pj-cimed) .pp2-hero {
+  background: linear-gradient(165deg, color-mix(in srgb, var(--pa) 36%, #04060A) 0%, color-mix(in srgb, var(--pa) 22%, #04060A) 58%, color-mix(in srgb, var(--pa) 13%, #030407) 100%) !important;
+  color: #EEEDE9 !important;
+}
+html body.pp2:not(.pj-kyoto):not(.pj-cimed) .pp2-hero > .pp2-fx { background: color-mix(in srgb, var(--pa) 82%, #FFFFFF) !important; opacity: .5 !important; }
+html body.pp2:not(.pj-cimed) .pp2-hero::after { background: repeating-linear-gradient(90deg, rgba(238,237,233,.035) 0 1px, transparent 1px 36px) !important; }
+/* a luz passa devagar pelo topo */
+html body.pp2 .pp2-hero > .pp2-fx { animation: heroGlow 16s ease-in-out infinite alternate; }
+@keyframes heroGlow { 0% { translate: 0 0; } 50% { translate: -14vw 12vh; } 100% { translate: -30vw -2vh; } }
+@media (prefers-reduced-motion: reduce) { html body.pp2 .pp2-hero > .pp2-fx { animation: none; } }
+/* textos claros em todos (desfaz os topos brancos antigos) */
+html body.pp2:not(.pj-cimed) .pp2-hero .pp2-title, html body.pp2:not(.pj-cimed) .pp2-hero .pp2-meta dd { color: #EEEDE9 !important; }
+html body.pp2:not(.pj-cimed) .pp2-hero .pp2-meta { border-top-color: rgba(238,237,233,.14) !important; }
+html body.pp2:not(.pj-cimed) .pp2-hero .pp2-meta dt { color: rgba(238,237,233,.55) !important; }
+html body.pp2:not(.pj-cimed) .pp2-hero .pp2-meta dd .flag { box-shadow: 0 0 0 1px rgba(238,237,233,.25) !important; }
+html body.pp2:not(.pj-cimed) .pp2-hero .pp2-chip:not(.is-accent):not(.pp2-svc-b) { color: #EEEDE9 !important; background: rgba(238,237,233,.1) !important; border-color: rgba(238,237,233,.18) !important; }
+html body.pp2:not(.pj-cimed) .pp2-hero .pp2-chip.is-accent { color: #FFFFFF !important; background: color-mix(in srgb, var(--pa) 82%, #0B0B0B) !important; border-color: transparent !important; }
+html body.pp2:not(.pj-cimed) .pp2-hero .pp2-brand { color: #EEEDE9 !important; }
+html body.pp2:not(.pj-cimed) .pp2-hero .pp2-brand > i { background: rgba(238,237,233,.28) !important; }
+html body.pp2.pj-jpi.pj-jpi.pj-jpi.pj-jpi .nav.nav .logo.logo, html body.pp2.pj-jpi.pj-jpi.pj-jpi.pj-jpi .nav.nav .logo.logo svg { color: #EEEDE9 !important; }
+html body.pp2.pj-jpi.pj-jpi.pj-jpi.pj-jpi .nav.nav .menu-btn.menu-btn { background: color-mix(in srgb, #EEEDE9 12%, transparent) !important; background-color: color-mix(in srgb, #EEEDE9 12%, transparent) !important; color: #EEEDE9 !important; border-color: rgba(238,237,233,.2) !important; }
+html body.pp2.pj-jpi .pp2-back { color: #EEEDE9 !important; background: color-mix(in srgb, #EEEDE9 12%, transparent) !important; border-color: rgba(238,237,233,.2) !important; box-shadow: inset 0 1px 1px rgba(238,237,233,.3) !important; }
+
+/* Cimed: amarelo mais escuro com a luz amarela clara passando, textos pretos */
+html body.pp2.pj-cimed .pp2-hero { background: linear-gradient(165deg, #E3A900 0%, #CC9500 58%, #B38200 100%) !important; color: #0B0B0B !important; }
+html body.pp2.pj-cimed .pp2-hero > .pp2-fx { background: #FFE47A !important; opacity: .75 !important; }
+html body.pp2.pj-cimed .pp2-hero::after { background: repeating-linear-gradient(90deg, rgba(11,11,11,.05) 0 1px, transparent 1px 36px) !important; }
+html body.pp2.pj-cimed .pp2-hero .pp2-meta { border-top-color: rgba(11,11,11,.18) !important; }
+html body.pp2.pj-cimed .pp2-hero .pp2-meta dt { color: rgba(11,11,11,.6) !important; }
+html body.pp2.pj-cimed .pp2-hero .pp2-chip { color: #0B0B0B !important; background: rgba(11,11,11,.08) !important; border-color: rgba(11,11,11,.16) !important; }
+html body.pp2.pj-cimed .pp2-hero .pp2-chip.is-accent { color: #FFC600 !important; background: #0B0B0B !important; border-color: transparent !important; }
+html body.pp2.pj-cimed .pp2-back { background: rgba(11,11,11,.08) !important; border-color: rgba(11,11,11,.16) !important; }
