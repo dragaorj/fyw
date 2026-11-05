@@ -6,7 +6,7 @@
   var TO = 'fyw.ggwp@gmail.com';
   var ENDPOINT = 'https://formsubmit.co/ajax/' + TO;
   /* Web3Forms (https://web3forms.com): cole aqui a Access Key que chega no e-mail fyw.ggwp@gmail.com. É pública, pode ficar no site. */
-  var W3F_KEY = '';
+  var W3F_KEY = '2812137b-742f-4838-bb1d-89169e642624';
   var SEL = 'a.btn[href$="#contact"], a.lw-cta, a.zoom-cta, [data-form-link], a.btn[href^="mailto:fyw"], [data-open-form]';
 
   var T = {
@@ -179,7 +179,7 @@
     btn.classList.remove('is-done'); void bar.offsetWidth; btn.classList.add('is-loading'); var t0 = Date.now();
     var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
     var tf = function (u, o, ms) { var c = window.AbortController ? new AbortController() : null; if (c) { o.signal = c.signal; setTimeout(function () { c.abort(); }, ms); } return fetch(u, o); };
-    var okJson = function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || j.success === 'false' || j.success === false) throw new Error(j.message || 'erro'); }); };
+    var okJson = function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || !(j.success === true || j.success === 'true')) throw new Error(j.message || 'erro'); }); };
     // 1º: e-mail no visual do site (/api/contact, Resend). Se não estiver configurado, cai no FormSubmit.
     var svcList = svc === '—' ? [] : svc.split(', ');
     tf('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -187,7 +187,7 @@
     .then(okJson)
     .catch(function () { if (!W3F_KEY) throw 0; return tf('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({ access_key: W3F_KEY, subject: 'Novo contato do site da Fyw — ' + n + (svc !== '—' ? ' (' + svc + ')' : ''), from_name: 'Site Fyw', replyto: m, botcheck: form._honey.value,
-        'Nome': n, 'WhatsApp': p, 'Abrir conversa no WhatsApp': 'https://wa.me/' + (lang() === 'pt' ? '55' : '') + p.replace(/D/g, ''), 'E-mail': m, 'Do que precisa': svc, 'Mensagem': x || '—',
+        'Nome': n, 'WhatsApp': p, 'Abrir conversa no WhatsApp': 'https://wa.me/' + (lang() === 'pt' ? '55' : '') + p.replace(/\D/g, ''), 'E-mail': m, 'Do que precisa': svc, 'Mensagem': x || '—',
         'Enviado em': new Date().toLocaleString('pt-BR', { dateStyle: 'full', timeStyle: 'short' }), 'Página de origem': location.href }) }, 12000).then(okJson); })
     .catch(function () { return tf(ENDPOINT, {
       method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
