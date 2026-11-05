@@ -4300,3 +4300,15 @@ html body .jpi-logos i { height: clamp(36px, 3.4vw, 48px); }
 .pp2-live { max-width: 100%; }
 .pp2-live span { overflow: hidden; text-overflow: ellipsis; }
 @media (max-width: 380px) { .pp2-live { font-size: .875rem; padding-left: 18px; gap: 10px; } }
+
+/* ===== Padrão das páginas de projeto: logo do cliente no topo =====
+   celular: pequena, embaixo à direita, na linha do botão · computador: grande, no canto inferior direito, ao lado das informações */
+.pp2-brand { position: absolute; z-index: 1; top: auto; bottom: 56px; height: 48px; right: var(--edge, 16px); display: flex; align-items: center; gap: 12px; color: #EEEDE9; pointer-events: none; }
+.pp2-brand > i { width: 1px; align-self: stretch; margin: 4px 0; background: rgba(238,237,233,.28); }
+.pp2-brand .pb-logo { display: block; width: auto; height: 38px; }
+.pp2-brand .pb-sub { height: 44px; }
+@media (min-width: 900px) {
+  .pp2-brand { top: auto; bottom: 56px; height: auto; gap: 22px; }
+  .pp2-brand .pb-logo { height: clamp(64px, 5.6vw, 96px); }
+  .pp2-brand .pb-sub { height: clamp(74px, 6.5vw, 112px); }
+}
