@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Beta Online — Design System e Web Design | Fyw</title>
+  <meta name="description" content="Beta Online: design system completo e novo site, desktop e mobile, para uma escola de cursos de Perícia Judicial. Projeto da Fyw." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://fyw.studio/projetos/beta-online.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Beta Online — Design System e Web Design | Fyw" />
+  <meta property="og:description" content="Uma nova cara para uma escola de Perícia Judicial que tinha parado no tempo." />
+  <meta property="og:image" content="https://fyw.studio/assets/img/projetos/beta-online/og.jpg" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" href="../assets/img/favicon-dark.svg?v=2" type="image/svg+xml" media="(prefers-color-scheme: light)" />
+  <link rel="icon" href="../assets/img/favicon-light.svg?v=2" type="image/svg+xml" media="(prefers-color-scheme: dark)" />
+  <script>
+    (function () { var d = document.documentElement; try {
+      var t = localStorage.getItem('fio-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); d.setAttribute('data-theme', t);
+      var a = JSON.parse(localStorage.getItem('fio-a11y') || '{}'); if (a.size) d.style.setProperty('--fs-scale', a.size);
+      ['contrast','motion','clean','links','spacing'].forEach(function (k) { if (a[k]) d.classList.add('a11y-' + k); });
+    } catch (e) {} })();
+  </script>
+  <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/google-sans-latin.woff2" crossorigin />
+  <style>@font-face{font-family:'Google Sans';font-style:normal;font-weight:400 700;font-display:block;src:url(../assets/fonts/google-sans-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}@font-face{font-family:'Google Sans';font-style:normal;font-weight:400 700;font-display:block;src:url(../assets/fonts/google-sans-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}@font-face{font-family:'Montserrat';font-style:normal;font-weight:500 700;font-display:swap;src:url(../assets/fonts/montserrat-latin.woff2) format('woff2')}</style>
+  
+  <script>
+    (function () {
+      var d = document.documentElement, R = Math.random, s = function (k, v) { d.style.setProperty(k, v); };
+      var acc = [['#C8F53C', '#0B0B0B'], ['#FF6A2B', '#0B0B0B'], ['#2F6BFF', '#EEEDE9'], ['#7B5CFF', '#EEEDE9']][Math.floor(R() * 4)];
+      s('--accent', acc[0]); s('--accent-ink', acc[1]); s('--accent-dot', acc[0] === '#C8F53C' ? '#2F9E44' : acc[0]);
+      var hues = ['#B49CFF', '#8DB4FF', '#FFA36B', '#C8F53C', '#FF9BD2', '#7FE3C8'];
+      for (var i = hues.length - 1; i > 0; i--) { var j = Math.floor(R() * (i + 1)), x = hues[i]; hues[i] = hues[j]; hues[j] = x; }
+      for (var k = 1; k <= 4; k++) { s('--g' + k, hues[k - 1]); }
+    })();
+  </script>
+  <link rel="stylesheet" href="../assets/css/style.css?v=20261119i" />
+  <script>
+    // Paleta sorteada a cada visita (não fica salva): cor de destaque + cores/posições das manchas
+    (function () {
+      var d = document.documentElement, R = Math.random, s = function (k, v) { d.style.setProperty(k, v); };
+      var acc = [['#C8F53C', '#0B0B0B'], ['#FF6A2B', '#0B0B0B'], ['#2F6BFF', '#EEEDE9'], ['#7B5CFF', '#EEEDE9']][Math.floor(R() * 4)];
+      s('--accent', acc[0]); s('--accent-ink', acc[1]); s('--accent-dot', acc[0] === '#C8F53C' ? '#2F9E44' : acc[0]);
+      var hues = ['#B49CFF', '#8DB4FF', '#FFA36B', '#C8F53C', '#FF9BD2', '#7FE3C8'];
+      for (var i = hues.length - 1; i > 0; i--) { var j = Math.floor(R() * (i + 1)), t = hues[i]; hues[i] = hues[j]; hues[j] = t; }
+      for (var k = 1; k <= 4; k++) {
+        s('--au' + k, hues[k - 1]);
+        s('--a' + k + 'x', Math.round(-10 + R() * 75) + 'cqw');
+        s('--a' + k + 'y', Math.round(-10 + R() * 70) + 'cqh');
+      }
+      var glass = ['#FF6A2B', '#1E7A4C', '#7B5CFF', '#FFB45E', '#2F6BFF', '#C8F53C'];
+      for (var m = glass.length - 1; m > 0; m--) { var n = Math.floor(R() * (m + 1)), u = glass[m]; glass[m] = glass[n]; glass[n] = u; }
+      for (var g = 1; g <= 4; g++) s('--g' + g, glass[g - 1]);
+      // cores das seções (cards, depoimentos, marcas, faixa, menu, linha do processo): nova ordem a cada carregamento
+      var fams = [
+        ['#FF6A2B', '#7B5CFF', '#12A594', '#E8478B'],
+        ['#2F6BFF', '#FF6A2B', '#E8478B', '#12A594'],
+        ['#7B5CFF', '#2F9E44', '#FF6A2B', '#2F6BFF'],
+        ['#E8478B', '#2F6BFF', '#2F9E44', '#7B5CFF'],
+        ['#12A594', '#7B5CFF', '#FF6A2B', '#2F6BFF'],
+        ['#FF6A2B', '#2F6BFF', '#2F9E44', '#E8478B']
+      ];
+      var cs = fams[Math.floor(R() * fams.length)].slice();
+      for (var q = cs.length - 1; q > 0; q--) { var r = Math.floor(R() * (q + 1)), v = cs[q]; cs[q] = cs[r]; cs[r] = v; }
+      for (var c = 1; c <= 4; c++) { s('--c' + c, cs[c - 1]); s('--g' + c, cs[c - 1]); }
+      s('--c5', cs[0]); s('--c6', cs[1]);
+    })();
+  </script>
+</head>
+<body class="project-page pp2 pj-beta" style="--pa:#CD2323">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="fyw-logo" viewBox="0 0 804 513"><path fill="currentColor" d="M167.766 0C181.085 1.8904e-05 193.839 1.00516 206.027 3.01562C206.198 3.04375 206.368 3.07158 206.537 3.09961C220.661 5.43922 228.408 19.8275 223.516 33.2822L209.876 70.793C207.405 77.5889 200.003 81.2363 192.833 80.293C188.058 79.5391 183.723 79.1621 179.828 79.1621C170.153 79.1621 163.241 81.2352 159.095 85.3818C155.074 89.5284 152.435 94.995 151.179 101.78L149.037 114.597H210.108C223.005 114.597 233.69 124.603 234.537 137.472L246.111 313.392C246.176 314.376 246.993 315.141 247.979 315.141C248.742 315.141 249.429 314.678 249.715 313.971L324.103 129.905C327.842 120.653 336.822 114.597 346.801 114.597H441.707C455.024 114.597 465.899 125.242 466.184 138.556L469.413 289.691C469.429 290.427 470.03 291.015 470.766 291.016C471.329 291.016 471.835 290.666 472.033 290.139L532.082 130.461C535.671 120.917 544.8 114.597 554.997 114.597H615.826C628.855 114.597 639.602 124.802 640.275 137.813L648.055 288.215C648.092 288.939 648.691 289.508 649.416 289.508C649.995 289.508 650.511 289.141 650.702 288.594L705.722 131.009C709.153 121.18 718.425 114.597 728.835 114.597H778.771C796.24 114.597 808.088 132.368 801.369 148.494L701.143 389.039C697.341 398.162 688.427 404.104 678.544 404.104H604.75C592.145 404.104 581.601 394.534 580.383 381.988L567.62 250.533C567.524 249.548 566.696 248.796 565.706 248.796C564.936 248.796 564.239 249.256 563.937 249.964L504.44 389.24C500.589 398.256 491.73 404.104 481.927 404.104H408.282C395.55 404.104 384.942 394.344 383.885 381.655L373.26 254.16L285.808 428.229C277.766 444.188 267.713 458.513 255.65 471.204C243.713 484.021 229.012 494.135 211.546 501.549C194.08 508.962 173.221 512.67 148.97 512.67C136.907 512.67 125.661 511.728 115.231 509.843C114.447 509.711 113.671 509.574 112.901 509.434C99.0337 506.908 93.0004 491.746 99.043 479.011L113.313 448.936C118.767 437.442 132.057 432.648 144.661 434.378C144.841 434.403 145.021 434.427 145.2 434.45C152.111 435.33 158.206 434.827 163.483 432.942C168.761 431.058 173.096 427.476 176.488 422.198C178.671 418.803 179.504 414.715 178.824 410.736L141.115 189.989H136.44L104.082 383.657C102.11 395.457 91.8992 404.104 79.9355 404.104H25.5361C10.4039 404.104 -1.10516 390.513 1.38867 375.588L32.4004 189.989H24.4883C9.32791 189.989 -2.18827 176.35 0.352539 161.404L4.8457 134.976C6.8464 123.207 17.0438 114.597 28.9814 114.597H44.9971L46.3828 106.304C50.2781 82.4294 57.7549 62.6384 68.8125 46.9316C79.9957 31.2249 94.0061 19.4761 110.844 11.6855C127.807 3.89499 146.781 0 167.766 0Z"/></symbol></svg>
+  <a class="skip-link" href="#main">Pular para o conteúdo</a>
+  <header class="nav">
+    <a href="../index.html" class="logo" aria-label="Fyw — página inicial"><svg viewBox="0 0 804 513" aria-hidden="true"><use href="#fyw-logo"/></svg></a>
+    <div class="nav-tools">
+      <a href="../projetos.html" class="pp2-back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 5.5 4.5 12l6.5 6.5"/></svg>Todos os projetos</a>
+      <button class="menu-btn" aria-expanded="false" aria-controls="mobile-menu" data-i18n-aria="nav.menu" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+  <main id="main">
+    <section class="pp2-hero is-text beta-hero" data-glow>
+      <span class="pp2-fx" aria-hidden="true"></span>
+      <div class="pp2-brand"><svg class="pb-logo" viewBox="90 72 178 88" role="img" aria-label="Beta Online"><path d="M132.052 98.7586C135.111 99.5336 137.474 101.075 139.142 103.382C140.809 105.687 141.643 108.441 141.643 111.635C141.643 115.93 140.134 119.491 137.122 122.321C134.063 125.154 130.135 126.566 125.341 126.566H100.475V91.5338C100.475 82.9262 107.453 75.9451 116.064 75.9451H124.175C128.878 75.9451 132.507 77.2016 135.067 79.7116C137.668 82.1776 138.971 85.1016 138.971 88.4777C138.971 90.7147 138.328 92.8049 137.051 94.7455C135.771 96.686 134.107 98.0217 132.052 98.7527V98.7586ZM121.777 86.772H119.017C115.7 86.772 113.011 89.4611 113.011 92.7785V95.3326H121.228C122.919 95.3326 124.208 94.9333 125.097 94.1319C125.987 93.3334 126.433 92.2941 126.433 91.0171C126.433 89.8281 126.01 88.827 125.167 88.005C124.322 87.183 123.192 86.772 121.777 86.772ZM113.011 115.607H122.599C124.519 115.607 125.978 115.128 126.985 114.168C127.989 113.211 128.491 112.022 128.491 110.607C128.491 109.192 127.986 107.936 126.985 106.976C125.981 106.019 124.61 105.537 122.875 105.537H113.011V115.604V115.607Z" fill="#242424"/><path d="M184.693 106.307C184.693 107.895 184.555 109.642 184.285 111.547H158.081C159.487 114.723 162.232 116.312 166.318 116.312C170.405 116.312 173.963 115.222 177.271 113.047L182.447 121.892C177.591 125.342 171.99 127.065 165.634 127.065C158.92 127.065 153.727 125.183 150.051 121.417C146.379 117.606 144.541 112.909 144.541 107.331C144.541 101.753 146.423 96.8741 150.189 93.1076C154.047 89.341 158.991 87.4592 165.027 87.4592C170.695 87.4592 175.393 89.162 179.112 92.5615C182.832 95.873 184.696 100.456 184.696 106.31L184.693 106.307ZM165.024 97.9339C161.483 97.9339 159.102 99.4986 157.878 102.628H171.964C170.83 99.4986 168.514 97.9339 165.024 97.9339Z" fill="#242424"/><path d="M216.675 113.452L220.08 124.135C216.449 126.179 212.274 127.197 207.559 127.197C197.892 127.197 193.063 121.889 193.063 111.274V99.434H187.482V88.4075H193.201V75H206.47V88.4075H217.905V99.434H206.47V109.369C206.47 113.135 207.944 115.017 210.894 115.017C212.436 115.017 214.367 114.494 216.678 113.452H216.675Z" fill="#242424"/><path d="M250.702 91.1967V88.4077H263.294V126.246H250.702V123.592C247.62 125.997 244.079 127.197 240.087 127.197C234.688 127.197 230.264 125.292 226.817 121.482C223.368 117.624 221.642 112.862 221.642 107.19C221.642 101.519 223.388 96.8685 226.882 93.1049C230.375 89.3383 234.776 87.4565 240.084 87.4565C244.258 87.4565 247.796 88.7072 250.699 91.1996L250.702 91.1967ZM242.67 115.017C244.849 115.017 246.686 114.269 248.183 112.771C249.681 111.23 250.429 109.392 250.429 107.261C250.429 105.13 249.681 103.38 248.183 101.886C246.686 100.388 244.846 99.6398 242.67 99.6398C240.495 99.6398 238.669 100.388 237.192 101.886C235.718 103.383 234.982 105.174 234.982 107.261C234.982 109.348 235.73 111.23 237.227 112.771C238.725 114.269 240.539 115.017 242.67 115.017Z" fill="#242424"/><path d="M100.514 115.607H92V126.578H100.514V135.59H113.011V126.578V115.607H100.514Z" fill="#CD2323"/><path d="M182.086 146.083C182.086 143.215 183.078 140.787 185.063 138.802C187.065 136.8 189.458 135.799 192.238 135.799C195.018 135.799 197.41 136.8 199.413 138.802C201.415 140.804 202.416 143.197 202.416 145.977C202.416 148.757 201.415 151.15 199.413 153.152C197.41 155.119 194.991 156.103 192.158 156.103C189.325 156.103 186.915 155.137 184.984 153.205C183.052 151.273 182.086 148.901 182.086 146.083ZM199.65 146.004C199.65 143.843 198.934 142.037 197.498 140.584C196.063 139.131 194.31 138.406 192.238 138.406C190.165 138.406 188.439 139.143 187.003 140.611C185.568 142.082 184.851 143.878 184.851 146.004C184.851 148.129 185.559 149.902 186.977 151.37C188.374 152.806 190.13 153.522 192.238 153.522C194.346 153.522 196.098 152.803 197.498 151.37C198.934 149.935 199.65 148.147 199.65 146.004Z" fill="#242424"/><path d="M208.128 155.782H205.577V141.541H208.075V143.561C208.98 141.967 210.483 141.168 212.594 141.168C214.188 141.168 215.526 141.682 216.607 142.709C217.687 143.737 218.227 145.217 218.227 147.148V155.785H215.702V147.865C215.702 146.502 215.371 145.44 214.707 144.676C214.044 143.916 213.16 143.534 212.062 143.534C210.911 143.534 209.963 143.942 209.217 144.756C208.492 145.589 208.128 146.635 208.128 147.891V155.782Z" fill="#242424"/><path d="M224.548 135.667V155.782H221.997V135.667H224.548Z" fill="#242424"/><path d="M229.838 139.518C229.307 139.518 228.864 139.345 228.508 139.002C228.153 138.658 227.977 138.218 227.977 137.687C227.977 137.155 228.153 136.747 228.508 136.412C228.864 136.075 229.307 135.907 229.838 135.907C230.334 135.907 230.76 136.081 231.112 136.424C231.468 136.771 231.644 137.19 231.644 137.687C231.644 138.218 231.465 138.658 231.112 139.002C230.757 139.348 230.334 139.518 229.838 139.518ZM231.06 141.541V155.782H228.508V141.541H231.06Z" fill="#242424"/><path d="M237.568 155.782H235.017V141.541H237.515V143.561C238.419 141.967 239.922 141.168 242.033 141.168C243.627 141.168 244.966 141.682 246.046 142.709C247.126 143.737 247.667 145.217 247.667 147.148V155.785H245.142V147.865C245.142 146.502 244.81 145.44 244.147 144.676C243.483 143.916 242.6 143.534 241.502 143.534C240.351 143.534 239.403 143.942 238.657 144.756C237.932 145.589 237.568 146.635 237.568 147.891V155.782Z" fill="#242424"/><path d="M264.673 148.396C264.673 148.572 264.647 149.007 264.594 149.7H253.248C253.477 150.956 254.008 151.948 254.842 152.676C255.673 153.402 256.809 153.766 258.244 153.766C259.096 153.766 259.97 153.619 260.875 153.328C261.776 153.035 262.557 152.65 263.211 152.171L264.301 154.112C263.558 154.679 262.636 155.154 261.538 155.533C260.44 155.915 259.325 156.105 258.191 156.105C256.897 156.105 255.749 155.891 254.751 155.468C253.75 155.043 252.957 154.467 252.373 153.742C251.789 153.017 251.345 152.218 251.046 151.352C250.743 150.483 250.594 149.573 250.594 148.613C250.594 146.488 251.257 144.718 252.587 143.3C253.932 141.899 255.67 141.201 257.795 141.201C259.921 141.201 261.462 141.847 262.739 143.141C264.031 144.433 264.679 146.188 264.679 148.402L264.673 148.396ZM253.248 147.492H262.043C261.973 146.271 261.544 145.29 260.754 144.556C259.965 143.822 258.978 143.452 257.792 143.452C256.606 143.452 255.649 143.828 254.815 144.583C253.985 145.334 253.459 146.306 253.248 147.492Z" fill="#242424"/></svg></div>
+      <div class="pp2-hero-in">
+        <p class="pp2-chips"><span class="pp2-chip is-accent">Design System</span><span class="pp2-chip">Web Design</span></p>
+        <h1 class="pp2-title">Beta Online</h1>
+        <dl class="pp2-meta"><div><dt>Cliente</dt><dd>Beta Online</dd></div><div><dt>Serviço</dt><dd>Design system e web design</dd></div><div><dt>Setor</dt><dd>Educação</dd></div><div><dt>Local</dt><dd><svg class="flag" viewBox="0 0 30 20" role="img" aria-label="Brasil"><rect width="30" height="20" rx="2.5" fill="#1E9A3E"/><path d="M15 3 27 10 15 17 3 10Z" fill="#F7D117"/><circle cx="15" cy="10" r="4.1" fill="#1D3E8C"/></svg>Brasil</dd></div></dl>
+        <a class="pp2-live is-hero" href="#design-system"><span>Ver o design system</span><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></i></a>
+      </div>
+    </section>
+
+    <section class="pp2-sec">
+      <div class="pp2-split">
+        <div class="pp2-about" data-rv>
+          <p class="pp2-label">Sobre o projeto</p>
+          <p class="pp2-lead">Uma nova cara para uma escola de Perícia Judicial que tinha parado no tempo.</p>
+          <p>O Beta Online é uma escola online de cursos de Perícia Judicial, pós-graduação e formação de peritos, com um Banco Nacional de Peritos que conecta profissionais a escritórios e tribunais.</p>
+          <p>O site antigo tinha um modelo ultrapassado e carregado, que não deixava claro o que era a escola. Criamos primeiro um design system completo e, a partir dele, redesenhamos o site nas versões desktop e mobile. O projeto foi desenhado e entregue, mas não chegou a ser publicado.</p>
+        </div>
+        <div class="pp2-side">
+      <article class="pp2-card" data-glow data-rv style="--pc:#CD2323">
+        <span class="pp2-fx" aria-hidden="true"></span>
+        <span class="pp2-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v5l3 2"/></svg></span><span class="pp2-n" aria-hidden="true">01</span>
+        <h2>O desafio</h2><p>Trazer uma nova cara para o Beta Online. O site era antigo, com visual datado e informação demais: quem chegava não entendia, de cara, o que era a escola nem o que a plataforma oferecia.</p>
+      </article>
+      <article class="pp2-card" data-glow data-rv style="--pc:#0F1115">
+        <span class="pp2-fx" aria-hidden="true"></span>
+        <span class="pp2-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c.6 4.6 3.4 7.4 8 8-4.6.6-7.4 3.4-8 8-.6-4.6-3.4-7.4-8-8 4.6-.6 7.4-3.4 8-8Z"/></svg></span><span class="pp2-n" aria-hidden="true">02</span>
+        <h2>A solução</h2><p>Começamos pela base: um design system com regras claras de cor, tipografia e componentes. O novo site nasceu desse sistema — mais limpo, com hierarquia forte, o vermelho só onde importa e cada seção explicando um passo: cursos, carreiras, depoimentos, Banco de Peritos e dúvidas.</p>
+      </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="pp2-sec lp-sec">
+      <div class="lp-head" data-rv>
+        <p class="pp2-label">As páginas</p>
+        <p class="lp-lead">As páginas do novo Beta Online, no desktop e no celular, construídas com os componentes do design system.</p>
+      </div>
+      <div class="lp-tabs" role="tablist" aria-label="Páginas do site" data-rv><button type="button" role="tab" class="lp-tab is-on" aria-selected="true" data-d="../assets/img/projetos/beta-online/lp-desktop.webp" data-dw="1000" data-dh="4452" data-m="../assets/img/projetos/beta-online/lp-mobile.webp" data-mw="500" data-mh="9631" data-title="Beta Online — Home">Home</button><button type="button" role="tab" class="lp-tab" aria-selected="false" data-d="../assets/img/projetos/beta-online/lp-home2-desktop.webp" data-dw="1000" data-dh="4452" data-m="../assets/img/projetos/beta-online/lp-home2-mobile.webp" data-mw="500" data-mh="10803" data-title="Beta Online — Home V2">Home V2</button><button type="button" role="tab" class="lp-tab" aria-selected="false" data-d="../assets/img/projetos/beta-online/lp-inst-desktop.webp" data-dw="1000" data-dh="3307" data-m="../assets/img/projetos/beta-online/lp-inst-mobile.webp" data-mw="500" data-mh="7798" data-title="Beta Online — Institucional">Institucional</button></div>
+      <div class="lp-stage" data-rv>
+        <figure class="lp-browser">
+          <div class="lp-bar" aria-hidden="true"><i></i><i></i><i></i><span class="lp-title">Beta Online — Home</span></div>
+          <div class="lp-scroll" data-lenis-prevent tabindex="0" role="region" aria-label="Site do Beta Online no desktop (role para ver)">
+            <img src="../assets/img/projetos/beta-online/lp-desktop.webp" width="1000" height="4452" alt="Página completa do novo site na versão desktop" loading="lazy" decoding="async">
+          </div>
+        </figure>
+        <figure class="lp-phone">
+          <div class="lp-scroll" data-lenis-prevent tabindex="0" role="region" aria-label="Site do Beta Online no celular (role para ver)">
+            <img src="../assets/img/projetos/beta-online/lp-mobile.webp" width="500" height="9631" alt="Página completa do novo site na versão para celular" loading="lazy" decoding="async">
+          </div>
+        </figure>
+      </div>
+      <p class="lp-hint" data-rv>As telas rolam sozinhas — role ou toque para navegar</p>
+    </section>
+
+    <section class="pp2-sec pp2-gal-sec">
+      <div class="pp2-gal-head" data-rv>
+        <div class="pp2-gal-btns"><button class="pp2-gal-btn is-prev" aria-label="Imagem anterior"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></button><button class="pp2-gal-btn" aria-label="Próxima imagem"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></button></div>
+      </div>
+      <div class="pp2-gal" data-rv tabindex="0" aria-label="Imagens do projeto Beta Online">
+          <figure class="pp2-slide"><img src="../assets/img/projetos/beta-online/g1.webp" width="1600" height="1029" alt="Topo do novo site do Beta Online" loading="eager" decoding="async"></figure>
+          <figure class="pp2-slide"><img src="../assets/img/projetos/beta-online/g2.webp" width="1600" height="1029" alt="Vitrine de cursos de Perícia Judicial" loading="eager" decoding="async"></figure>
+          <figure class="pp2-slide"><img src="../assets/img/projetos/beta-online/g3.webp" width="1600" height="1029" alt="Seção de destaques e cards de cursos" loading="lazy" decoding="async"></figure>
+          <figure class="pp2-slide"><img src="../assets/img/projetos/beta-online/g4.webp" width="1600" height="1029" alt="Depoimentos de alunos" loading="lazy" decoding="async"></figure>
+          <figure class="pp2-slide"><img src="../assets/img/projetos/beta-online/g5.webp" width="1600" height="1029" alt="Banco Nacional de Peritos" loading="lazy" decoding="async"></figure>
+          <figure class="pp2-slide"><img src="../assets/img/projetos/beta-online/g6.webp" width="1600" height="1029" alt="Chamada para o blog" loading="lazy" decoding="async"></figure>
+          <figure class="pp2-slide"><img src="../assets/img/projetos/beta-online/g7.webp" width="1600" height="1029" alt="Pesquisa de satisfação" loading="lazy" decoding="async"></figure>
+          <figure class="pp2-slide"><img src="../assets/img/projetos/beta-online/g8.webp" width="1600" height="1029" alt="Perguntas frequentes e rodapé" loading="lazy" decoding="async"></figure>
+      </div>
+      <p class="pp2-note" data-rv><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6v.4"/></svg><span>Este projeto foi desenhado e entregue pela Fyw, mas não chegou a ser publicado. As imagens mostram o projeto como foi entregue.</span></p>
+    </section>
+
+
+    <section class="pp2-sec bds-sec" id="design-system">
+      <div class="lp-head" data-rv>
+        <p class="pp2-label">Design system</p>
+        <p class="lp-lead">A base de tudo: o guia de estilo que o Beta Online usa para criar qualquer tela com a mesma cara. Replicado aqui, em código, como foi entregue.</p>
+      </div>
+      <div class="bds" data-rv>
+        <header class="bds-top"><svg class="bds-logo" viewBox="90 72 178 88" role="img" aria-label="Beta Online"><path d="M132.052 98.7586C135.111 99.5336 137.474 101.075 139.142 103.382C140.809 105.687 141.643 108.441 141.643 111.635C141.643 115.93 140.134 119.491 137.122 122.321C134.063 125.154 130.135 126.566 125.341 126.566H100.475V91.5338C100.475 82.9262 107.453 75.9451 116.064 75.9451H124.175C128.878 75.9451 132.507 77.2016 135.067 79.7116C137.668 82.1776 138.971 85.1016 138.971 88.4777C138.971 90.7147 138.328 92.8049 137.051 94.7455C135.771 96.686 134.107 98.0217 132.052 98.7527V98.7586ZM121.777 86.772H119.017C115.7 86.772 113.011 89.4611 113.011 92.7785V95.3326H121.228C122.919 95.3326 124.208 94.9333 125.097 94.1319C125.987 93.3334 126.433 92.2941 126.433 91.0171C126.433 89.8281 126.01 88.827 125.167 88.005C124.322 87.183 123.192 86.772 121.777 86.772ZM113.011 115.607H122.599C124.519 115.607 125.978 115.128 126.985 114.168C127.989 113.211 128.491 112.022 128.491 110.607C128.491 109.192 127.986 107.936 126.985 106.976C125.981 106.019 124.61 105.537 122.875 105.537H113.011V115.604V115.607Z" fill="#242424"/><path d="M184.693 106.307C184.693 107.895 184.555 109.642 184.285 111.547H158.081C159.487 114.723 162.232 116.312 166.318 116.312C170.405 116.312 173.963 115.222 177.271 113.047L182.447 121.892C177.591 125.342 171.99 127.065 165.634 127.065C158.92 127.065 153.727 125.183 150.051 121.417C146.379 117.606 144.541 112.909 144.541 107.331C144.541 101.753 146.423 96.8741 150.189 93.1076C154.047 89.341 158.991 87.4592 165.027 87.4592C170.695 87.4592 175.393 89.162 179.112 92.5615C182.832 95.873 184.696 100.456 184.696 106.31L184.693 106.307ZM165.024 97.9339C161.483 97.9339 159.102 99.4986 157.878 102.628H171.964C170.83 99.4986 168.514 97.9339 165.024 97.9339Z" fill="#242424"/><path d="M216.675 113.452L220.08 124.135C216.449 126.179 212.274 127.197 207.559 127.197C197.892 127.197 193.063 121.889 193.063 111.274V99.434H187.482V88.4075H193.201V75H206.47V88.4075H217.905V99.434H206.47V109.369C206.47 113.135 207.944 115.017 210.894 115.017C212.436 115.017 214.367 114.494 216.678 113.452H216.675Z" fill="#242424"/><path d="M250.702 91.1967V88.4077H263.294V126.246H250.702V123.592C247.62 125.997 244.079 127.197 240.087 127.197C234.688 127.197 230.264 125.292 226.817 121.482C223.368 117.624 221.642 112.862 221.642 107.19C221.642 101.519 223.388 96.8685 226.882 93.1049C230.375 89.3383 234.776 87.4565 240.084 87.4565C244.258 87.4565 247.796 88.7072 250.699 91.1996L250.702 91.1967ZM242.67 115.017C244.849 115.017 246.686 114.269 248.183 112.771C249.681 111.23 250.429 109.392 250.429 107.261C250.429 105.13 249.681 103.38 248.183 101.886C246.686 100.388 244.846 99.6398 242.67 99.6398C240.495 99.6398 238.669 100.388 237.192 101.886C235.718 103.383 234.982 105.174 234.982 107.261C234.982 109.348 235.73 111.23 237.227 112.771C238.725 114.269 240.539 115.017 242.67 115.017Z" fill="#242424"/><path d="M100.514 115.607H92V126.578H100.514V135.59H113.011V126.578V115.607H100.514Z" fill="#CD2323"/><path d="M182.086 146.083C182.086 143.215 183.078 140.787 185.063 138.802C187.065 136.8 189.458 135.799 192.238 135.799C195.018 135.799 197.41 136.8 199.413 138.802C201.415 140.804 202.416 143.197 202.416 145.977C202.416 148.757 201.415 151.15 199.413 153.152C197.41 155.119 194.991 156.103 192.158 156.103C189.325 156.103 186.915 155.137 184.984 153.205C183.052 151.273 182.086 148.901 182.086 146.083ZM199.65 146.004C199.65 143.843 198.934 142.037 197.498 140.584C196.063 139.131 194.31 138.406 192.238 138.406C190.165 138.406 188.439 139.143 187.003 140.611C185.568 142.082 184.851 143.878 184.851 146.004C184.851 148.129 185.559 149.902 186.977 151.37C188.374 152.806 190.13 153.522 192.238 153.522C194.346 153.522 196.098 152.803 197.498 151.37C198.934 149.935 199.65 148.147 199.65 146.004Z" fill="#242424"/><path d="M208.128 155.782H205.577V141.541H208.075V143.561C208.98 141.967 210.483 141.168 212.594 141.168C214.188 141.168 215.526 141.682 216.607 142.709C217.687 143.737 218.227 145.217 218.227 147.148V155.785H215.702V147.865C215.702 146.502 215.371 145.44 214.707 144.676C214.044 143.916 213.16 143.534 212.062 143.534C210.911 143.534 209.963 143.942 209.217 144.756C208.492 145.589 208.128 146.635 208.128 147.891V155.782Z" fill="#242424"/><path d="M224.548 135.667V155.782H221.997V135.667H224.548Z" fill="#242424"/><path d="M229.838 139.518C229.307 139.518 228.864 139.345 228.508 139.002C228.153 138.658 227.977 138.218 227.977 137.687C227.977 137.155 228.153 136.747 228.508 136.412C228.864 136.075 229.307 135.907 229.838 135.907C230.334 135.907 230.76 136.081 231.112 136.424C231.468 136.771 231.644 137.19 231.644 137.687C231.644 138.218 231.465 138.658 231.112 139.002C230.757 139.348 230.334 139.518 229.838 139.518ZM231.06 141.541V155.782H228.508V141.541H231.06Z" fill="#242424"/><path d="M237.568 155.782H235.017V141.541H237.515V143.561C238.419 141.967 239.922 141.168 242.033 141.168C243.627 141.168 244.966 141.682 246.046 142.709C247.126 143.737 247.667 145.217 247.667 147.148V155.785H245.142V147.865C245.142 146.502 244.81 145.44 244.147 144.676C243.483 143.916 242.6 143.534 241.502 143.534C240.351 143.534 239.403 143.942 238.657 144.756C237.932 145.589 237.568 146.635 237.568 147.891V155.782Z" fill="#242424"/><path d="M264.673 148.396C264.673 148.572 264.647 149.007 264.594 149.7H253.248C253.477 150.956 254.008 151.948 254.842 152.676C255.673 153.402 256.809 153.766 258.244 153.766C259.096 153.766 259.97 153.619 260.875 153.328C261.776 153.035 262.557 152.65 263.211 152.171L264.301 154.112C263.558 154.679 262.636 155.154 261.538 155.533C260.44 155.915 259.325 156.105 258.191 156.105C256.897 156.105 255.749 155.891 254.751 155.468C253.75 155.043 252.957 154.467 252.373 153.742C251.789 153.017 251.345 152.218 251.046 151.352C250.743 150.483 250.594 149.573 250.594 148.613C250.594 146.488 251.257 144.718 252.587 143.3C253.932 141.899 255.67 141.201 257.795 141.201C259.921 141.201 261.462 141.847 262.739 143.141C264.031 144.433 264.679 146.188 264.679 148.402L264.673 148.396ZM253.248 147.492H262.043C261.973 146.271 261.544 145.29 260.754 144.556C259.965 143.822 258.978 143.452 257.792 143.452C256.606 143.452 255.649 143.828 254.815 144.583C253.985 145.334 253.459 146.306 253.248 147.492Z" fill="#242424"/></svg><span>Guia de Estilo Web</span></header>
+
+        <div class="bds-block"><h3 class="bds-h">Paleta de cores</h3>
+          <ul class="bds-palette">
+            <li style="--c:#FFFFFF;--t:#0F1115;--w:50" class="is-white"><b>50%</b><code>#FFFFFF</code></li>
+            <li style="--c:#CD2323;--t:#fff;--w:15"><b>15%</b><code>#CD2323</code></li>
+            <li style="--c:#0F1115;--t:#fff;--w:15"><b>15%</b><code>#0F1115</code></li>
+            <li style="--c:#440404;--t:#fff;--w:10"><b>10%</b><code>#440404</code></li>
+            <li class="is-pair" style="--w:5"><span style="--c:#7F0101;--t:#fff"><b>5%</b></span><span style="--c:#EF5B5B;--t:#fff"><b>5%</b></span></li>
+          </ul>
+          <h4 class="bds-h4">Escala de cinza</h4>
+          <ul class="bds-grays"><li style="--c:#FFFFFF" title="#FFFFFF"></li><li style="--c:#F5F5F5" title="#F5F5F5"></li><li style="--c:#EDEDED" title="#EDEDED"></li><li style="--c:#E0E0E0" title="#E0E0E0"></li><li style="--c:#D6D6D6" title="#D6D6D6"></li><li style="--c:#CCCCCC" title="#CCCCCC"></li><li style="--c:#BDBDBD" title="#BDBDBD"></li><li style="--c:#ADADAD" title="#ADADAD"></li><li style="--c:#9E9E9E" title="#9E9E9E"></li><li style="--c:#8F8F8F" title="#8F8F8F"></li><li style="--c:#848484" title="#848484"></li></ul>
+          <div class="bds-3">
+            <div><h4 class="bds-h4">Degradê</h4><ul class="bds-chips"><li style="--c:linear-gradient(90deg,#F5F5F5,#BDBDBD)"></li><li class="is-wide" style="--c:linear-gradient(90deg,#C72020,#840303)"></li></ul></div>
+            <div><h4 class="bds-h4">Extras</h4><ul class="bds-chips"><li style="--c:#31EB21"></li><li style="--c:#126000"></li><li style="--c:#FDB200"></li></ul></div>
+            <div><h4 class="bds-h4">Complementares</h4><ul class="bds-mini"><li style="--c:#B0DCED" title="#B0DCED"></li><li style="--c:#F8F4F1" title="#F8F4F1"></li><li style="--c:#E0D0C6" title="#E0D0C6"></li><li style="--c:#816858" title="#816858"></li><li style="--c:#AC62FB" title="#AC62FB"></li><li style="--c:#FAD567" title="#FAD567"></li><li style="--c:#124C3C" title="#124C3C"></li><li style="--c:#CFFF41" title="#CFFF41"></li><li style="--c:#F7CEF3" title="#F7CEF3"></li><li style="--c:#C1F3B6" title="#C1F3B6"></li><li style="--c:#FB85EF" title="#FB85EF"></li><li style="--c:#85F46C" title="#85F46C"></li><li style="--c:#603300" title="#603300"></li><li style="--c:#248AFF" title="#248AFF"></li><li style="--c:#24D465" title="#24D465"></li><li style="--c:#FF7700" title="#FF7700"></li></ul></div>
+          </div>
+        </div>
+
+        <div class="bds-block"><h3 class="bds-h">Tipografia</h3>
+          <div class="bds-font"><div><b>Montserrat</b><p>Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn<br>Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz<br>1234567890</p></div><span aria-hidden="true">Aa</span></div>
+          <ul class="bds-type">
+            <li><small>64px · Bold · 74</small><span class="t-h1">H1 / Montserrat / Bold</span></li>
+            <li><small>56px · Bold · 66</small><span class="t-h2">H2 / Montserrat / Bold</span></li>
+            <li><small>48px · Bold · 56</small><span class="t-h3">H3 / Montserrat / Bold</span></li>
+            <li><small>36px · SemiBold · 48</small><span class="t-h4">H4 / Montserrat / SemiBold</span></li>
+            <li><small>32px · SemiBold · 48</small><span class="t-h5">H5 / Montserrat / SemiBold</span></li>
+            <li><small>24px · Bold · 32</small><span class="t-h6">H6 / Montserrat / Bold</span></li>
+            <li><small>20px · SemiBold · 32</small><span class="t-h7">H7 / Montserrat / SemiBold</span></li>
+            <li><small>18px · Medium / SemiBold / Bold · 26</small><span class="t-sub">Subtítulo 1 / <i>Medium</i> · <i class="sb">SemiBold</i> · <i class="bd">Bold</i></span></li>
+            <li><small>18 · 16 · 14px · SemiBold</small><span class="t-p">Parágrafo 1, 2 e 3 / Montserrat / SemiBold</span></li>
+            <li><small>16px · SemiBold · 1%</small><span class="t-caps">Caps / Montserrat / SemiBold</span></li>
+            <li><small>16px · Bold · 24</small><span class="t-btn">Botão / Montserrat / Bold</span></li>
+          </ul>
+        </div>
+
+        <div class="bds-block"><h3 class="bds-h">Botões e controles</h3>
+          <h4 class="bds-h4">Botões grandes · 56px</h4>
+          <div class="b-row"><div class="b-col"><p class="b-cap">Principais</p><button type="button" class="b-btn is-lg is-pri">Normal</button><button type="button" class="b-btn is-lg is-pri is-hover">Hover</button><button type="button" class="b-btn is-lg is-pri" disabled>Inativo</button></div><div class="b-col"><p class="b-cap">Secundários</p><button type="button" class="b-btn is-lg is-sec">Normal</button><button type="button" class="b-btn is-lg is-sec is-hover">Hover</button><button type="button" class="b-btn is-lg is-sec" disabled>Inativo</button></div><div class="b-col"><p class="b-cap">Extras</p><button type="button" class="b-btn is-lg is-ext">Normal</button><button type="button" class="b-btn is-lg is-ext is-hover">Hover</button><button type="button" class="b-btn is-lg is-ext" disabled>Inativo</button></div></div>
+          <div class="bds-2">
+            <div><h4 class="bds-h4">Botões médios · 48px</h4><div class="b-row"><div class="b-col"><p class="b-cap">Principais</p><button type="button" class="b-btn is-md is-pri">Normal</button><button type="button" class="b-btn is-md is-pri is-hover">Hover</button><button type="button" class="b-btn is-md is-pri" disabled>Inativo</button></div><div class="b-col"><p class="b-cap">Secundários</p><button type="button" class="b-btn is-md is-sec">Normal</button><button type="button" class="b-btn is-md is-sec is-hover">Hover</button><button type="button" class="b-btn is-md is-sec" disabled>Inativo</button></div></div></div>
+            <div><h4 class="bds-h4">Botões pequenos · 40px</h4><div class="b-row"><div class="b-col"><p class="b-cap">Principais</p><button type="button" class="b-btn is-sm is-pri">Normal</button><button type="button" class="b-btn is-sm is-pri is-hover">Hover</button><button type="button" class="b-btn is-sm is-pri" disabled>Inativo</button></div><div class="b-col"><p class="b-cap">Secundários</p><button type="button" class="b-btn is-sm is-sec">Normal</button><button type="button" class="b-btn is-sm is-sec is-hover">Hover</button><button type="button" class="b-btn is-sm is-sec" disabled>Inativo</button></div></div></div>
+          </div>
+          <h4 class="bds-h4">Outros</h4>
+          <div class="b-icons">
+            <span class="b-ib"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span><span class="b-ib"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><span class="b-ib"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></span><span class="b-ib"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></span><span class="b-ib"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span><span class="b-ib"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></span>
+            <span class="b-ib is-round"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span><span class="b-ib is-round"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></span><span class="b-ib is-round"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span>
+            <button type="button" class="b-btn is-sm is-pri b-with"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5 12.4 19a5 5 0 0 1-7.1-7.1l8-8a3.3 3.3 0 0 1 4.7 4.7l-8 8a1.7 1.7 0 0 1-2.4-2.4L15 6.8"/></svg>Anexo</button>
+            <button type="button" class="b-btn is-sm is-sec b-with"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>Download</button>
+            <a class="b-link">Botão com texto e seta <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+
+        <div class="bds-block"><h3 class="bds-h">Campos de preenchimento</h3>
+          <div class="f-grid">
+            <label class="f-field"><span class="f-cap">Padrão</span><span class="f-box"><input type="text" placeholder="Título*"></span></label>
+            <label class="f-field"><span class="f-cap">Ativo</span><span class="f-box is-active"><em>Título*</em><input type="text" value="Insira o texto aqui"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></i></span></label>
+            <label class="f-field"><span class="f-cap">Erro</span><span class="f-box is-error"><em>Título*</em><input type="text" value="--------------"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></i></span><small class="f-err">! Mensagem de erro</small></label>
+            <label class="f-field"><span class="f-cap">Sucesso</span><span class="f-box is-ok"><em>Título*</em><input type="text" value="--------------"><i class="ok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></i></span></label>
+            <label class="f-field"><span class="f-cap">Dropdown</span><span class="f-box f-select"><select><option>Dropdown</option><option>Perícia Judicial</option><option>Perícia Criminal</option></select><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></i></span></label>
+            <label class="f-field"><span class="f-cap">Desativado</span><span class="f-box is-off"><input type="text" placeholder="Título*" disabled></span></label>
+          </div>
+          <div class="f-checks">
+            <div><span class="f-cap">Seleção</span><label class="f-opt"><input type="radio" name="bds-r" checked><span>Selecionado</span></label><label class="f-opt"><input type="radio" name="bds-r"><span>Não selecionado</span></label><label class="f-opt"><input type="radio" disabled><span>Desativado</span></label></div>
+            <div><span class="f-cap">Checkbox</span><label class="f-opt"><input type="checkbox" checked><span>Marcado</span></label><label class="f-opt"><input type="checkbox"><span>Não marcado</span></label><label class="f-opt"><input type="checkbox" disabled><span>Desativado</span></label></div>
+          </div>
+        </div>
+
+        <div class="bds-block"><h3 class="bds-h">Avatares, breadcrumbs e marcadores</h3>
+          <div class="bds-2">
+            <div><span class="f-cap">Avatares</span><div class="a-row"><span class="a-av" style="--s:88px">CB</span><span class="a-av" style="--s:72px">CB</span><span class="a-av" style="--s:56px">CB</span><span class="a-av" style="--s:40px">CB</span><span class="a-av" style="--s:32px">CB</span></div><div class="a-row a-lbl"><small style="width:88px">88px</small><small style="width:72px">72px</small><small style="width:56px">56px</small><small style="width:40px">40px</small><small style="width:32px">32px</small></div></div>
+            <div><span class="f-cap">Marcadores</span><div class="m-row"><span class="m-tag is-ok">Ativo</span><span class="m-tag is-rev">Revisão</span><span class="m-tag is-wait">Inativo</span><span class="m-tag is-off">Expirado</span></div>
+              <span class="f-cap">Breadcrumbs</span><p class="bc">Item <i>›</i> Item 2 <i>›</i> Item 3 <i>›</i> <b>Item 4</b></p></div>
+          </div>
+        </div>
+
+        <div class="bds-block"><h3 class="bds-h">Paginação e busca</h3>
+          <div class="bds-3">
+            <div><span class="f-cap">Botão de paginação</span><div class="p-row"><span class="p-arr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></span><span class="p-arr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div><div class="p-row"><span class="p-arr is-dark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></span><span class="p-arr is-dark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></div>
+            <div><span class="f-cap">Indicadores visuais</span><div class="p-num"><span>1</span><span>2</span><span class="on">3</span><span>4</span><span>5</span></div><div class="p-num"><span>1</span><span>2</span><span class="on">3</span><span>…</span></div></div>
+            <div><span class="f-cap">Busca</span><span class="s-box"><input type="search" placeholder="Digite qualquer palavra"><i><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg></i></span>
+              <span class="f-cap">Busca avançada</span><span class="s-adv"><input type="search" placeholder="Digite qualquer palavra"><span>Filtro <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span><button type="button">Buscar</button></span></div>
+          </div>
+        </div>
+
+        <div class="bds-block"><h3 class="bds-h">Cards</h3>
+          <div class="c-grid">
+            <article class="c-post"><img src="../assets/img/projetos/beta-online/ds-post.webp" width="480" height="322" alt="" loading="lazy" decoding="async"><p>Lorem Ipsum is simply dummy text of the</p><div><span class="c-go is-dark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><span class="c-plus"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span></div></article>
+            <article class="c-info"><svg class="c-logo" viewBox="90 72 178 88" role="img" aria-label="Beta Online"><path d="M132.052 98.7586C135.111 99.5336 137.474 101.075 139.142 103.382C140.809 105.687 141.643 108.441 141.643 111.635C141.643 115.93 140.134 119.491 137.122 122.321C134.063 125.154 130.135 126.566 125.341 126.566H100.475V91.5338C100.475 82.9262 107.453 75.9451 116.064 75.9451H124.175C128.878 75.9451 132.507 77.2016 135.067 79.7116C137.668 82.1776 138.971 85.1016 138.971 88.4777C138.971 90.7147 138.328 92.8049 137.051 94.7455C135.771 96.686 134.107 98.0217 132.052 98.7527V98.7586ZM121.777 86.772H119.017C115.7 86.772 113.011 89.4611 113.011 92.7785V95.3326H121.228C122.919 95.3326 124.208 94.9333 125.097 94.1319C125.987 93.3334 126.433 92.2941 126.433 91.0171C126.433 89.8281 126.01 88.827 125.167 88.005C124.322 87.183 123.192 86.772 121.777 86.772ZM113.011 115.607H122.599C124.519 115.607 125.978 115.128 126.985 114.168C127.989 113.211 128.491 112.022 128.491 110.607C128.491 109.192 127.986 107.936 126.985 106.976C125.981 106.019 124.61 105.537 122.875 105.537H113.011V115.604V115.607Z" fill="#242424"/><path d="M184.693 106.307C184.693 107.895 184.555 109.642 184.285 111.547H158.081C159.487 114.723 162.232 116.312 166.318 116.312C170.405 116.312 173.963 115.222 177.271 113.047L182.447 121.892C177.591 125.342 171.99 127.065 165.634 127.065C158.92 127.065 153.727 125.183 150.051 121.417C146.379 117.606 144.541 112.909 144.541 107.331C144.541 101.753 146.423 96.8741 150.189 93.1076C154.047 89.341 158.991 87.4592 165.027 87.4592C170.695 87.4592 175.393 89.162 179.112 92.5615C182.832 95.873 184.696 100.456 184.696 106.31L184.693 106.307ZM165.024 97.9339C161.483 97.9339 159.102 99.4986 157.878 102.628H171.964C170.83 99.4986 168.514 97.9339 165.024 97.9339Z" fill="#242424"/><path d="M216.675 113.452L220.08 124.135C216.449 126.179 212.274 127.197 207.559 127.197C197.892 127.197 193.063 121.889 193.063 111.274V99.434H187.482V88.4075H193.201V75H206.47V88.4075H217.905V99.434H206.47V109.369C206.47 113.135 207.944 115.017 210.894 115.017C212.436 115.017 214.367 114.494 216.678 113.452H216.675Z" fill="#242424"/><path d="M250.702 91.1967V88.4077H263.294V126.246H250.702V123.592C247.62 125.997 244.079 127.197 240.087 127.197C234.688 127.197 230.264 125.292 226.817 121.482C223.368 117.624 221.642 112.862 221.642 107.19C221.642 101.519 223.388 96.8685 226.882 93.1049C230.375 89.3383 234.776 87.4565 240.084 87.4565C244.258 87.4565 247.796 88.7072 250.699 91.1996L250.702 91.1967ZM242.67 115.017C244.849 115.017 246.686 114.269 248.183 112.771C249.681 111.23 250.429 109.392 250.429 107.261C250.429 105.13 249.681 103.38 248.183 101.886C246.686 100.388 244.846 99.6398 242.67 99.6398C240.495 99.6398 238.669 100.388 237.192 101.886C235.718 103.383 234.982 105.174 234.982 107.261C234.982 109.348 235.73 111.23 237.227 112.771C238.725 114.269 240.539 115.017 242.67 115.017Z" fill="#242424"/><path d="M100.514 115.607H92V126.578H100.514V135.59H113.011V126.578V115.607H100.514Z" fill="#CD2323"/><path d="M182.086 146.083C182.086 143.215 183.078 140.787 185.063 138.802C187.065 136.8 189.458 135.799 192.238 135.799C195.018 135.799 197.41 136.8 199.413 138.802C201.415 140.804 202.416 143.197 202.416 145.977C202.416 148.757 201.415 151.15 199.413 153.152C197.41 155.119 194.991 156.103 192.158 156.103C189.325 156.103 186.915 155.137 184.984 153.205C183.052 151.273 182.086 148.901 182.086 146.083ZM199.65 146.004C199.65 143.843 198.934 142.037 197.498 140.584C196.063 139.131 194.31 138.406 192.238 138.406C190.165 138.406 188.439 139.143 187.003 140.611C185.568 142.082 184.851 143.878 184.851 146.004C184.851 148.129 185.559 149.902 186.977 151.37C188.374 152.806 190.13 153.522 192.238 153.522C194.346 153.522 196.098 152.803 197.498 151.37C198.934 149.935 199.65 148.147 199.65 146.004Z" fill="#242424"/><path d="M208.128 155.782H205.577V141.541H208.075V143.561C208.98 141.967 210.483 141.168 212.594 141.168C214.188 141.168 215.526 141.682 216.607 142.709C217.687 143.737 218.227 145.217 218.227 147.148V155.785H215.702V147.865C215.702 146.502 215.371 145.44 214.707 144.676C214.044 143.916 213.16 143.534 212.062 143.534C210.911 143.534 209.963 143.942 209.217 144.756C208.492 145.589 208.128 146.635 208.128 147.891V155.782Z" fill="#242424"/><path d="M224.548 135.667V155.782H221.997V135.667H224.548Z" fill="#242424"/><path d="M229.838 139.518C229.307 139.518 228.864 139.345 228.508 139.002C228.153 138.658 227.977 138.218 227.977 137.687C227.977 137.155 228.153 136.747 228.508 136.412C228.864 136.075 229.307 135.907 229.838 135.907C230.334 135.907 230.76 136.081 231.112 136.424C231.468 136.771 231.644 137.19 231.644 137.687C231.644 138.218 231.465 138.658 231.112 139.002C230.757 139.348 230.334 139.518 229.838 139.518ZM231.06 141.541V155.782H228.508V141.541H231.06Z" fill="#242424"/><path d="M237.568 155.782H235.017V141.541H237.515V143.561C238.419 141.967 239.922 141.168 242.033 141.168C243.627 141.168 244.966 141.682 246.046 142.709C247.126 143.737 247.667 145.217 247.667 147.148V155.785H245.142V147.865C245.142 146.502 244.81 145.44 244.147 144.676C243.483 143.916 242.6 143.534 241.502 143.534C240.351 143.534 239.403 143.942 238.657 144.756C237.932 145.589 237.568 146.635 237.568 147.891V155.782Z" fill="#242424"/><path d="M264.673 148.396C264.673 148.572 264.647 149.007 264.594 149.7H253.248C253.477 150.956 254.008 151.948 254.842 152.676C255.673 153.402 256.809 153.766 258.244 153.766C259.096 153.766 259.97 153.619 260.875 153.328C261.776 153.035 262.557 152.65 263.211 152.171L264.301 154.112C263.558 154.679 262.636 155.154 261.538 155.533C260.44 155.915 259.325 156.105 258.191 156.105C256.897 156.105 255.749 155.891 254.751 155.468C253.75 155.043 252.957 154.467 252.373 153.742C251.789 153.017 251.345 152.218 251.046 151.352C250.743 150.483 250.594 149.573 250.594 148.613C250.594 146.488 251.257 144.718 252.587 143.3C253.932 141.899 255.67 141.201 257.795 141.201C259.921 141.201 261.462 141.847 262.739 143.141C264.031 144.433 264.679 146.188 264.679 148.402L264.673 148.396ZM253.248 147.492H262.043C261.973 146.271 261.544 145.29 260.754 144.556C259.965 143.822 258.978 143.452 257.792 143.452C256.606 143.452 255.649 143.828 254.815 144.583C253.985 145.334 253.459 146.306 253.248 147.492Z" fill="#242424"/></svg><b>Lorem Ipsum is simply dummy text of the printing industry.</b><p>Lorem Ipsum is simply dummy text of the printing</p><span class="c-go is-gray"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></article>
+            <article class="c-info is-hover"><svg class="c-logo" viewBox="90 72 178 88" role="img" aria-label="Beta Online"><path d="M132.052 98.7586C135.111 99.5336 137.474 101.075 139.142 103.382C140.809 105.687 141.643 108.441 141.643 111.635C141.643 115.93 140.134 119.491 137.122 122.321C134.063 125.154 130.135 126.566 125.341 126.566H100.475V91.5338C100.475 82.9262 107.453 75.9451 116.064 75.9451H124.175C128.878 75.9451 132.507 77.2016 135.067 79.7116C137.668 82.1776 138.971 85.1016 138.971 88.4777C138.971 90.7147 138.328 92.8049 137.051 94.7455C135.771 96.686 134.107 98.0217 132.052 98.7527V98.7586ZM121.777 86.772H119.017C115.7 86.772 113.011 89.4611 113.011 92.7785V95.3326H121.228C122.919 95.3326 124.208 94.9333 125.097 94.1319C125.987 93.3334 126.433 92.2941 126.433 91.0171C126.433 89.8281 126.01 88.827 125.167 88.005C124.322 87.183 123.192 86.772 121.777 86.772ZM113.011 115.607H122.599C124.519 115.607 125.978 115.128 126.985 114.168C127.989 113.211 128.491 112.022 128.491 110.607C128.491 109.192 127.986 107.936 126.985 106.976C125.981 106.019 124.61 105.537 122.875 105.537H113.011V115.604V115.607Z" fill="#242424"/><path d="M184.693 106.307C184.693 107.895 184.555 109.642 184.285 111.547H158.081C159.487 114.723 162.232 116.312 166.318 116.312C170.405 116.312 173.963 115.222 177.271 113.047L182.447 121.892C177.591 125.342 171.99 127.065 165.634 127.065C158.92 127.065 153.727 125.183 150.051 121.417C146.379 117.606 144.541 112.909 144.541 107.331C144.541 101.753 146.423 96.8741 150.189 93.1076C154.047 89.341 158.991 87.4592 165.027 87.4592C170.695 87.4592 175.393 89.162 179.112 92.5615C182.832 95.873 184.696 100.456 184.696 106.31L184.693 106.307ZM165.024 97.9339C161.483 97.9339 159.102 99.4986 157.878 102.628H171.964C170.83 99.4986 168.514 97.9339 165.024 97.9339Z" fill="#242424"/><path d="M216.675 113.452L220.08 124.135C216.449 126.179 212.274 127.197 207.559 127.197C197.892 127.197 193.063 121.889 193.063 111.274V99.434H187.482V88.4075H193.201V75H206.47V88.4075H217.905V99.434H206.47V109.369C206.47 113.135 207.944 115.017 210.894 115.017C212.436 115.017 214.367 114.494 216.678 113.452H216.675Z" fill="#242424"/><path d="M250.702 91.1967V88.4077H263.294V126.246H250.702V123.592C247.62 125.997 244.079 127.197 240.087 127.197C234.688 127.197 230.264 125.292 226.817 121.482C223.368 117.624 221.642 112.862 221.642 107.19C221.642 101.519 223.388 96.8685 226.882 93.1049C230.375 89.3383 234.776 87.4565 240.084 87.4565C244.258 87.4565 247.796 88.7072 250.699 91.1996L250.702 91.1967ZM242.67 115.017C244.849 115.017 246.686 114.269 248.183 112.771C249.681 111.23 250.429 109.392 250.429 107.261C250.429 105.13 249.681 103.38 248.183 101.886C246.686 100.388 244.846 99.6398 242.67 99.6398C240.495 99.6398 238.669 100.388 237.192 101.886C235.718 103.383 234.982 105.174 234.982 107.261C234.982 109.348 235.73 111.23 237.227 112.771C238.725 114.269 240.539 115.017 242.67 115.017Z" fill="#242424"/><path d="M100.514 115.607H92V126.578H100.514V135.59H113.011V126.578V115.607H100.514Z" fill="#CD2323"/><path d="M182.086 146.083C182.086 143.215 183.078 140.787 185.063 138.802C187.065 136.8 189.458 135.799 192.238 135.799C195.018 135.799 197.41 136.8 199.413 138.802C201.415 140.804 202.416 143.197 202.416 145.977C202.416 148.757 201.415 151.15 199.413 153.152C197.41 155.119 194.991 156.103 192.158 156.103C189.325 156.103 186.915 155.137 184.984 153.205C183.052 151.273 182.086 148.901 182.086 146.083ZM199.65 146.004C199.65 143.843 198.934 142.037 197.498 140.584C196.063 139.131 194.31 138.406 192.238 138.406C190.165 138.406 188.439 139.143 187.003 140.611C185.568 142.082 184.851 143.878 184.851 146.004C184.851 148.129 185.559 149.902 186.977 151.37C188.374 152.806 190.13 153.522 192.238 153.522C194.346 153.522 196.098 152.803 197.498 151.37C198.934 149.935 199.65 148.147 199.65 146.004Z" fill="#242424"/><path d="M208.128 155.782H205.577V141.541H208.075V143.561C208.98 141.967 210.483 141.168 212.594 141.168C214.188 141.168 215.526 141.682 216.607 142.709C217.687 143.737 218.227 145.217 218.227 147.148V155.785H215.702V147.865C215.702 146.502 215.371 145.44 214.707 144.676C214.044 143.916 213.16 143.534 212.062 143.534C210.911 143.534 209.963 143.942 209.217 144.756C208.492 145.589 208.128 146.635 208.128 147.891V155.782Z" fill="#242424"/><path d="M224.548 135.667V155.782H221.997V135.667H224.548Z" fill="#242424"/><path d="M229.838 139.518C229.307 139.518 228.864 139.345 228.508 139.002C228.153 138.658 227.977 138.218 227.977 137.687C227.977 137.155 228.153 136.747 228.508 136.412C228.864 136.075 229.307 135.907 229.838 135.907C230.334 135.907 230.76 136.081 231.112 136.424C231.468 136.771 231.644 137.19 231.644 137.687C231.644 138.218 231.465 138.658 231.112 139.002C230.757 139.348 230.334 139.518 229.838 139.518ZM231.06 141.541V155.782H228.508V141.541H231.06Z" fill="#242424"/><path d="M237.568 155.782H235.017V141.541H237.515V143.561C238.419 141.967 239.922 141.168 242.033 141.168C243.627 141.168 244.966 141.682 246.046 142.709C247.126 143.737 247.667 145.217 247.667 147.148V155.785H245.142V147.865C245.142 146.502 244.81 145.44 244.147 144.676C243.483 143.916 242.6 143.534 241.502 143.534C240.351 143.534 239.403 143.942 238.657 144.756C237.932 145.589 237.568 146.635 237.568 147.891V155.782Z" fill="#242424"/><path d="M264.673 148.396C264.673 148.572 264.647 149.007 264.594 149.7H253.248C253.477 150.956 254.008 151.948 254.842 152.676C255.673 153.402 256.809 153.766 258.244 153.766C259.096 153.766 259.97 153.619 260.875 153.328C261.776 153.035 262.557 152.65 263.211 152.171L264.301 154.112C263.558 154.679 262.636 155.154 261.538 155.533C260.44 155.915 259.325 156.105 258.191 156.105C256.897 156.105 255.749 155.891 254.751 155.468C253.75 155.043 252.957 154.467 252.373 153.742C251.789 153.017 251.345 152.218 251.046 151.352C250.743 150.483 250.594 149.573 250.594 148.613C250.594 146.488 251.257 144.718 252.587 143.3C253.932 141.899 255.67 141.201 257.795 141.201C259.921 141.201 261.462 141.847 262.739 143.141C264.031 144.433 264.679 146.188 264.679 148.402L264.673 148.396ZM253.248 147.492H262.043C261.973 146.271 261.544 145.29 260.754 144.556C259.965 143.822 258.978 143.452 257.792 143.452C256.606 143.452 255.649 143.828 254.815 144.583C253.985 145.334 253.459 146.306 253.248 147.492Z" fill="#242424"/></svg><b>Lorem Ipsum is simply dummy text of the printing industry.</b><p>Lorem Ipsum is simply dummy text of the printing</p><span class="c-go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></article>
+          </div>
+          <div class="c-grid is-4">
+            <article class="c-icon" style="--bg:#0F1115"><span class="c-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></svg></span><b>Lorem Ipsum is simply dummy</b><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p></article>
+            <article class="c-icon" style="--bg:#CD2323"><span class="c-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H12v16H6.5A2.5 2.5 0 0 0 4 21.5zM20 5.5A2.5 2.5 0 0 0 17.5 3H12v16h5.5a2.5 2.5 0 0 1 2.5 2.5z"/></svg></span><b>Lorem Ipsum is simply dummy</b><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p></article>
+            <article class="c-icon is-price"><span class="c-ic is-red"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="5.5"/><path d="m8.5 13.5-1.5 7 5-2.5 5 2.5-1.5-7"/></svg></span><span class="c-badge">12% OFF</span><s>R$ 99,99</s><b class="c-val">R$ 89,99</b><p>Lorem | Ipsum | Lorem</p></article>
+            <article class="c-icon" style="--bg:#FDB200;--fg:#0F1115"><span class="c-ic is-dark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></svg></span><b>Lorem Ipsum is simply dummy</b><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p></article>
+          </div>
+          <div class="c-grid">
+            <article class="c-guide"><b>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</b><div><small>Lorem | Ipsum | Lorem</small><span class="c-go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></article>
+            <article class="c-guide is-hover"><b>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</b><div><small>Lorem | Ipsum | Lorem</small><span class="c-go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div></article>
+            <article class="c-mosaic"><small>Lorem Ipsum is simply</small><b>Lorem Ipsum is simply dummy text of the</b><button type="button" class="b-btn is-sm is-dark">Lorem Ipsum</button></article>
+          </div>
+        </div>
+
+        <div class="bds-block"><h3 class="bds-h">Tabelas e filtros</h3>
+          <div class="t-seg"><span class="on">Lorem Ipsum</span><span>Lorem Ipsum is simply</span></div>
+          <div class="t-tabs"><span class="on">Lorem Ipsum</span><span>Lorem Ipsum</span><span>Lorem Ipsum</span><span>Lorem Ipsum</span></div>
+          <div class="t-filters"><span class="t-chip">Lorem Ipsum <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span><span class="t-chip is-ghost">Lorem <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span><span class="t-dd"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16l-6 7.5V19l-4 1.5v-8z"/></svg> Filtro <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span><span class="t-dd"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16l-6 7.5V19l-4 1.5v-8z"/></svg> Classificar por <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span></div>
+          <div class="f-checks is-row"><label class="f-opt"><input type="checkbox" checked><span>Lorem Ipsum</span></label><label class="f-opt"><input type="checkbox" checked><span>Lorem Ipsum</span></label><label class="f-opt"><input type="radio" name="bds-t"><span>Lorem Ipsum</span></label><label class="f-opt"><input type="checkbox"><span>Lorem Ipsum</span></label></div>
+        </div>
+
+        <div class="bds-block"><h3 class="bds-h">Depoimentos e menu</h3>
+          <div class="bds-2">
+            <article class="d-card"><span class="a-av" style="--s:44px">CB</span><b>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</b><span class="d-stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3.5 2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.8 6.8 19.6l1-5.8-4.3-4.1 5.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3.5 2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.8 6.8 19.6l1-5.8-4.3-4.1 5.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3.5 2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.8 6.8 19.6l1-5.8-4.3-4.1 5.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3.5 2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.8 6.8 19.6l1-5.8-4.3-4.1 5.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3.5 2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.8 6.8 19.6l1-5.8-4.3-4.1 5.9-.8z"/></svg></span><small><b>Lorem Ipsum</b>Lorem Ipsum | Lorem</small></article>
+            <div class="mm"><span class="f-cap">Menu · padrão</span><div class="mm-bar"><svg class="mm-logo" viewBox="90 72 178 88" role="img" aria-label="Beta Online"><path d="M132.052 98.7586C135.111 99.5336 137.474 101.075 139.142 103.382C140.809 105.687 141.643 108.441 141.643 111.635C141.643 115.93 140.134 119.491 137.122 122.321C134.063 125.154 130.135 126.566 125.341 126.566H100.475V91.5338C100.475 82.9262 107.453 75.9451 116.064 75.9451H124.175C128.878 75.9451 132.507 77.2016 135.067 79.7116C137.668 82.1776 138.971 85.1016 138.971 88.4777C138.971 90.7147 138.328 92.8049 137.051 94.7455C135.771 96.686 134.107 98.0217 132.052 98.7527V98.7586ZM121.777 86.772H119.017C115.7 86.772 113.011 89.4611 113.011 92.7785V95.3326H121.228C122.919 95.3326 124.208 94.9333 125.097 94.1319C125.987 93.3334 126.433 92.2941 126.433 91.0171C126.433 89.8281 126.01 88.827 125.167 88.005C124.322 87.183 123.192 86.772 121.777 86.772ZM113.011 115.607H122.599C124.519 115.607 125.978 115.128 126.985 114.168C127.989 113.211 128.491 112.022 128.491 110.607C128.491 109.192 127.986 107.936 126.985 106.976C125.981 106.019 124.61 105.537 122.875 105.537H113.011V115.604V115.607Z" fill="#242424"/><path d="M184.693 106.307C184.693 107.895 184.555 109.642 184.285 111.547H158.081C159.487 114.723 162.232 116.312 166.318 116.312C170.405 116.312 173.963 115.222 177.271 113.047L182.447 121.892C177.591 125.342 171.99 127.065 165.634 127.065C158.92 127.065 153.727 125.183 150.051 121.417C146.379 117.606 144.541 112.909 144.541 107.331C144.541 101.753 146.423 96.8741 150.189 93.1076C154.047 89.341 158.991 87.4592 165.027 87.4592C170.695 87.4592 175.393 89.162 179.112 92.5615C182.832 95.873 184.696 100.456 184.696 106.31L184.693 106.307ZM165.024 97.9339C161.483 97.9339 159.102 99.4986 157.878 102.628H171.964C170.83 99.4986 168.514 97.9339 165.024 97.9339Z" fill="#242424"/><path d="M216.675 113.452L220.08 124.135C216.449 126.179 212.274 127.197 207.559 127.197C197.892 127.197 193.063 121.889 193.063 111.274V99.434H187.482V88.4075H193.201V75H206.47V88.4075H217.905V99.434H206.47V109.369C206.47 113.135 207.944 115.017 210.894 115.017C212.436 115.017 214.367 114.494 216.678 113.452H216.675Z" fill="#242424"/><path d="M250.702 91.1967V88.4077H263.294V126.246H250.702V123.592C247.62 125.997 244.079 127.197 240.087 127.197C234.688 127.197 230.264 125.292 226.817 121.482C223.368 117.624 221.642 112.862 221.642 107.19C221.642 101.519 223.388 96.8685 226.882 93.1049C230.375 89.3383 234.776 87.4565 240.084 87.4565C244.258 87.4565 247.796 88.7072 250.699 91.1996L250.702 91.1967ZM242.67 115.017C244.849 115.017 246.686 114.269 248.183 112.771C249.681 111.23 250.429 109.392 250.429 107.261C250.429 105.13 249.681 103.38 248.183 101.886C246.686 100.388 244.846 99.6398 242.67 99.6398C240.495 99.6398 238.669 100.388 237.192 101.886C235.718 103.383 234.982 105.174 234.982 107.261C234.982 109.348 235.73 111.23 237.227 112.771C238.725 114.269 240.539 115.017 242.67 115.017Z" fill="#242424"/><path d="M100.514 115.607H92V126.578H100.514V135.59H113.011V126.578V115.607H100.514Z" fill="#CD2323"/><path d="M182.086 146.083C182.086 143.215 183.078 140.787 185.063 138.802C187.065 136.8 189.458 135.799 192.238 135.799C195.018 135.799 197.41 136.8 199.413 138.802C201.415 140.804 202.416 143.197 202.416 145.977C202.416 148.757 201.415 151.15 199.413 153.152C197.41 155.119 194.991 156.103 192.158 156.103C189.325 156.103 186.915 155.137 184.984 153.205C183.052 151.273 182.086 148.901 182.086 146.083ZM199.65 146.004C199.65 143.843 198.934 142.037 197.498 140.584C196.063 139.131 194.31 138.406 192.238 138.406C190.165 138.406 188.439 139.143 187.003 140.611C185.568 142.082 184.851 143.878 184.851 146.004C184.851 148.129 185.559 149.902 186.977 151.37C188.374 152.806 190.13 153.522 192.238 153.522C194.346 153.522 196.098 152.803 197.498 151.37C198.934 149.935 199.65 148.147 199.65 146.004Z" fill="#242424"/><path d="M208.128 155.782H205.577V141.541H208.075V143.561C208.98 141.967 210.483 141.168 212.594 141.168C214.188 141.168 215.526 141.682 216.607 142.709C217.687 143.737 218.227 145.217 218.227 147.148V155.785H215.702V147.865C215.702 146.502 215.371 145.44 214.707 144.676C214.044 143.916 213.16 143.534 212.062 143.534C210.911 143.534 209.963 143.942 209.217 144.756C208.492 145.589 208.128 146.635 208.128 147.891V155.782Z" fill="#242424"/><path d="M224.548 135.667V155.782H221.997V135.667H224.548Z" fill="#242424"/><path d="M229.838 139.518C229.307 139.518 228.864 139.345 228.508 139.002C228.153 138.658 227.977 138.218 227.977 137.687C227.977 137.155 228.153 136.747 228.508 136.412C228.864 136.075 229.307 135.907 229.838 135.907C230.334 135.907 230.76 136.081 231.112 136.424C231.468 136.771 231.644 137.19 231.644 137.687C231.644 138.218 231.465 138.658 231.112 139.002C230.757 139.348 230.334 139.518 229.838 139.518ZM231.06 141.541V155.782H228.508V141.541H231.06Z" fill="#242424"/><path d="M237.568 155.782H235.017V141.541H237.515V143.561C238.419 141.967 239.922 141.168 242.033 141.168C243.627 141.168 244.966 141.682 246.046 142.709C247.126 143.737 247.667 145.217 247.667 147.148V155.785H245.142V147.865C245.142 146.502 244.81 145.44 244.147 144.676C243.483 143.916 242.6 143.534 241.502 143.534C240.351 143.534 239.403 143.942 238.657 144.756C237.932 145.589 237.568 146.635 237.568 147.891V155.782Z" fill="#242424"/><path d="M264.673 148.396C264.673 148.572 264.647 149.007 264.594 149.7H253.248C253.477 150.956 254.008 151.948 254.842 152.676C255.673 153.402 256.809 153.766 258.244 153.766C259.096 153.766 259.97 153.619 260.875 153.328C261.776 153.035 262.557 152.65 263.211 152.171L264.301 154.112C263.558 154.679 262.636 155.154 261.538 155.533C260.44 155.915 259.325 156.105 258.191 156.105C256.897 156.105 255.749 155.891 254.751 155.468C253.75 155.043 252.957 154.467 252.373 153.742C251.789 153.017 251.345 152.218 251.046 151.352C250.743 150.483 250.594 149.573 250.594 148.613C250.594 146.488 251.257 144.718 252.587 143.3C253.932 141.899 255.67 141.201 257.795 141.201C259.921 141.201 261.462 141.847 262.739 143.141C264.031 144.433 264.679 146.188 264.679 148.402L264.673 148.396ZM253.248 147.492H262.043C261.973 146.271 261.544 145.29 260.754 144.556C259.965 143.822 258.978 143.452 257.792 143.452C256.606 143.452 255.649 143.828 254.815 144.583C253.985 145.334 253.459 146.306 253.248 147.492Z" fill="#242424"/></svg><span class="mm-links"><span>Cursos <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span><span>Pós Graduação <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span><span>Banco de Peritos <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></span><span>Blog</span></span><span class="mm-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg></span><button type="button" class="b-btn is-sm is-pri b-with"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/></svg>Área do Aluno</button></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pp2-sec">
+      <p class="pp2-label" data-rv>O que mudou</p>
+      <div class="ky-grid">
+      <article class="pp2-card" data-glow data-rv style="--pc:#CD2323">
+        <span class="pp2-fx" aria-hidden="true"></span>
+        <span class="pp2-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M3.5 9h17M8 13.5h8"/></svg></span><span class="pp2-n" aria-hidden="true">01</span>
+        <h2>Mais limpo</h2><p>Menos ruído, mais respiro e o vermelho usado com propósito: o visual deixou de parecer antigo e passou a passar confiança.</p>
+      </article>
+      <article class="pp2-card" data-glow data-rv style="--pc:#0F1115">
+        <span class="pp2-fx" aria-hidden="true"></span>
+        <span class="pp2-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/></svg></span><span class="pp2-n" aria-hidden="true">02</span>
+        <h2>Mais fácil de entender</h2><p>Logo no topo fica claro o que é o Beta Online e o que a plataforma oferece: cursos, carreiras e o Banco Nacional de Peritos.</p>
+      </article>
+      <article class="pp2-card" data-glow data-rv style="--pc:#EF5B5B">
+        <span class="pp2-fx" aria-hidden="true"></span>
+        <span class="pp2-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></svg></span><span class="pp2-n" aria-hidden="true">03</span>
+        <h2>Base para crescer</h2><p>Com o design system, qualquer página nova sai com a mesma cara, sem começar do zero.</p>
+      </article>
+      </div>
+    </section>
+
+    <section class="pp2-sec">
+      <p class="pp2-label" data-rv>Em números</p>
+      <div class="pp2-stats">
+      <div class="pp2-stat" data-glow data-rv style="--pc:#CD2323"><span class="pp2-fx" aria-hidden="true"></span><b>10</b><span>grupos de componentes no design system</span></div>
+      <div class="pp2-stat" data-glow data-rv style="--pc:#0F1115"><span class="pp2-fx" aria-hidden="true"></span><b>3</b><span>tamanhos de botão: 56, 48 e 40px</span></div>
+      <div class="pp2-stat" data-glow data-rv style="--pc:#EF5B5B"><span class="pp2-fx" aria-hidden="true"></span><b>2</b><span>versões do site: desktop e mobile</span></div>
+      </div>
+    </section>
+
+    <nav class="pp2-sec pp2-nav" aria-label="Outros projetos">
+      <a href="jogo-pela-integridade.html" class="pp2-navcard" data-glow data-rv><span class="pp2-fx" aria-hidden="true"></span><img src="../assets/img/projetos/jogo-pela-integridade/card.webp?v=2" width="200" height="200" alt="" loading="lazy"><span><small>Projeto anterior</small><b>São Paulo FC</b></span><i class="pp2-go is-back"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></i></a>
+      <a href="kyoto.html" class="pp2-navcard is-next" data-glow data-rv><span class="pp2-fx" aria-hidden="true"></span><span><small>Próximo projeto</small><b>Kyoto</b></span><img src="../assets/img/projetos/kyoto/card.webp?v=2" width="200" height="200" alt="" loading="lazy"><i class="pp2-go"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></i></a>
+    </nav>
+  </main>
+
+  <section class="cta section pp2-cta" id="contact" data-rv>
+    <div class="glass-bg" aria-hidden="true"><div class="gb-aura"><i class="g1"></i><i class="g2"></i><i class="g3"></i><i class="g4"></i></div><span class="flute-sheen"></span></div>
+    <h2 class="cta-title">Seu produto precisa de um design system?</h2>
+    <div class="cta-row">
+      <a href="../index.html#contact" class="btn btn-accent"><span class="btn-roll"><span>Vamos conversar</span><span aria-hidden="true">Vamos conversar</span></span><i class="btn-arrow"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></i></a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-card legal-footer">
+      <div class="footer-bottom">
+        <svg class="footer-mark" viewBox="0 0 804 513" aria-hidden="true"><use href="#fyw-logo"/></svg>
+        <span>© 2026 Fyw. Todos os direitos reservados.</span>
+        <span class="fb-credit">Website desenvolvido por <a href="https://www.linkedin.com/in/marlonwebdesigner/" target="_blank" rel="noopener" class="fb-author">Marlon Dias</a></span>
+        <span class="fb-links"><a href="../index.html">Início</a><a href="../projetos.html">Projetos</a><a href="../privacidade.html">Privacidade</a></span>
+      </div>
+    </div>
+  </footer>
+  <script>
+    (function () {
+      // revela os blocos ao rolar
+      var els = document.querySelectorAll('[data-rv]');
+      if (!('IntersectionObserver' in window) || document.documentElement.classList.contains('a11y-motion')) { els.forEach(function (e) { e.classList.add('is-in'); }); }
+      else { var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' }); els.forEach(function (e) { io.observe(e); }); }
+      // galeria: setas e arrastar
+      var gal = document.querySelector('.pp2-gal');
+      if (gal) {
+        document.querySelectorAll('.pp2-gal-btn').forEach(function (b) { b.addEventListener('click', function () {
+          var w = gal.querySelector('.pp2-slide').offsetWidth + 14; gal.scrollBy({ left: b.classList.contains('is-prev') ? -w : w, behavior: 'smooth' }); }); });
+        var down = false, sx = 0, sl = 0;
+        gal.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') return; down = true; sx = e.clientX; sl = gal.scrollLeft; gal.classList.add('is-drag'); });
+        addEventListener('pointerup', function () { down = false; gal.classList.remove('is-drag'); });
+        gal.addEventListener('pointermove', function (e) { if (down) gal.scrollLeft = sl - (e.clientX - sx); });
+        // carrossel contínuo: desliza direto e suave, em loop (as imagens se repetem no fim sem emenda);
+        // pausa enquanto a pessoa interage e continua de onde ela parou
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !document.documentElement.classList.contains('a11y-motion')) {
+          var slides = Array.prototype.slice.call(gal.querySelectorAll('.pp2-slide'));
+          slides.forEach(function (s) { var c = s.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.querySelectorAll('img').forEach(function (i) { i.alt = ''; i.loading = 'lazy'; }); gal.appendChild(c); });
+          gal.classList.add('is-marquee');
+          var SPEED = 42, pausedUntil = 0, vis = false, raf = 0, last = 0, pos = 0;
+          var half = function () { return gal.scrollWidth / 2; };
+          var hold = function () { pausedUntil = performance.now() + 3500; };
+          ['pointerdown', 'wheel', 'touchstart', 'keydown'].forEach(function (ev) { gal.addEventListener(ev, hold, { passive: true }); });
+          document.querySelectorAll('.pp2-gal-btn').forEach(function (b) { b.addEventListener('click', hold); });
+          var step = function (t) {
+            raf = 0; if (!vis) return;
+            var dt = last ? Math.min(64, t - last) : 16; last = t;
+            if (down || performance.now() < pausedUntil) { pos = gal.scrollLeft; }
+            else {
+              pos += SPEED * dt / 1000;
+              if (pos >= half()) pos -= half();
+              gal.scrollLeft = pos;
+            }
+            if (gal.scrollLeft >= half()) { gal.scrollLeft -= half(); pos = gal.scrollLeft; }
+            raf = requestAnimationFrame(step);
+          };
+          var go = function () { if (!raf && vis) { last = 0; pos = gal.scrollLeft; raf = requestAnimationFrame(step); } };
+          if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { vis = es[0].isIntersecting; if (vis) go(); }, { threshold: 0.2 }).observe(gal);
+          else { vis = true; go(); }
+        }
+      }
+      // brilho de cor que segue o mouse
+      if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+      var cur = null, ev = null, raf = 0, SEL = '[data-glow]';
+      function frame() { raf = 0; if (!ev) return; var el = ev.target.closest && ev.target.closest(SEL);
+        if (el !== cur) { if (cur) cur.classList.remove('is-glow'); cur = el; if (el) el.classList.add('is-glow'); }
+        if (!el) return; var r = el.getBoundingClientRect(); el.style.setProperty('--gx', (ev.clientX - r.left) + 'px'); el.style.setProperty('--gy', (ev.clientY - r.top) + 'px'); }
+      addEventListener('pointermove', function (e) { ev = e; if (!raf) raf = requestAnimationFrame(frame); }, { passive: true });
+    })();
+  </script>
+  <div class="cursor" aria-hidden="true"></div>
+  <script>
+    (function () {
+      if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+      var d = document.documentElement; if (d.classList.contains('a11y-motion') || d.classList.contains('a11y-clean')) return;
+      var c = document.querySelector('.cursor'); d.classList.add('has-cursor');
+      var x = -50, y = -50, raf = 0;
+      function place() { raf = 0; c.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)'; }
+      addEventListener('pointermove', function (e) { x = e.clientX; y = e.clientY; if (!raf) raf = requestAnimationFrame(place); }, { passive: true });
+      document.addEventListener('mouseover', function (e) { c.classList.toggle('is-hover', !!(e.target.closest && e.target.closest('a, button'))); });
+      document.addEventListener('mouseleave', function () { c.classList.add('is-hidden'); });
+      document.addEventListener('mouseenter', function () { c.classList.remove('is-hidden'); });
+    })();
+  </script>
+
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Menu" hidden><span class="fg-layer" aria-hidden="true"></span>
+    <div class="mm-tabs" role="tablist" aria-label="Menu">
+      <button class="mm-tab is-on" role="tab" id="mm-tab-main" aria-selected="true" aria-controls="mm-pane-main" data-pane="main" data-i18n="mm.tab.menu">Menu principal</button>
+      <button class="mm-tab" role="tab" id="mm-tab-a11y" aria-selected="false" aria-controls="mm-pane-a11y" data-pane="a11y" tabindex="-1" data-i18n="mm.tab.a11y">Acessibilidade</button>
+    </div>
+    <div class="mm-pane" id="mm-pane-main" role="tabpanel" aria-labelledby="mm-tab-main" data-pane="main">
+      <a href="../index.html#story" data-i18n="nav.story">Sobre</a><a href="../index.html#services" data-i18n="nav.services">Serviços</a><a href="../projetos.html" data-i18n="nav.work">Projetos</a><a href="../index.html#clients" data-i18n="nav.clients">Clientes</a><a href="../index.html#contact" data-i18n="nav.contact">Contato</a>
+      <div class="mm-row">
+        <div class="lang mm-lang" role="group" aria-label="Idioma"><button data-lang="pt">PT</button><button data-lang="en">EN</button><button data-lang="es">ES</button></div>
+        <button class="icon-btn mm-theme" data-i18n-aria="theme.toggle" aria-label="Alternar tema claro/escuro"><svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="currentColor"/></svg></button><a class="icon-btn mm-privacy" href="../privacidade.html" data-i18n-aria="footer.privacy" aria-label="Privacidade" title="Privacidade e cookies"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M21 12.3A9 9 0 1 1 11.7 3a3 3 0 0 0 3.6 3.6 3 3 0 0 0 3.4 3.4 3 3 0 0 0 2.3 2.3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="8.5" cy="10" r="1.3" fill="currentColor"/><circle cx="14" cy="15" r="1.3" fill="currentColor"/><circle cx="9" cy="15.5" r="1.1" fill="currentColor"/></svg></a>
+      </div>
+  
+    </div>
+    <div class="mm-pane mm-a11y-pane" id="mm-pane-a11y" role="tabpanel" aria-labelledby="mm-tab-a11y" data-pane="a11y" hidden>
+      <div class="a11y-size">
+        <span data-i18n="a11y.size">Tamanho do texto</span>
+        <div class="a11y-stepper">
+          <button data-size="-1" data-i18n-aria="a11y.smaller" aria-label="Diminuir texto">A−</button>
+          <output class="a11y-size-val" aria-live="polite">100%</output>
+          <button data-size="1" data-i18n-aria="a11y.bigger" aria-label="Aumentar texto">A+</button>
+        </div>
+      </div>
+      <div class="a11y-opts">
+        <button class="a11y-opt" data-opt="contrast" aria-pressed="false"><i>◐</i><span data-i18n="a11y.contrast">Alto contraste</span></button>
+        <button class="a11y-opt" data-opt="motion" aria-pressed="false"><i>⏸</i><span data-i18n="a11y.motion">Sem animações</span></button>
+        <button class="a11y-opt" data-opt="clean" aria-pressed="false"><i>☰</i><span data-i18n="a11y.clean">Modo leitura limpo</span></button>
+        <button class="a11y-opt" data-opt="links" aria-pressed="false"><i>⎁</i><span data-i18n="a11y.links">Destacar links</span></button>
+        <button class="a11y-opt" data-opt="spacing" aria-pressed="false"><i>↔</i><span data-i18n="a11y.spacing">Espaçamento de leitura</span></button>
+      </div>
+      <button type="button" class="a11y-reset"><svg class="ar-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3.5 3.8v4.6h4.6"/></svg><span data-i18n="a11y.reset">Restaurar padrão</span></button>
+    </div>
+  </nav>
+  <div class="dock" aria-label="Navegação rápida">
+    <a href="../index.html" class="dock-btn dock-logo" aria-label="Fyw — página inicial"><svg viewBox="0 0 804 513" aria-hidden="true"><use href="#fyw-logo"/></svg></a>
+    <button class="dock-btn dock-menu" aria-controls="mobile-menu" aria-expanded="false" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+    <button class="dock-btn dock-top" aria-label="Voltar ao topo"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></button>
+  </div>
+  <script src="../assets/js/i18n.js?v=20261115b"></script>
+  <script src="../assets/js/menu-inner.js?v=20261110b"></script>
+  <script defer src="../assets/js/lp-preview.js?v=3"></script>
+  <script src="../assets/js/autoscroll.js?v=20261111b"></script>
+</body>
+</html>

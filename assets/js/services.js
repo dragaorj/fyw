@@ -116,7 +116,7 @@
     const P = window.FYW_PROJECTS || {};
     const items = Object.keys(P).filter(k => Array.isArray(P[k].svc) && P[k].svc.includes(i));
     if (!items.length) return '';
-    return '<section class="sv-sec sv-in" style="--d:6"><h3>' + u.work + '</h3><div class="sv-work">' + items.map(k => {
+    return '<section class="sv-sec sv-in" style="--d:3"><h3>' + u.work + '</h3><div class="sv-work">' + items.map(k => {
       const x = P[k];
       return '<a class="sv-pj" href="projetos/' + k + '.html" style="--pc:' + (x.color || '#0B0B0B') + '"><span class="sv-pj-img"><img src="' + x.img + '" alt="" loading="lazy" decoding="async"></span>' +
         '<span class="sv-pj-meta"><span><b>' + esc(x.title || x.name) + '</b><small>' + esc(x.sub || x.type) + '</small></span><i aria-label="' + u.view + '">' + ARROW + '</i></span></a>';
@@ -135,10 +135,10 @@
         '<p class="sv-lead">' + esc(s.lead) + '</p>' +
       '</header>' +
       '<section class="sv-sec sv-in" style="--d:2"><h3>' + u.what + '</h3><p>' + esc(s.what) + '</p></section>' +
+      work(i, u) +
       '<section class="sv-sec sv-in" style="--d:3"><h3>' + u.deliver + '</h3><ul class="sv-chips">' + s.deliver.map((x, k) => '<li style="--k:' + k + '">' + esc(x) + '</li>').join('') + '</ul></section>' +
       '<section class="sv-sec sv-in" style="--d:4"><h3>' + u.who + '</h3><p>' + esc(s.who) + '</p></section>' +
       '<section class="sv-sec sv-in" style="--d:5"><h3>' + u.how + '</h3><ol class="sv-steps">' + s.steps.map((st, k) => '<li><span>0' + (k + 1) + '</span><b>' + esc(st[0]) + '</b><p>' + esc(st[1]) + '</p></li>').join('') + '</ol></section>' +
-      work(i, u) +
       '<footer class="sv-foot sv-in" style="--d:7">' +
         '<a href="#contact" class="btn btn-ink sv-cta" data-close><span class="btn-roll"><span>' + u.cta + '</span><span aria-hidden="true">' + u.cta + '</span></span><i class="btn-arrow">' + ARROW + '</i></a>' +
         '<button type="button" class="sv-next" data-next><span>' + u.next + '</span><b>' + esc(next.t) + '</b><i>' + ARROW + '</i></button>' +

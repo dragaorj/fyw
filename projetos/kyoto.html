@@ -34,7 +34,7 @@
       for (var k = 1; k <= 4; k++) { s('--g' + k, hues[k - 1]); }
     })();
   </script>
-  <link rel="stylesheet" href="../assets/css/style.css?v=20261118d" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=20261119i" />
   <script>
     // Paleta sorteada a cada visita (não fica salva): cor de destaque + cores/posições das manchas
     (function () {
@@ -112,9 +112,30 @@
       </div>
     </section>
 
+    <section class="pp2-sec lp-sec">
+      <div class="lp-head" data-rv>
+        <p class="pp2-label">Landing page</p>
+        <p class="lp-lead">Uma página para manter o cliente por dentro de produtos, fábricas e novidades — em japonês e inglês, do celular ao desktop.</p>
+      </div>
+      <div class="lp-stage" data-rv>
+        <figure class="lp-browser">
+          <div class="lp-bar" aria-hidden="true"><i></i><i></i><i></i><span>Kyoto — landing page</span></div>
+          <div class="lp-scroll" data-lenis-prevent tabindex="0" role="region" aria-label="Landing page do Kyoto no desktop (role para ver)">
+            <div class="lp-live" data-w="1440"><iframe src="kyoto/landing/?v=2" title="Landing page do Kyoto na versão desktop" width="1440" height="4100" loading="lazy"></iframe></div>
+          </div>
+        </figure>
+        <figure class="lp-phone">
+          <div class="lp-scroll" data-lenis-prevent tabindex="0" role="region" aria-label="Landing page do Kyoto no celular (role para ver)">
+            <div class="lp-live" data-w="390"><iframe src="kyoto/landing/?v=2" title="Landing page do Kyoto na versão para celular" width="390" height="3100" loading="lazy"></iframe></div>
+          </div>
+        </figure>
+      </div>
+      <p class="lp-hint" data-rv>As telas rolam sozinhas — role ou toque para navegar</p>
+      <a class="pp2-live is-gal" href="kyoto/landing/" target="_blank" rel="noopener"><span>Abrir a landing page</span><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></i></a>
+    </section>
+
     <section class="pp2-sec pp2-gal-sec">
       <div class="pp2-gal-head" data-rv>
-        <p class="pp2-label">O projeto</p>
         <div class="pp2-gal-btns"><button class="pp2-gal-btn is-prev" aria-label="Imagem anterior"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></button><button class="pp2-gal-btn" aria-label="Próxima imagem"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></button></div>
       </div>
       <div class="pp2-gal" data-rv tabindex="0" aria-label="Imagens do projeto Kyoto">
@@ -133,26 +154,6 @@
       <a class="pp2-live is-gal" href="https://www.behance.net/gallery/249058979/Kyoto" target="_blank" rel="noopener"><span>Ver apresentação no Behance</span><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></i></a>
     </section>
 
-    <section class="pp2-sec lp-sec">
-      <div class="lp-head" data-rv>
-        <p class="pp2-label">Landing page</p>
-        <p class="lp-lead">Uma página para manter o cliente por dentro de produtos, fábricas e novidades — em japonês e inglês, do celular ao desktop.</p>
-      </div>
-      <div class="lp-stage" data-rv>
-        <figure class="lp-browser">
-          <div class="lp-bar" aria-hidden="true"><i></i><i></i><i></i><span>Kyoto — landing page</span></div>
-          <div class="lp-scroll" data-lenis-prevent tabindex="0" role="region" aria-label="Landing page do Kyoto no desktop (role para ver)">
-            <img src="../assets/img/projetos/kyoto/lp-desktop.webp?v=4" width="1003" height="2731" alt="Landing page completa do Kyoto na versão desktop" loading="lazy" decoding="async">
-          </div>
-        </figure>
-        <figure class="lp-phone">
-          <div class="lp-scroll" data-lenis-prevent tabindex="0" role="region" aria-label="Landing page do Kyoto no celular (role para ver)">
-            <img src="../assets/img/projetos/kyoto/lp-mobile.webp?v=4" width="560" height="5468" alt="Landing page completa do Kyoto na versão para celular" loading="lazy" decoding="async">
-          </div>
-        </figure>
-      </div>
-      <p class="lp-hint" data-rv>As telas rolam sozinhas — role ou toque para navegar</p>
-    </section>
 
     <section class="pp2-sec">
       <p class="pp2-label" data-rv>O que entregamos</p>
@@ -197,7 +198,7 @@
 
     <nav class="pp2-sec pp2-nav" aria-label="Outros projetos">
       <a href="helio.html" class="pp2-navcard" data-glow data-rv><span class="pp2-fx" aria-hidden="true"></span><img src="https://picsum.photos/seed/fyw-p12/200/200" width="200" height="200" alt="" loading="lazy"><span><small>Projeto anterior</small><b>Hélio</b></span><i class="pp2-go is-back"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></i></a>
-      <a href="verde.html" class="pp2-navcard is-next" data-glow data-rv><span class="pp2-fx" aria-hidden="true"></span><span><small>Próximo projeto</small><b>Verde Mercado</b></span><img src="https://picsum.photos/seed/fyw-p2/200/200" width="200" height="200" alt="" loading="lazy"><i class="pp2-go"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></i></a>
+      <a href="beta-online.html" class="pp2-navcard is-next" data-glow data-rv><span class="pp2-fx" aria-hidden="true"></span><span><small>Próximo projeto</small><b>Beta Online</b></span><img src="../assets/img/projetos/beta-online/card.webp" width="200" height="200" alt="" loading="lazy"><i class="pp2-go"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></i></a>
     </nav>
   </main>
 
@@ -325,7 +326,7 @@
   </div>
   <script src="../assets/js/i18n.js?v=20261115b"></script>
   <script src="../assets/js/menu-inner.js?v=20261110b"></script>
-  <script defer src="../assets/js/lp-preview.js?v=2"></script>
+  <script defer src="../assets/js/lp-preview.js?v=6"></script>
   <script src="../assets/js/autoscroll.js?v=20261111b"></script>
 </body>
 </html>
