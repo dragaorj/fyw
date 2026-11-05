@@ -4565,3 +4565,45 @@ html body .pp2-duo .pp2-card { min-height: 0; padding: clamp(22px, 2.4vw, 30px);
 .story-link:hover strong, .story-link:focus-visible strong { animation-play-state: paused; background-position: 0 0; text-shadow: 0 0 18px color-mix(in srgb, var(--accent-dot, #7B5CFF) 45%, transparent); }
 @keyframes storyShine { 0% { background-position: 100% 0; } 45%, 100% { background-position: 0 0; } }
 @media (prefers-reduced-motion: reduce) { .story-link strong { animation: none; } }
+
+/* ===== seletor de serviços no topo do projeto (mesmo estilo das abas do menu) ===== */
+.pp2-svc { position: relative; display: inline-flex; gap: 4px; padding: 4px; border-radius: 99px; background: rgba(238,237,233,.1); box-shadow: inset 0 0 0 1px rgba(238,237,233,.14); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+.pp2-svc::-webkit-scrollbar { display: none; }
+.pp2-svc-b { position: relative; z-index: 1; height: 38px; padding: 0 18px; border-radius: 99px; font: inherit; font-size: .875rem; font-weight: 500; color: rgba(238,237,233,.72); background: none; border: 0; cursor: pointer; white-space: nowrap; transition: color .35s; }
+.pp2-svc-b:hover { color: #EEEDE9; }
+.pp2-svc-b.is-on { color: #0B0B0B; }
+.pp2-svc-ind { position: absolute; z-index: 0; left: 4px; top: 4px; bottom: 4px; width: 0; border-radius: 99px; background: #EEEDE9; box-shadow: 0 6px 14px -8px rgba(0,0,0,.45); transition: transform .45s cubic-bezier(.2,.7,.2,1), width .45s cubic-bezier(.2,.7,.2,1); }
+.pp2-svc-b:focus-visible { outline: 2px solid var(--pa, #EEEDE9); outline-offset: 2px; }
+/* seção que aparece ao trocar de serviço */
+.svc-in { animation: svcIn .6s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes svcIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+[hidden] { display: none !important; }
+@media (max-width: 599px) { .pp2-svc-b { height: 34px; padding: 0 14px; font-size: .8125rem; } }
+.pp2-svc { justify-self: start; align-self: start; width: max-content; max-width: 100%; }
+
+/* cards do topo: película escura + logo do cliente quando o mouse para em cima */
+.hfan .fc-in { position: relative; }
+.fc-veil { position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; padding: 18%; border-radius: inherit; background: rgba(11,11,11,.6); color: #fff; opacity: 0; pointer-events: none; transition: opacity .45s cubic-bezier(.2,.7,.2,1); }
+.fc-veil .veil-logo { width: 100%; max-height: 62%; height: auto; transform: scale(.92); transition: transform .5s cubic-bezier(.2,.7,.2,1); filter: drop-shadow(0 6px 18px rgba(0,0,0,.35)); }
+.fc-veil .veil-name { font-size: clamp(18px, 1.6vw, 28px); font-weight: 600; letter-spacing: -.02em; text-align: center; line-height: 1.1; transform: scale(.92); transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+.hf-card.is-rest .fc-veil { opacity: 1; }
+.hf-card.is-rest .fc-veil > * { transform: none; }
+.fc-veil { place-items: end center; padding: 16% 16% 14%; }
+.fc-veil .veil-logo { max-height: 44%; width: 78%; }
+/* seletor/etiquetas no lugar do antigo botão do topo */
+.pp2-meta + .pp2-svc, .pp2-meta + .pp2-chips { margin-top: 6px; }
+/* logo nítido (sem filtro rasterizado) e menor */
+.fc-veil .veil-logo { filter: none; width: 58%; max-height: 34%; shape-rendering: geometricPrecision; }
+.fc-veil .veil-name { font-size: clamp(16px, 1.3vw, 22px); }
+/* logo do card: centralizado e nas cores da marca */
+.fc-veil { place-items: center; padding: 18%; }
+.fc-veil .veil-logo { width: 62%; max-height: 46%; }
+
+/* design system resumido: mostra o começo e abre por inteiro no botão */
+.bds.is-collapsed { max-height: clamp(560px, 62vw, 860px); overflow: hidden; position: relative; }
+.bds.is-collapsed::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 40%; background: linear-gradient(180deg, rgba(238,237,233,0), var(--bg, #EEEDE9) 92%); pointer-events: none; }
+[data-theme="dark"] .bds.is-collapsed::after { background: linear-gradient(180deg, rgba(11,11,11,0), #0B0B0B 92%); }
+.bds { transition: max-height .8s cubic-bezier(.2,.7,.2,1); }
+.bds-more { display: flex; width: max-content; margin: 18px auto 0; }
+.bds-more i svg { transition: transform .4s; }
+.bds-more[aria-expanded="true"] i svg { transform: rotate(180deg); }

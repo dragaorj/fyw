@@ -10,7 +10,7 @@
 <link rel="icon" href="../../../assets/img/projetos/beta-online/thumb.webp">
 <link rel="preload" href="../../../assets/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" href="img/hero.webp" fetchpriority="high">
-<link rel="stylesheet" href="beta.css?v=7">
+<link rel="stylesheet" href="beta.css?v=18">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -85,7 +85,7 @@
         <a class="offer" href="#cursos"><p><s>De R$979,00</s><br>por apenas 12x<br>de <b>R$ 79,90</b> ou<br><b>R$ 797,00</b> à vista</p><h3>Perícia Criminal</h3><span class="sq"><svg class="ico"><use href="#i-arrow"/></svg></span></a>
       </div>
     </div>
-    <a class="down" href="#cursos" aria-label="Ver cursos"><svg class="ico"><use href="#i-chev"/></svg></a>
+    <a class="down" href="#cursos" aria-label="Ver cursos"><svg class="drop" viewBox="0 0 200 46" aria-hidden="true"><path d="M0 0C42 0 54 5 67 21C80 38 89 46 100 46C111 46 120 38 133 21C146 5 158 0 200 0Z"/></svg><svg class="ico"><use href="#i-chev"/></svg></a>
   </section>
 
   <section class="jobs" aria-label="Escolha a sua formação" id="jobs">
@@ -156,31 +156,12 @@
   <section class="opin" aria-label="Pesquisa">
     <div class="wrap">
       <div class="rv">
+        <div class="survey-slot"></div>
         <h2>Sua <b>opinião</b> é<br>muito <b>importante</b>!</h2>
         <p class="lead">Participe da nossa pesquisa e nos ajude a melhorar ainda mais o nosso atendimento.</p>
       </div>
-      <form class="survey rv" id="survey" onsubmit="return false">
-        <div class="bar"><i></i></div>
-        <div class="step on">
-          <h4>Como você conheceu o Beta?</h4>
-          <label><input type="radio" name="q1" checked> Google, Bing, Yahoo ou outra ferramenta de busca</label>
-          <label><input type="radio" name="q1"> Facebook, Youtube, Kwai ou outra rede social</label>
-          <label><input type="radio" name="q1"> Anúncios, Campanhas ou mensagens pelo Whatsapp</label>
-          <div class="acts"><button class="prev" type="button" disabled>Anterior</button><button class="next" type="button">Próxima</button></div>
-        </div>
-        <div class="step">
-          <h4>O que podemos melhorar?</h4>
-          <textarea aria-label="Sua sugestão" placeholder="Escreva aqui a sua sugestão"></textarea>
-          <div class="acts"><button class="prev" type="button">Anterior</button><button class="next" type="button">Enviar</button></div>
-        </div>
-        <div class="step done">
-          <span class="ok"><svg class="ico"><use href="#i-check"/></svg></span>
-          <h4 style="margin:0">Obrigado!</h4>
-          <p style="font-size:14px;color:var(--muted)">Sua resposta foi registrada.</p>
-        </div>
-      </form>
+      
     </div>
-    <span class="info-tab" aria-hidden="true">i</span>
   </section>
 
   <section class="faq">
@@ -222,7 +203,7 @@
         <li><a href="#" aria-label="YouTube"><svg><use href="#s-yt"/></svg></a></li>
       </ul>
       <div class="right">
-        <div class="seals"><img src="img/seal-ra.webp" width="451" height="124" alt="Empresa indicada — Prêmio RA 2023" loading="lazy"><img src="img/seal-google.webp" width="900" height="400" alt="Google Reviews" loading="lazy"><img src="img/seal-facebook.webp" width="331" height="152" alt="Facebook 5/5" loading="lazy"><span class="cert">Certificado<br><small style="font-size:6px;font-weight:500">Mai/2021 - Mai/2022</small><br>BRASIL</span></div>
+        <div class="seals"><img src="img/seal-ra.webp" width="451" height="124" alt="Empresa indicada — Prêmio RA 2023" loading="lazy"><img src="img/seal-google.webp" width="900" height="400" alt="Google Reviews" loading="lazy"><img src="img/seal-facebook.webp" width="331" height="152" alt="Facebook 5/5" loading="lazy"><img class="gp" src="img/gptw.svg" width="69" height="118" alt="Great Place To Work — certificado mai/2021 a mai/2022, Brasil" loading="lazy"></div>
         <p class="addr">Rua Teófilo Otoni, 63 - 2º andar, Centro, RJ<br>© 2025 Beta Online. Todos os Direitos Reservados</p>
       </div>
     </div>
@@ -230,7 +211,39 @@
 </footer>
 
 
+<button class="info-fab" type="button" aria-label="Responder à pesquisa" aria-controls="pop" aria-expanded="false"><span class="i">i</span></button>
+<div class="pop" id="pop" role="dialog" aria-label="Pesquisa" aria-hidden="true">
+      <form class="survey" data-survey onsubmit="return false">
+        <div class="top"><div class="segs"><i></i><i></i><i></i><i></i><i></i></div><button class="close" type="button" data-pop-close aria-label="Fechar pesquisa"><svg class="ico"><use href="#i-x"/></svg></button></div>
+        <div class="step">
+          <h4>Como você conheceu o Beta?</h4>
+          <div class="opts"><label><input type="radio" name="s1q1" checked> Google, Bing, Yahoo ou outra ferramenta de busca</label><label><input type="radio" name="s1q1"> Facebook, Youtube, Kwai ou outra rede social</label><label><input type="radio" name="s1q1"> Anúncios, Campanhas ou mensagens pelo Whatsapp</label></div>
+          <div class="acts"><button class="prev" type="button">Anterior</button><button class="next" type="button">Próxima</button></div>
+        </div>
+        <div class="step">
+          <h4>Qual curso mais te interessa?</h4>
+          <div class="opts"><label><input type="radio" name="s1q2" checked> Perícia Judicial</label><label><input type="radio" name="s1q2"> Perícia Grafotécnica</label><label><input type="radio" name="s1q2"> Perícia Trabalhista</label><label><input type="radio" name="s1q2"> Perícia Médica</label></div>
+          <div class="acts"><button class="prev" type="button">Anterior</button><button class="next" type="button">Próxima</button></div>
+        </div>
+        <div class="step">
+          <h4>Qual é a sua área de formação?</h4>
+          <div class="opts"><label><input type="radio" name="s1q3" checked> Direito ou Contabilidade</label><label><input type="radio" name="s1q3"> Engenharia ou Arquitetura</label><label><input type="radio" name="s1q3"> Saúde (Medicina, Odontologia, Psicologia…)</label><label><input type="radio" name="s1q3"> Outra área</label></div>
+          <div class="acts"><button class="prev" type="button">Anterior</button><button class="next" type="button">Próxima</button></div>
+        </div>
+        <div class="step">
+          <h4>Você já atua como perito?</h4>
+          <div class="opts"><label><input type="radio" name="s1q4" checked> Sim, já sou perito</label><label><input type="radio" name="s1q4"> Estou começando na área</label><label><input type="radio" name="s1q4"> Ainda não, quero começar</label></div>
+          <div class="acts"><button class="prev" type="button">Anterior</button><button class="next" type="button">Próxima</button></div>
+        </div>
+        <div class="step">
+          <h4>O que mais te motiva a estudar perícia?</h4>
+          <div class="opts"><label><input type="radio" name="s1q5" checked> Complementar a minha renda mensal</label><label><input type="radio" name="s1q5"> Trabalhar para a justiça sem concurso público</label><label><input type="radio" name="s1q5"> Estudar no meu tempo, do meu jeito</label></div>
+          <div class="acts"><button class="prev" type="button">Anterior</button><button class="next" type="button">Enviar</button></div>
+        </div>
+        <div class="step done"><span class="ok"><svg class="ico"><use href="#i-check"/></svg></span><h4 style="margin:0">Obrigado!</h4><p style="font-size:14px;color:var(--muted)">Sua resposta foi registrada.</p></div>
+      </form>
+</div>
 <a class="wa" href="#" aria-label="Fale conosco pelo WhatsApp"><svg><use href="#s-wa"/></svg><span class="dot" aria-hidden="true"></span><span class="tip">Fale com a gente!</span></a>
-<script src="beta.js?v=5"></script>
+<script src="beta.js?v=10"></script>
 </body>
 </html>
