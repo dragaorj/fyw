@@ -4498,3 +4498,26 @@ html[data-theme="dark"] .lw-mark.is-color path[fill="#242424"] { fill: #EEEDE9; 
 .lp-scroll.is-live .lp-live { position: absolute; inset: 0; height: auto !important; min-height: 0; background: #0B0B0B; }
 .lp-scroll.is-live .lp-live iframe { pointer-events: auto; opacity: 0; transition: opacity .5s ease; }
 .lp-scroll.is-live .lp-live.is-ready iframe { opacity: 1; }
+
+/* ===== páginas de projeto: landing logo abaixo do topo, "Sobre" compacto, desafio e solução lado a lado ===== */
+.pp2-sec.lp-sec.is-top { padding-top: clamp(20px, 3vw, 40px) !important; }
+.lp-sec.is-top .lp-head { margin-bottom: 18px; }
+.lp-sec.is-top .lp-hint { margin-top: 12px; }
+.pp2-sec.pp2-intro { padding-top: clamp(48px, 6vw, 88px) !important; }
+.pp2-intro .pp2-split { display: grid; gap: 18px; }
+@media (min-width: 900px) { .pp2-intro .pp2-split { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(32px, 5vw, 80px); align-items: start; } }
+.pp2-about-head { display: grid; gap: 14px; align-content: start; }
+.pp2-about-head .pp2-lead { margin: 0; color: var(--ink); font-size: clamp(1.625rem, 2.6vw, 2.375rem); line-height: 1.15; letter-spacing: -.03em; font-weight: 500; max-width: 20ch; }
+.pp2-intro .pp2-about { padding: 0; gap: 14px; }
+@media (min-width: 900px) { .pp2-intro .pp2-about { padding-top: 34px; } }
+.pp2-intro .pp2-about p { max-width: 60ch; }
+.pp2-live.is-intro { justify-self: start; margin-top: 8px; }
+/* cards compactos: ícone ao lado do título, número discreto */
+.pp2-duo { display: grid; gap: 14px; margin-top: clamp(32px, 4vw, 56px); }
+@media (min-width: 760px) { .pp2-duo { grid-template-columns: 1fr 1fr; } }
+html body .pp2-duo .pp2-card { min-height: 0; padding: clamp(22px, 2.4vw, 30px); display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; column-gap: 14px; row-gap: 14px; justify-content: stretch; }
+.pp2-duo .pp2-ico { position: relative; top: auto; left: auto; width: 44px; height: 44px; }
+.pp2-duo .pp2-ico svg { width: 20px; height: 20px; }
+.pp2-duo .pp2-card h2 { font-size: clamp(1.375rem, 1.8vw, 1.75rem); padding-right: 64px; }
+.pp2-duo .pp2-card p { grid-column: 1 / -1; max-width: 62ch; font-size: 1rem; }
+.pp2-duo .pp2-n { top: 16px; right: 22px; font-size: clamp(2.5rem, 4vw, 3.5rem); }

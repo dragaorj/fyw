@@ -224,8 +224,12 @@ html:not(.in-frame) .ft{padding-bottom:max(84px,calc(20 * var(--k)))}
   .mslider img:nth-child(3){object-position:100% 50%}
   .prod .three{display:none}
   .dots{display:flex;justify-content:center;gap:calc(6 * var(--k));margin-top:calc(8 * var(--k))}
-  .dots i{width:calc(26 * var(--k));height:calc(3 * var(--k));border-radius:9px;background:#e3e3e3;transition:background .3s}
-  .dots i.on{background:var(--blue)}
+  .dots{gap:calc(2 * var(--k))}
+  .dots button{background:none;border:0;padding:calc(6 * var(--k)) calc(2 * var(--k));cursor:pointer}
+  .dots i{display:block;width:calc(26 * var(--k));height:calc(3 * var(--k));border-radius:9px;background:#e3e3e3;overflow:hidden;position:relative}
+  .dots i::after{content:"";position:absolute;inset:0;background:var(--blue);transform:scaleX(0);transform-origin:left}
+  .dots .on i::after{transform:scaleX(1);transition:transform var(--dur,4.5s) linear}
+  .dots.is-paused .on i::after{transition:none}
   .contact{padding-bottom:calc(22 * var(--k))}
   .contact p{font-size:calc(12.5 * var(--k));text-align:left;margin-top:calc(18 * var(--k))}
   .goal{padding:calc(20 * var(--k)) 0 calc(22 * var(--k))}
@@ -346,7 +350,7 @@ html:not(.in-frame) .ft{padding-bottom:max(84px,calc(20 * var(--k)))}
         </div>
       </div>
       <div class="mslider" id="mslider"><img src="img/bags3.webp" width="1620" height="825" alt="京都米のパッケージ" loading="lazy"><img src="img/bags3.webp" width="1620" height="825" alt="" loading="lazy"><img src="img/bags3.webp" width="1620" height="825" alt="" loading="lazy"></div>
-      <div class="dots" id="dots" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+      <div class="dots" id="dots"><button type="button" class="on" aria-label="1"><i></i></button><button type="button" aria-label="2"><i></i></button><button type="button" aria-label="3"><i></i></button></div>
       <img class="three" id="three" src="img/bags3.webp" width="1620" height="825" alt="京都米のパッケージ 3袋" loading="lazy">
       <div class="contact" id="contact">
         <p data-i="dealer">正規販売店にお問い合わせください。</p>
@@ -442,8 +446,19 @@ html:not(.in-frame) .ft{padding-bottom:max(84px,calc(20 * var(--k)))}
   });
 
   // carrosséis do celular
-  var s=document.getElementById('mslider'),d=document.querySelectorAll('#dots i');
-  if(s)s.addEventListener('scroll',function(){var i=Math.round(s.scrollLeft/s.clientWidth);d.forEach(function(x,j){x.classList.toggle('on',i===j);});},{passive:true});
+  // carrossel dos pacotes (celular): passa sozinho devagar; dá para arrastar ou tocar nas barrinhas
+  var s=document.getElementById('mslider'),dw=document.getElementById('dots'),d=dw?dw.querySelectorAll('button'):[],cur=0,timer=0,DUR=4500;
+  function mark(i){cur=i;d.forEach(function(x,j){x.classList.toggle('on',i===j);});}
+  function go(i){if(!s)return;i=(i+d.length)%d.length;s.scrollTo({left:i*s.clientWidth,behavior:'smooth'});restart(i);}
+  function restart(i){clearTimeout(timer);dw.classList.add('is-paused');d.forEach(function(x){x.classList.remove('on');});void dw.offsetWidth;dw.classList.remove('is-paused');mark(i);timer=setTimeout(function(){if(matchMedia('(max-width:700px)').matches)go(cur+1);else restart(cur);},DUR);}
+  if(s&&d.length){
+    dw.style.setProperty('--dur',DUR+'ms');
+    d.forEach(function(b,j){b.addEventListener('click',function(){go(j);});});
+    var st=0;s.addEventListener('scroll',function(){clearTimeout(st);st=setTimeout(function(){var i=Math.round(s.scrollLeft/s.clientWidth);if(i!==cur)restart(i);},120);},{passive:true});
+    s.addEventListener('touchstart',function(){clearTimeout(timer);},{passive:true});
+    s.addEventListener('touchend',function(){restart(Math.round(s.scrollLeft/s.clientWidth));},{passive:true});
+    restart(0);
+  }
   var c=document.getElementById('cards');
   document.querySelectorAll('.arrows button').forEach(function(b){b.addEventListener('click',function(){c.scrollBy({left:+b.dataset.d*c.clientWidth,behavior:'smooth'});});});
 
