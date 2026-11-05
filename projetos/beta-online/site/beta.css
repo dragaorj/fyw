@@ -866,3 +866,15 @@ fieldset.picks>legend{padding:0 8px;margin-left:8px;font-size:clamp(10px,.78vw,1
   .hero2{background:linear-gradient(180deg,#8A0B10 0%,#B5141A 38%,#D72A2A 75%,#E9443B 100%)}
   .hero2 .ph::before{background:linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,0) 40%,rgba(138,11,16,.95) 100%)}
 }
+
+/* celular: nada encosta na borda — os cards de preço ficam dentro da margem do texto (um por vez, arrastável) */
+@media (max-width:760px){
+  .offers{margin:22px 0 0;padding:0;scroll-padding:0;gap:12px;overflow-x:auto;scrollbar-width:none}
+  .offers::-webkit-scrollbar{display:none}
+  .offer{flex:0 0 100%;scroll-snap-align:start}
+  .hero2{grid-template-columns:minmax(0,1fr)}
+}
+
+/* botão "i": no meio da altura da tela (longe do WhatsApp) e só aparece depois que passa do topo */
+@media (max-width:760px){ .info-fab{top:50%;bottom:auto;margin-top:-21px} }
+.info-fab.pre{transform:translateX(120%);opacity:0;pointer-events:none}

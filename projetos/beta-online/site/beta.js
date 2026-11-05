@@ -188,6 +188,8 @@
   });
   var fab = $('.info-fab'), pop = $('#pop');
   function setPop(o) { if (!pop) return; pop.classList.toggle('open', o); pop.setAttribute('aria-hidden', !o); fab.setAttribute('aria-expanded', o); if (o) { var f = $('[data-survey]', pop); if (f && f._reset && $('.done.on', f)) f._reset(); } }
+  // fabPre: o botão só aparece depois que a pessoa sai do topo (primeira seção)
+  if (fab) { var heroS = document.querySelector('main section, section'); var fabPre = function () { var lim = heroS ? heroS.offsetTop + heroS.offsetHeight - 80 : innerHeight * .8; fab.classList.toggle('pre', scrollY < lim); }; fabPre(); addEventListener('scroll', fabPre, { passive: true }); addEventListener('resize', fabPre); }
   if (fab) fab.addEventListener('click', function (e) { e.stopPropagation(); setPop(!pop.classList.contains('open')); });
   // no banner da opinião a aba vira o cartão da pesquisa (abre sozinho); ao subir a página, volta para o canto
   var slot = $('.survey-slot'), docked = false, dismissed = false;
