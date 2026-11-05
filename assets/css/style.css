@@ -4757,5 +4757,5 @@ html ::-moz-selection, html[data-theme="dark"] ::-moz-selection { background: #C
 /* topo dos projetos: selo da categoria com o mesmo tamanho do selo do ano */
 .pp2-svc-row > .pp2-chip { display: inline-flex; align-items: center; height: auto; min-height: 46px; padding: 0 20px; font-size: .875rem; font-weight: 500; line-height: 1; }
 @media (max-width: 599px) { .pp2-svc-row > .pp2-chip { min-height: 42px; padding: 0 16px; font-size: .8125rem; } }
-.lw-pg .lw-mark { height: clamp(40px, 3.4vw, 54px) !important; width: auto; }
+.lw-pg .lw-mark { height: clamp(52px, 4.6vw, 74px) !important; width: auto; }
 .pj-pg .pp2-brand .pg-logo { width: clamp(110px, 11vw, 170px); height: auto; display: block; }
