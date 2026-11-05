@@ -1312,8 +1312,10 @@
   // cards do hero: imagens e etiquetas sempre (com ou sem animações)
   (function () {
     const PJ = window.FYW_PROJECTS || {}, TC = ['t-o', 't-v', 't-b'];
+    // fotos dos cards só depois da primeira pintura (ficam por trás da tela de carregamento e não atrasam o título)
+    const loadImgs = () => $$('.hf-card img[data-src]').forEach(im => { im.src = im.dataset.src; im.removeAttribute('data-src'); });
+    (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => requestAnimationFrame(() => requestAnimationFrame(loadImgs)));
     $$('.hf-card').forEach((el, i) => {
-      const im = el.querySelector('img[data-src]'); if (im) { im.src = im.dataset.src; im.removeAttribute('data-src'); }
       const pj = PJ[el.dataset.project]; if (!pj) return;
       let tag = el.querySelector('.hf-tag');
       if (!tag) { tag = document.createElement('span'); tag.className = 'hf-tag ' + TC[i % 3]; el.appendChild(tag); }

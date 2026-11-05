@@ -4103,3 +4103,26 @@ html:root:root:not([data-theme="dark"]) .hero-video.hero-video::after { backgrou
 @media (max-width: 899px) and (min-aspect-ratio: 0) {
   html:not(.a11y-clean) .hero { height: 100vh !important; height: 100lvh !important; min-height: 100vh !important; min-height: 100lvh !important; }
 }
+
+/* fim do topo: as nuvens se dissolvem no fundo da página, claro e escuro (curva suave, sem linha de corte) */
+html:root:root body .hero-stage.hero-stage::before {
+  content: "" !important; position: absolute !important; top: auto !important; inset-block-start: auto !important; left: 0 !important; right: 0 !important; bottom: -1px !important; z-index: 2 !important; pointer-events: none !important;
+  height: clamp(160px, 30vh, 360px) !important;
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--hero-fade, var(--bg)) 0%, transparent) 0%, color-mix(in srgb, var(--hero-fade, var(--bg)) 0.1%, transparent) 8.3%, color-mix(in srgb, var(--hero-fade, var(--bg)) 1.6%, transparent) 16.7%, color-mix(in srgb, var(--hero-fade, var(--bg)) 6.6%, transparent) 25%, color-mix(in srgb, var(--hero-fade, var(--bg)) 16.7%, transparent) 33.3%, color-mix(in srgb, var(--hero-fade, var(--bg)) 31.8%, transparent) 41.7%, color-mix(in srgb, var(--hero-fade, var(--bg)) 50%, transparent) 50%, color-mix(in srgb, var(--hero-fade, var(--bg)) 68.2%, transparent) 58.3%, color-mix(in srgb, var(--hero-fade, var(--bg)) 83.3%, transparent) 66.7%, color-mix(in srgb, var(--hero-fade, var(--bg)) 93.4%, transparent) 75%, color-mix(in srgb, var(--hero-fade, var(--bg)) 98.4%, transparent) 83.3%, color-mix(in srgb, var(--hero-fade, var(--bg)) 99.9%, transparent) 91.7%, color-mix(in srgb, var(--hero-fade, var(--bg)) 100%, transparent) 100%) !important;
+}
+/* no escuro a seção seguinte é o cartão de trabalhos (#1E1E1C): o fade termina nessa cor */
+html[data-theme="dark"] { --hero-fade: #1E1E1C; }
+/* topo com nuvens: a capa antiga do vídeo nunca é baixada nem mostrada */
+.hero-video[data-bg="clouds"]::before { display: none !important; background: none !important; }
+/* celular: o fade fica só na faixa final, abaixo do botão "Vamos conversar" */
+@media (max-width: 599px) {
+  html:root:root body .hero-stage.hero-stage::before { height: clamp(44px, 6.5svh, 64px) !important; }
+}
+/* celular: nuvem ocupa a tela inteira; o fade fica abaixo dela (as seções descem o mesmo tanto) */
+@media (max-width: 899px) {
+  html:not(.a11y-clean) .hero { height: calc(100lvh + 72px) !important; }
+  html:not(.a11y-clean) .hero .hero-content { padding-bottom: calc(32px + 72px) !important; }
+}
+@media (max-width: 899px) {
+  html:root:root body .hero-stage.hero-stage::before { height: 72px !important; }
+}
