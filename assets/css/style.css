@@ -4730,3 +4730,32 @@ html body.pp2.pj-cimed .pp2-back { background: rgba(11,11,11,.08) !important; bo
 /* cards do topo: o logo aparece um pouco mais rápido */
 .fc-veil { transition: opacity .3s cubic-bezier(.2,.7,.2,1); }
 .fc-veil .veil-logo, .fc-veil .veil-name { transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+
+/* topo da home: sombra de leitura mais escura mas curta (sem "nuvem"), para título, texto, botão e itens do header sobre fundo claro */
+:root:not([data-theme="dark"]) .hero .hero-title { text-shadow: 0 1px 2px rgba(11,11,11,.28), 0 2px 10px rgba(11,11,11,.22) !important; }
+:root:not([data-theme="dark"]) .hero .hero-sub { text-shadow: 0 1px 2px rgba(11,11,11,.35), 0 1px 8px rgba(11,11,11,.25) !important; }
+.hero .btn-hero .btn-roll > span, :root:not([data-theme="dark"]) .hero .btn-hero .btn-roll > span { text-shadow: 0 1px 2px rgba(11,11,11,.45), 0 1px 6px rgba(11,11,11,.3) !important; }
+
+/* topo da home: palavras sem sombra; texto de apoio em duas linhas no desktop; película um pouco mais escura no modo claro */
+html body .hero .hero-title, html body .hero .hero-sub, html body .hero .btn-hero .btn-roll > span,
+:root:not([data-theme="dark"]) .hero .hero-title, :root:not([data-theme="dark"]) .hero .hero-sub,
+:root:not([data-theme="dark"]) .hero .btn-hero .btn-roll > span, html body .hero .btn-hero:hover .btn-roll > span { text-shadow: none !important; }
+@media (min-width: 900px) { html body .hero .hero-sub { max-width: 74ch; text-wrap: balance; } }
+html:root:root:not([data-theme="dark"]) .hero-video.hero-video::after { background: color-mix(in srgb, #0B0B0B 34%, transparent) !important; }
+
+/* Lumière: marca em serifa no topo do projeto e no mural de clientes */
+.pj-lu .pp2-brand .lu-word { font-family: 'Fraunces', Georgia, serif; font-weight: 300; font-size: clamp(2.6rem, 5.2vw, 4.8rem); line-height: 1; letter-spacing: -.03em; color: #fff; display: inline-flex; align-items: baseline; gap: .35em; }
+.pj-lu .pp2-brand .lu-word small { font-family: inherit; font-size: .22em; letter-spacing: .24em; text-transform: uppercase; opacity: .7; }
+.lw-lu .lw-lu-word { font-family: Georgia, 'Times New Roman', serif; font-size: 1.55rem; font-weight: 400; letter-spacing: -.01em; }
+.lw-lu .lw-mark { height: clamp(18px, 1.6vw, 26px) !important; width: auto; }
+.fc-veil .veil-logo[viewBox="42 95 272 36"] { width: 72%; max-height: 22%; }
+
+/* seleção de texto: sempre o verde fluorescente com texto preto, no tema claro e no escuro */
+html ::selection, html[data-theme="dark"] ::selection { background: #C8F542 !important; color: #0B0B0B !important; -webkit-text-fill-color: #0B0B0B; text-shadow: none !important; }
+html ::-moz-selection, html[data-theme="dark"] ::-moz-selection { background: #C8F542 !important; color: #0B0B0B !important; text-shadow: none !important; }
+.pj-lu .pp2-brand .lu-logo { width: clamp(220px, 26vw, 420px); height: auto; color: #fff; display: block; }
+/* topo dos projetos: selo da categoria com o mesmo tamanho do selo do ano */
+.pp2-svc-row > .pp2-chip { display: inline-flex; align-items: center; height: auto; min-height: 46px; padding: 0 20px; font-size: .875rem; font-weight: 500; line-height: 1; }
+@media (max-width: 599px) { .pp2-svc-row > .pp2-chip { min-height: 42px; padding: 0 16px; font-size: .8125rem; } }
+.lw-pg .lw-mark { height: clamp(40px, 3.4vw, 54px) !important; width: auto; }
+.pj-pg .pp2-brand .pg-logo { width: clamp(110px, 11vw, 170px); height: auto; display: block; }

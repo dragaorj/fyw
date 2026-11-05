@@ -1005,7 +1005,7 @@
 
   /* ---------------- Projetos em ordem aleatória a cada visita (cards do topo + linhas de Trabalhos combinando) ---------------- */
   (function () {
-    const fan = $('.hfan'), list = $('.work-list'); if (!fan || !list) return;
+    const fan = $('.hfan'), list = $('.work-list'); if (!fan || !list || fan.hasAttribute('data-fixed')) return;
     const cards = [...$$('.hf-card', fan)]; if (cards.length < 7) return;
     const mid = cards.slice(2, 7), poses = mid.map(c => c.getAttribute('style'));
     // etiquetas fixas nas posições 3, 5 e 7 (saem dos cards e voltam para quem cair nessas posições)
