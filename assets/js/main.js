@@ -284,7 +284,7 @@
              em Trabalhos e atravessa a linha "escrevendo" o nome do projeto --- */
       const fanEl = $('.hfan');
       const allCards = fanEl ? $$('.hf-card', fanEl) : [];
-      const fCards = innerWidth < 600 ? [] : allCards.filter(el => getComputedStyle(el).display !== 'none');
+      const fCards = allCards.filter(el => getComputedStyle(el).display !== 'none');
       if (fCards.length) {
         const n = fCards.length, mid = (n - 1) / 2, mob = innerWidth < 600;
         const probe = document.createElement('i'); probe.className = 'hf-probe'; fanEl.appendChild(probe);
@@ -951,6 +951,15 @@
       if (year.offsetHeight > avail) year.style.setProperty('font-size', Math.max(96, Math.floor(avail / 0.8)) + 'px', 'important');
       const top = Math.max(8, Math.round(t.bottom - i.top - year.offsetHeight));
       side.style.setProperty('top', top + 'px', 'important');
+      // dígitos largos: cada um estica na horizontal até quase preencher o seu quarto da largura
+      const spans = Array.from(year.querySelectorAll("span")), quarter = year.clientWidth / Math.max(1, spans.length);
+      const cs = getComputedStyle(year), ctx = (place.c || (place.c = document.createElement("canvas"))).getContext("2d");
+      ctx.font = cs.fontWeight + " " + cs.fontSize + " " + cs.fontFamily;
+      spans.forEach(sp => {
+        const m = ctx.measureText(sp.textContent), ink = (m.actualBoundingBoxLeft + m.actualBoundingBoxRight) || m.width;
+        const sx = Math.max(1, Math.min(2.6, (quarter * 0.9) / Math.max(1, ink)));
+        if (window.gsap) gsap.set(sp, { scaleX: sx, transformOrigin: "50% 100%" }); else sp.style.transform = "scaleX(" + sx + ")";
+      });
     };
     place();
     addEventListener('resize', () => { clearTimeout(window.__yrT); window.__yrT = setTimeout(place, 120); });
@@ -977,6 +986,87 @@
   window.__fywVideoReady = new Promise(res => { window.__fywVideoDone = res; });
   (function () {
     const box = $(".hero-video"); if (!box) { window.__fywVideoDone(); return; }
+    // TESTE: fundo de nuvens 3D (Vanta.js) no lugar do vídeo — ativado com data-bg="clouds" no .hero-video
+    if (box.dataset.bg === 'clouds') {
+      // céu em degradê já na abertura (custo zero); as nuvens 3D entram depois, sem pesar no carregamento
+      const load = src => new Promise((ok, bad) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = bad; document.head.appendChild(s); });
+      box.classList.add('is-clouds');
+      if (window.__fywVideoDone) window.__fywVideoDone(); // a tela de carregamento não espera as nuvens
+        const SETS = {
+          light: [
+            [0x1fa9f2, 0xffd1b3, 0x3a2f6b, 0xff9919, 0xff6633, 0xff9933], // azul + nuvem pêssego
+            [0x8f7cf2, 0xffc2dc, 0x3b2a6b, 0xffb36b, 0xff7a9a, 0xffb380], // lilás + nuvem rosa
+            [0x2fbfb0, 0xffb8a1, 0x17404a, 0xffd27a, 0xff8a5a, 0xffc46b], // turquesa + nuvem coral
+            [0xf27a5e, 0xd6c8ff, 0x4a2a5a, 0xffb347, 0xff6f61, 0xffa65c], // coral + nuvem lavanda
+            [0x3f6df2, 0xffe9a8, 0x1c2a66, 0xffc04d, 0xff8a3d, 0xffd08a], // azul royal + nuvem amarelo-claro
+            [0xf28bb5, 0xbff0dc, 0x4a1f36, 0xffc078, 0xff7f7f, 0xffb38a], // rosa + nuvem menta
+            [0x4fd1b5, 0xd9c8ff, 0x1d4a44, 0xffd27a, 0xff9a8a, 0xffcf8a]  // verde-água + nuvem lilás
+          ],
+          dark: [
+            [0x000000, 0x797c82, 0x183550, 0x000000, 0x110703, 0xff9933], // preto + nuvem cinza
+            [0x0a1630, 0x6a4fa8, 0x0d1b3a, 0x1a2a55, 0x0a1430, 0x6a8cff], // azul-noite + nuvem roxa
+            [0x140a26, 0x8a3f6e, 0x1c1036, 0x2a1450, 0x140a26, 0xff7ab0], // roxo profundo + nuvem rosa
+            [0x1f0710, 0x8a5a2e, 0x2a0d18, 0x3a0f1c, 0x1f0710, 0xffb347], // vinho + nuvem âmbar
+            [0x06171a, 0x2f6a8a, 0x0a2428, 0x0c2a2c, 0x06171a, 0x4fd1b5], // verde-noite + nuvem azul-petróleo
+            [0x050505, 0x33507a, 0x101a30, 0x0a0a0a, 0x0a0a14, 0x6a8cff]  // preto + nuvem azul-noite
+          ]
+        };
+        // sorteia sem repetir a combinação da visita anterior (por tema)
+        const pickNoRepeat = t => {
+          const list = SETS[t]; let last = -1;
+          try { last = parseInt(localStorage.getItem('fio-cloud-' + t), 10); } catch (err) {}
+          let i = Math.floor(Math.random() * list.length);
+          if (list.length > 1 && i === last) i = (i + 1 + Math.floor(Math.random() * (list.length - 1))) % list.length;
+          try { localStorage.setItem('fio-cloud-' + t, String(i)); } catch (err) {}
+          return list[i];
+        };
+        const toOpts = c => ({ backgroundColor: 0xffffff, skyColor: c[0], cloudColor: c[1], cloudShadowColor: c[2], sunColor: c[3], sunGlareColor: c[4], sunlightColor: c[5] });
+        const PAL = { light: toOpts(pickNoRepeat('light')), dark: toOpts(pickNoRepeat('dark')) };
+        const hex = n => '#' + n.toString(16).padStart(6, '0');
+        const theme = () => document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+        const paintBg = t => {
+          const p = PAL[t];
+          box.style.setProperty('background', 'linear-gradient(180deg, ' + hex(p.skyColor) + ' 0%, ' + hex(p.skyColor) + ' 30%, color-mix(in srgb, ' + hex(p.skyColor) + ' 50%, ' + hex(p.cloudColor) + ') 52%, ' + hex(p.cloudColor) + ' 72%, ' + hex(p.cloudShadowColor) + ' 130%)', 'important');
+        };
+        paintBg(theme());
+        new MutationObserver(() => { paintBg(theme()); if (window.__fywClouds) window.__fywClouds.setOptions(PAL[theme()]); })
+          .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+        if (sysReduced || a11y.motion || a11y.clean) return; // sem animações: fica só o céu em degradê
+
+        let started = false;
+        const start = () => {
+          if (started) return; started = true;
+          EVC.forEach(ev => removeEventListener(ev, start));
+          // ~40% da resolução da tela (o fundo é desfocado, não se nota) — muito menos trabalho para a placa de vídeo
+          const LOWRES = Math.max(2.5, (window.devicePixelRatio || 1) * 2.5);
+          load('assets/vendor/three.r134.min.js').then(() => load('assets/vendor/vanta.clouds.min.js')).then(() => {
+            const fx = window.__fywClouds = window.VANTA.CLOUDS(Object.assign({
+              el: box, mouseControls: true, touchControls: true, gyroControls: false, minHeight: 200, minWidth: 200, speed: 1, scale: LOWRES, scaleMobile: LOWRES
+            }, PAL[theme()]));
+            // trava em 60 quadros por segundo: em monitores de 120/144/165 Hz o efeito desenharia 2–3x mais (placa de vídeo a 100%)
+            const loop = fx.animationLoop; let due = 0;
+            fx.animationLoop = function () {
+              const now = performance.now();
+              if (now < due - 2) { fx.req = requestAnimationFrame(fx.animationLoop); return; }
+              due = (now - due > 50) ? now + 16.667 : due + 16.667; // média de 60 quadros por segundo em qualquer monitor
+              return loop.call(fx);
+            };
+            requestAnimationFrame(() => box.classList.add('is-live')); // as nuvens aparecem suavemente por cima do degradê
+            // pausa de verdade quando o topo sai da tela (poupa processador e bateria)
+            new IntersectionObserver(es => {
+              const on = es[0].isIntersecting;
+              if (!on && fx.req) { cancelAnimationFrame(fx.req); fx.req = 0; }
+              else if (on && !fx.req) { fx.prevNow = performance.now(); fx.req = requestAnimationFrame(fx.animationLoop); }
+            }).observe(box);
+          }).catch(() => {});
+        };
+        // começa no primeiro movimento do visitante, ou alguns segundos depois de abrir
+        const EVC = ['pointermove', 'pointerdown', 'touchstart', 'scroll', 'wheel', 'keydown'];
+        EVC.forEach(ev => addEventListener(ev, start, { passive: true, once: true }));
+        const later = () => setTimeout(start, 4500);
+        if (document.readyState === 'complete') later(); else addEventListener('load', later, { once: true });
+      return;
+    }
     const saveData = navigator.connection && navigator.connection.saveData;
     if (sysReduced || a11y.motion || a11y.clean || saveData) { window.__fywVideoDone(); return; }
     // cada tema tem uma lista de vídeos; sorteia um ao carregar e a cada troca de tema (claro só com claro, escuro só com escuro)
@@ -1045,7 +1135,7 @@
     const EV = ["pointermove", "pointerdown", "touchstart", "wheel", "keydown", "scroll"];
     EV.forEach(ev => addEventListener(ev, go, { passive: true, once: true }));
     // a capa do vídeo já aparece na hora; o vídeo (pesado, de terceiros) entra no 1º movimento ou logo depois do carregamento
-    // o vídeo começa a carregar já na abertura (a capa cobre o instante até ele tocar)
+    // o vídeo começa a carregar já na abertura; a tela de carregamento espera ele começar a tocar
     go();
   })();
 
@@ -1203,7 +1293,6 @@
   applyTexts();
   // cards do hero: imagens e etiquetas sempre (com ou sem animações)
   (function () {
-    if (innerWidth < 600) return; // celular: sem cards no topo (nem baixa as fotos)
     const PJ = window.FYW_PROJECTS || {}, TC = ['t-o', 't-v', 't-b'];
     $$('.hf-card').forEach((el, i) => {
       const im = el.querySelector('img[data-src]'); if (im) { im.src = im.dataset.src; im.removeAttribute('data-src'); }
@@ -1234,8 +1323,8 @@
     }, 40);
     // pronto = fontes carregadas (não espera fotos nem o vídeo, que entram depois sem atrapalhar)
     const pageReady = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
-    const cap = new Promise(r => setTimeout(r, 1000));
-    Promise.race([pageReady, cap]).then(() => { doneAt = performance.now(); setTimeout(finish, 200); });
+    const cap = new Promise(r => setTimeout(r, 4000));
+    Promise.race([Promise.all([pageReady, window.__fywVideoReady]), cap]).then(() => { doneAt = performance.now(); setTimeout(finish, 200); });
   } else { if (loaderEl) loaderEl.remove(); begin(); }
   firstRun = false;
 })();
