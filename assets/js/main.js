@@ -952,18 +952,31 @@
   (function () {
     const intro = $('.zoom-intro'), grid = $('.zoom-grid'); if (!intro || !grid) return;
     const GAP = 96;
+    // mede pela posição de layout (offsetTop), que não muda com a animação/fixação da galeria —
+    // medir na tela durante a rolagem dava valores errados e puxava as fotos por cima de outras seções
     const fit = () => {
+      const prev = intro.style.getPropertyValue('margin-bottom');
       intro.style.removeProperty('margin-bottom');
-      if (innerHeight <= innerWidth) { if (window.ScrollTrigger) ScrollTrigger.refresh(); return; } // só telas em pé
-      const gap = grid.getBoundingClientRect().top - intro.getBoundingClientRect().bottom;
-      const pull = Math.round(gap - GAP);
-      if (pull > 40) intro.style.setProperty('margin-bottom', (-pull) + 'px');
-      if (window.ScrollTrigger) ScrollTrigger.refresh();
+      let next = '';
+      // posição dentro da seção somando offsetTop (null se a galeria estiver fixada na tela: aí não mexe)
+      const zoomEl = intro.closest('.zoom');
+      const topIn = el => { let y = 0, e = el; while (e && e !== zoomEl) { if (getComputedStyle(e).position === 'fixed') return null; y += e.offsetTop; e = e.offsetParent; } return e === zoomEl ? y : null; };
+      const gt = topIn(grid), it = topIn(intro);
+      if (gt === null || it === null) { if (prev) intro.style.setProperty('margin-bottom', prev); return; }
+      if (innerHeight > innerWidth) { // só telas em pé
+        // a grade começa encolhida (escala 0,82 a partir do centro): o topo visível fica mais abaixo
+        const gap = gt + grid.offsetHeight * (1 - 0.82) / 2 - (it + intro.offsetHeight);
+        const pull = Math.min(Math.round(gap - GAP), Math.round(innerHeight * 0.5));
+        if (pull > 40) next = (-pull) + 'px';
+      }
+      if (next) intro.style.setProperty('margin-bottom', next);
+      if (next !== prev && window.ScrollTrigger) ScrollTrigger.refresh();
     };
-    const run = () => { if (!document.querySelector('.pin-spacer .zoom-pin') || window.scrollY < 10) fit(); };
-    run();
-    addEventListener('resize', () => { clearTimeout(window.__zgT); window.__zgT = setTimeout(fit, 200); });
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(run);
+    fit();
+    // só recalcula quando a largura muda (no celular a barra do navegador some/aparece ao rolar e dispara "resize")
+    let lastW = innerWidth;
+    addEventListener('resize', () => { if (innerWidth === lastW) return; lastW = innerWidth; clearTimeout(window.__zgT); window.__zgT = setTimeout(fit, 200); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
   })();
 
   /* ---------------- "2023" do fundo: a base do número termina junto com o título (nunca sobre os parágrafos) ---------------- */
