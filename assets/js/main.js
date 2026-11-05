@@ -110,7 +110,15 @@
   $('.cookie-accept').addEventListener('click', () => setConsent('accepted'));
   $('.cookie-deny').addEventListener('click', () => setConsent('denied'));
   $$('.cookie-open').forEach(b => b.addEventListener('click', () => showCookie(true)));
-  if (!store.get('fio-consent', null)) setTimeout(() => showCookie(true), 900);
+  // o aviso só aparece depois que a pessoa rola e passa da seção Trabalhos (não cobre o topo nem o botão principal)
+  if (!store.get('fio-consent', null)) {
+    const work = $('.work');
+    const onS = () => {
+      const past = work ? work.getBoundingClientRect().bottom < innerHeight : window.scrollY > innerHeight * 1.5;
+      if (past) { removeEventListener('scroll', onS); showCookie(true); }
+    };
+    addEventListener('scroll', onS, { passive: true });
+  }
 
   /* ---------------- FAQ ---------------- */
   $$('.faq-q').forEach(q => q.addEventListener('click', () => {
@@ -276,8 +284,8 @@
       if (intro) {
         const tl = gsap.timeline({ defaults: { ease: E } });
         tl.from('.hero-stage', { clipPath: 'inset(5% 5% 5% 5% round 28px)', duration: 1.6 }, 0)
-          .from('.aura i', { scale: 0.4, opacity: 0, duration: 2.2, stagger: 0.15 }, 0)
-          .from('.nav', { y: -90, opacity: 0, duration: 1.2, clearProps: 'all' }, 0.6);
+          .from('.aura i', { scale: 0.4, opacity: 0, duration: 2.2, stagger: 0.15 }, 0);
+        // o menu do topo não entra animado: aparece sempre, desde o início
       }
 
       /* --- Hero: cards chegam numa pilha e abrem em leque. Ao rolar, cada card desce até a sua linha
@@ -293,7 +301,6 @@
         document.body.appendChild(layer);
         allCards.forEach(el => { if (!fCards.includes(el)) el.remove(); });
         fCards.forEach(el => layer.appendChild(el));
-        allCards.forEach(el => { const im = el.querySelector('img[data-src]'); if (im) { im.src = im.dataset.src; im.removeAttribute('data-src'); } });
         const PJ = window.FYW_PROJECTS || {}, TC = ['t-o', 't-v', 't-b'];
         fCards.forEach((el, i) => {
           const pj = PJ[el.dataset.project]; if (!pj) return;
@@ -876,6 +883,8 @@
   }
   let dockIdle;
   addEventListener('scroll', onScrollUI, { passive: true });
+  // estado certo do menu/doca já ao abrir (e ao voltar para a página pelo histórico)
+  addEventListener('load', onScrollUI); addEventListener('pageshow', onScrollUI);
   addEventListener('resize', syncDockTone);
   new MutationObserver(syncDockTone).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   dockMenu.addEventListener('click', () => { setMenu(menu.hidden); dockMenu.setAttribute('aria-expanded', String(!menu.hidden)); });
@@ -1313,8 +1322,10 @@
   (function () {
     const PJ = window.FYW_PROJECTS || {}, TC = ['t-o', 't-v', 't-b'];
     // fotos dos cards só depois da primeira pintura (ficam por trás da tela de carregamento e não atrasam o título)
-    const loadImgs = () => $$('.hf-card img[data-src]').forEach(im => { im.src = im.dataset.src; im.removeAttribute('data-src'); });
-    (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => requestAnimationFrame(() => requestAnimationFrame(loadImgs)));
+    const loadImgs = () => $$('.hf-card img[data-src], .wr-thumb img[data-src]').forEach(im => { im.src = im.dataset.src; im.removeAttribute('data-src'); });
+    let imgsGo = false; const goImgs = () => { if (imgsGo) return; imgsGo = true; requestAnimationFrame(() => setTimeout(loadImgs, 0)); };
+    try { new PerformanceObserver(l => { if (l.getEntries().some(e => e.name === 'first-contentful-paint')) goImgs(); }).observe({ type: 'paint', buffered: true }); } catch (e) {}
+    setTimeout(goImgs, 1200);
     $$('.hf-card').forEach((el, i) => {
       const pj = PJ[el.dataset.project]; if (!pj) return;
       let tag = el.querySelector('.hf-tag');
@@ -1332,19 +1343,19 @@
     const finish = () => {
       if (finished) return; finished = true; clearInterval(iv);
       bar.style.setProperty('--p', '1'); pct.textContent = '100%';
-      setTimeout(() => { loaderEl.classList.add('is-out'); begin(); setTimeout(() => loaderEl.remove(), 1100); }, 220);
+      setTimeout(() => { loaderEl.classList.add('is-out'); begin(); setTimeout(() => loaderEl.remove(), 800); }, 60);
     };
     const iv = setInterval(() => {
       const t = performance.now() - t0;
       let p = 0.85 * (1 - Math.exp(-t / 600));
-      if (doneAt) p = p + (1 - p) * Math.min(1, (performance.now() - doneAt) / 300);
+      if (doneAt) p = p + (1 - p) * Math.min(1, (performance.now() - doneAt) / 160);
       bar.style.setProperty('--p', p.toFixed(3)); pct.textContent = Math.round(p * 100) + '%';
-      if (doneAt && performance.now() - doneAt >= 300) finish();
+      if (doneAt && performance.now() - doneAt >= 160) finish();
     }, 40);
     // pronto = fontes carregadas (não espera fotos nem o vídeo, que entram depois sem atrapalhar)
     const pageReady = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
-    const cap = new Promise(r => setTimeout(r, 4000));
-    Promise.race([Promise.all([pageReady, window.__fywVideoReady]), cap]).then(() => { doneAt = performance.now(); setTimeout(finish, 200); });
+    const cap = new Promise(r => setTimeout(r, 2500));
+    Promise.race([Promise.all([pageReady, window.__fywVideoReady]), cap]).then(() => { doneAt = performance.now(); });
   } else { if (loaderEl) loaderEl.remove(); begin(); }
   firstRun = false;
 })();
