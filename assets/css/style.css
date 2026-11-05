@@ -4759,3 +4759,27 @@ html ::-moz-selection, html[data-theme="dark"] ::-moz-selection { background: #C
 @media (max-width: 599px) { .pp2-svc-row > .pp2-chip { min-height: 42px; padding: 0 16px; font-size: .8125rem; } }
 .lw-pg .lw-mark { height: clamp(52px, 4.6vw, 74px) !important; width: auto; }
 .pj-pg .pp2-brand .pg-logo { width: clamp(110px, 11vw, 170px); height: auto; display: block; }
+
+/* cards do topo: logos com tamanho visual parecido (base = Impacta Mais); crescem um pouco em telas menores */
+html body .hf-card .fc-veil .veil-logo { width: calc(var(--lw, 40%) * var(--lk, 1)) !important; max-width: 86% !important; max-height: none !important; height: auto !important; }
+.hf-card[data-project="impacta-mais"] { --lw: 40%; }
+.hf-card[data-project="cimed"] { --lw: 56%; }
+.hf-card[data-project="beta-online"] { --lw: 40%; }
+.hf-card[data-project="kyoto"] { --lw: 36%; }
+.hf-card[data-project="lumiere"] { --lw: 72%; }
+.hf-card[data-project="jogo-pela-integridade"] { --lw: 28%; }
+.hf-card[data-project="pacto-global"] { --lw: 50%; }
+.hf-card[data-project="latimpacto"] { --lw: 58%; }
+@media (max-width: 1024px) { .hf-card { --lk: 1.12; } }
+@media (max-width: 600px) { .hf-card { --lk: 1.24; } }
+/* tamanho base = o do Impacta Mais antes do ajuste */
+html body .hf-card .fc-veil .veil-logo { max-width: 100% !important; }
+.hf-card[data-project="impacta-mais"] { --lw: 60%; }
+.hf-card[data-project="cimed"] { --lw: 82%; }
+.hf-card[data-project="beta-online"] { --lw: 60%; }
+.hf-card[data-project="kyoto"] { --lw: 54%; }
+.hf-card[data-project="lumiere"] { --lw: 100%; }
+.hf-card[data-project="jogo-pela-integridade"] { --lw: 42%; }
+.hf-card[data-project="pacto-global"] { --lw: 72%; }
+.hf-card[data-project="latimpacto"] { --lw: 86%; }
+.fc-veil { padding-left: 12% !important; padding-right: 12% !important; }
