@@ -855,3 +855,14 @@ b,strong{font-weight:700}
   .fyw-dot.is-hover{width:44px;height:44px;margin:-22px 0 0 -22px}
   .fyw-dot.is-hidden{opacity:0}
 }
+/* Home V2: box "cursos mais escolhidos" como fieldset (só a linha, o título no vão da borda) */
+fieldset.picks{margin:clamp(26px,3vw,56px) 0 0;min-width:0;min-inline-size:0;padding-top:clamp(10px,.9vw,16px)}
+fieldset.picks>legend{padding:0 8px;margin-left:8px;font-size:clamp(10px,.78vw,15px);font-weight:600;letter-spacing:.04em;line-height:1;white-space:nowrap;color:#fff}
+@media (max-width:760px){fieldset.picks{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;width:100%}}
+/* Home V2: degradê do topo mais marcado, do vermelho escuro ao claro */
+.hero2{background:radial-gradient(120% 90% at 0% 0%,#6E070B 0%,rgba(110,7,11,0) 55%),linear-gradient(120deg,#8A0B10 0%,#B5141A 38%,#D72A2A 70%,#EE4A3F 100%)}
+.hero2 .ph::before{background:linear-gradient(90deg,rgba(150,14,18,.55),rgba(0,0,0,0) 32%)}
+@media (max-width:760px){
+  .hero2{background:linear-gradient(180deg,#8A0B10 0%,#B5141A 38%,#D72A2A 75%,#E9443B 100%)}
+  .hero2 .ph::before{background:linear-gradient(180deg,rgba(0,0,0,.2),rgba(0,0,0,0) 40%,rgba(138,11,16,.95) 100%)}
+}

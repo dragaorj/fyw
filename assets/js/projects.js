@@ -11,7 +11,7 @@ window.FYW_PROJECTS = {
   'kyoto':       { name: 'Kyoto',         type: 'Branding', color: '#0178FF', title: 'Kyoto Rice', sub: 'Branding · UI/UX & Web', svc: [0, 1], img: 'assets/img/projetos/kyoto/thumb.webp?v=2' },
   'aurora-bank': { name: 'Aurora Bank',   type: 'Branding' },
   'verde':       { name: 'Verde Mercado', type: 'E-commerce' },
-  'nomade':      { name: 'Nômade App',    type: 'App' },
+  'impacta-mais': { name: 'Impacta Mais', type: 'UI/UX & Web', color: '#F7621E', title: 'Impacta Mais', sub: 'UI/UX & Web · Apps & Sistemas', svc: [1, 2], img: 'assets/img/projetos/impacta-mais/thumb.webp' },
   'pulso':       { name: 'Pulso Health',  type: 'Design System' },
   'orbe':        { name: 'Orbe Studio',   type: 'Rebranding' },
   'lumen':       { name: 'Lumen',         type: 'SaaS' },

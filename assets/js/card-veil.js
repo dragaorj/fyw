@@ -4,7 +4,7 @@
   if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   var P = window.FYW_PROJECTS || {};
   // película e cor do logo por marca
-  var TONE = { latimpacto: ['rgba(38,14,62,.86)', '#FFFFFF', 'mono'], cimed: ['rgba(224,170,0,.92)', '#0B0B0B', 'mono'], kyoto: ['rgba(0,28,64,.82)', '#7CBBFF', 'mono'], 'beta-online': ['rgba(74,4,6,.82)', null, 'color'], 'jogo-pela-integridade': ['rgba(6,6,6,.8)', null, 'color'] };
+  var TONE = { 'impacta-mais': ['rgba(17,17,17,.82)', null, 'color'], latimpacto: ['rgba(38,14,62,.86)', '#FFFFFF', 'mono'], cimed: ['rgba(224,170,0,.92)', '#0B0B0B', 'mono'], kyoto: ['rgba(0,28,64,.82)', '#7CBBFF', 'mono'], 'beta-online': ['rgba(74,4,6,.82)', null, 'color'], 'jogo-pela-integridade': ['rgba(6,6,6,.8)', null, 'color'] };
   function logoFor(slug) {
     var cell = '.lw-inner[href="projetos/' + slug + '.html"] ';
     var tone = TONE[slug] || [];
@@ -21,7 +21,7 @@
     card.addEventListener('pointermove', function (e) {
       if (Math.abs(e.clientX - lx) + Math.abs(e.clientY - ly) < 3) return;
       lx = e.clientX; ly = e.clientY; clearTimeout(t);
-      if (!card.classList.contains('is-rest')) t = setTimeout(function () { card.classList.add('is-rest'); }, 320);
+      if (!card.classList.contains('is-rest')) t = setTimeout(function () { card.classList.add('is-rest'); }, 170);
     });
     card.addEventListener('pointerleave', function () { clearTimeout(t); card.classList.remove('is-rest'); lx = ly = -1; });
   });

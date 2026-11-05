@@ -4722,3 +4722,11 @@ html body.pp2.pj-cimed .pp2-back { background: rgba(11,11,11,.08) !important; bo
 .pj-lat .pp2-brand .lt-word { height: clamp(26px, 2.6vw, 44px) !important; width: auto; aspect-ratio: 619/143; }
 @media (max-width: 899px) { .pj-lat .pp2-brand .lt-word { height: 22px !important; } }
 .lw-lat .lw-mark { height: clamp(22px, 2vw, 30px) !important; }
+/* Impacta Mais: logo no topo e no mural */
+.pj-im .pp2-brand .im-mark { height: clamp(44px, 4.4vw, 76px) !important; width: auto; aspect-ratio: 192/89; }
+@media (max-width: 899px) { .pj-im .pp2-brand .im-mark { height: 34px !important; } }
+.lw-im .lw-mark { height: clamp(30px, 2.6vw, 42px) !important; }
+
+/* cards do topo: o logo aparece um pouco mais rápido */
+.fc-veil { transition: opacity .3s cubic-bezier(.2,.7,.2,1); }
+.fc-veil .veil-logo, .fc-veil .veil-name { transition: transform .35s cubic-bezier(.2,.7,.2,1); }
