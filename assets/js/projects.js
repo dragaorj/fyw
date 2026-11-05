@@ -1,12 +1,12 @@
 /* =========================================================
    Projetos da Fyw — fonte única dos dados dos projetos.
-   Edite aqui: o "tipo" aparece na etiqueta dos cards do hero
+   Edite aqui: "svc" diz em quais serviços o projeto aparece no painel (0 Branding, 1 UI/UX & Web, 2 Apps & Sistemas, 3 Design Systems); o "tipo" aparece na etiqueta dos cards do hero
    (Branding, Website, App...). A ordem não importa; cada card
    aponta para o projeto pelo "slug" (nome da página em /projetos).
    ========================================================= */
 window.FYW_PROJECTS = {
-  'jogo-pela-integridade': { name: 'SPFC', type: 'Web Design', color: '#DC1414' },
-  'kyoto':       { name: 'Kyoto',         type: 'Branding', color: '#0178FF' },
+  'jogo-pela-integridade': { name: 'SPFC', type: 'Web Design', color: '#DC1414', title: 'São Paulo FC', sub: 'Jogo pela Integridade', svc: [1], img: 'assets/img/projetos/jogo-pela-integridade/thumb.webp?v=2' },
+  'kyoto':       { name: 'Kyoto',         type: 'Branding', color: '#0178FF', title: 'Kyoto Rice', sub: 'Branding · Packaging · Web design', svc: [0, 1], img: 'assets/img/projetos/kyoto/thumb.webp?v=2' },
   'aurora-bank': { name: 'Aurora Bank',   type: 'Branding' },
   'verde':       { name: 'Verde Mercado', type: 'E-commerce' },
   'nomade':      { name: 'Nômade App',    type: 'App' },

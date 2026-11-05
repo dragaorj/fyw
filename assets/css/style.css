@@ -4312,3 +4312,18 @@ html body .jpi-logos i { height: clamp(36px, 3.4vw, 48px); }
   .pp2-brand .pb-logo { height: clamp(64px, 5.6vw, 96px); }
   .pp2-brand .pb-sub { height: clamp(74px, 6.5vw, 112px); }
 }
+
+/* painel de serviço: projetos do site que usam o serviço (cards clicáveis) */
+.sv-work { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+.sv-pj { display: block; border-radius: 18px; overflow: hidden; background: var(--surface); color: var(--ink); text-decoration: none;
+  border: 1px solid var(--line); transition: transform .45s var(--ease), box-shadow .45s var(--ease), border-color .45s var(--ease); }
+.sv-pj-img { display: block; aspect-ratio: 16 / 7; overflow: hidden; background: color-mix(in srgb, var(--pc) 18%, var(--surface)); }
+.sv-pj-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s var(--ease); }
+.sv-pj-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 12px 12px 16px; }
+.sv-pj-meta > span { display: grid; gap: 2px; min-width: 0; }
+.sv-pj-meta b { font-weight: 500; font-size: 1rem; letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sv-pj-meta small { font-size: .78rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sv-pj-meta i { flex: none; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--pc); color: #fff; }
+.sv-pj-meta i .ico { width: 14px; height: 14px; rotate: 45deg; }
+.sv-pj:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--pc) 45%, var(--line)); box-shadow: 0 18px 36px -22px color-mix(in srgb, var(--pc) 70%, transparent); }
+.sv-pj:hover .sv-pj-img img { transform: scale(1.05); }
