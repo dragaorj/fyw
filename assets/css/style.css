@@ -4143,3 +4143,7 @@ html body .cookie .cookie-actions .btn { padding: 8px 14px; min-height: 0; font-
 /* tela de carregamento rápida: sai em ~0,6s assim que a fonte está pronta */
 html body .loader.is-fast { transition-duration: .6s; }
 html body .loader.is-fast .loader-bar i { transition-duration: .16s; }
+/* "2023" com números normais: juntos, centralizados, sem esticar */
+html body .story-year { justify-content: center !important; letter-spacing: -.045em !important; }
+html body .story-year span { flex: none !important; }
+@media (min-width: 600px) { html body .story-year { font-size: clamp(9rem, 27vw, 30rem) !important; } }

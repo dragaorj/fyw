@@ -978,15 +978,8 @@
       if (year.offsetHeight > avail) year.style.setProperty('font-size', Math.max(96, Math.floor(avail / 0.8)) + 'px', 'important');
       const top = Math.max(8, Math.round(t.bottom - i.top - year.offsetHeight));
       side.style.setProperty('top', top + 'px', 'important');
-      // dígitos largos: cada um estica na horizontal até quase preencher o seu quarto da largura
-      const spans = Array.from(year.querySelectorAll("span")), quarter = year.clientWidth / Math.max(1, spans.length);
-      const cs = getComputedStyle(year), ctx = (place.c || (place.c = document.createElement("canvas"))).getContext("2d");
-      ctx.font = cs.fontWeight + " " + cs.fontSize + " " + cs.fontFamily;
-      spans.forEach(sp => {
-        const m = ctx.measureText(sp.textContent), ink = (m.actualBoundingBoxLeft + m.actualBoundingBoxRight) || m.width;
-        const sx = Math.max(1, Math.min(2.6, (quarter * 0.9) / Math.max(1, ink)));
-        if (window.gsap) gsap.set(sp, { scaleX: sx, transformOrigin: "50% 100%" }); else sp.style.transform = "scaleX(" + sx + ")";
-      });
+      // números normais (sem esticar)
+      if (window.gsap) gsap.set(year.querySelectorAll("span"), { scaleX: 1 });
     };
     place();
     addEventListener('resize', () => { clearTimeout(window.__yrT); window.__yrT = setTimeout(place, 120); });
