@@ -103,7 +103,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet" /></noscript>
-  <link rel="stylesheet" href="assets/css/style.css?v=20261112c" />
+  <link rel="stylesheet" href="assets/css/style.css?v=20261113b" />
   <script>(function(){try{var d=document.documentElement,a=JSON.parse(localStorage.getItem('fio-a11y')||'{}');if(matchMedia('(hover: hover) and (pointer: fine)').matches&&!a.motion&&!a.clean)d.classList.add('has-cursor');}catch(e){}})();</script>
 </head>
 <body>
@@ -237,6 +237,17 @@ dinheiro na mesa</span><span class="ht-caret" aria-hidden="true"></span></h1>
             <div class="hf-card" data-project="brisa" style="--i:8;--r:-5deg"><div class="fc-in"><img data-src="https://picsum.photos/seed/fyw-p9/480/576" width="480" height="576" decoding="async" alt=""></div></div>
           </div>
           <p class="hero-sub" data-i18n="hero.sub">Nós criamos sites, marcas e sistemas sob medida que transformam visitas em clientes para empresas do mundo todo.</p>
+          <script>
+            // idioma do topo já na primeira pintura (evita trocar o título depois que o script principal carrega)
+            (function () { try {
+              var q = new URLSearchParams(location.search).get('lang'), L = q || localStorage.getItem('fio-lang') || (navigator.language || 'pt').slice(0, 2);
+              var T = {"en":{"h":"Your website should sell for you.","t":"You're leaving\nmoney on the table","s":"We create tailor-made websites, brands and systems that turn visitors into customers for companies worldwide."},"es":{"h":"Tu sitio debería vender por ti.","t":"Estás dejando\ndinero sobre la mesa","s":"Nosotros creamos sitios, marcas y sistemas a medida que convierten visitas en clientes para empresas de todo el mundo."}}; var t = T[L]; if (!t) return;
+              var h = document.querySelector('.hero-title'); if (!h) return;
+              h.querySelector('.sr-only').textContent = t.h; h.querySelector('.ht-type').textContent = t.t;
+              var s = document.querySelector('.hero-sub'); if (s) s.textContent = t.s;
+              document.documentElement.lang = L;
+            } catch (e) {} })();
+          </script>
           <div class="hero-ctas">
             <a href="#contact" class="btn btn-ink btn-pulse btn-hero">
               <span class="bh-glow" aria-hidden="true"></span>

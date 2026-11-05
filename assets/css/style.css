@@ -4082,7 +4082,7 @@ html body .hero-video.is-clouds canvas { transform: scaleY(1.26) !important; tra
 /* tema claro: película escura leve sobre o céu azul (melhora a leitura do texto branco) */
 html:root:root:not([data-theme="dark"]) .hero-video.hero-video::after { background: color-mix(in srgb, #0B0B0B 25%, transparent) !important; }
 /* celular: horizonte das nuvens mais alto (aparece acima dos cards); o esticamento mantém a tela coberta */
-@media (max-width: 599px) { html body .hero-video.is-clouds canvas { transform: translateY(-30%) scaleY(1.3) !important; transform-origin: 50% 0 !important; } }
+@media (max-width: 599px) { html body .hero-video.is-clouds canvas { transform: translateY(-40%) scaleY(1.4) !important; transform-origin: 50% 0 !important; } }
 
 /* nuvens: o canvas aparece suavemente por cima do céu em degradê */
 .hero-video.is-clouds canvas { opacity: 0; transition: opacity 1.6s cubic-bezier(.16,1,.3,1); }
@@ -4092,9 +4092,8 @@ html:root:root:not([data-theme="dark"]) .hero-video.hero-video::after { backgrou
 /* Telas de computador em pé (ex.: 1080×1920): topo sem sobra de altura e textos maiores aproveitando a tela */
 .zoom-intro { position: relative; z-index: 2; }
 @media (min-width: 600px) and (max-aspect-ratio: 4/5) {
-  .hero { height: min(100svh, 135vw) !important; min-height: 0 !important; }
-  html body .hero-title, html body .hero-title .ht-type { font-size: clamp(3.5rem, 9vw, 7.5rem) !important; }
-  html body .hero-sub { font-size: clamp(1.125rem, 2.1vw, 1.5rem) !important; max-width: 40ch; }
+  /* topo ocupa a tela inteira, com o conteúdo centralizado na altura */
+  .hero { height: 100svh !important; min-height: 0 !important; }
   html body .zoom-intro-title { font-size: clamp(3rem, 7.6vw, 6.5rem) !important; }
   html body .zoom-title { font-size: clamp(3.5rem, 10vw, 8.5rem) !important; }
   html body .zoom-sub { font-size: clamp(1.125rem, 2.2vw, 1.5rem) !important; }
