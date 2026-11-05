@@ -4867,3 +4867,9 @@ html body .hf-card .fc-veil .veil-logo { max-width: 100% !important; }
 
 /* Hero mobile: todos os cards do desktop, arrastando para os lados */
 @media (max-width: 599px) { .hfan > .hf-card:nth-child(n) { display: block !important; } }
+
+/* Páginas de projeto: carrossel com cantos arredondados na borda (a imagem entra e sai pelo canto arredondado) */
+.pp2-gal { border-radius: var(--radius-lg, 24px); padding-bottom: 0 !important; }
+
+/* Páginas de projeto: topo sem vazio acima do título */
+html body .pp2-hero.is-text { min-height: 0 !important; }
