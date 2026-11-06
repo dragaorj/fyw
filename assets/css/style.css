@@ -5586,3 +5586,51 @@ html body .zoom-stack .zs-cta { pointer-events: auto; }
 .sm-toasts { list-style: none; }
 /* galáxia: cada círculo leva para a página do projeto (em todos os aparelhos) */
 html body .zoom-stack .zs-o { pointer-events: auto; cursor: pointer; }
+
+/* páginas de projeto: logo do cliente no topo com o mesmo peso visual em todas
+   (mesma área aproximada: logo comprida fica mais baixa, logo quadrada fica mais estreita) */
+body.pp2 .pp2-brand { --k: 1; align-items: center; }
+@media (max-width: 1279px) { body.pp2 .pp2-brand { --k: .82; } }
+@media (max-width: 899px) { body.pp2 .pp2-brand { --k: .6; } }
+html body.pp2 .pp2-brand svg.pb-logo { height: auto !important; max-height: none !important; max-width: none !important; display: block; }
+html body.pj-lu .pp2-brand .lu-logo { width: calc(262px * var(--k)) !important; }
+html body.pj-lat .pp2-brand .lt-word { width: calc(198px * var(--k)) !important; }
+html body.pj-im .pp2-brand .im-mark { width: calc(140px * var(--k)) !important; }
+html body.pj-pg .pp2-brand .pg-logo { width: calc(98px * var(--k)) !important; }
+html body.pj-kyoto .pp2-brand .pb-logo { width: calc(118px * var(--k)) !important; }
+html body.pj-cimed .pp2-brand .cm-word { width: calc(196px * var(--k)) !important; }
+html body.pj-beta .pp2-brand .pb-logo { width: calc(136px * var(--k)) !important; }
+html body.pj-jpi .pp2-brand .pb-main { width: auto !important; height: calc(56px * var(--k)) !important; }
+html body.pj-jpi .pp2-brand .pb-sub { width: auto !important; height: calc(64px * var(--k)) !important; }
+html body.pj-jpi .pp2-brand > i { height: calc(56px * var(--k)) !important; }
+/* "Sobre o projeto": frase em cima ocupando a largura, texto embaixo em duas colunas equilibradas (sem buraco ao lado da frase) */
+html body .pp2-intro .pp2-split { display: grid !important; grid-template-columns: 1fr !important; gap: clamp(24px, 3vw, 44px) !important; align-items: start; }
+html body .pp2-intro .pp2-about-head .pp2-lead { max-width: 28ch; font-size: clamp(1.75rem, 3.4vw, 3rem); line-height: 1.1; }
+html body .pp2-intro .pp2-about { display: block !important; padding: 0 !important; }
+html body .pp2-intro .pp2-about p { max-width: none; margin: 0 0 1em; break-inside: avoid; }
+html body .pp2-intro .pp2-about p:last-child { margin-bottom: 0; }
+@media (min-width: 900px) { html body .pp2-intro .pp2-about { columns: 2; column-gap: clamp(32px, 5vw, 80px); } }
+html body.pj-jpi .pp2-brand svg.pb-main { width: calc(56px * var(--k)) !important; height: calc(56px * var(--k)) !important; }
+html body.pj-jpi .pp2-brand svg.pb-sub { width: calc(48px * var(--k)) !important; height: calc(64px * var(--k)) !important; }
+/* logos do topo dos projetos um pouco maiores; marcas de traço fino (Lumière, Latimpacto, Cimed) ganham mais para ter o mesmo peso das sólidas */
+html body.pj-lu .pp2-brand .lu-logo { width: calc(340px * var(--k)) !important; }
+html body.pj-lat .pp2-brand .lt-word { width: calc(250px * var(--k)) !important; }
+html body.pj-im .pp2-brand .im-mark { width: calc(166px * var(--k)) !important; }
+html body.pj-pg .pp2-brand .pg-logo { width: calc(112px * var(--k)) !important; }
+html body.pj-kyoto .pp2-brand .pb-logo { width: calc(140px * var(--k)) !important; }
+html body.pj-cimed .pp2-brand .cm-word { width: calc(232px * var(--k)) !important; }
+html body.pj-beta .pp2-brand .pb-logo { width: calc(160px * var(--k)) !important; }
+html body.pj-jpi .pp2-brand svg.pb-main { width: calc(68px * var(--k)) !important; height: calc(68px * var(--k)) !important; }
+html body.pj-jpi .pp2-brand svg.pb-sub { width: calc(58px * var(--k)) !important; height: calc(78px * var(--k)) !important; }
+html body.pj-jpi .pp2-brand > i { height: calc(68px * var(--k)) !important; }
+/* ajuste fino óptico (comparando lado a lado): sólidas/negrito menores, detalhadas/pequenas maiores */
+html body.pj-lu .pp2-brand .lu-logo { width: calc(300px * var(--k)) !important; }
+html body.pj-lat .pp2-brand .lt-word { width: calc(262px * var(--k)) !important; }
+html body.pj-im .pp2-brand .im-mark { width: calc(160px * var(--k)) !important; }
+html body.pj-pg .pp2-brand .pg-logo { width: calc(136px * var(--k)) !important; }
+html body.pj-kyoto .pp2-brand .pb-logo { width: calc(166px * var(--k)) !important; }
+html body.pj-cimed .pp2-brand .cm-word { width: calc(204px * var(--k)) !important; }
+html body.pj-beta .pp2-brand .pb-logo { width: calc(178px * var(--k)) !important; }
+html body.pj-jpi .pp2-brand svg.pb-main { width: calc(80px * var(--k)) !important; height: calc(80px * var(--k)) !important; }
+html body.pj-jpi .pp2-brand svg.pb-sub { width: calc(68px * var(--k)) !important; height: calc(92px * var(--k)) !important; }
+html body.pj-jpi .pp2-brand > i { height: calc(80px * var(--k)) !important; }
