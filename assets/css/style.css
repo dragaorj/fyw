@@ -6178,3 +6178,6 @@ html body.pj-if .ky-palette li { grid-column: auto !important; grid-row: auto !i
 @media (min-width: 700px) { html body.pj-if .ky-palette { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; } }
 @media (min-width: 1100px) { html body.pj-if .ky-palette { grid-template-columns: repeat(7, minmax(0, 1fr)) !important; } }
 @media (max-width: 599px) { .if-logo { width: 110px !important; } }
+
+/* galáxia: arrastar na horizontal gira as bolinhas (a rolagem vertical continua normal) */
+.zoom-stack .zs-stage { touch-action: pan-y; -webkit-user-select: none; user-select: none; }

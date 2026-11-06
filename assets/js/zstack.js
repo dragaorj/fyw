@@ -55,7 +55,19 @@
     if (li && li.style.getPropertyValue('--brand')) o.style.setProperty('--brand', li.style.getPropertyValue('--brand'));
     o.appendChild(w);
   });
-  orbs.forEach(function (o, i) { o.addEventListener('click', function () { if (LOGOS[i]) location.href = 'projetos/' + LOGOS[i] + '.html'; }); });
+  orbs.forEach(function (o, i) { o.addEventListener('click', function () { if (performance.now() < noClickUntil) return; if (LOGOS[i]) location.href = 'projetos/' + LOGOS[i] + '.html'; }); });
+  // arrastar na horizontal (dedo ou mouse) gira as bolinhas; ao soltar, elas continuam com o embalo e voltam ao giro sozinho
+  (function () {
+    var d = null, perOrb = function () { return Math.max(60, lastRX * 2 * Math.PI / N); };
+    stage.addEventListener('pointerdown', function (e) { if (!live || gather < .9 || e.button > 0) return; d = { x: e.clientX, y: e.clientY, t: performance.now(), on: false }; });
+    addEventListener('pointermove', function (e) {
+      if (!d) return; var dx = e.clientX - d.x, dy = e.clientY - d.y;
+      if (!d.on) { if (Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(dy) * 1.2) { d.on = true; dragging = true; orbHover = false; d.x = e.clientX; d.t = performance.now(); } else if (Math.abs(dy) > 12) d = null; return; }
+      var now = performance.now(), du = dx / perOrb(); autoX += du; vel = du / Math.max(8, now - d.t); d.x = e.clientX; d.t = now;
+    }, { passive: true });
+    var end = function () { if (d && d.on) noClickUntil = performance.now() + 350; d = null; dragging = false; vel = Math.max(-.004, Math.min(.004, vel)); };
+    addEventListener('pointerup', end); addEventListener('pointercancel', end);
+  })();
   // mouse em cima de uma bolinha: a galáxia pausa (a bolinha não foge do cursor) e ela fica em destaque, como a da frente
   var orbHover = false;
   orbs.forEach(function (o) {
@@ -67,10 +79,31 @@
   // centro do ponto final da palavra grande (em relação ao centro da tela)
   var DP = { x: 0, y: 0, s: .12 };
   var measureDot = function () { var el = word, t = el.firstChild; if (!t || !t.data) return; var j = t.data.lastIndexOf('.'); if (j < 0) return; var r = document.createRange(); r.setStart(t, j); r.setEnd(t, j + 1); var b = r.getBoundingClientRect(), o = sec.querySelector('.zs-orbit').getBoundingClientRect(); DP.x = b.left + b.width / 2 - o.left; DP.y = b.top + b.height * .78 - o.top; DP.s = Math.max(.05, b.width * .55 / (innerWidth < 600 ? 84 : Math.min(200, innerWidth * (innerWidth < innerHeight ? .15 : .11)))); };
+  // área ocupada pelo texto (em relação ao centro da órbita), medida com a frase mais larga do idioma:
+  // a órbita é calculada para que nenhuma bolinha passe por cima do texto, em qualquer tela
+  var safe = { hw: 0, hh: 0, key: '' }, noClickUntil = 0;
+  var measureSafe = function () {
+    var key = innerWidth + 'x' + innerHeight + lang(); if (safe.key === key) return;
+    var say = sec.querySelector('.zs-say'), ob = sec.querySelector('.zs-orbit'); if (!say || !ob || !word) return;
+    var o = ob.getBoundingClientRect(), cx = o.left + o.width / 2, cy = o.top + o.height / 2, keep = word.textContent, hw = 0, hh = 0;
+    WORDS[lang()].forEach(function (t) { word.textContent = t; var r = say.getBoundingClientRect(); if (!r.width) return; hw = Math.max(hw, cx - r.left, r.right - cx); hh = Math.max(hh, cy - r.top, r.bottom - cy); });
+    word.textContent = keep; if (!hw) return; safe.hw = hw; safe.hh = hh; safe.key = key;
+  };
+  var lastRX = 400, dragging = false, vel = 0;
   var renderOrbit = function () {
     // anel sempre deitado (elipse limpa), igual em celular, tablet em pé e computador
     var W = innerWidth, H = innerHeight, mob = W < 600, tall = W < H, RX = W * (mob ? .4 : (tall ? .4 : .4)), RY = mob ? Math.min(H * .19, RX * .62) : Math.min(H * .27, RX * (tall ? .5 : .42)),
         base = mob ? 84 : Math.min(200, W * (tall ? .15 : .11)), JIT = 0; // todas as bolinhas exatamente sobre a mesma elipse (sem desvio), em qualquer tela
+    // a elipse envolve o retângulo do texto com folga do raio da maior bolinha: nenhuma bolinha encosta no texto
+    // (no celular as das laterais ficam em parte fora da tela, o que é proposital)
+    measureSafe();
+    if (safe.hw) {
+      var r0 = base * .86 * (mob ? 1.37 : 1.3) * 1.02 / 2 + (mob ? 10 : 16), ax = safe.hw + r0, ay = safe.hh + r0;
+      RX = Math.max(RX, ax * (mob ? 1.22 : 1.12)); var kx = ax / RX; RY = Math.max(RY, ay / Math.sqrt(1 - kx * kx));
+      var maxRY = H / 2 - r0 * .95 - (mob ? 0 : 24); // a bolinha da frente nunca sai pela parte de baixo da tela
+      if (RY > maxRY) { RY = maxRY; var ky = Math.min(.97, ay / RY); RX = Math.max(RX, ax / Math.sqrt(1 - ky * ky)); }
+    }
+    lastRX = RX;
     orbs.forEach(function (o, i) {
       // spread = 0..1 no fim: as bolinhas se juntam todas no centro (é dali que o site abre)
       var sd = seeds[i], th = sd.a + spin + scrollSpin, g = gather * gather * (3 - 2 * gather), m = spread * spread * (3 - 2 * spread), rr = sd.r * (1 - m);
@@ -92,7 +125,7 @@
     if (!live) return; var now = performance.now(), dt = Math.min(64, now - (lastStepT || now)); lastStepT = now;
     // parado na galáxia: as fotos orbitam a frase sem parar, devagar; desaceleram quando uma chega no centro (embaixo da frase) e a frase troca ali
     if (inGalaxy && !orbHover && (gather < 1 || now - lastScrollT > 450) && !document.hidden) { // começa a girar junto com a abertura das bolinhas
-      autoX += dt / 5600; var pos = baseK + autoPos(autoX);
+      if (!dragging) { autoX += dt / 5600 + vel * dt; vel *= Math.pow(.93, dt / 16); if (Math.abs(vel) < 1e-6) vel = 0; } var pos = baseK + autoPos(autoX);
       spinT = Math.PI / 2 - pos * Math.PI * 2 / N; setWord(((Math.round(pos) % N) + N) % N);
     }
     scrollSpin += (spinT - scrollSpin) * .12; renderOrbit();
