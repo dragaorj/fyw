@@ -1,4 +1,4 @@
-/* Fyw — painel de detalhes dos serviços (Branding, UI/UX & Web, Apps & Sistemas, Design Systems) */
+/* Fyw — painel de detalhes dos serviços (Branding, Rebranding, UI/UX & Web, Apps & Sistemas, Design Systems) */
 (function () {
   'use strict';
 
@@ -76,6 +76,25 @@
         steps: [['Auditoría', 'Relevamos lo que existe y lo que se repite.'], ['Fundación', 'Definimos tokens, reglas y componentes base.'], ['Escala', 'Documentamos y capacitamos al equipo.']] }
     ]
   };
+  // Rebranding (segundo da lista, logo abaixo de Branding). "id" = número do serviço em projects.js (svc)
+  const RB = {
+    pt: { t: 'Rebranding', lead: 'Sua empresa cresceu. A marca precisa crescer junto.',
+      what: 'Rebranding é a evolução de uma marca que já existe: partimos da história e do que o público já reconhece para criar uma identidade mais madura, atual e coerente com o tamanho que o negócio tem hoje — sem jogar fora o que construiu até aqui.',
+      deliver: ['Diagnóstico da marca atual', 'Novo posicionamento', 'Redesenho do logo', 'Paleta e tipografia', 'Tom de voz', 'Redes sociais', 'Embalagens', 'Manual de marca'],
+      who: 'Empresas que cresceram, mudaram de público ou de mercado, ou que sentem que a marca atual já não representa a qualidade do que entregam.',
+      steps: [['Diagnóstico', 'Entendemos o que a marca tem de valioso e o que ficou para trás.'], ['Evolução', 'Redesenhamos a identidade a partir da essência que já existe.'], ['Lançamento', 'Aplicamos a nova marca em todos os pontos de contato.']] },
+    en: { t: 'Rebranding', lead: 'Your company grew. Your brand needs to grow with it.',
+      what: 'Rebranding is the evolution of an existing brand: we start from its history and what people already recognize to create a more mature, current identity that matches the size of the business today — without throwing away what it has built.',
+      deliver: ['Current brand audit', 'New positioning', 'Logo redesign', 'Palette and typography', 'Tone of voice', 'Social media', 'Packaging', 'Brand guidelines'],
+      who: 'Companies that have grown, changed audience or market, or feel their current brand no longer reflects the quality of what they deliver.',
+      steps: [['Audit', 'We find what is valuable in the brand and what was left behind.'], ['Evolution', 'We redesign the identity from the essence that already exists.'], ['Launch', 'We apply the new brand across every touchpoint.']] },
+    es: { t: 'Rebranding', lead: 'Tu empresa creció. La marca tiene que crecer con ella.',
+      what: 'El rebranding es la evolución de una marca que ya existe: partimos de su historia y de lo que el público ya reconoce para crear una identidad más madura, actual y acorde al tamaño del negocio hoy, sin tirar lo que construyó hasta aquí.',
+      deliver: ['Diagnóstico de la marca actual', 'Nuevo posicionamiento', 'Rediseño del logo', 'Paleta y tipografía', 'Tono de voz', 'Redes sociales', 'Empaques', 'Manual de marca'],
+      who: 'Empresas que crecieron, cambiaron de público o de mercado, o que sienten que su marca actual ya no refleja la calidad de lo que entregan.',
+      steps: [['Diagnóstico', 'Entendemos lo valioso de la marca y lo que quedó atrás.'], ['Evolución', 'Rediseñamos la identidad a partir de la esencia que ya existe.'], ['Lanzamiento', 'Aplicamos la nueva marca en todos los puntos de contacto.']] }
+  };
+  ['pt', 'en', 'es'].forEach(l => { S[l].forEach((x, k) => { x.id = k; }); RB[l].id = 4; S[l].splice(1, 0, RB[l]); });
 
   const list = document.querySelector('.svc-list'); if (!list) return;
   const rows = [...list.querySelectorAll('.svc')];
@@ -114,7 +133,7 @@
   // projetos do site que usam este serviço (dados em assets/js/projects.js → svc)
   function work(i, u) {
     const P = window.FYW_PROJECTS || {};
-    const items = Object.keys(P).filter(k => Array.isArray(P[k].svc) && P[k].svc.includes(i));
+    const id = S[L()][i] ? S[L()][i].id : i, items = Object.keys(P).filter(k => Array.isArray(P[k].svc) && P[k].svc.includes(id));
     if (!items.length) return '';
     return '<section class="sv-sec sv-in" style="--d:3"><h3>' + u.work + '</h3><div class="sv-work">' + items.map(k => {
       const x = P[k];

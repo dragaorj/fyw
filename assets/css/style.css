@@ -2488,7 +2488,7 @@ html body .hero .btn-hero:hover .btn-roll > span { text-shadow: 0 1px 0 rgba(238
 .hf-card {
   position: absolute; left: 50%; top: 50%; width: var(--fw); aspect-ratio: 5 / 6;
   margin: calc(var(--fw) * -0.6) 0 0 calc(var(--fw) * -0.5);
-  transform: translateX(calc((var(--i) - 4) * var(--fw) * .66)) translateY(calc(var(--fw) * .05 * max(var(--i) - 4, 4 - var(--i)))) rotate(var(--r));
+  transform: translateX(calc((var(--i) - var(--hc, 4)) * var(--fw) * .66)) translateY(calc(var(--fw) * .05 * max(var(--i) - var(--hc, 4), var(--hc, 4) - var(--i)))) rotate(var(--r));
   will-change: transform;
 }
 .fc-in {
@@ -2516,8 +2516,8 @@ html body .hero .btn-hero:hover .btn-roll > span { text-shadow: 0 1px 0 rgba(238
 @media (max-width: 599px) {
   .hero-stage { --fw: clamp(84px, 25vw, 120px); }
   .hero .hero-content { padding: 76px 16px 28px !important; }
-  .hf-card { transform: translateX(calc((var(--i) - 4) * var(--fw) * .48)) rotate(var(--r)); }
-  .hfan > .hf-card:nth-child(1), .hfan > .hf-card:nth-child(9) { display: none; }
+  .hf-card { transform: translateX(calc((var(--i) - var(--hc, 4)) * var(--fw) * .48)) rotate(var(--r)); }
+  .hfan > .hf-card:nth-child(1), .hfan > .hf-card:nth-child(10) { display: none; }
   .hf-tag { font-size: .75rem; padding: 5px 10px; }
 }
 .a11y-clean .hfan { display: none; }
@@ -2535,7 +2535,7 @@ html body .hero .btn-hero:hover .btn-roll > span { text-shadow: 0 1px 0 rgba(238
 /* Hero mobile: 5 cards maiores em leque, centro na frente */
 @media (max-width: 599px) {
   .hero-stage { --fw: clamp(118px, 36vw, 168px); }
-  .hfan > .hf-card:nth-child(1), .hfan > .hf-card:nth-child(2), .hfan > .hf-card:nth-child(8), .hfan > .hf-card:nth-child(9) { display: none !important; }
+  .hfan > .hf-card:nth-child(1), .hfan > .hf-card:nth-child(2), .hfan > .hf-card:nth-child(9), .hfan > .hf-card:nth-child(10) { display: none !important; }
   .hfan { height: calc(var(--fw) + 40px); margin: 6px 0 10px; }
   .hero .hero-content { justify-content: center; gap: 14px !important; padding: 80px 16px 32px !important; }
   .hf-tag { top: -14px; }
@@ -6317,3 +6317,13 @@ html body .zoom-stack .zs-o:has(.zs-lg-pacto-global) { --oc: #12329E; }
 .zs-lg-let-me-be svg { width: 44%; max-height: 54%; }
 .lmb-guides * { stroke: rgba(255,255,255,.75); stroke-width: 1.2; }
 @keyframes lmbGuide { to { opacity: .6; } }
+/* Let Me Be: imagem sempre preenche o bloco todo (sem filete de fundo aparecendo) */
+.lmb-proc figure, .lmb-bento figure { background: transparent; }
+.lmb-proc img { height: 100%; object-fit: cover; }
+@media (min-width: 900px) { .lmb-proc figure { aspect-ratio: 16 / 9; } }
+.lmb-bento img, .lmb-strip img, .lmb-end-bg { display: block; }
+/* leque do topo com 10 cards (Let Me Be): centro entre o 5º e o 6º */
+.hfan { --hc: 4.5; }
+/* galáxia: bolinha com o mouse em cima fica em destaque (igual à da frente) e a galáxia pausa */
+html body .zoom-stack .zs-o.is-hov { --f: 1 !important; }
+html body .zoom-stack .zs-o.is-hov::after, html body .zoom-stack .zs-o.is-hov .zs-lg { transition-duration: .22s !important; }

@@ -64,13 +64,13 @@
       rot.style.transform = 'translate(' + cur.x.toFixed(2) + 'px,' + cur.y.toFixed(2) + 'px) rotate(' + cur.r.toFixed(2) + 'deg) scale(' + cur.s.toFixed(3) + ')';
       if (moving) sraf = requestAnimationFrame(step);
     };
-    var go = function () { if (!sraf) sraf = requestAnimationFrame(step); };
+    var sgo = function () { if (!sraf) sraf = requestAnimationFrame(step); };
     art.addEventListener('pointermove', function (e) {
       var r = art.getBoundingClientRect(), nx = (e.clientX - r.left) / r.width - 0.5, ny = (e.clientY - r.top) / r.height - 0.5;
-      tgt.r = nx * 180 + ny * 40; tgt.s = 1.14; tgt.x = nx * 36; tgt.y = ny * 36; art.classList.add('is-on'); go();
+      tgt.r = nx * 180 + ny * 40; tgt.s = 1.14; tgt.x = nx * 36; tgt.y = ny * 36; art.classList.add('is-on'); sgo();
     });
-    art.addEventListener('pointerleave', function () { tgt.r = 0; tgt.s = 1; tgt.x = 0; tgt.y = 0; go(); });
-    art.addEventListener('click', function () { extra += 360; go(); });
+    art.addEventListener('pointerleave', function () { tgt.r = 0; tgt.s = 1; tgt.x = 0; tgt.y = 0; sgo(); });
+    art.addEventListener('click', function () { extra += 360; sgo(); });
   }
 
   // ---- faixas em movimento só andam quando estão na tela ----

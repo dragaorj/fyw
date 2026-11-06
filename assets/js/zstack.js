@@ -54,6 +54,12 @@
     o.appendChild(w);
   });
   orbs.forEach(function (o, i) { o.addEventListener('click', function () { if (LOGOS[i]) location.href = 'projetos/' + LOGOS[i] + '.html'; }); });
+  // mouse em cima de uma bolinha: a galáxia pausa (a bolinha não foge do cursor) e ela fica em destaque, como a da frente
+  var orbHover = false;
+  orbs.forEach(function (o) {
+    o.addEventListener('pointerenter', function (e) { if (e.pointerType !== 'mouse') return; orbHover = true; o.classList.add('is-hov'); });
+    o.addEventListener('pointerleave', function () { orbHover = false; o.classList.remove('is-hov'); });
+  });
   // uma foto por frase, na mesma ordem das frases; a foto da frase atual vem para a frente (embaixo da frase)
   var seeds = orbs.map(function (o, i) { return { a: i / N * Math.PI * 2, r: .92 + (i % 2) * .08, h: ((i * 3) % 5 - 2) / 4, s: .92 + (i % 3) * .05 }; });
   // centro do ponto final da palavra grande (em relação ao centro da tela)
@@ -79,7 +85,7 @@
   var tick = function () {
     if (!live) return; var now = performance.now(), dt = Math.min(64, now - (lastStepT || now)); lastStepT = now;
     // parado na galáxia: as fotos orbitam a frase sem parar, devagar; desaceleram quando uma chega no centro (embaixo da frase) e a frase troca ali
-    if (inGalaxy && (gather < 1 || now - lastScrollT > 450) && !document.hidden) { // começa a girar junto com a abertura das bolinhas
+    if (inGalaxy && !orbHover && (gather < 1 || now - lastScrollT > 450) && !document.hidden) { // começa a girar junto com a abertura das bolinhas
       autoX += dt / 5600; var ai = Math.floor(autoX), fr = autoX - ai, ef = fr * .35 + (.5 - Math.cos(fr * Math.PI) / 2) * .65, pos = baseK + ai + ef;
       spinT = Math.PI / 2 - pos * Math.PI * 2 / N; setWord(((Math.round(baseK + ai + ef) % N) + N) % N);
     }
