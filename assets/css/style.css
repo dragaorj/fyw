@@ -5193,3 +5193,8 @@ html body .zoom-play .zoom-intro-title { font-size: clamp(3rem, 6.4vw, 8.5rem) !
   html body .zoom-play .zoom-intro { padding-left: 14px !important; padding-right: 14px !important; }
   html body .zoom-play .zoom-intro-title { font-size: 8.7vw !important; max-width: 11em !important; padding: 0 !important; }
 }
+/* mural de clientes em telas menores (tablet/notebook pequeno): sem textos por cima do logo, só o logo colorido no hover */
+@media (min-width: 600px) and (max-width: 1199px) {
+  html body .logo-wall .lw-cell .lw-info { display: none !important; }
+  html body .logo-wall .lw-cell:hover .lw-logo, html body .logo-wall .lw-cell:focus-within .lw-logo { transform: scale(1.06) !important; }
+}
