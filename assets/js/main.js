@@ -617,20 +617,80 @@
       const tiles = $$('.zg');
       const others = tiles.filter(x => x !== center);
       const coverScale = () => Math.max(innerWidth / center.offsetWidth, innerHeight / center.offsetHeight) * 1.12;
-      mm.add({ sm: '(max-width: 599px)', md: '(min-width: 600px)' }, cnd => {
+      // (a grade foi trocada pelo mini game: sem o card central, nada disso roda)
+      if (center) mm.add({ sm: '(max-width: 599px)', md: '(min-width: 600px)' }, cnd => {
         const cols = cnd.conditions.sm ? 3 : 5;
         const mid = Math.floor(cols / 2);
         const colY = el => { const ci = tiles.indexOf(el) % cols; return ci === mid ? 0 : (ci % 2 ? -1 : 1) * (cnd.conditions.sm ? 50 : 90); };
-        gsap.timeline({ scrollTrigger: { trigger: '.zoom-pin', start: 'top top', end: '+=230%', scrub: 0.8, pin: '.zoom-pin', invalidateOnRefresh: true } })
+        // frases gigantes: depois que a tela do meio ocupa tudo, cenas de tipografia entram uma por uma com a rolagem
+        const show = $('.zshow'), scenes = show ? $$('.zk', show) : [];
+        const SC = 1.2, S0 = 1.95, N = scenes.length, END = S0 + N * SC + 0.9;
+        // quebra a palavra em letras; algumas letras ganham imagens dos projetos por dentro
+        const splitWord = w => {
+          const sc = w.closest('.zk'), imgs = (sc.dataset.imgs || '').split(',').filter(Boolean), sw = w.dataset.swap, all = w.classList.contains('zk-all');
+          const txt = (w.textContent || '').trim(); w.setAttribute('aria-label', txt); w.__busy = true; w.innerHTML = ''; let k = 0;
+          [...txt].forEach((ch, i) => {
+            const sp = document.createElement('span'); sp.className = 'zl'; sp.setAttribute('aria-hidden', 'true');
+            if (ch === ' ') { sp.classList.add('zsp'); w.appendChild(sp); return; }
+            const isImg = all || (sw === '-1' ? /[O0]/i.test(ch) : +sw === i);
+            if (isImg && imgs.length) { sp.classList.add('zi'); const list = all ? [imgs[k++ % imgs.length]] : imgs; list.forEach(u => { const b = document.createElement('b'); b.textContent = ch; b.style.backgroundImage = 'url(' + u + ')'; sp.appendChild(b); }); }
+            else sp.textContent = ch;
+            w.appendChild(sp);
+          });
+          w.__busy = false;
+        };
+        const fitWord = w => { w.style.setProperty('--fs', '100px'); w.style.width = 'max-content'; w.style.padding = '0'; const cw = (w.parentElement.clientWidth || innerWidth) * 0.97, ww = w.getBoundingClientRect().width || w.offsetWidth || 1; w.style.width = ''; w.style.padding = ''; const fs = Math.min(100 * cw / ww, innerHeight * 0.5 / 0.84); w.style.setProperty('--fs', fs.toFixed(1) + 'px'); };
+        const words = show ? $$('.zk-word', show) : [];
+        words.forEach(w => { splitWord(w); new MutationObserver(() => { if (w.__busy) return; if (!w.querySelector('.zl')) { splitWord(w); fitWord(w); ScrollTrigger.refresh(); } }).observe(w, { childList: true }); });
+        const fitAll = () => words.forEach(fitWord); fitAll();
+        if (document.fonts && document.fonts.load) document.fonts.load('400 100px Anton').then(() => { fitAll(); ScrollTrigger.refresh(); });
+        addEventListener('resize', () => { clearTimeout(window.__zkF); window.__zkF = setTimeout(fitAll, 150); });
+        const tl = gsap.timeline({ scrollTrigger: { trigger: '.zoom-pin', start: 'top top', end: () => '+=' + Math.round(END * (cnd.conditions.sm ? 75 : 85)) + '%', scrub: 0.8, pin: '.zoom-pin', invalidateOnRefresh: true } })
           .fromTo('.zoom-grid', { scale: 0.82 }, { scale: 1, ease: 'power1.inOut', duration: 0.6 }, 0)
           .fromTo(others, { y: 0 }, { y: (i, el) => -colY(el), ease: 'none', duration: 0.8 }, 0.15)
           .to(others, { filter: 'blur(10px)', ease: 'power1.in', duration: 0.55 }, 0.45)
           .to(others, { scale: 0.7, opacity: 0, ease: 'power1.in', duration: 0.6, stagger: { each: 0.025, from: 'center' } }, 0.85)
-          .to(center, { scale: coverScale, borderRadius: 0, ease: 'power2.inOut', duration: 1 }, 0.95)
-          .to(center.querySelector('img'), { scale: 1.1, ease: 'none', duration: 1 }, 0.95)
-          .to(center, { '--shade': 1, ease: 'none', duration: 0.4 }, 1.55)
-          .fromTo('.zoom-final', { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.35, onStart: () => $('.zoom').classList.add('is-final'), onReverseComplete: () => $('.zoom').classList.remove('is-final') }, 1.75)
-          .set({}, {}, 2.3);
+          .to(center, { scale: coverScale, borderRadius: 0, ease: 'power2.inOut', duration: 1 }, 0.95);
+        if (show && N) {
+          const bar = $('.zs-progress i', show);
+          // cada cena entra com uma "cortina" diferente
+          const WIPE = [['inset(100% 0% 0% 0%)', 'inset(0% 0% 0% 0%)'], ['inset(0% 0% 0% 100%)', 'inset(0% 0% 0% 0%)'], ['circle(0% at 50% 50%)', 'circle(150% at 50% 50%)'], ['inset(0% 0% 100% 0%)', 'inset(0% 0% 0% 0%)'], ['inset(0% 100% 0% 0%)', 'inset(0% 0% 0% 0%)']];
+          tl.fromTo(show, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2, ease: 'none', onStart: () => show.classList.add('is-live'), onReverseComplete: () => show.classList.remove('is-live') }, 1.75)
+            .fromTo(bar, { scaleX: 0 }, { scaleX: 1, ease: 'none', duration: N * SC }, S0);
+          scenes.forEach((sc, i) => {
+            const t = S0 + i * SC, w = $('.zk-word', sc), notes = $$('.zk-note, .zk-small', sc), wp = WIPE[i % WIPE.length];
+            tl.set(sc, { visibility: 'visible' }, t - 0.001)
+              .fromTo(sc, { clipPath: wp[0] }, { clipPath: wp[1], duration: i ? 0.32 : 0.2, ease: 'power3.inOut' }, t)
+              .fromTo(notes, { y: 24, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.22, stagger: 0.05, ease: 'power2.out' }, t + 0.3);
+            if (i > 0) tl.set(scenes[i - 1], { visibility: 'hidden' }, t + 0.34);
+            const L = () => w ? $$('.zl', w) : [];
+            if (i === 0 && w) { // letras sobem uma a uma; a letra com imagem troca de projeto
+              tl.fromTo(L(), { yPercent: 110 }, { yPercent: 0, duration: 0.4, stagger: 0.04, ease: 'power3.out' }, t + 0.05);
+              const bs = $$('.zi > b', w); bs.forEach((b, j) => { if (j) tl.to(b, { opacity: 1, duration: 0.05, ease: 'none' }, t + 0.45 + j * ((SC - 0.5) / bs.length)); });
+              tl.to(w, { scale: 1.03, duration: SC - 0.3, ease: 'none' }, t + 0.3);
+            } else if (i === 1 && w) { // a frase atravessa a tela
+              tl.fromTo(w, { xPercent: 35, skewX: -8 }, { xPercent: -35, skewX: 0, duration: SC + 0.2, ease: 'none' }, t);
+            } else if (i === 2 && w) { // letras viram uma a uma, cada uma com um projeto dentro
+              tl.fromTo(L(), { rotateX: -95, yPercent: 30, autoAlpha: 0, transformPerspective: 800, transformOrigin: '50% 100%' }, { rotateX: 0, yPercent: 0, autoAlpha: 1, duration: 0.3, stagger: { each: 0.03, from: 'random' }, ease: 'back.out(1.6)' }, t + 0.12)
+                .to($$('.zi > b', w), { backgroundPosition: '80% 50%', duration: SC - 0.3, ease: 'none' }, t + 0.3);
+            } else if (i === 3 && w) { // número gigante chega de perto e encaixa
+              tl.fromTo(w, { scale: 3.2, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.45, ease: 'expo.out' }, t + 0.05)
+                .to(w, { scale: 0.92, duration: SC - 0.5, ease: 'none' }, t + 0.5);
+            } else if (i === 4) { // nomes dos clientes correndo em sentidos opostos
+              const rows = $$('.zk-row', sc);
+              if (rows[0]) tl.fromTo(rows[0], { xPercent: 10 }, { xPercent: -45, duration: SC + 0.4, ease: 'none' }, t);
+              if (rows[1]) tl.fromTo(rows[1], { xPercent: -10 }, { xPercent: 45, duration: SC + 0.4, ease: 'none' }, t);
+            }
+          });
+          tl.to(show, { autoAlpha: 0, duration: 0.25, ease: 'none', onComplete: () => show.classList.remove('is-live'), onReverseComplete: () => show.classList.add('is-live') }, S0 + N * SC);
+        }
+        // pular a apresentação: vai direto para o fim (texto final + botão)
+        const skip = show && $('.zs-skip', show);
+        if (skip) skip.onclick = () => { const st = tl.scrollTrigger; if (!st) return; const y = st.start + (st.end - st.start) * ((S0 + N * SC + 0.5) / END); if (window.__lenis) window.__lenis.scrollTo(y, { duration: 1.2 }); else scrollTo({ top: y, behavior: 'smooth' }); };
+        const FIN = show && N ? S0 + N * SC : 1.75;
+        tl.to(center, { '--shade': 1, ease: 'none', duration: 0.3 }, FIN - 0.1)
+          .fromTo('.zoom-final', { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.35, onStart: () => $('.zoom').classList.add('is-final'), onReverseComplete: () => $('.zoom').classList.remove('is-final') }, FIN + 0.1)
+          .set({}, {}, END);
       });
       // onda: ondula ao redor do cursor; mais forte com movimento rápido, acalma quando para
       if (false && finePointer) { // efeito de onda desativado (pesava)
