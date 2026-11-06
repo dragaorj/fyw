@@ -171,7 +171,7 @@
     [['nome', !okName(n), t.badName], ['telefone', !okPhone(p), t.badPhone], ['email', !/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(m), t.badEmail]].forEach(function (c) { if (c[1]) { form[c[0]].parentNode.classList.add('is-bad'); if (!bad) { first = c[2]; form[c[0]].focus({ preventScroll: true }); } bad = true; } });
     if (bad) { msg.textContent = first; return; }
     if (form._honey.value) return;
-    var svc = Array.prototype.slice.call(form.querySelectorAll('input[name="servico"]:checked')).map(function (i) { return i.value; }).join(', ') || '—';
+    var svc = Array.prototype.slice.call(form.querySelectorAll('input[name="servico"]:checked')).map(function (i) { return i.value; }).join(', ') || '-';
     var btn = form.querySelector('.lf-send'), lbls = btn.querySelectorAll('.btn-roll > span'), orig = lbls[0].textContent; var setL = function (s) { lbls.forEach(function (x) { x.textContent = s; }); };
     btn.disabled = true; setL(t.sending); msg.textContent = '';
     var bar = btn.querySelector('.lf-bar'); if (!bar) { bar = document.createElement('span'); bar.className = 'lf-bar'; bar.setAttribute('aria-hidden', 'true'); btn.insertBefore(bar, btn.firstChild); }
@@ -181,19 +181,19 @@
     var tf = function (u, o, ms) { var c = window.AbortController ? new AbortController() : null; if (c) { o.signal = c.signal; setTimeout(function () { c.abort(); }, ms); } return fetch(u, o); };
     var okJson = function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || !(j.success === true || j.success === 'true')) throw new Error(j.message || 'erro'); }); };
     // 1º: e-mail no visual do site (/api/contact, Resend). Se não estiver configurado, cai no FormSubmit.
-    var svcList = svc === '—' ? [] : svc.split(', ');
+    var svcList = svc === '-' ? [] : svc.split(', ');
     tf('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: n, whatsapp: p, email: m, services: svcList, message: x, page: location.href, lang: lang(), _honey: form._honey.value }) }, 10000)
     .then(okJson)
     .catch(function () { if (!W3F_KEY) throw 0; return tf('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({ access_key: W3F_KEY, subject: 'Novo contato do site da Fyw — ' + n + (svc !== '—' ? ' (' + svc + ')' : ''), from_name: 'Site Fyw', replyto: m, botcheck: form._honey.value,
-        'Nome': n, 'WhatsApp': p, 'Abrir conversa no WhatsApp': 'https://wa.me/' + (lang() === 'pt' ? '55' : '') + p.replace(/\D/g, ''), 'E-mail': m, 'Do que precisa': svc, 'Mensagem': x || '—',
+      body: JSON.stringify({ access_key: W3F_KEY, subject: 'Novo contato do site da Fyw · ' + n + (svc !== '-' ? ' (' + svc + ')' : ''), from_name: 'Site Fyw', replyto: m, botcheck: form._honey.value,
+        'Nome': n, 'WhatsApp': p, 'Abrir conversa no WhatsApp': 'https://wa.me/' + (lang() === 'pt' ? '55' : '') + p.replace(/\D/g, ''), 'E-mail': m, 'Do que precisa': svc, 'Mensagem': x || '-',
         'Enviado em': new Date().toLocaleString('pt-BR', { dateStyle: 'full', timeStyle: 'short' }), 'Página de origem': location.href }) }, 12000).then(okJson); })
     .catch(function () { return tf(ENDPOINT, {
       method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({ _subject: 'Novo contato do site da Fyw — ' + n + (svc !== '—' ? ' (' + svc + ')' : ''), _template: 'table', _captcha: 'false', _replyto: m,
+      body: JSON.stringify({ _subject: 'Novo contato do site da Fyw · ' + n + (svc !== '-' ? ' (' + svc + ')' : ''), _template: 'table', _captcha: 'false', _replyto: m,
         'Nome': n, 'WhatsApp': p, 'Abrir conversa no WhatsApp': 'https://wa.me/' + (lang() === 'pt' ? '55' : '') + p.replace(/\D/g, ''),
-        'E-mail': m, 'Do que precisa': svc, 'Mensagem': x || '—',
+        'E-mail': m, 'Do que precisa': svc, 'Mensagem': x || '-',
         'Enviado em': new Date().toLocaleString('pt-BR', { dateStyle: 'full', timeStyle: 'short' }),
         'Idioma do site': ({ pt: 'Português', en: 'Inglês', es: 'Espanhol' })[lang()], 'Página de origem': location.href })
     }, 15000).then(okJson); })

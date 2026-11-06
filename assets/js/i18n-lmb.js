@@ -6,7 +6,7 @@
   var S = function (b, s) { return '<span class="pp2-fx" aria-hidden="true"></span><b>' + b + '</b><span>' + s + '</span>'; };
   var PAL = function (n, m, hex, rgb) { return '<b>' + n + '</b><i>' + m + '</i><span>' + hex + '</span><span>' + rgb + '</span>'; };
   var L = {
-    'Let Me Be — Rebranding | Fyw': ['Let Me Be — Rebranding | Fyw', 'Let Me Be — Rebranding | Fyw'],
+    'Let Me Be · Rebranding | Fyw': ['Let Me Be · Rebranding | Fyw', 'Let Me Be · Rebranding | Fyw'],
     'Let Me Be: rebranding de uma marca brasileira de beleza capilar. Novo lettering, paleta, tipografia, redes sociais e embalagens criados pela Fyw.': ['Let Me Be: rebranding of a Brazilian hair beauty brand. New lettering, palette, typography, social media and packaging created by Fyw.', 'Let Me Be: rebranding de una marca brasileña de belleza capilar. Nuevo lettering, paleta, tipografía, redes sociales y empaques creados por Fyw.'],
     'Marília, Brasil': ['Marília, Brazil', 'Marília, Brasil'],
     'Cosméticos · Rebranding': ['Cosmetics · Rebranding', 'Cosméticos · Rebranding'],
@@ -161,8 +161,8 @@
     "“A beleza é uma forma de expressão. Seja quem você quiser ser.”": ["“Beauty is a form of expression. Be whoever you want to be.”","“La belleza es una forma de expresión. Sé quien quieras ser.”"],
     "Traz sensorialidade, prazer e cuidado pessoal. Reforça a conexão emocional com a marca e transforma o cuidado com a beleza em autoestima e bem-estar.": ["It brings sensoriality, pleasure and self-care. It strengthens the emotional connection with the brand and turns beauty care into self-esteem and well-being.","Aporta sensorialidad, placer y cuidado personal. Refuerza la conexión emocional con la marca y transforma el cuidado de la belleza en autoestima y bienestar."],
     "“Sinta sua beleza. Valorize sua essência.”": ["“Feel your beauty. Value your essence.”","“Siente tu belleza. Valora tu esencia.”"],
-    "<span><b>Criador</b> — principal</span><em>70%</em><i></i>": ["<span><b>Creator</b> — primary</span><em>70%</em><i></i>","<span><b>Creador</b> — principal</span><em>70%</em><i></i>"],
-    "<span><b>Amante</b> — secundário</span><em>30%</em><i></i>": ["<span><b>Lover</b> — secondary</span><em>30%</em><i></i>","<span><b>Amante</b> — secundario</span><em>30%</em><i></i>"],
+    "<span><b>Criador</b> · principal</span><em>70%</em><i></i>": ["<span><b>Creator</b> · primary</span><em>70%</em><i></i>","<span><b>Creador</b> · principal</span><em>70%</em><i></i>"],
+    "<span><b>Amante</b> · secundário</span><em>30%</em><i></i>": ["<span><b>Lover</b> · secondary</span><em>30%</em><i></i>","<span><b>Amante</b> · secundario</span><em>30%</em><i></i>"],
     "Proporção conceitual para orientar a comunicação, não uma medição científica. O equilíbrio posiciona a Let Me Be como uma marca criativa, sofisticada e emocionalmente próxima do seu público.": ["A conceptual ratio to guide communication, not a scientific measurement. The balance positions Let Me Be as a creative, sophisticated brand that is emotionally close to its audience.","Proporción conceptual para orientar la comunicación, no una medición científica. El equilibrio posiciona a Let Me Be como una marca creativa, sofisticada y emocionalmente cercana a su público."],
     "Análise SWOT": ["SWOT analysis","Análisis FODA"],
     "<b>S</b><span><strong>Forças</strong><small>Fatores internos positivos</small></span>": ["<b>S</b><span><strong>Strengths</strong><small>Positive internal factors</small></span>","<b>F</b><span><strong>Fortalezas</strong><small>Factores internos positivos</small></span>"],
