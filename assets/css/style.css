@@ -5573,3 +5573,8 @@ html body .zoom-stack p.zs-scroll { width: auto; height: auto; border: 0; border
 /* Beta colorida: texto escuro + o detalhe vermelho (a logo original), sempre visível sobre a película clara */
 html body .zs-lg-beta-online .zs-lg-col [fill="#242424"] { fill: #242424 !important; }
 html body .zs-lg-beta-online .zs-lg-col [fill="#CD2323"] { fill: #CD2323 !important; }
+/* desktop/tablet: menos vazio entre os números e "Feito para impressionar" */
+@media (min-width: 600px) {
+  html body .zoom-stack { margin-top: calc(min(14vh, 140px) - 50vh + 6.4vw) !important; }
+  html body .zoom-stack .zs-stage { background: transparent; pointer-events: none; }
+}
