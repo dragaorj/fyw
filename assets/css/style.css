@@ -5164,3 +5164,21 @@ html.zg-lock .zg-canvas { cursor: crosshair !important; }
 /* título da seção do jogo maior (desktop e celular) */
 html body .zoom-play .zoom-intro-title { font-size: clamp(3rem, 6.4vw, 8.5rem) !important; line-height: .98 !important; max-width: 13em !important; letter-spacing: -.05em; text-wrap: balance; }
 @media (max-width: 599px) { html body .zoom-play .zoom-intro-title { font-size: 13.2vw !important; max-width: 9ch !important; padding: 0 12px; } }
+/* controles do jogo: no celular, duas bolinhas empilhadas no canto inferior direito (som e fechar) */
+.zg-ui .zg-ic { display: none; width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.zg-ui .zg-ic path:first-child { fill: currentColor; }
+.zg-ui .ic-x path { fill: none !important; }
+@media (max-width: 599px) {
+  .zg-ui { top: auto !important; bottom: 16px !important; right: 14px !important; flex-direction: column-reverse; gap: 10px; }
+  .zg-ui button { width: 46px; height: 46px !important; padding: 0 !important; border-radius: 50% !important; justify-content: center; }
+  .zg-ui button span, .zg-ui .zg-skip-ar { display: none !important; }
+  .zg-sound[aria-pressed="true"] .ic-on, .zg-sound[aria-pressed="false"] .ic-off, .zg-skip .ic-x { display: block; }
+  .zg-sound[aria-pressed="false"] { opacity: 1; text-decoration: none; }
+  .zg-hint { bottom: 12px !important; left: 16px !important; translate: none !important; text-align: left; max-width: calc(100% - 90px); white-space: normal !important; }
+}
+/* Hero celular v2: título um pouco menor e mais largo (sem ser coberto pelos cards), frase em duas linhas */
+@media (max-width: 599px) {
+  html body .hero .hero-title { max-width: 100% !important; font-size: 10.4vw !important; line-height: 1 !important; }
+  html body .hero .hfan { margin-top: 22px !important; margin-bottom: 26px !important; }
+  html body .hero .hero-sub { max-width: none !important; font-size: 3.02vw !important; line-height: 1.45 !important; letter-spacing: -.01em; text-wrap: balance; padding: 0; margin-inline: -6px !important; }
+}

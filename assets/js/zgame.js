@@ -245,6 +245,9 @@
   // frases de apoio da tela final sempre em duas linhas: largura = metade do texto
   var twoLines = function () { sec.querySelectorAll('.zp-s').forEach(function (el) { el.style.setProperty('max-width', 'min(92vw, ' + Math.ceil(el.textContent.trim().length / 2 + 2) + 'ch)', 'important'); }); };
   twoLines(); new MutationObserver(function () { setTimeout(twoLines, 50); }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+  // proteção: se por algum motivo a rolagem ficar presa depois do jogo, destrava no próximo toque/rolagem
+  var unstick = function () { if (locked) return; if (document.querySelector('.lf.is-open') || document.querySelector('.smp-back.is-on')) return; document.documentElement.classList.remove('zg-lock'); var b = document.body.style; if (b.position === 'fixed' && !document.querySelector('.lf.is-open')) { b.position = b.top = b.left = b.right = b.width = ''; } if (window.__lenis && window.__lenis.isStopped) window.__lenis.start(); };
+  ['touchstart', 'wheel', 'keydown'].forEach(function (ev) { addEventListener(ev, unstick, { passive: true, capture: true }); });
   if (document.readyState === 'complete') init(); else addEventListener('load', init);
   addEventListener('resize', function () { if (S && live) { var k = S.px / W, ky = S.py / H; resize(); S.px = S.tx = k * W; S.py = S.ty = ky * H; } });
 })();
