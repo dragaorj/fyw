@@ -1,3 +1,4 @@
+window.__fywTagBg = function (hex) { var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''); if (!m) return hex; var n = parseInt(m[1], 16), c = [n >> 16 & 255, n >> 8 & 255, n & 255]; var lum = function (a) { var v = a.map(function (x) { x /= 255; return x <= .03928 ? x / 12.92 : Math.pow((x + .055) / 1.055, 2.4); }); return .2126 * v[0] + .7152 * v[1] + .0722 * v[2]; }; for (var k = 1; k >= .5; k -= .01) { var d = c.map(function (x) { return Math.round(x * k); }); if (1.05 / (lum(d) + .05) >= 4.6) return '#' + d.map(function (x) { return ('0' + x.toString(16)).slice(-2); }).join(''); } return hex; };
 /* =========================================================
    FIO — interações
    ========================================================= */
@@ -306,7 +307,7 @@
           const pj = PJ[el.dataset.project]; if (!pj) return;
           let tag = el.querySelector('.hf-tag');
           if (!tag) { tag = document.createElement('span'); tag.className = 'hf-tag ' + TC[i % 3]; el.appendChild(tag); }
-          tag.textContent = pj.name; const tt = document.createElement("span"); tt.className = "hf-tt"; tt.textContent = " · " + pj.type; tag.appendChild(tt); if (pj.color) { tag.style.setProperty('--tc', pj.color, 'important'); tag.style.setProperty('color', pj.ink || '#fff', 'important'); }
+          tag.textContent = pj.name; const tt = document.createElement("span"); tt.className = "hf-tt"; tt.textContent = " · " + pj.type; tag.appendChild(tt); if (pj.color) { tag.style.setProperty('--tc', pj.ink ? pj.color : window.__fywTagBg(pj.color), 'important'); tag.style.setProperty('color', pj.ink || '#fff', 'important'); }
         });
         const ROT = fCards.map(el => parseFloat(el.style.getPropertyValue('--r')) || 0);
         const PILE = [-6, 4, -2, 7, -4, 3, -7, 5, -3];
@@ -717,7 +718,7 @@
         });
         $('.zoom-pin').addEventListener('mouseleave', () => { active = false; });
       }
-      gsap.from('.zoom-intro > *:not(.zs-outro):not(.zs-cta)', { y: 30, opacity: 0, duration: 1.1, ease: E, stagger: 0.1, scrollTrigger: { trigger: '.zoom', start: 'top 70%' } });
+      gsap.from('.zoom:not(.zoom-stack) .zoom-intro > *', { y: 30, opacity: 0, duration: 1.1, ease: E, stagger: 0.1, scrollTrigger: { trigger: '.zoom', start: 'top 70%' } });
 
       });
       chunk(() => {
@@ -1454,7 +1455,7 @@
       const pj = PJ[el.dataset.project]; if (!pj) return;
       let tag = el.querySelector('.hf-tag');
       if (!tag) { tag = document.createElement('span'); tag.className = 'hf-tag ' + TC[i % 3]; el.appendChild(tag); }
-      tag.textContent = pj.name; const tt = document.createElement("span"); tt.className = "hf-tt"; tt.textContent = " · " + pj.type; tag.appendChild(tt); if (pj.color) { tag.style.setProperty('--tc', pj.color, 'important'); tag.style.setProperty('color', pj.ink || '#fff', 'important'); }
+      tag.textContent = pj.name; const tt = document.createElement("span"); tt.className = "hf-tt"; tt.textContent = " · " + pj.type; tag.appendChild(tt); if (pj.color) { tag.style.setProperty('--tc', pj.ink ? pj.color : window.__fywTagBg(pj.color), 'important'); tag.style.setProperty('color', pj.ink || '#fff', 'important'); }
     });
   })();
   // tela de carregamento: sobe até 100% quando a página e o vídeo estão prontos (no máximo ~3s)

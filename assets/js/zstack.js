@@ -23,6 +23,8 @@
   };
 
   // ---- galáxia: cada imagem numa órbita elíptica inclinada; a profundidade muda tamanho, nitidez e ordem ----
+  // giro sozinho: parado na galáxia, ela passa de um cliente para o outro; rolar a página volta a mandar
+  var pendW = null, autoX = 0, baseU = 0, baseK = 0, lastScrollT = 0, lastStepT = 0, inGalaxy = false;
   var N = orbs.length, spin = 0, scrollSpin = Math.PI / 2, spinT = Math.PI / 2, spread = 0, gather = 0, live = false;
   // logo branca de cada cliente na frente da foto (copiada do mural de clientes), sobre uma película escura
   var LOGOS = ['lumiere', 'jogo-pela-integridade', 'latimpacto', 'kyoto', 'beta-online', 'cimed', 'pacto-global'];
@@ -49,14 +51,15 @@
     if (li && li.style.getPropertyValue('--brand')) o.style.setProperty('--brand', li.style.getPropertyValue('--brand'));
     o.appendChild(w);
   });
+  orbs.forEach(function (o, i) { o.addEventListener('click', function () { if (LOGOS[i]) location.href = 'projetos/' + LOGOS[i] + '.html'; }); });
   // uma foto por frase, na mesma ordem das frases; a foto da frase atual vem para a frente (embaixo da frase)
   var seeds = orbs.map(function (o, i) { return { a: i / N * Math.PI * 2, r: .92 + (i % 2) * .08, h: ((i * 3) % 5 - 2) / 4, s: .92 + (i % 3) * .05 }; });
   // centro do ponto final da palavra grande (em relação ao centro da tela)
   var DP = { x: 0, y: 0, s: .12 };
-  var measureDot = function () { var el = word, t = el.firstChild; if (!t || !t.data) return; var j = t.data.lastIndexOf('.'); if (j < 0) return; var r = document.createRange(); r.setStart(t, j); r.setEnd(t, j + 1); var b = r.getBoundingClientRect(), o = sec.querySelector('.zs-orbit').getBoundingClientRect(); DP.x = b.left + b.width / 2 - o.left; DP.y = b.top + b.height * .78 - o.top; DP.s = Math.max(.05, b.width * .55 / (innerWidth < 600 ? 92 : Math.min(200, innerWidth * .11))); };
+  var measureDot = function () { var el = word, t = el.firstChild; if (!t || !t.data) return; var j = t.data.lastIndexOf('.'); if (j < 0) return; var r = document.createRange(); r.setStart(t, j); r.setEnd(t, j + 1); var b = r.getBoundingClientRect(), o = sec.querySelector('.zs-orbit').getBoundingClientRect(); DP.x = b.left + b.width / 2 - o.left; DP.y = b.top + b.height * .78 - o.top; DP.s = Math.max(.05, b.width * .55 / (innerWidth < 600 ? 92 : Math.min(200, innerWidth * (innerWidth < innerHeight ? .15 : .11)))); };
   var renderOrbit = function () {
-    var W = innerWidth, H = innerHeight, mob = W < 600, RX = W * (mob ? .5 : .4), RY = mob ? Math.min(H * .16, W * .34) : H * .27, // no celular: anel deitado (inclinado), igual ao desktop
-        base = mob ? 92 : Math.min(200, W * .11);
+    var W = innerWidth, H = innerHeight, mob = W < 600, RX = W * (mob ? .5 : (W < H ? .44 : .4)), RY = mob ? Math.min(H * .16, W * .34) : Math.min(H * .27, RX * (W < H ? .5 : .42)), // anel sempre deitado, inclusive em tela em pé // no celular: anel deitado (inclinado), igual ao desktop
+        base = mob ? 92 : Math.min(200, W * (W < H ? .15 : .11));
     orbs.forEach(function (o, i) {
       // spread = 0..1 no fim: as bolinhas se juntam todas no centro (é dali que o site abre)
       var sd = seeds[i], th = sd.a + spin + scrollSpin, g = gather * gather * (3 - 2 * gather), m = spread * spread * (3 - 2 * spread), rr = sd.r * (1 - m) * g;
@@ -71,7 +74,15 @@
       o.style.width = base + 'px'; o.style.opacity = op.toFixed(3); o.style.zIndex = depth > 0 ? 3 : 1; o.style.filter = depth < -.2 && m < .5 ? 'blur(' + ((-depth - .2) * 1.2 * (1 - m)).toFixed(1) + 'px)' : 'none';
     });
   };
-  var tick = function () { if (!live) return; scrollSpin += (spinT - scrollSpin) * .07; renderOrbit(); };
+  var tick = function () {
+    if (!live) return; var now = performance.now(), dt = Math.min(64, now - (lastStepT || now)); lastStepT = now;
+    // parado na galáxia: as fotos orbitam a frase sem parar, devagar; desaceleram quando uma chega no centro (embaixo da frase) e a frase troca ali
+    if (inGalaxy && now - lastScrollT > 1200 && !document.hidden) {
+      autoX += dt / 5600; var ai = Math.floor(autoX), fr = autoX - ai, ef = fr * .35 + (.5 - Math.cos(fr * Math.PI) / 2) * .65, pos = baseK + ai + ef;
+      spinT = Math.PI / 2 - pos * Math.PI * 2 / N; setWord(((Math.round(baseK + ai + ef) % N) + N) % N);
+    }
+    scrollSpin += (spinT - scrollSpin) * .12; renderOrbit();
+  };
   var curW = -1;
   var setWord = function (i) {
     if (i === curW) return; curW = i; var list = WORDS[lang()], txt = list[((i % list.length) + list.length) % list.length];
@@ -149,14 +160,15 @@
           if (p < .1) { var q = dotPoint(title); if (q) gsap.set(fill, { left: q.sx, top: q.sy }); }
           var on = p > A - .02 && p < B + .05; if (on !== live) { live = on; if (on) gsap.ticker.add(tick); else gsap.ticker.remove(tick); }
           // a rolagem também gira a galáxia; na saída as imagens se espalham para fora
-          var P0 = A + .05, uR = Math.max(0, Math.min(nW - 1, (p - P0) / (B - P0) * nW - .5)), kk = Math.round(uR), dd = uR - kk, ee = Math.min(1, Math.max(0, Math.abs(dd) - .1) / .4); ee = .5 - Math.cos(ee * Math.PI) / 2; spinT = Math.PI / 2 - (kk + (dd < 0 ? -1 : 1) * ee * .5) * Math.PI * 2 / N; spread = p > B ? Math.min(1, (p - B) / .04) : 0; gather = Math.max(0, Math.min(1, (p - A) / .08));
-          if (p >= A - .02 && p <= B + .02) setWord(kk);
+          var P0 = A + .05, uR = Math.max(0, Math.min(nW - 1, (p - P0) / (B - P0) * nW - .5)), kk = Math.round(uR), dd = uR - kk, ee = Math.min(1, Math.max(0, Math.abs(dd) - .1) / .4); ee = .5 - Math.cos(ee * Math.PI) / 2; autoX = Math.round(autoX); baseU = kk + (dd < 0 ? -1 : 1) * ee * .5; baseK = kk; spinT = Math.PI / 2 - (baseU + autoX) * Math.PI * 2 / N; var nowT = performance.now(); lastScrollT = nowT; inGalaxy = p > A + .06 && p < B - .01; spread = p > B ? Math.min(1, (p - B) / .04) : 0; gather = Math.max(0, Math.min(1, (p - A) / .08));
+          if (p >= A - .02 && p <= B + .02) setWord((kk + autoX) % N);
           if (p < A + .09) measureDot(); if (live) renderOrbit();
         } } });
     // entrada: zoom no ponto final até a cor da letra tomar a tela
-    tl.to(title, { scale: 7, ease: 'power2.in', duration: .1 }, 0)
+    gsap.set(title, { autoAlpha: 1, y: 0 }); // a frase sempre começa visível
+    tl.fromTo(title, { scale: 1 }, { scale: 7, ease: 'power2.in', duration: .1 }, 0)
       .fromTo(fill, { scale: 0 }, { scale: function () { return cover(D); }, ease: 'power2.in', duration: .09 }, .015)
-      .to(title, { autoAlpha: 0, duration: .02 }, .095)
+      .fromTo(title, { autoAlpha: 1 }, { autoAlpha: 0, duration: .02, immediateRender: false }, .095)
       .fromTo(cosmos, { autoAlpha: 0 }, { autoAlpha: 1, duration: .02 }, .1)
       // com a tela já tomada pela cor, o palco e a seção inteira ganham essa cor também (nunca sobra borda, mesmo se a tela mudar de tamanho)
       .fromTo([stage, sec], { backgroundColor: 'rgba(0,0,0,0)' }, { backgroundColor: function () { return getComputedStyle(fill).backgroundColor; }, duration: .001, immediateRender: false }, .1)

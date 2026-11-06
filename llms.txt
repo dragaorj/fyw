@@ -1,0 +1,42 @@
+# Fyw
+
+> Estúdio de design e tecnologia que cria sites, marcas, apps e sistemas sob medida que transformam visitas em clientes, para empresas de qualquer nicho, no Brasil e no exterior. Fundado em 2023 por Marlon Dias, web designer sênior com mais de 15 anos de experiência.
+
+Site: https://fyw.com.br
+Contato: fyw.ggwp@gmail.com (proposta em até 48 horas)
+Idiomas de atendimento: português, inglês e espanhol (trabalho remoto com equipes de vários países)
+CNPJ: 27.354.079/0001-05
+
+## O que a Fyw faz
+
+- **UI/UX e Web Design:** sites e interfaces que convertem. Pesquisa, wireframes, design e desenvolvimento. Sites rápidos, responsivos e prontos para o Google.
+- **Branding e Rebranding:** estratégia, naming, logo, cores, tipografia e manual de marca.
+- **Apps e Sistemas:** apps iOS e Android e sistemas web sob medida, do protótipo ao lançamento, com suporte depois.
+- **Design Systems:** biblioteca de componentes e regras para produtos consistentes e times mais rápidos.
+
+## Como a Fyw trabalha
+
+- Todo projeto é desenhado do zero no Figma a partir do briefing do cliente. Não usa WordPress, Framer nem templates.
+- O desenvolvimento é feito em código próprio.
+- Primeiro entende a dor do negócio, depois cria a solução. Premissa: "Não fazemos só algo bonito. Resolvemos problemas."
+- Prazo típico: branding de 2 a 3 semanas; sites de 2 a 3 semanas (varia com o tamanho do projeto).
+
+## Para quem é
+
+Empresas de qualquer nicho que precisam de um site que explique o que fazem, mostre como resolvem a dor do cliente e transforme interesse em contato 24 horas por dia. Atende de pequenos negócios a marcas internacionais e multinacionais.
+
+## Projetos
+
+- [Lumière](https://fyw.com.br/projetos/lumiere.html): clínica de odontologia estética em Miami.
+- [Latimpacto](https://fyw.com.br/projetos/latimpacto.html): site da Impact Minds, em três idiomas.
+- [Impacta Mais](https://fyw.com.br/projetos/impacta-mais.html): site e agenda de um fórum de economia de impacto no Brasil.
+- [Pacto Global da ONU – Rede Brasil](https://fyw.com.br/projetos/pacto-global.html): site para a COP30, em Belém.
+- [Kyoto](https://fyw.com.br/projetos/kyoto.html): marca, embalagens e site para um arroz premium japonês.
+- [Cimed](https://fyw.com.br/projetos/cimed.html): site institucional com produtos, marcas e busca.
+- [Beta Online](https://fyw.com.br/projetos/beta-online.html): design system e site novo para uma escola de Perícia Judicial.
+- [Jogo pela Integridade (São Paulo FC)](https://fyw.com.br/projetos/jogo-pela-integridade.html): site oficial do jogo.
+- [Todos os projetos](https://fyw.com.br/projetos.html)
+
+## English summary
+
+Fyw is a design and technology studio (founded in 2023 by senior web designer Marlon Dias) that builds custom websites, brands, apps and systems that turn visitors into customers. Services: UI/UX and web design, branding and rebranding, apps and web systems, and design systems. Every project is designed from scratch in Figma and hand-coded (no WordPress, Framer or templates). Works remotely with clients worldwide in Portuguese, English and Spanish. Contact: fyw.ggwp@gmail.com — https://fyw.com.br
