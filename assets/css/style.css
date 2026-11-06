@@ -5636,3 +5636,8 @@ html body.pj-jpi .pp2-brand svg.pb-sub { width: calc(68px * var(--k)) !important
 html body.pj-jpi .pp2-brand > i { height: calc(80px * var(--k)) !important; }
 /* véu do corte suave ao voltar da apresentação */
 .zs-veil { position: fixed; inset: 0; z-index: 110; background: var(--bg); opacity: 0; visibility: hidden; pointer-events: none; }
+/* "Feito para impressionar. Pensado para vender." sempre em 2 linhas do tablet para cima (o tamanho se ajusta à largura disponível) */
+@media (min-width: 600px) {
+  html body .zoom-stack .zoom-intro { padding-inline: 32px !important; }
+  html body .zoom-stack .zoom-intro-title:not(.zs-outro) { font-size: min(clamp(3rem, 6.4vw, 8.5rem), calc((100vw - 96px) / 13)) !important; max-width: none !important; text-wrap: balance; }
+}
