@@ -101,5 +101,30 @@
   var on = null;
   function u() { var s = window.scrollY > 320; if (s !== on) { on = s; if (dock) dock.classList.toggle('is-on', s); document.body.classList.toggle('dock-on', s); if (nav) nav.classList.toggle('is-gone', s); } }
   addEventListener('scroll', u, { passive: true }); u();
+  // cor da logo da doca conforme o fundo atrás dela: fundo escuro -> logo clara; fundo claro -> logo preta
+  if (dock) (function () {
+    var raf = 0, last = 0, tail = 0;
+    var lum = function (x, y) {
+      var hits = document.elementsFromPoint(x, y);
+      for (var i = 0; i < hits.length; i++) {
+        var el = hits[i]; if (dock.contains(el) || (el.closest && el.closest('.cursor'))) continue;
+        if (/^(IMG|VIDEO|IFRAME|CANVAS)$/.test(el.tagName)) return .3;
+        for (var n = el; n && n !== document.documentElement; n = n.parentElement) {
+          var c = getComputedStyle(n).backgroundColor, m = c.match(/[\d.]+/g);
+          if (m && (m[3] === undefined || +m[3] > .5)) return (.2126 * m[0] + .7152 * m[1] + .0722 * m[2]) / (c.indexOf('color(') === 0 ? 1 : 255);
+        }
+      }
+      return document.documentElement.dataset.theme === 'dark' ? .05 : .93;
+    };
+    var check = function () {
+      raf = 0; last = performance.now(); if (!dock.classList.contains('is-on')) return;
+      var lg = dock.querySelector('.dock-logo'), r = (lg && lg.offsetWidth ? lg : dock).getBoundingClientRect();
+      dock.classList.toggle('on-dark', lum(r.left + r.width / 2, r.top + r.height / 2) < .5);
+    };
+    var sync = function () { clearTimeout(tail); tail = setTimeout(check, 160); if (!raf && performance.now() - last > 120) raf = requestAnimationFrame(check); };
+    addEventListener('scroll', sync, { passive: true }); addEventListener('resize', sync);
+    new MutationObserver(sync).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    sync();
+  })();
   var top = $('.dock-top'); if (top) top.addEventListener('click', function () { var m = matchMedia('(prefers-reduced-motion: reduce)').matches || a11y.motion; window.scrollTo({ top: 0, behavior: m ? 'auto' : 'smooth' }); });
 })();

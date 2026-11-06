@@ -964,7 +964,7 @@ window.__fywTagBg = function (hex) { var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''
       if (fl) { const r = fl.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2; if (r.width > 4 && Math.hypot(x - cx, y - cy) < r.width / 2) return lumOf(fl); }
     }
     const zgr = overZoom && document.querySelector(".zoom-grid"); if (zgr) { for (const t of zgr.querySelectorAll(".zg")) { const r = t.getBoundingClientRect(); if (getComputedStyle(t).opacity > 0.5 && x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) return 0.3; } }
-    const els = hits.filter(el => !dock.contains(el) && !el.classList.contains('cursor') && !el.closest('.cursor'));
+    const els = hits.filter(el => !dock.contains(el) && !el.classList.contains('cursor') && !el.closest('.cursor') && !el.closest('.zs-o')); // bolinhas da galáxia não contam: vale o fundo
     for (const el of els) {
       if (el.tagName === 'IMG' || el.tagName === 'VIDEO') return 0.3;
       let n = el;
@@ -985,7 +985,8 @@ window.__fywTagBg = function (hex) { var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''
     toneT = performance.now(); toneY = window.scrollY;
     toneRaf = requestAnimationFrame(() => {
       toneRaf = 0;
-      const r = dock.getBoundingClientRect();
+      // mede atrás da logo (é ela que precisa contrastar); sem logo visível, no meio da doca
+      const lg = dock.querySelector('.dock-logo'), r = (lg && lg.offsetWidth ? lg : dock).getBoundingClientRect();
       dock.classList.toggle('on-dark', lumAt(r.left + r.width / 2, r.top + r.height / 2) < 0.5);
     });
   }
