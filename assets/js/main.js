@@ -1397,3 +1397,16 @@
   } else { if (loaderEl) loaderEl.remove(); begin(); }
   firstRun = false;
 })();
+
+/* Mural de clientes no celular: só a linha mais perto do meio da tela (ou a tocada) ganha a cor da marca */
+(function () {
+  if (!matchMedia('(max-width: 599px)').matches) return;
+  var cells = Array.prototype.slice.call(document.querySelectorAll('.logo-wall .lw-cell:not(.lw-next)')); if (!cells.length) return;
+  var cur = null, tick = false;
+  var set = function (c) { if (c === cur) return; if (cur) cur.classList.remove('is-lit'); cur = c; if (c) c.classList.add('is-lit'); };
+  var pick = function () { tick = false; var mid = innerHeight / 2, best = null, bd = 1e9;
+    cells.forEach(function (c) { var r = c.getBoundingClientRect(); var d = Math.abs(r.top + r.height / 2 - mid); if (d < bd && d < r.height * 0.6) { bd = d; best = c; } }); set(best); };
+  addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(pick); } }, { passive: true });
+  cells.forEach(function (c) { c.addEventListener('touchstart', function () { set(c); }, { passive: true }); });
+  pick();
+})();

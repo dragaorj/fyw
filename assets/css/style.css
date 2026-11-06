@@ -4876,3 +4876,23 @@ html body .pp2-hero.is-text { min-height: 0 !important; }
 
 /* formulário: caixa recebe foco após enviar, sem contorno */
 .lf-box:focus { outline: none; }
+
+/* Hero mobile: título e frase mais fechados, cards um pouco mais para cima e a frase mais afastada deles */
+@media (max-width: 599px) {
+  html body .hero .hero-title { max-width: 88% !important; margin-inline: auto !important; }
+  html body .hero .hfan { margin-top: -8px !important; margin-bottom: 24px !important; }
+  html body .hero .hero-sub { max-width: 300px !important; margin-inline: auto !important; }
+}
+
+/* Mural de clientes no celular: menos poluído — logos menores, só a bandeira, seta neutra
+   (a seta e o logo ganham a cor da marca quando a linha passa pelo meio da tela ou é tocada) */
+@media (max-width: 599px) {
+  html body .logo-wall .lw-cell .lw-logo { scale: .84; transform-origin: left center; }
+  html body .logo-wall .lw-reg { background: transparent !important; padding: 0 !important; gap: 0 !important; }
+  html body .logo-wall .lw-reg > span { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  html body .logo-wall .lw-reg:not(:has(.flag)) { display: none !important; }
+  html body .logo-wall .lw-reg .flag { width: 22px; height: 15px; margin: 0 !important; border-radius: 3px; }
+  html body .logo-wall .lw-cell .lw-go { background: color-mix(in srgb, var(--ink) 7%, transparent) !important; color: var(--ink) !important; box-shadow: none !important; background-image: none !important; transition: background-color .45s var(--ease), color .45s var(--ease); }
+  html body .logo-wall .lw-cell.is-lit .lw-go { background: var(--brand, var(--accent-dot)) !important; color: #fff !important; }
+  html body .logo-wall .lw-cell.is-lit::before { opacity: 1; }
+}
