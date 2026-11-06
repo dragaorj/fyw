@@ -11,9 +11,9 @@
   var lang = function () { var l = (document.documentElement.lang || 'pt').slice(0, 2); return l === 'en' || l === 'es' ? l : 'pt'; };
   // tipos de cliente reais da Fyw (Lumière, SPFC, Latimpacto/Impacta, Kyoto, Beta, Cimed, Pacto Global)
   var WORDS = {
-    pt: ['cuida de sorrisos.', 'move torcidas.', 'reúne multidões.', 'leva sabor à mesa.', 'ensina profissões.', 'cuida da saúde.', 'cuida do planeta.', 'cuida da sua empresa.'],
-    en: ['cares for smiles.', 'moves crowds of fans.', 'brings people together.', 'brings flavor to the table.', 'teaches careers.', 'takes care of health.', 'takes care of the planet.', 'takes care of your company.'],
-    es: ['cuida sonrisas.', 'mueve hinchadas.', 'reúne multitudes.', 'lleva sabor a la mesa.', 'enseña profesiones.', 'cuida la salud.', 'cuida el planeta.', 'cuida tu empresa.']
+    pt: ['cuida de sorrisos.', 'move torcidas.', 'reúne multidões.', 'leva sabor à mesa.', 'ensina profissões.', 'cuida da saúde.', 'cuida do planeta.', 'cuida da sua empresa.', 'empodera a beleza.'],
+    en: ['cares for smiles.', 'moves crowds of fans.', 'brings people together.', 'brings flavor to the table.', 'teaches careers.', 'takes care of health.', 'takes care of the planet.', 'takes care of your company.', 'empowers beauty.'],
+    es: ['cuida sonrisas.', 'mueve hinchadas.', 'reúne multitudes.', 'lleva sabor a la mesa.', 'enseña profesiones.', 'cuida la salud.', 'cuida el planeta.', 'cuida tu empresa.', 'empodera la belleza.']
   };
   var dotPoint = function (el) {
     var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), n, last = null; while ((n = w.nextNode())) if (n.data.trim()) last = n;
@@ -29,7 +29,7 @@
   var pendW = null, autoX = 0, baseU = 0, baseK = 0, lastScrollT = 0, lastStepT = 0, inGalaxy = false;
   var N = orbs.length, spin = 0, scrollSpin = Math.PI / 2, spinT = Math.PI / 2, spread = 0, gather = 0, live = false;
   // logo branca de cada cliente na frente da foto (copiada do mural de clientes), sobre uma película escura
-  var LOGOS = ['lumiere', 'jogo-pela-integridade', 'latimpacto', 'kyoto', 'beta-online', 'cimed', 'pacto-global', 'globalfy'];
+  var LOGOS = ['lumiere', 'jogo-pela-integridade', 'latimpacto', 'kyoto', 'beta-online', 'cimed', 'pacto-global', 'globalfy', 'let-me-be'];
   // cópia da logo com ids únicos (máscaras/gradientes), senão a logo original e a cópia brigam
   var cloneMark = function (a, suf) {
     var c = a.cloneNode(true); c.removeAttribute('role'); c.setAttribute('aria-hidden', 'true');
@@ -173,6 +173,18 @@
       en: { more: 'See projects', menu: ['Home', 'Products', 'Clients', 'Contact'], sheet: 'Recent projects', proj: ['Coffee shop', 'Clinic', 'Law firm'], add: 'Add', added: 'Added', prods: [['Starter kit', '$29'], ['Premium line', '$59'], ['Subscription', '$12/mo']], prodT: 'Best sellers', quote: '“In 3 months the site became our best salesperson.”', who: 'Ana Souza · Aurora Coffee', cliT: 'Trusted by', formT: 'Get in touch', fields: ['Your name', 'Your email', 'How can we help?'], send: 'Send message', sent: 'Message sent!' },
       es: { more: 'Ver proyectos', menu: ['Inicio', 'Productos', 'Clientes', 'Contacto'], sheet: 'Proyectos recientes', proj: ['Cafetería', 'Clínica', 'Despacho'], add: 'Agregar', added: 'Agregado', prods: [['Kit esencial', '$29'], ['Línea premium', '$59'], ['Suscripción', '$12/mes']], prodT: 'Más vendidos', quote: '“En 3 meses el sitio se volvió nuestro mejor vendedor.”', who: 'Ana Souza · Café Aurora', cliT: 'Confían en nosotros', formT: 'Habla con nosotros', fields: ['Tu nombre', 'Tu correo', '¿Cómo podemos ayudarte?'], send: 'Enviar mensaje', sent: '¡Mensaje enviado!' }
     };
+    // textos extras: nota média (página de depoimento) e cartão do local no mapa
+    [['pt', '4,9', 'nota média · 2.300 avaliações', 'Sua loja', 'Aberto agora'], ['en', '4.9', 'average rating · 2,300 reviews', 'Your store', 'Open now'], ['es', '4,9', 'nota media · 2.300 reseñas', 'Tu tienda', 'Abierto ahora']].forEach(function (r) { TX[r[0]].rate = r[1]; TX[r[0]].rateT = r[2]; TX[r[0]].place = r[3]; TX[r[0]].open = r[4]; });
+    // mapa desenhado: quadras, avenidas, parque e rio (cores seguem o tema)
+    var MAP = '<svg class="zv-map-svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">'
+      + '<path class="mp-water" d="M-10 318C60 296 96 340 160 330S270 280 330 300 410 330 410 330V410H-10Z"/>'
+      + '<path class="mp-park" d="M250 40h110a14 14 0 0 1 14 14v70a14 14 0 0 1-14 14H250a14 14 0 0 1-14-14V54a14 14 0 0 1 14-14Z"/>'
+      + '<g class="mp-blocks">' + [[24, 24, 80, 62], [120, 24, 96, 62], [24, 104, 80, 74], [120, 104, 40, 74], [176, 104, 40, 74], [236, 158, 60, 58], [312, 158, 70, 58], [24, 196, 120, 62], [160, 196, 56, 62], [236, 234, 146, 40]].map(function (b) { return '<rect x="' + b[0] + '" y="' + b[1] + '" width="' + b[2] + '" height="' + b[3] + '" rx="8"/>'; }).join('') + '</g>'
+      + '<g class="mp-roads"><path d="M0 95H400M0 187H400M226 0V290M112 0V290"/></g>'
+      + '<path class="mp-ave" d="M-10 276C80 262 150 228 226 187S340 120 410 108"/>'
+      + '<path class="mp-route" d="M112 290V187H226"/>'
+      + '<g class="mp-trees"><circle cx="270" cy="70" r="9"/><circle cx="298" cy="96" r="11"/><circle cx="334" cy="66" r="8"/><circle cx="346" cy="110" r="9"/></g>'
+      + '</svg>';
     var tx = function () { return TX[L3()]; };
     var cta2 = B$('.zb-cta2'), links = B$('.zb-links'), page = B$('.zb-page'), nav = B$('.zb-nav');
     // carrinho no menu (aparece na página de produtos)
@@ -188,8 +200,9 @@
       sheet.innerHTML = '<div class="zs-h"><b>' + t.sheet + '</b><i class="zs-x" aria-label="Fechar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></i></div><div class="zs-g">' + t.proj.map(function (p, i) { return '<span class="zs-c c' + i + '"><em></em><b>' + p + '</b></span>'; }).join('') + '</div>';
       views.innerHTML =
         '<section class="zv zv-1"><p class="zv-t">' + t.prodT + '</p><div class="zv-grid">' + t.prods.map(function (p, i) { return '<div class="zv-prod p' + i + '"><span class="zv-img"></span><b>' + p[0] + '</b><span class="zv-row"><em>' + p[1] + '</em><span class="zv-add">' + t.add + '</span></span></div>'; }).join('') + '</div></section>'
-        + '<section class="zv zv-2"><div class="zv-quote"><span class="zv-stars">★★★★★</span><p>' + t.quote + '</p><span class="zv-who"><i></i>' + t.who + '</span></div><p class="zv-t">' + t.cliT + '</p><div class="zv-logos"><i></i><i></i><i></i><i></i><i></i></div></section>'
-        + '<section class="zv zv-3"><div class="zv-form"><p class="zv-t big">' + t.formT + '</p>' + t.fields.map(function (f, i) { return '<label class="zv-in' + (i === 2 ? ' area' : '') + '"><span>' + f + '</span></label>'; }).join('') + '<span class="zv-send">' + t.send + ' <em>→</em></span></div><div class="zv-map"><i></i></div></section>';
+        + '<section class="zv zv-2"><div class="zv-quote"><div class="zv-q-txt"><span class="zv-stars">★★★★★</span><p>' + t.quote + '</p><span class="zv-who"><i></i>' + t.who + '</span></div>'
+        + '<div class="zv-rate"><b>' + t.rate + '</b><span class="zv-stars">★★★★★</span><small>' + t.rateT + '</small><ul>' + [[5, 86], [4, 10], [3, 3], [2, 1], [1, 0]].map(function (r) { return '<li><em>' + r[0] + '</em><i style="--w:' + r[1] + '%"></i></li>'; }).join('') + '</ul></div></div><p class="zv-t">' + t.cliT + '</p><div class="zv-logos"><i></i><i></i><i></i><i></i><i></i></div></section>'
+        + '<section class="zv zv-3"><div class="zv-form"><p class="zv-t big">' + t.formT + '</p>' + t.fields.map(function (f, i) { return '<label class="zv-in' + (i === 2 ? ' area' : '') + '"><span>' + f + '</span></label>'; }).join('') + '<span class="zv-send">' + t.send + ' <em>→</em></span></div><div class="zv-map">' + MAP + '<i></i><span class="zv-pin-card"><b>' + t.place + '</b><small><em></em>' + t.open + '</small></span></div></section>';
       [].forEach.call(menu.children, function (x) { x.classList.toggle('on', +x.dataset.pg === pg); });
     };
     var pg = 0; paint();

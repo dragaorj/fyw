@@ -455,5 +455,6 @@
     [/^<b>(\d+)<\/b><span>(projetos|países)<\/span>$/, function (m, k) { var t = { projetos: ['projects', 'proyectos'], 'países': ['countries', 'países'] }[m[2]]; return '<b>' + m[1] + '</b><span>' + t[k] + '</span>'; }],
     [/^<b>(.+)<\/b><small><i><\/i>(.+)<\/small>$/, function (m, k) { return '<b>' + m[1] + '</b><small><i></i>' + tw(m[2], k) + '</small>'; }]
   );
+  D['Cosméticos · Rebranding'] = ['Cosmetics · Rebranding', 'Cosméticos · Rebranding'];
   window.FYW_PAGE_I18N = D; window.FYW_PAGE_I18N_W = W; window.FYW_PAGE_I18N_P = P;
 })();
