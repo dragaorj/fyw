@@ -625,3 +625,46 @@ html[lang="es"] .verts .bx span::after { content: "Ver tiendas →"; }
 @media (min-width: 1000px) { .deck { left: auto; right: 0; transform-origin: 50% 100%; } .deck.d1 { transform: rotate(-6deg); } .deck.d2 { transform: rotate(5deg); } .promo { position: relative; } }
 @media (min-width: 1000px) { .deck { right: 30px; top: 30px; height: calc(100% - 30px); width: 460px; } }
 .promo-txt p { max-width: 36ch; }
+
+/* moto passa por trás dos cards dos passos */
+.how-map .rider { z-index: 0; }
+.how-map .steps { position: relative; z-index: 1; }
+.how-map .steps li { position: relative; z-index: 1; }
+
+/* sem barra de rolagem (igual aos outros projetos) */
+html { scrollbar-width: none; -ms-overflow-style: none; }
+html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0; height: 0; }
+/* fim da página todo escuro: o espaço da barra de atalhos fica dentro do rodapé */
+html { background: #1A0F0F; }
+body { padding-bottom: 0; }
+.foot { padding-bottom: calc(28px + 76px + env(safe-area-inset-bottom)); }
+@media (min-width: 1000px) { .foot { padding-bottom: 48px; } }
+/* painéis fechados nunca aparecem */
+.sheet[hidden], .scrim[hidden], .track[hidden] { display: none !important; }
+
+/* passo 3 mais acima: não encosta no título da próxima seção */
+@media (min-width: 1000px) {
+  .how-map, .steps { min-height: 430px !important; }
+  .steps li:nth-child(3) { top: 290px !important; left: 8% !important; }
+  .how { padding-bottom: 10px; }
+}
+
+/* listas que deslizam: começam e terminam afastadas da borda e dá para arrastar com mouse ou dedo */
+.cat-rail, .shops { scroll-padding-inline: var(--pad); padding-inline: var(--pad); cursor: grab; }
+.cat-rail::after, .shops::after { content: ""; flex: none; width: 1px; }
+.cat-rail.is-drag, .shops.is-drag { cursor: grabbing; scroll-snap-type: none; }
+.cat-rail.is-drag a, .shops.is-drag a { pointer-events: none; }
+.cat-rail img, .shops img { -webkit-user-drag: none; user-select: none; }
+
+/* faça parte: linhas com espaço interno, cantos arredondados e seta afastada da borda */
+.doors .door-list { gap: 8px; border-top: 0; }
+.doors .door-list a { padding: 12px 14px 12px 12px; border-radius: 20px; border-bottom: 0; background: rgba(255,255,255,.05); box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); }
+.doors .door-list a::before { border-radius: inherit; }
+.doors .door-list img { border-radius: 14px; }
+.doors .door-list .go { margin-right: 2px; }
+@media (min-width: 1000px) {
+  .doors .door-list a { padding: 24px 28px 24px 24px; border-radius: 26px; }
+  .doors .door-list a::after { left: 26px; }
+}
+@media (min-width: 1000px) { .cat-rail, .shops { padding-inline: 0; cursor: auto; } .cat-rail::after, .shops::after { display: none; } }
+@media (min-width: 1000px) { .how-map .steps li { position: absolute; } }

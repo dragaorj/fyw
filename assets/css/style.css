@@ -6182,13 +6182,19 @@ html body.pj-if .ky-palette li { grid-column: auto !important; grid-row: auto !i
 /* galáxia: arrastar na horizontal gira as bolinhas (a rolagem vertical continua normal) */
 .zoom-stack .zs-stage { touch-action: pan-y; -webkit-user-select: none; user-select: none; }
 
-/* depoimentos: cada um aparece uma vez só (sem a rolagem infinita que repetia os cards), numa grade que se ajusta à tela */
+/* depoimentos: colunas animadas como antes, mas sem repetir ninguém — cada coluna sobe e desce devagar (vaivém)
+   com os depoimentos dela; a distância vem do JS (--tdist), conforme a altura da coluna */
 .t-card[aria-hidden="true"], .t-card.t-dup { display: none !important; }
 @media (min-width: 600px) {
-  html body .t-wall { display: grid !important; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important; align-items: start; gap: 16px !important; height: auto !important; overflow: visible !important; -webkit-mask-image: none !important; mask-image: none !important; }
-  html body .t-col, html body .t-col-2, html body .t-col-3, html body .t-col-4, html body .t-track { display: contents !important; }
-  html body .t-track { animation: none !important; }
+  html body .t-track { animation: tPing var(--tdur, 16s) ease-in-out infinite alternate !important; }
+  html body .t-col-2 .t-track { animation-delay: -5s !important; animation-direction: alternate-reverse !important; }
+  html body .t-col-3 .t-track { animation-delay: -9s !important; }
+  html body .t-col-4 .t-track { animation-delay: -3s !important; animation-direction: alternate-reverse !important; }
+  html body .t-wall:hover .t-track { animation-play-state: paused !important; }
 }
+@keyframes tPing { from { transform: translateY(0); } to { transform: translateY(calc(-1 * var(--tdist, 0px))); } }
+@media (prefers-reduced-motion: reduce) { html body .t-track { animation: none !important; } }
+html.a11y-motion body .t-track, html.a11y-clean body .t-track { animation: none !important; }
 
 /* aviso das páginas de projeto legível nos dois temas */
 html body .pj-note { color: var(--muted); }

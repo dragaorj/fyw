@@ -17,7 +17,7 @@
   PT.ph = ['Buscar pizza, sushi, farmácia…', 'Experimente “açaí perto de mim”', 'Mercado para hoje à noite?'];
   PT.phs = {}; $$('[data-ph]').forEach(function (el) { PT.phs[el.dataset.ph] = el.placeholder; });
   PT.s = { added: 'Adicionado à sacola', copied: 'Cupom FOME10 copiado', cpOk: 'Cupom aplicado: 10% off', cpBad: 'Cupom inválido. Tente FOME10', free: 'Grátis', addr: 'Entregando em', gps: 'Demonstração: usando um endereço de exemplo', sent: 'Pedido feito! Acompanhe aqui embaixo', st: ['Pedido confirmado', 'Preparando seu pedido', 'Seu pedido saiu', 'Entregue. Bom apetite!'], none: 'Nada encontrado para', shop: 'Loja', cat: 'Categoria', picked: 'O pedido de hoje:', and: ' e ' };
-  var lang = 'pt'; try { lang = localStorage.getItem('fio-lang') || 'pt'; } catch (e) {}
+  var lang = 'pt'; // empresa brasileira: a landing fica só em português
   if (!T[lang]) lang = 'pt';
   var D = function () { return lang === 'pt' ? PT : T[lang]; }, S = function (k) { return D().s[k]; };
   var phI = 0, phC = 0, phDel = false, trackStep = -1;
@@ -30,7 +30,6 @@
     phI = 0; renderBag(); renderIdle(); if (trackStep >= 0) setTrack(trackStep);
   };
   $$('.lang button').forEach(function (b) { b.addEventListener('click', function () { applyLang(b.dataset.l); try { localStorage.setItem('fio-lang', lang); } catch (e) {} }); });
-  addEventListener('storage', function (e) { if (e.key === 'fio-lang') applyLang(e.newValue); });
 
   /* ---------- catálogo (fictício) ---------- */
   var money = function (v) { return 'R$ ' + v.toFixed(2).replace('.', ','); };
@@ -301,4 +300,15 @@
   gsap.from('.steps li', { opacity: 0, y: 30, scale: .95, stagger: .25, duration: .8, ease: 'back.out(1.5)', scrollTrigger: { trigger: map, start: 'top 75%' } });
 
   applyLang(lang);
+})();
+
+/* arrastar as listas para o lado com o mouse (no dedo já funciona); um arrasto não abre o card */
+(function () {
+  [].forEach.call(document.querySelectorAll('.cat-rail, .shops'), function (el) {
+    var down = false, moved = false, x0 = 0, s0 = 0;
+    el.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse' || el.scrollWidth <= el.clientWidth) return; down = true; moved = false; x0 = e.clientX; s0 = el.scrollLeft; });
+    addEventListener('pointermove', function (e) { if (!down) return; var dx = e.clientX - x0; if (!moved && Math.abs(dx) > 5) { moved = true; el.classList.add('is-drag'); } if (moved) el.scrollLeft = s0 - dx; });
+    addEventListener('pointerup', function () { if (!down) return; down = false; if (moved) { setTimeout(function () { el.classList.remove('is-drag'); }, 30); } });
+    el.addEventListener('click', function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+  });
 })();

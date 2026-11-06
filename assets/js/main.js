@@ -1620,3 +1620,17 @@ window.__fywTagBg = function (hex) { var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''
   cells.forEach(function (c) { c.addEventListener('touchstart', function () { set(c); }, { passive: true }); });
   pick();
 })();
+
+/* depoimentos: distância e duração do vaivém de cada coluna (sem cópias: cada depoimento aparece uma vez) */
+(function () {
+  var wall = document.querySelector('.t-wall'); if (!wall) return;
+  var set = function () {
+    [].forEach.call(wall.querySelectorAll('.t-col'), function (col) {
+      var tr = col.querySelector('.t-track'); if (!tr) return;
+      var d = Math.max(0, tr.scrollHeight - col.clientHeight + 32);
+      tr.style.setProperty('--tdist', d + 'px'); tr.style.setProperty('--tdur', Math.max(10, d / 14).toFixed(1) + 's');
+    });
+  };
+  set(); addEventListener('load', set); var t = 0; addEventListener('resize', function () { clearTimeout(t); t = setTimeout(set, 200); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(set);
+})();
