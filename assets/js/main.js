@@ -319,8 +319,8 @@ window.__fywTagBg = function (hex) { var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''
         // card i -> linha de trabalho (os 5 do meio vão para as 5 linhas; os outros saem de cena)
         const rowsAll = $$('.work-row');
         // a lista mostra no máximo uma linha por card visível (no celular há menos cards)
-        // no celular a lista mostra só 3 projetos (o resto em "Ver todos os projetos")
-        rowsAll.forEach((r, k) => { r.hidden = k >= (mob ? 3 : n); });
+        // celular e computador mostram os mesmos 5 projetos sorteados
+        rowsAll.forEach((r, k) => { r.hidden = k >= Math.min(5, n); });
         const rows = rowsAll.filter(r => !r.hidden);
         const firstMapped = rows.length >= n ? 0 : Math.max(0, Math.round(mid) - Math.floor(rows.length / 2));
         const rowOf = i => { const k = i - firstMapped; return k >= 0 && k < rows.length ? k : -1; };

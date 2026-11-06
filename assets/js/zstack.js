@@ -64,22 +64,26 @@
   var seeds = orbs.map(function (o, i) { return { a: i / N * Math.PI * 2, r: .92 + (i % 2) * .08, h: ((i * 3) % 5 - 2) / 4, s: .92 + (i % 3) * .05 }; });
   // centro do ponto final da palavra grande (em relação ao centro da tela)
   var DP = { x: 0, y: 0, s: .12 };
-  var measureDot = function () { var el = word, t = el.firstChild; if (!t || !t.data) return; var j = t.data.lastIndexOf('.'); if (j < 0) return; var r = document.createRange(); r.setStart(t, j); r.setEnd(t, j + 1); var b = r.getBoundingClientRect(), o = sec.querySelector('.zs-orbit').getBoundingClientRect(); DP.x = b.left + b.width / 2 - o.left; DP.y = b.top + b.height * .78 - o.top; DP.s = Math.max(.05, b.width * .55 / (innerWidth < 600 ? 92 : Math.min(200, innerWidth * (innerWidth < innerHeight ? .15 : .11)))); };
+  var measureDot = function () { var el = word, t = el.firstChild; if (!t || !t.data) return; var j = t.data.lastIndexOf('.'); if (j < 0) return; var r = document.createRange(); r.setStart(t, j); r.setEnd(t, j + 1); var b = r.getBoundingClientRect(), o = sec.querySelector('.zs-orbit').getBoundingClientRect(); DP.x = b.left + b.width / 2 - o.left; DP.y = b.top + b.height * .78 - o.top; DP.s = Math.max(.05, b.width * .55 / (innerWidth < 600 ? 84 : Math.min(200, innerWidth * (innerWidth < innerHeight ? .15 : .11)))); };
   var renderOrbit = function () {
-    var W = innerWidth, H = innerHeight, mob = W < 600, RX = W * (mob ? .5 : (W < H ? .44 : .4)), RY = mob ? Math.min(H * .16, W * .34) : Math.min(H * .27, RX * (W < H ? .5 : .42)), // anel sempre deitado, inclusive em tela em pé // no celular: anel deitado (inclinado), igual ao desktop
-        base = mob ? 92 : Math.min(200, W * (W < H ? .15 : .11));
+    // anel sempre deitado (elipse limpa), igual em celular, tablet em pé e computador
+    var W = innerWidth, H = innerHeight, mob = W < 600, tall = W < H, RX = W * (mob ? .4 : (tall ? .4 : .4)), RY = mob ? Math.min(H * .19, RX * .62) : Math.min(H * .27, RX * (tall ? .5 : .42)),
+        base = mob ? 84 : Math.min(200, W * (tall ? .15 : .11)), JIT = mob ? 0 : H * .07;
     orbs.forEach(function (o, i) {
       // spread = 0..1 no fim: as bolinhas se juntam todas no centro (é dali que o site abre)
       var sd = seeds[i], th = sd.a + spin + scrollSpin, g = gather * gather * (3 - 2 * gather), m = spread * spread * (3 - 2 * spread), rr = sd.r * (1 - m);
-      var x = Math.cos(th) * RX * rr, depth = Math.sin(th), y = depth * RY * rr + sd.h * (mob ? W * .05 : H * .07), k = (depth + 1) / 2; // 0 = fundo, 1 = frente
+      var x = Math.cos(th) * RX * rr, depth = Math.sin(th), y = depth * RY * rr + sd.h * JIT, k = (depth + 1) / 2; // 0 = fundo, 1 = frente
       var sc = (mob ? .42 + k * .95 : .55 + k * .75) * sd.s, op = .62 + k * .38; y *= (1 - m); sc = sc + (.5 - sc) * m; op = op + (1 - op) * m;
       // no começo as bolinhas saem de dentro do ponto final da frase (pequenas, todas no ponto) e se abrem em órbita
       var gp = Math.min(1, Math.max(0, gather * 1.12 - i * .015)); gp = 1 - Math.pow(1 - gp, 3); var gr = .82 + .18 * gp; x *= gr; y *= gr;
       sc *= .55 + .45 * gp; op *= gp;
       o.style.transform = 'translate(-50%,-50%) translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) scale(' + sc.toFixed(3) + ')'; // sem inclinação: a logo fica reta
       // só a foto em foco (na frente, embaixo da frase) mostra a película e a logo
-      var f = depth > .986 && m < .5 && gp > .97 ? 1 : 0; o.style.setProperty('--f', f); // branco só bem no centro; a troca é feita pela transição do CSS (entra e sai rápido)
-      o.style.width = (base * .86) + 'px'; o.style.opacity = op.toFixed(3); o.style.zIndex = depth > 0 ? 3 : 1; // círculo um pouco menor (a logo compensa no CSS); sem desfoque (bolinhas flat, mais leve)
+      var f = depth > .986 && m < .5 && gp > .97 ? 1 : 0; if (o.__f !== f) { o.__f = f; o.style.setProperty('--f', f); } // branco só bem no centro; a troca é feita pela transição do CSS
+      // só mexe no que mudou: largura (layout) só quando a tela muda de tamanho; opacidade e camada só quando mudam — sem travadas no celular
+      var w = Math.round(base * .86); if (o.__w !== w) { o.__w = w; o.style.width = w + 'px'; }
+      var ops = op.toFixed(2); if (o.__op !== ops) { o.__op = ops; o.style.opacity = ops; }
+      var z = depth > 0 ? 3 : 1; if (o.__z !== z) { o.__z = z; o.style.zIndex = z; }
     });
   };
   var tick = function () {
