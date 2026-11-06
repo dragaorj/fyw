@@ -72,8 +72,8 @@
       var rot = Math.cos(th) * -6 * gp; sc = DP.s + (sc - DP.s) * gp; op = gp < .02 ? 0 : op * gp + (1 - gp);
       o.style.transform = 'translate(-50%,-50%) translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) scale(' + sc.toFixed(3) + ')'; // sem inclinação: a logo fica reta
       // só a foto em foco (na frente, embaixo da frase) mostra a película e a logo
-      var f = Math.min(1, Math.max(0, (depth - .9) / .08)); f = f * f * (3 - 2 * f) * (1 - m) * gp; o.style.setProperty('--f', f.toFixed(3));
-      o.style.width = (base * .86) + 'px'; // círculo um pouco menor (a logo compensa no CSS) o.style.opacity = op.toFixed(3); o.style.zIndex = depth > 0 ? 3 : 1; o.style.filter = depth < -.2 && m < .5 ? 'blur(' + ((-depth - .2) * 1.2 * (1 - m)).toFixed(1) + 'px)' : 'none';
+      var f = depth > .986 && m < .5 && gp > .98 ? 1 : 0; o.style.setProperty('--f', f); // branco só bem no centro; a troca é feita pela transição do CSS (entra e sai rápido)
+      o.style.width = (base * .86) + 'px'; o.style.opacity = op.toFixed(3); o.style.zIndex = depth > 0 ? 3 : 1; // círculo um pouco menor (a logo compensa no CSS); sem desfoque (bolinhas flat, mais leve)
     });
   };
   var tick = function () {
@@ -121,7 +121,7 @@
     t -= .03; // o resto da montagem começa logo depois que a tela abre
     // 1) menu
     move('.zb-nav', .1, .5, t + .09); click('.zb-nav', .1, .5, t + .115);
-    tl.fromTo(B$('.zb-nav'), { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: .025, ease: 'power2.out' }, t + .117)
+    tl.fromTo(B$('.zb-nav'), { clipPath: 'inset(-24px 100% -24px -24px)' }, { clipPath: 'inset(-24px -24px -24px -24px)', duration: .025, ease: 'power2.out' }, t + .117)
       .fromTo(TL.o, { n: 0 }, { n: 1, duration: .015, ease: 'none', onUpdate: TL.set }, t + .12);
     // 2) título digitando
     move('.zb-copy', .05, .2, t + .145); click('.zb-copy', .05, .2, t + .17);
@@ -132,11 +132,95 @@
     tl.fromTo(B$('.zb-img'), { clipPath: 'circle(0% at 50% 50%)' }, { clipPath: 'circle(75% at 50% 50%)', duration: .03, ease: 'power2.out' }, t + .267);
     // 4) botão
     move('.zb-copy', .2, .92, t + .3); click('.zb-copy', .2, .92, t + .325);
-    tl.fromTo(B$('.zb-cta'), { scale: 0, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: .02, ease: 'back.out(2)' }, t + .327)
+    tl.fromTo(sec.querySelectorAll('.zb-cta, .zb-cta2'), { scale: 0, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: .02, ease: 'back.out(2)' }, t + .327)
       .fromTo(B$('.zb-cards').children, { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .02, stagger: .006, ease: 'power3.out' }, t + .335)
       .to(cursor, { autoAlpha: 0, duration: .01 }, t + .36)
       // a tela fecha de volta num círculo antes da saída
 ;
+
+    // brilho quando as bolinhas se juntam no centro (antes da tela abrir)
+    var glow = document.createElement('span'); glow.className = 'zb-glow'; glow.setAttribute('aria-hidden', 'true'); build.parentNode.insertBefore(glow, build);
+    tl.fromTo(glow, { autoAlpha: 0, scale: .35 }, { autoAlpha: 1, scale: 1, duration: .022, ease: 'power2.out', immediateRender: false }, t0 - .012)
+      .to(glow, { autoAlpha: 0, scale: 1.9, duration: .045, ease: 'power2.in' }, t0 + .03);
+
+    // ---- a tela do site é interativa: a setinha preta segue o mouse e os elementos respondem ao clique ----
+    var mouse = cursor.cloneNode(true); mouse.className = 'zb-mouse'; frame.appendChild(mouse);
+    var L3 = function () { var l = (document.documentElement.lang || 'pt').slice(0, 2); return l === 'en' || l === 'es' ? l : 'pt'; };
+    var MSG = {
+      pt: [['Novo contato', 'Um cliente pediu orçamento agora'], ['Venda aprovada', 'Pedido #1042 · R$ 890,00'], ['Agenda cheia', '3 reuniões marcadas pelo site'], ['Avaliação 5 estrelas', '“Atendimento impecável!”']],
+      en: [['New lead', 'A client just asked for a quote'], ['Sale approved', 'Order #1042 · $890.00'], ['Calendar full', '3 meetings booked through the site'], ['5-star review', '“Flawless service!”']],
+      es: [['Nuevo contacto', 'Un cliente pidió presupuesto ahora'], ['Venta aprobada', 'Pedido #1042 · $890,00'], ['Agenda llena', '3 reuniones agendadas por el sitio'], ['Reseña 5 estrellas', '“¡Atención impecable!”']]
+    };
+    var toast = document.createElement('div'); toast.className = 'zb-toast'; toast.setAttribute('aria-hidden', 'true'); frame.appendChild(toast);
+    var tI = 0, tT = 0;
+    var showToast = function () {
+      var m = tI === 4 ? MSG[L3()][4] : MSG[L3()][tI % 4]; tI = tI === 4 ? 0 : tI + 1;
+      toast.innerHTML = '<i><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></i><span><b></b><small></small></span>';
+      toast.querySelector('b').textContent = m[0]; toast.querySelector('small').textContent = m[1];
+      toast.classList.remove('on'); void toast.offsetWidth; toast.classList.add('on');
+      clearTimeout(tT); tT = setTimeout(function () { toast.classList.remove('on'); }, 2600);
+    };
+    var pt = function (e) { var f = frame.getBoundingClientRect(); return { x: e.clientX - f.left, y: e.clientY - f.top }; };
+    var rip = function (p) { gsap.killTweensOf(ripple); gsap.set(ripple, { x: p.x, y: p.y }); gsap.fromTo(ripple, { scale: 0, autoAlpha: .75 }, { scale: 1.2, autoAlpha: 0, duration: .55, ease: 'power2.out' }); };
+    frame.addEventListener('pointerenter', function (e) { if (e.pointerType !== 'mouse') return; document.documentElement.classList.add('zb-in'); mouse.classList.add('on'); });
+    frame.addEventListener('pointerleave', function () { document.documentElement.classList.remove('zb-in'); mouse.classList.remove('on'); });
+    frame.addEventListener('pointermove', function (e) { if (e.pointerType !== 'mouse') return; var p = pt(e); mouse.style.transform = 'translate3d(' + p.x + 'px,' + p.y + 'px,0)'; });
+    frame.addEventListener('pointerdown', function () { mouse.classList.add('down'); });
+    addEventListener('pointerup', function () { mouse.classList.remove('down'); });
+    // ---- site de mentira, mas clicável: páginas, menu, segundo botão e painel ----
+    var TX = {
+      pt: { more: 'Ver projetos', menu: ['Início', 'Produtos', 'Clientes', 'Contato'], sheet: 'Projetos recentes', proj: ['Loja de café', 'Clínica', 'Escritório'], add: 'Adicionar', added: 'Adicionado', prods: [['Kit essencial', 'R$ 129'], ['Linha premium', 'R$ 249'], ['Assinatura', 'R$ 59/mês']], prodT: 'Mais vendidos', quote: '“Em 3 meses o site virou nosso melhor vendedor.”', who: 'Ana Souza · Café Aurora', cliT: 'Quem confia', formT: 'Fale com a gente', fields: ['Seu nome', 'Seu e-mail', 'Como podemos ajudar?'], send: 'Enviar mensagem', sent: 'Mensagem enviada!' },
+      en: { more: 'See projects', menu: ['Home', 'Products', 'Clients', 'Contact'], sheet: 'Recent projects', proj: ['Coffee shop', 'Clinic', 'Law firm'], add: 'Add', added: 'Added', prods: [['Starter kit', '$29'], ['Premium line', '$59'], ['Subscription', '$12/mo']], prodT: 'Best sellers', quote: '“In 3 months the site became our best salesperson.”', who: 'Ana Souza · Aurora Coffee', cliT: 'Trusted by', formT: 'Get in touch', fields: ['Your name', 'Your email', 'How can we help?'], send: 'Send message', sent: 'Message sent!' },
+      es: { more: 'Ver proyectos', menu: ['Inicio', 'Productos', 'Clientes', 'Contacto'], sheet: 'Proyectos recientes', proj: ['Cafetería', 'Clínica', 'Despacho'], add: 'Agregar', added: 'Agregado', prods: [['Kit esencial', '$29'], ['Línea premium', '$59'], ['Suscripción', '$12/mes']], prodT: 'Más vendidos', quote: '“En 3 meses el sitio se volvió nuestro mejor vendedor.”', who: 'Ana Souza · Café Aurora', cliT: 'Confían en nosotros', formT: 'Habla con nosotros', fields: ['Tu nombre', 'Tu correo', '¿Cómo podemos ayudarte?'], send: 'Enviar mensaje', sent: '¡Mensaje enviado!' }
+    };
+    var tx = function () { return TX[L3()]; };
+    var cta2 = B$('.zb-cta2'), links = B$('.zb-links'), page = B$('.zb-page'), nav = B$('.zb-nav');
+    // carrinho no menu (aparece na página de produtos)
+    var cart = document.createElement('span'); cart.className = 'zb-cart'; cart.innerHTML = '<svg viewBox="0 0 24 24"><path d="M4 5h2l2 10h10l2-7H7.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="19" r="1.4" fill="currentColor"/><circle cx="17" cy="19" r="1.4" fill="currentColor"/></svg><b>0</b>';
+    if (nav) nav.insertBefore(cart, B$('.zb-navbtn')); var nCart = 0;
+    // páginas extras, cada uma com um layout diferente
+    var views = document.createElement('div'); views.className = 'zb-views'; page.appendChild(views);
+    var menu = document.createElement('div'); menu.className = 'zb-menu'; frame.appendChild(menu);
+    var sheet = document.createElement('div'); sheet.className = 'zb-sheet'; frame.appendChild(sheet);
+    var paint = function () {
+      var t = tx(); if (cta2) cta2.textContent = t.more;
+      menu.innerHTML = t.menu.map(function (m, i) { return '<b data-pg="' + i + '">' + m + '</b>'; }).join('');
+      sheet.innerHTML = '<div class="zs-h"><b>' + t.sheet + '</b><i class="zs-x" aria-label="Fechar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></i></div><div class="zs-g">' + t.proj.map(function (p, i) { return '<span class="zs-c c' + i + '"><em></em><b>' + p + '</b></span>'; }).join('') + '</div>';
+      views.innerHTML =
+        '<section class="zv zv-1"><p class="zv-t">' + t.prodT + '</p><div class="zv-grid">' + t.prods.map(function (p, i) { return '<div class="zv-prod p' + i + '"><span class="zv-img"></span><b>' + p[0] + '</b><span class="zv-row"><em>' + p[1] + '</em><span class="zv-add">' + t.add + '</span></span></div>'; }).join('') + '</div></section>'
+        + '<section class="zv zv-2"><div class="zv-quote"><span class="zv-stars">★★★★★</span><p>' + t.quote + '</p><span class="zv-who"><i></i>' + t.who + '</span></div><p class="zv-t">' + t.cliT + '</p><div class="zv-logos"><i></i><i></i><i></i><i></i><i></i></div></section>'
+        + '<section class="zv zv-3"><div class="zv-form"><p class="zv-t big">' + t.formT + '</p>' + t.fields.map(function (f, i) { return '<label class="zv-in' + (i === 2 ? ' area' : '') + '"><span>' + f + '</span></label>'; }).join('') + '<span class="zv-send">' + t.send + ' <em>→</em></span></div><div class="zv-map"><i></i></div></section>';
+      [].forEach.call(menu.children, function (x) { x.classList.toggle('on', +x.dataset.pg === pg); });
+    };
+    var pg = 0; paint();
+    new MutationObserver(paint).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+    var goPage = function (n) {
+      if (n === pg) return; pg = n;
+      if (links) [].forEach.call(links.children, function (x, k) { x.classList.toggle('on', k === n); });
+      [].forEach.call(menu.children, function (x) { x.classList.toggle('on', +x.dataset.pg === n); });
+      frame.classList.add('swap');
+      setTimeout(function () { page.setAttribute('data-pg', n); frame.classList.remove('swap'); }, 220);
+    };
+    frame.addEventListener('click', function (e) {
+      rip(pt(e));
+      var el = e.target;
+      if (!el.closest('.zb-navbtn, .zb-menu')) frame.classList.remove('menu-open');
+      if (el.closest('.zb-img')) { nextV(); return; }
+      if (el.closest('.zs-x')) { frame.classList.remove('sheet-open'); return; }
+      var add = el.closest('.zv-add'); if (add) { nCart++; cart.querySelector('b').textContent = nCart; cart.classList.remove('bump'); void cart.offsetWidth; cart.classList.add('bump', 'has'); add.textContent = tx().added; add.classList.add('ok'); return; }
+      var snd = el.closest('.zv-send'); if (snd) { var fm = snd.closest('.zv-form'); fm.classList.add('sent'); MSG[L3()][4] = [tx().sent, '']; tI = 4; showToast(); setTimeout(function () { fm.classList.remove('sent'); }, 2400); return; }
+      var inp = el.closest('.zv-in'); if (inp) { [].forEach.call(inp.parentNode.querySelectorAll('.zv-in'), function (x) { x.classList.toggle('focus', x === inp); }); return; }
+      if (el.closest('.zv-prod, .zv-quote, .zv-logos i, .zs-c')) { var q = el.closest('.zv-prod, .zv-quote, .zv-logos i, .zs-c'); q.classList.remove('pop'); void q.offsetWidth; q.classList.add('pop'); return; }
+      if (el.closest('.zb-frame') && frame.classList.contains('sheet-open') && !el.closest('.zb-sheet')) { frame.classList.remove('sheet-open'); return; }
+      if (el.closest('.zb-sheet')) return;
+      var mi = el.closest('.zb-menu b'); if (mi) { goPage(+mi.dataset.pg); frame.classList.remove('menu-open'); return; }
+      if (el.closest('.zb-cta2')) { frame.classList.add('sheet-open'); return; }
+      if (el.closest('.zb-cta')) { showToast(); return; }
+      var li = el.closest('.zb-links i'); if (li) { var k = [].indexOf.call(li.parentNode.children, li); goPage(k); [].forEach.call(li.parentNode.children, function (x) { x.classList.toggle('on', x === li); }); return; }
+      var cd = el.closest('.zb-cards i'); if (cd) { cd.classList.remove('pop'); void cd.offsetWidth; cd.classList.add('pop'); return; }
+      if (el.closest('.zb-navbtn')) { [].forEach.call(menu.children, function (x) { x.classList.toggle('on', +x.dataset.pg === pg); }); frame.classList.toggle('menu-open'); return; }
+      if (el.closest('.zb-h, .zb-logo')) { var h = el.closest('.zb-h, .zb-logo'); h.classList.remove('wave'); void h.offsetWidth; h.classList.add('wave'); return; }
+    });
   };
 
   var init = function () {
@@ -162,7 +246,7 @@
           if (p < .1) { var q = dotPoint(title); if (q) gsap.set(fill, { left: q.sx, top: q.sy }); }
           var on = p > A - .02 && p < B + .05; if (on !== live) { live = on; if (on) gsap.ticker.add(tick); else gsap.ticker.remove(tick); }
           // a rolagem também gira a galáxia; na saída as imagens se espalham para fora
-          var P0 = A + .05, uR = Math.max(0, Math.min(nW - 1, (p - P0) / (B - P0) * nW - .5)), kk = Math.round(uR), dd = uR - kk, ee = Math.min(1, Math.max(0, Math.abs(dd) - .1) / .4); ee = .5 - Math.cos(ee * Math.PI) / 2; autoX = Math.round(autoX); baseU = kk + (dd < 0 ? -1 : 1) * ee * .5; baseK = kk; spinT = Math.PI / 2 - (baseU + autoX) * Math.PI * 2 / N; var nowT = performance.now(); lastScrollT = nowT; inGalaxy = p > A - .005 && p < B - .01; spread = p > B ? Math.min(1, (p - B) / .04) : 0; gate(p >= A - .005);
+          var P0 = A + .05, uR = Math.max(0, Math.min(nW - 1, (p - P0) / (B - P0) * nW - .5)), kk = Math.round(uR), dd = uR - kk, ee = Math.min(1, Math.max(0, Math.abs(dd) - .1) / .4); ee = .5 - Math.cos(ee * Math.PI) / 2; autoX = Math.round(autoX); baseU = kk + (dd < 0 ? -1 : 1) * ee * .5; baseK = kk; spinT = Math.PI / 2 - (baseU + autoX) * Math.PI * 2 / N; var nowT = performance.now(); lastScrollT = nowT; inGalaxy = p > A - .005 && p < B - .01; spread = p > B ? Math.min(1, (p - B) / .04) : 0; gate(gOn ? p >= A - .03 : p >= A - .005); // folga para não ligar e desligar quando a rolagem para no limite
           if (p >= A - .02 && p <= B + .02) setWord((kk + autoX) % N);
           if (gather < 1) measureDot(); if (live) renderOrbit();
         } } });
