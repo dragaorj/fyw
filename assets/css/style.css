@@ -5183,3 +5183,13 @@ html body .zoom-play .zoom-intro-title { font-size: clamp(3rem, 6.4vw, 8.5rem) !
   html body .hero .hero-sub { max-width: none !important; font-size: 3.02vw !important; line-height: 1.45 !important; letter-spacing: -.01em; text-wrap: balance; padding: 0; margin-inline: -6px !important; }
 }
 .f-cnpj { white-space: nowrap; opacity: .75; margin-left: 6px; }
+/* telas em pé (tablets e monitores verticais): título do jogo maior, ainda em duas linhas */
+@media (min-width: 600px) and (orientation: portrait) {
+  html body .zoom-play .zoom-intro { padding-left: 24px !important; padding-right: 24px !important; }
+  html body .zoom-play .zoom-intro-title { font-size: 8.4vw !important; max-width: 11em !important; }
+}
+/* título da seção do jogo: sempre em duas linhas (uma frase por linha), inclusive no celular */
+@media (max-width: 599px) {
+  html body .zoom-play .zoom-intro { padding-left: 14px !important; padding-right: 14px !important; }
+  html body .zoom-play .zoom-intro-title { font-size: 8.7vw !important; max-width: 11em !important; padding: 0 !important; }
+}
