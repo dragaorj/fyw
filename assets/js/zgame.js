@@ -171,7 +171,7 @@
     if (done) return; done = true; played = true; sec.dataset.result = typeof res === 'string' ? res : 'skip'; var sc = sec.querySelector('.zp-score'); if (sc && S) sc.textContent = S.score + ' / ' + GOAL; stage.classList.add('is-open'); sec.classList.add('is-done');
     setTimeout(function () { stopGame(); stage.classList.remove('is-live'); unlockScroll();
       // rola sozinho até a tela final com o CTA (fim da seção fixa); dali a pessoa segue rolando se quiser
-      var st = zst; sec.classList.add('show-final'); if (st) { var y = st.end - 1; if (window.__lenis) window.__lenis.scrollTo(y, { duration: .9 }); else scrollTo({ top: y, behavior: 'smooth' }); }
+      var st = zst; lastR = -1; sec.classList.add('show-final'); if (st) { var y = st.end - 1; if (window.__lenis) window.__lenis.scrollTo(y, { duration: .9 }); else scrollTo({ top: y, behavior: 'smooth' }); }
       var cta = sec.querySelector('.zp-final .zoom-cta'); if (cta) setTimeout(function () { cta.focus({ preventScroll: true }); }, 1000);
     }, res === 'quit' ? 0 : 1000);
   }
@@ -185,7 +185,7 @@
     gsap.registerPlugin(ScrollTrigger);
     var cover = function () { var d = dot.offsetWidth || 20; return Math.hypot(innerWidth, innerHeight) / d * 1.05; };
     zst = gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top top', end: '+=140%', scrub: .6, pin: pin, invalidateOnRefresh: true,
-        onUpdate: function (st) { if (st.progress > .97 && st.direction > 0 && !done && !skipped && !played) lockScroll(true); sec.classList.toggle('show-final', st.progress > .985); },
+        onUpdate: function (st) { if (st.progress > .97 && st.direction > 0 && !done && !skipped && !played) lockScroll(true);  },
         // voltando a página para cima até o jogo, ele começa de novo
         onEnterBack: function () {},
         onLeaveBack: function () {} } })
@@ -193,6 +193,9 @@
       .to(sec.querySelector('.zoom-intro'), { autoAlpha: 0, y: -40, ease: 'power1.in', duration: .4 }, .3)
       .to(dot, { scale: cover, ease: 'power2.in', duration: .7 }, .3).scrollTrigger;
   };
+  // depois do jogo, a frase final aparece recortada dentro da bolinha (cresce e diminui junto com ela)
+  var lastR = -1; var porthole = function () { if (!done || !dot) return; var r = dot.getBoundingClientRect().width / 2; if (Math.abs(r - lastR) < .5) return; lastR = r; sec.style.setProperty('--zr', r.toFixed(1) + 'px'); sec.classList.toggle('show-final', r > 30); };
+  var hookTick = function () { if (window.gsap) gsap.ticker.add(porthole); else setTimeout(hookTick, 200); }; hookTick();
   if (document.readyState === 'complete') init(); else addEventListener('load', init);
   addEventListener('resize', function () { if (S && live) { var k = S.px / W; resize(); S.px = S.tx = k * W; } });
 })();

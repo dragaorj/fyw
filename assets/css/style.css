@@ -5136,3 +5136,7 @@ html.zg-lock .dock, html.zg-lock .cursor { display: none !important; }
 .zoom-play[data-result="quit"] .zp-score-row { display: none; }
 .zoom-play[data-result="quit"] .zp-k { color: #FF6A2B; }
 .zoom-play[data-result="quit"] .zgame { transition: opacity .2s, visibility .2s !important; }
+/* frase final vista "pela janela" da bolinha */
+.zoom-play.is-done .zp-final { clip-path: circle(var(--zr, 0px) at 50% 50%); transition: none !important; }
+.zoom-play.is-done.show-final .zp-final { opacity: 1 !important; visibility: visible !important; transition: none !important; }
+.zoom-play.is-done.show-final .zp-final * { visibility: visible; }
