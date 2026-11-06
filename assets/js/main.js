@@ -717,7 +717,7 @@
         });
         $('.zoom-pin').addEventListener('mouseleave', () => { active = false; });
       }
-      gsap.from('.zoom-intro > *', { y: 30, opacity: 0, duration: 1.1, ease: E, stagger: 0.1, scrollTrigger: { trigger: '.zoom', start: 'top 70%' } });
+      gsap.from('.zoom-intro > *:not(.zs-outro):not(.zs-cta)', { y: 30, opacity: 0, duration: 1.1, ease: E, stagger: 0.1, scrollTrigger: { trigger: '.zoom', start: 'top 70%' } });
 
       });
       chunk(() => {
@@ -941,6 +941,14 @@
     const overZoom = !!(top0 && top0.closest('.zoom'));
     const zp = overZoom && document.querySelector(".zoom.is-final .zoom-pin");
     if (zp) { const r = zp.getBoundingClientRect(); if (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) return 0.25; }
+    // seção "Feito para impressionar": a bolinha que vira tela e a moldura do site não recebem clique, então são checadas pela área
+    if (top0 && top0.closest('.zoom-stack')) {
+      const lumOf = el => { const m = getComputedStyle(el).backgroundColor.match(/[\d.]+/g); return m ? (0.2126 * m[0] + 0.7152 * m[1] + 0.0722 * m[2]) / 255 : null; };
+      const fr = document.querySelector('.zoom-stack .zb-frame');
+      if (fr && getComputedStyle(fr.closest('.zs-build')).visibility !== 'hidden' && +getComputedStyle(fr).opacity > .5) { const r = fr.getBoundingClientRect(); if (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) return lumOf(fr); }
+      const fl = document.querySelector('.zoom-stack .zi-fill');
+      if (fl) { const r = fl.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2; if (r.width > 4 && Math.hypot(x - cx, y - cy) < r.width / 2) return lumOf(fl); }
+    }
     const zgr = overZoom && document.querySelector(".zoom-grid"); if (zgr) { for (const t of zgr.querySelectorAll(".zg")) { const r = t.getBoundingClientRect(); if (getComputedStyle(t).opacity > 0.5 && x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) return 0.3; } }
     const els = document.elementsFromPoint(x, y).filter(el => !dock.contains(el) && !el.classList.contains('cursor') && !el.closest('.cursor'));
     for (const el of els) {
