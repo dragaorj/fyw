@@ -943,7 +943,8 @@ window.__fywTagBg = function (hex) { var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''
   function lumAt(x, y) {
     // imagens sem clique (galeria/roda) não aparecem no elementsFromPoint: checa pela área
     // só considera a galeria se ela for de fato o que está atrás da doca (outra seção pode estar por cima)
-    const top0 = document.elementsFromPoint(x, y).find(el => !dock.contains(el) && !el.closest('.cursor'));
+    const hits = document.elementsFromPoint(x, y); // uma consulta só por checagem (é cara)
+    const top0 = hits.find(el => !dock.contains(el) && !el.closest('.cursor'));
     const overZoom = !!(top0 && top0.closest('.zoom'));
     const zp = overZoom && document.querySelector(".zoom.is-final .zoom-pin");
     if (zp) { const r = zp.getBoundingClientRect(); if (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) return 0.25; }
@@ -956,7 +957,7 @@ window.__fywTagBg = function (hex) { var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''
       if (fl) { const r = fl.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2; if (r.width > 4 && Math.hypot(x - cx, y - cy) < r.width / 2) return lumOf(fl); }
     }
     const zgr = overZoom && document.querySelector(".zoom-grid"); if (zgr) { for (const t of zgr.querySelectorAll(".zg")) { const r = t.getBoundingClientRect(); if (getComputedStyle(t).opacity > 0.5 && x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) return 0.3; } }
-    const els = document.elementsFromPoint(x, y).filter(el => !dock.contains(el) && !el.classList.contains('cursor') && !el.closest('.cursor'));
+    const els = hits.filter(el => !dock.contains(el) && !el.classList.contains('cursor') && !el.closest('.cursor'));
     for (const el of els) {
       if (el.tagName === 'IMG' || el.tagName === 'VIDEO') return 0.3;
       let n = el;
@@ -969,14 +970,22 @@ window.__fywTagBg = function (hex) { var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''
     }
     return (0.2126 * 11 + 0.7152 * 11 + 0.0722 * 11) / 255 > 0 && document.documentElement.dataset.theme === 'dark' ? 0.05 : 0.93;
   }
-  let toneRaf = 0;
-  function syncDockTone() {
+  let toneRaf = 0, toneT = 0, toneY = -1e9, toneTail = 0;
+  // a cor da doca é conferida no máximo ~8x por segundo e só se a página andou (antes: todo quadro de rolagem — travava no celular);
+  // uma última checagem logo depois que a rolagem para garante a cor certa
+  function checkTone() {
     if (toneRaf) return;
+    toneT = performance.now(); toneY = window.scrollY;
     toneRaf = requestAnimationFrame(() => {
       toneRaf = 0;
       const r = dock.getBoundingClientRect();
       dock.classList.toggle('on-dark', lumAt(r.left + r.width / 2, r.top + r.height / 2) < 0.5);
     });
+  }
+  function syncDockTone() {
+    clearTimeout(toneTail); toneTail = setTimeout(checkTone, 160); // checagem final, quando a rolagem para
+    if (performance.now() - toneT < 120 || Math.abs(window.scrollY - toneY) < 24) return;
+    checkTone();
   }
   function onScrollUI() {
     const y = window.scrollY;
