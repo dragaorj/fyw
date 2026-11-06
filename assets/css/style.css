@@ -5198,3 +5198,11 @@ html body .zoom-play .zoom-intro-title { font-size: clamp(3rem, 6.4vw, 8.5rem) !
   html body .logo-wall .lw-cell .lw-info { display: none !important; }
   html body .logo-wall .lw-cell:hover .lw-logo, html body .logo-wall .lw-cell:focus-within .lw-logo { transform: scale(1.06) !important; }
 }
+/* "Latimpacto": palavra inteira fechada; a imagem abre entre "Latim" e "pacto" */
+.wr-title.wr-join { column-gap: 0 !important; gap: 0 !important; }
+.wr-join .wr-thumb { transition: width .7s var(--ease), margin .7s var(--ease) !important; }
+.work-row.is-open .wr-join .wr-thumb { margin: 0 .22em !important; }
+@media (hover: hover) { .work-row:hover .wr-join .wr-thumb { margin: 0 .22em !important; } }
+.wr-join .wr-thumb { margin: 0 !important; }
+.work-row.is-open .wr-join .wr-thumb { margin: 0 .22em !important; }
+@media (hover: hover) { .work-row:hover .wr-join .wr-thumb { margin: 0 .22em !important; } }
