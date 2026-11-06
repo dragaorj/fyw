@@ -5182,3 +5182,4 @@ html body .zoom-play .zoom-intro-title { font-size: clamp(3rem, 6.4vw, 8.5rem) !
   html body .hero .hfan { margin-top: 22px !important; margin-bottom: 26px !important; }
   html body .hero .hero-sub { max-width: none !important; font-size: 3.02vw !important; line-height: 1.45 !important; letter-spacing: -.01em; text-wrap: balance; padding: 0; margin-inline: -6px !important; }
 }
+.f-cnpj { white-space: nowrap; opacity: .75; margin-left: 6px; }
