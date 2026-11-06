@@ -1,5 +1,8 @@
 {
   "redirects": [
     { "source": "/index.html", "destination": "/", "permanent": true }
-  ]
+  ],
+  "functions": {
+    "api/lighthouse.js": { "maxDuration": 60 }
+  }
 }

@@ -322,8 +322,13 @@ window.__fywTagBg = function (hex) { var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''
         // celular e computador mostram os mesmos 5 projetos sorteados
         rowsAll.forEach((r, k) => { r.hidden = k >= Math.min(5, n); });
         const rows = rowsAll.filter(r => !r.hidden);
+        // cada card vai para a linha do MESMO projeto (a foto que passa na linha é sempre a do projeto certo);
+        // projeto sem card cai no esquema antigo por posição
+        const slugOf = r => (r.getAttribute('href') || '').split('/').pop().replace('.html', '');
+        const rowBySlug = {}; rows.forEach((r, k) => { rowBySlug[slugOf(r)] = k; });
         const firstMapped = rows.length >= n ? 0 : Math.max(0, Math.round(mid) - Math.floor(rows.length / 2));
-        const rowOf = i => { const k = i - firstMapped; return k >= 0 && k < rows.length ? k : -1; };
+        const allMatch = rows.every(r => fCards.some(c => c.dataset.project === slugOf(r)));
+        const rowOf = i => { if (allMatch) { const k = rowBySlug[fCards[i].dataset.project]; return k === undefined ? -1 : k; } const k = i - firstMapped; return k >= 0 && k < rows.length ? k : -1; };
         // letras dos nomes (para "escrever" quando o card passa)
         rows.forEach(r => { $$('.wr-title > span:not(.wr-thumb)', r).forEach(sp => { const t = sp.textContent; sp.innerHTML = [...t].map(ch => '<span class="wch">' + (ch === ' ' ? '&nbsp;' : ch) + '</span>').join(''); }); });
         const docPos = el => { let x = 0, y = 0, e = el; while (e) { x += e.offsetLeft; y += e.offsetTop; e = e.offsetParent; } return { x, y, w: el.offsetWidth, h: el.offsetHeight }; };
