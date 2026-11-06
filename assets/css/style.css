@@ -5570,3 +5570,6 @@ html body .zoom-stack p.zs-scroll { width: auto; height: auto; border: 0; border
   html body .hero-stage { --fw: clamp(120px, min(38vw, 24svh), 176px) !important; }
   html body .hero .hfan { margin-top: 30px !important; margin-bottom: 30px !important; }
 }
+/* Beta colorida: texto escuro + o detalhe vermelho (a logo original), sempre visível sobre a película clara */
+html body .zs-lg-beta-online .zs-lg-col [fill="#242424"] { fill: #242424 !important; }
+html body .zs-lg-beta-online .zs-lg-col [fill="#CD2323"] { fill: #CD2323 !important; }

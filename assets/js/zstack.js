@@ -44,7 +44,7 @@
     w.appendChild(cloneMark(a, '-zs' + i));
     // versão colorida (aparece ao passar o mouse); sem versão colorida, a logo pega a cor da marca
     var col = cell.querySelector('.lw-mark.is-color'), li = cell.closest('.lw-cell');
-    if (LOGOS[i] !== 'jogo-pela-integridade' && LOGOS[i] !== 'pacto-global') col = null; // as outras versões coloridas têm partes brancas: usa a logo na cor da marca
+    if (LOGOS[i] !== 'jogo-pela-integridade' && LOGOS[i] !== 'pacto-global' && LOGOS[i] !== 'beta-online') col = null; // as outras versões coloridas têm partes brancas: usa a logo na cor da marca
     if (col) { var cc = cloneMark(col, '-zc' + i); cc.classList.add('zs-lg-col'); w.appendChild(cc); } else w.classList.add('no-col');
     if (li && li.style.getPropertyValue('--brand')) o.style.setProperty('--brand', li.style.getPropertyValue('--brand'));
     o.appendChild(w);
