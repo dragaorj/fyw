@@ -6199,3 +6199,6 @@ html.a11y-motion body .t-track, html.a11y-clean body .t-track { animation: none 
 /* aviso das páginas de projeto legível nos dois temas */
 html body .pj-note { color: var(--muted); }
 html body .pj-note span { color: var(--ink); opacity: .78; }
+
+/* iFood: logo maior no card do topo */
+.hf-card[data-project="ifood"] { --lw: 62%; }
