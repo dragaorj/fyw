@@ -219,7 +219,7 @@
         // depois que a apresentação terminou, rolar para cima volta direto para a página (não repete a animação ao contrário)
         if (s.progress > .95) played = true;
         if (played && !jumping && s.direction < 0 && s.progress < .93) {
-          jumping = true; stopAuto(); goTo(Math.max(0, ST.start - innerHeight * .45)); tl.progress(0); setTimeout(function () { jumping = false; played = false; }, 400);
+          jumping = true; stopAuto(); var ab = document.querySelector(".about"), yb = ab ? ab.getBoundingClientRect().bottom + window.scrollY - innerHeight : ST.start - innerHeight; goTo(Math.max(0, Math.min(yb, ST.start - innerHeight * .6))); // volta para a seção dos números tl.progress(0); setTimeout(function () { jumping = false; played = false; }, 400);
         }
       },
       onEnter: function () { if (coarse && armed) { armed = false; arm(); } },
