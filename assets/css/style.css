@@ -5140,3 +5140,13 @@ html.zg-lock .dock, html.zg-lock .cursor { display: none !important; }
 .zoom-play.is-done .zp-final { clip-path: circle(var(--zr, 0px) at 50% 50%); transition: none !important; }
 .zoom-play.is-done.show-final .zp-final { opacity: 1 !important; visibility: visible !important; transition: none !important; }
 .zoom-play.is-done.show-final .zp-final * { visibility: visible; }
+/* frases de apoio da tela final: sempre em duas linhas no desktop */
+.zp-s { font-size: clamp(1.25rem, 2.1vw, 2.1rem) !important; max-width: min(92vw, 52ch) !important; line-height: 1.25 !important; text-wrap: balance; }
+/* cursor: campos de texto, vídeos e o jogo sempre mostram a seta/cursor do sistema */
+html.has-cursor:not(.a11y-motion):not(.a11y-clean) :is(input:not([type="checkbox"]):not([type="radio"]), textarea, select, [contenteditable="true"]) { cursor: text !important; }
+html.has-cursor:not(.a11y-motion):not(.a11y-clean) :is(iframe, video) { cursor: auto !important; }
+html.zg-lock, html.zg-lock *, html.zg-lock.has-cursor * { cursor: auto !important; }
+html.zg-lock .zg-ui button { cursor: pointer !important; }
+html.zg-lock .zg-canvas { cursor: crosshair !important; }
+.cursor.is-hidden { opacity: 0 !important; }
+.zgame:focus { outline: none; }

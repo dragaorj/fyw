@@ -909,11 +909,17 @@
   /* ---------------- Cursor ---------------- */
   if (finePointer && hasGsap && !a11y.motion && !a11y.clean) {
     const cur = $('.cursor');
-    d.classList.add('has-cursor');
+    // à prova de falhas: a seta do sistema só some depois que a bolinha já está seguindo um mouse de verdade;
+    // com toque/caneta (notebooks com tela touch), dentro de vídeos/iframes ou com a janela sem foco, a seta volta
+    const on = () => { if (!d.classList.contains('has-cursor')) d.classList.add('has-cursor'); cur.classList.remove('is-hidden'); };
+    const off = () => { d.classList.remove('has-cursor'); cur.classList.add('is-hidden'); };
     // segue o mouse sem atraso, como a seta do sistema (1 atualização por quadro, só transform)
     let mx = -50, my = -50, craf = 0;
     const place = () => { craf = 0; cur.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0)'; };
-    addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; if (!craf) craf = requestAnimationFrame(place); }, { passive: true });
+    addEventListener('pointermove', e => { if (e.pointerType && e.pointerType !== 'mouse') { off(); return; } mx = e.clientX; my = e.clientY; on(); if (!craf) craf = requestAnimationFrame(place); }, { passive: true });
+    addEventListener('pointerdown', e => { if (e.pointerType && e.pointerType !== 'mouse') off(); }, { passive: true });
+    addEventListener('blur', off);
+    document.addEventListener('mouseover', e => { if (e.target.closest && e.target.closest('iframe, video')) cur.classList.add('is-hidden'); });
     document.addEventListener('mouseover', e => {
       const v = e.target.closest('[data-cursor="view"]');
       const h = e.target.closest('a, button, .svc, .wheel-card, .fl');
