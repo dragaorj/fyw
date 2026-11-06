@@ -6514,3 +6514,14 @@ html.founder-on .cursor { opacity: 0 !important; }
 @media (prefers-reduced-motion: reduce) { .perf-card, .perf-how li { opacity: 1; transform: none; transition: none; } .pm-bar i { transform: none; } }
 .a11y-motion .perf-card, .a11y-motion .perf-how li { opacity: 1 !important; transform: none !important; }
 .perf-scores { display: flex; flex-direction: column; } .perf-scores .pg-row { margin-block: auto; }
+
+/* ===== Desempenho: animações contínuas mais leves ===== */
+/* reflexo do botão do topo: anda com translate (placa de vídeo) em vez de "left" (refazia o layout da página a cada quadro) */
+.bh-glass::after { left: -40% !important; animation-name: bhSheenT !important; }
+@keyframes bhSheenT { 0% { translate: 0 0; } 35%, 100% { translate: 567% 0; } }
+/* pontinho "Medição real": anel que cresce e some (transform + opacity) em vez de sombra animada */
+.perf-live > i { position: relative; box-shadow: none !important; animation: none !important; }
+.perf-live > i::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--pg-good); animation: perfRing 2s ease-out infinite; }
+@keyframes perfRing { from { transform: scale(1); opacity: .6; } to { transform: scale(2.4); opacity: 0; } }
+/* fora da tela: animações pausadas (voltam ao aparecer) */
+.is-offscreen *, .is-offscreen *::before, .is-offscreen *::after { animation-play-state: paused !important; }

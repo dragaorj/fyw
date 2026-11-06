@@ -437,8 +437,13 @@ window.__fywTagBg = function (hex) { var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''
         // a viagem anda sozinha devagar e acelera conforme a velocidade do scroll; ao voltar ao topo, retorna rápido
         const PMAX = 1.45;
         // o scroll controla a animação: desce = avança, sobe = volta (na mesma medida)
+        // posição da rolagem guardada só quando a página rola: ler window.scrollY a cada quadro forçava
+        // o navegador a recalcular estilo e layout 120x por segundo, mesmo com a página parada
+        let curY = window.scrollY;
+        addEventListener('scroll', () => { curY = window.scrollY; }, { passive: true });
+        addEventListener('resize', () => { curY = window.scrollY; }, { passive: true });
         gsap.ticker.add(() => {
-          const y = window.scrollY;
+          const y = curY;
           const target = clamp01(y / (G.heroH * 0.9)) * PMAX;
           const d = target - A.p;
           if (Math.abs(d) > 0.0004) { A.p += d * 0.2; dirty = true; } else if (A.p !== target) { A.p = target; dirty = true; }
@@ -753,9 +758,11 @@ window.__fywTagBg = function (hex) { var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''
         // cópia colorida do texto (aparece só onde o mouse está) andando junto com a faixa
         const hi = $('.band-hi', wrap); let tracks = track;
         if (hi && !hi.firstChild) { const tc = track.cloneNode(true); hi.appendChild(tc); tracks = [track, tc]; }
-        const loop = dir > 0 ? gsap.to(tracks, { xPercent: -50, ease: 'none', duration: 26, repeat: -1 }) : gsap.fromTo(tracks, { xPercent: -50 }, { xPercent: 0, ease: 'none', duration: 26, repeat: -1 });
+        const loop = dir > 0 ? gsap.to(tracks, { xPercent: -50, ease: 'none', duration: 26, repeat: -1, paused: true }) : gsap.fromTo(tracks, { xPercent: -50 }, { xPercent: 0, ease: 'none', duration: 26, repeat: -1, paused: true });
         ScrollTrigger.create({
           trigger: wrap, start: 'top bottom', end: 'bottom top',
+          // a faixa só anda enquanto aparece na tela (antes rodava sem parar e ocupava o processador o tempo todo)
+          onToggle: self => { if (self.isActive) loop.play(); else loop.pause(); },
           onUpdate: self => {
             const v = gsap.utils.clamp(-6, 6, self.getVelocity() / 300);
             gsap.to(loop, { timeScale: 1 + Math.abs(v), duration: 0.3, overwrite: true });
