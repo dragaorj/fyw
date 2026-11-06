@@ -5634,3 +5634,5 @@ html body.pj-beta .pp2-brand .pb-logo { width: calc(178px * var(--k)) !important
 html body.pj-jpi .pp2-brand svg.pb-main { width: calc(80px * var(--k)) !important; height: calc(80px * var(--k)) !important; }
 html body.pj-jpi .pp2-brand svg.pb-sub { width: calc(68px * var(--k)) !important; height: calc(92px * var(--k)) !important; }
 html body.pj-jpi .pp2-brand > i { height: calc(80px * var(--k)) !important; }
+/* véu do corte suave ao voltar da apresentação */
+.zs-veil { position: fixed; inset: 0; z-index: 110; background: var(--bg); opacity: 0; visibility: hidden; pointer-events: none; }
