@@ -230,7 +230,7 @@
     if (!window.gsap || !window.ScrollTrigger) { setTimeout(init, 200); return; }
     gsap.registerPlugin(ScrollTrigger);
     var cover = function () { var d = dot.offsetWidth || 20; return Math.hypot(innerWidth, innerHeight) / d * 1.05; };
-    zst = gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top top', end: '+=140%', scrub: .6, pin: pin, invalidateOnRefresh: true,
+    zst = gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top top', end: function () { return '+=' + (innerWidth < 600 ? 95 : 130) + '%'; }, scrub: .5, pin: pin, invalidateOnRefresh: true,
         onUpdate: function (st) { if (st.progress > .97 && st.direction > 0 && !done && !skipped && !played) lockScroll(true);  },
         // voltando a página para cima até o jogo, ele começa de novo
         onEnterBack: function () {},

@@ -5150,3 +5150,17 @@ html.zg-lock .zg-ui button { cursor: pointer !important; }
 html.zg-lock .zg-canvas { cursor: crosshair !important; }
 .cursor.is-hidden { opacity: 0 !important; }
 .zgame:focus { outline: none; }
+/* Máquina de vendas no celular: pop-up no meio da tela, fundo embaçado, fechar no canto superior direito */
+.smp-back { position: fixed; inset: 0; z-index: 2147482000; background: rgba(11,11,11,.28); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s; }
+.smp-back.is-on { opacity: 1; visibility: visible; }
+@media (max-width: 599px) {
+  .smp.is-modal { position: fixed !important; z-index: 2147482100; left: 50% !important; top: 50% !important; right: auto !important; bottom: auto !important; width: min(88vw, 360px) !important; padding: 20px 18px 18px;
+    transform: translate(-50%, -46%) scale(.96) !important; transform-origin: center; font-size: 15px; }
+  .smp.is-modal.is-on { transform: translate(-50%, -50%) !important; }
+  .smp.is-modal .smp-h { padding-right: 44px; }
+  .smp.is-modal .smp-x { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; font-size: 20px; }
+  .smp.is-modal .smp-h b { font-size: 16px; }
+}
+/* título da seção do jogo maior (desktop e celular) */
+html body .zoom-play .zoom-intro-title { font-size: clamp(3rem, 6.4vw, 8.5rem) !important; line-height: .98 !important; max-width: 13em !important; letter-spacing: -.05em; text-wrap: balance; }
+@media (max-width: 599px) { html body .zoom-play .zoom-intro-title { font-size: 13.2vw !important; max-width: 9ch !important; padding: 0 12px; } }

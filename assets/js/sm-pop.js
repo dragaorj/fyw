@@ -23,21 +23,24 @@
   };
   var pop = document.createElement('div'); pop.className = 'smp'; pop.setAttribute('role', 'dialog'); pop.setAttribute('aria-hidden', 'true');
   sm.appendChild(pop);
+  // celular: o pop-up abre no meio da tela, com o resto embaçado e o botão de fechar no canto superior direito
+  var mob = function () { return matchMedia('(max-width: 599px)').matches; };
+  var back = document.createElement('div'); back.className = 'smp-back'; document.body.appendChild(back);
+  back.addEventListener('click', function () { hide(); });
   var cur = -1;
   function show(i) {
     if (cur === i) return hide();
     cur = i; var d = C[L()][i], t = toasts[i];
-    pop.className = 'smp is-' + (i + 1);
+    pop.className = 'smp is-' + (i + 1) + (mob() ? ' is-modal' : '');
+    if (mob()) { document.body.appendChild(pop); back.classList.add('is-on'); pop.setAttribute('aria-modal', 'true'); if (window.__lenis) window.__lenis.stop(); } else if (pop.parentNode !== sm) sm.appendChild(pop);
     pop.innerHTML = '<div class="smp-h"><span class="smp-ico">' + t.querySelector('.sm-ti').innerHTML + '</span><b>' + d.h + '</b><button type="button" class="smp-x" aria-label="Fechar">×</button></div>' + d.b + '<span class="smp-f">' + d.f + ' <i>→</i></span>';
-    var sr = sm.getBoundingClientRect(), tr = t.getBoundingClientRect();
-    pop.style.top = Math.max(0, tr.top - sr.top - 6) + 'px';
-    pop.style.right = (sr.right - tr.left + 14) + 'px';
+    if (!mob()) { var sr = sm.getBoundingClientRect(), tr = t.getBoundingClientRect(); pop.style.top = Math.max(0, tr.top - sr.top - 6) + 'px'; pop.style.right = (sr.right - tr.left + 14) + 'px'; } else { pop.style.top = ''; pop.style.right = ''; }
     pop.setAttribute('aria-hidden', 'false');
     requestAnimationFrame(function () { pop.classList.add('is-on'); });
     toasts.forEach(function (x, k) { x.classList.toggle('is-active', k === i); x.setAttribute('aria-expanded', k === i); });
     pop.querySelector('.smp-x').addEventListener('click', function (e) { e.stopPropagation(); hide(); });
   }
-  function hide() { cur = -1; pop.classList.remove('is-on'); pop.setAttribute('aria-hidden', 'true'); toasts.forEach(function (x) { x.classList.remove('is-active'); x.setAttribute('aria-expanded', 'false'); }); }
+  function hide() { if (back.classList.contains('is-on')) { back.classList.remove('is-on'); if (window.__lenis) window.__lenis.start(); } cur = -1; pop.classList.remove('is-on'); pop.setAttribute('aria-hidden', 'true'); toasts.forEach(function (x) { x.classList.remove('is-active'); x.setAttribute('aria-expanded', 'false'); }); }
   toasts.forEach(function (t, i) {
     t.setAttribute('role', 'button'); t.setAttribute('tabindex', '0'); t.setAttribute('aria-expanded', 'false');
     t.addEventListener('click', function (e) { e.stopPropagation(); show(i); });
@@ -46,5 +49,5 @@
   sm.querySelector('.sm-toasts').removeAttribute('aria-hidden');
   document.addEventListener('click', function (e) { if (cur > -1 && !pop.contains(e.target)) hide(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hide(); });
-  addEventListener('scroll', function () { if (cur > -1 && matchMedia('(max-width: 599px)').matches) hide(); }, { passive: true });
+
 })();
