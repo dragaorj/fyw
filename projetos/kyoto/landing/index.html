@@ -493,8 +493,8 @@ html:not(.in-frame) .ft{padding-bottom:max(84px,calc(20 * var(--k)))}
   }
   document.querySelector('.lang').addEventListener('click',function(e){var b=e.target.closest('b');setLang(b?b.dataset.l:(root.lang==='en'?'ja':'en'));});
   var saved=null; try{saved=localStorage.getItem('kyoto-lang');}catch(e){}
-  if(saved==='en')setLang('en');
+  if(saved!=='ja')setLang('en');
 })();
 </script>
-<script defer src="/assets/js/fyw-back.js"></script><script src="../../_shared/totop.js?v=2" data-bg="#0178FF" data-fg="#FFFFFF" defer></script></body>
+<script defer src="/assets/js/fyw-back.js?v=7"></script><script src="../../_shared/totop.js?v=2" data-bg="#0178FF" data-fg="#FFFFFF" defer></script></body>
 </html>

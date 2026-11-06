@@ -830,3 +830,74 @@ html,body{scrollbar-width:none}html::-webkit-scrollbar,body::-webkit-scrollbar{d
 .hero-trust:hover b{color:var(--mint)}
 @keyframes avWave{0%{transform:translateY(0)}45%{transform:translateY(-5px)}100%{transform:translateY(0)}}
 @media (prefers-reduced-motion:reduce){.hero-trust:hover .avs img{animation:none}}
+/* celular: bandeira do idioma visível no topo, ao lado do menu; menu hambúrguer redesenhado */
+@media (max-width:1023px){
+  .nav-r .lang-dd{display:block}
+  .nav-r{gap:8px}
+  .menu .lang-dd{display:none}
+  .menu .btns{margin-top:auto}
+  .nav-r .lang-cur{width:42px;height:42px}
+}
+.burger{width:44px;height:44px;border-radius:50%;background:color-mix(in srgb,currentColor 10%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,currentColor 18%,transparent);transition:background .3s,box-shadow .3s,transform .3s var(--ease)}
+.burger:hover{background:color-mix(in srgb,currentColor 16%,transparent)}
+.burger:active{transform:scale(.92)}
+.burger span{left:13px;right:13px;height:2px;transition:transform .4s var(--ease),top .4s var(--ease),left .4s var(--ease),right .4s var(--ease)}
+.burger span:first-child{top:17.5px}
+.burger span:last-child{top:24.5px;left:19px}
+.burger:hover span:last-child{left:13px}
+.is-menu .burger{background:var(--green);box-shadow:none;color:#fff}
+.is-menu .burger span:first-child,.is-menu .burger span:last-child{top:21px;left:14px;right:14px}
+/* ---- página de login ---- */
+.auth{min-height:100vh;min-height:100dvh;background:linear-gradient(160deg,#0d4a2e 0%,var(--pine) 55%,#16302b 100%);color:#fff;display:flex;flex-direction:column;position:relative;overflow-x:hidden}
+.auth-bg{position:fixed;inset:0;pointer-events:none;z-index:0;background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1.2px);background-size:22px 22px}
+.auth-bg span{position:absolute;border-radius:50%;filter:blur(80px)}
+.auth-bg .ab-1{width:520px;height:520px;left:-160px;top:-180px;background:rgba(6,176,81,.45);animation:abF 14s ease-in-out infinite alternate}
+.auth-bg .ab-2{width:460px;height:460px;right:-140px;bottom:-160px;background:rgba(57,205,128,.3);animation:abF 18s ease-in-out infinite alternate-reverse}
+@keyframes abF{to{transform:translate(60px,40px) scale(1.12)}}
+.auth-top{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:18px var(--pad,20px)}
+.auth-back{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.08);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16);transition:background .3s,transform .3s var(--ease)}
+.auth-back:hover{background:rgba(255,255,255,.16);transform:translateX(-2px)}
+.auth-back svg{width:18px;height:18px}
+.auth-main{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 20px 120px;gap:28px}
+.auth-logo svg{height:40px;width:auto;color:#fff;display:block}
+.auth-card{width:100%;max-width:420px;background:#fff;color:var(--ink);border-radius:28px;padding:34px 30px 28px;box-shadow:0 40px 80px -30px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.06);display:grid;gap:16px;animation:acIn .7s var(--ease) both}
+@keyframes acIn{from{opacity:0;transform:translateY(24px) scale(.98)}}
+.auth-card h1{font-size:28px;line-height:1.1;letter-spacing:-.03em;font-weight:700;margin:0}
+.auth-sub{margin:-8px 0 6px;color:var(--muted,#5b6b67);font-size:15px}
+.fld{display:grid;gap:7px;font-size:13.5px;font-weight:600}
+.fld input{width:100%;height:52px;border-radius:14px;border:1.5px solid var(--line,#e2e8e5);background:#f7faf8;padding:0 16px;font:500 16px/1 inherit;font-family:inherit;color:var(--ink);transition:border-color .25s,box-shadow .25s,background .25s}
+.fld input::placeholder{color:#9aa8a4;font-weight:400}
+.fld input:focus{outline:none;border-color:var(--green);background:#fff;box-shadow:0 0 0 4px rgba(6,176,81,.14)}
+.pw{position:relative;display:block}
+.pw input{padding-right:52px}
+.pw-t{position:absolute;right:6px;top:6px;width:40px;height:40px;border-radius:10px;display:grid;place-items:center;color:#7d8d89;transition:color .2s,background .2s}
+.pw-t:hover,.pw-t.on{color:var(--green-d);background:var(--mint-50)}
+.pw-t svg{width:20px;height:20px}
+.auth-row{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:14px}
+.auth-row a{color:var(--green-d);font-weight:600;white-space:nowrap}
+.auth-row a:hover{text-decoration:underline}
+.rem{display:inline-flex;align-items:center;gap:8px;cursor:pointer;white-space:nowrap}
+.rem input{position:absolute;opacity:0;width:0;height:0}
+.rem i{width:20px;height:20px;border-radius:6px;border:1.5px solid #c9d4d1;display:grid;place-items:center;transition:background .2s,border-color .2s}
+.rem input:checked+i{background:var(--green);border-color:var(--green)}
+.rem input:checked+i::after{content:"";width:10px;height:6px;border:2px solid #fff;border-top:0;border-right:0;transform:translateY(-1px) rotate(-45deg)}
+.rem input:focus-visible+i{box-shadow:0 0 0 3px rgba(6,176,81,.3)}
+.auth-go{width:100%;height:54px;justify-content:center;margin-top:4px}
+.auth-msg{margin:0;font-size:13.5px;min-height:0;text-align:center}
+.auth-card.err .auth-msg{color:#c0392b}
+.auth-card.err{animation:acShake .4s}
+.auth-card.ok .auth-msg{color:var(--green-d)}
+@keyframes acShake{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+.auth-new{margin:4px 0 0;text-align:center;font-size:14px;color:var(--muted,#5b6b67)}
+.auth-new a{color:var(--green-d);font-weight:700}
+.auth-new a:hover{text-decoration:underline}
+.auth-safe{display:inline-flex;align-items:center;gap:8px;margin:0;font-size:13px;opacity:.7}
+.auth-safe svg{width:16px;height:16px}
+.auth .lang-cur{color:#fff}
+@media (max-width:480px){.auth-card{padding:28px 20px 24px;border-radius:24px}.auth-card h1{font-size:25px}.auth-logo svg{height:34px}}
+@media (prefers-reduced-motion:reduce){.auth-bg span,.auth-card{animation:none}}
+
+/* redes sociais com os ícones do site original da Globalfy */
+.social a{width:44px;height:44px;background:rgba(255,255,255,.08);transition:background .3s,transform .35s var(--ease)}
+.social a .ico{width:18px;height:18px}
+.social a:hover{background:var(--green);color:#fff;transform:translateY(-3px)}

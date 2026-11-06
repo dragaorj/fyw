@@ -45,7 +45,7 @@
   });
 
   /* idioma (textos do menu e da navegação; o conteúdo das páginas de projeto é em português) */
-  var lang = (function () { var s = store.get('fio-lang', null); if (s && DICT[s]) return s; var n = (navigator.language || 'pt').slice(0, 2); return DICT[n] ? n : 'pt'; })();
+  var lang = (function () { var s = store.get('fio-lang', null); if (s && DICT[s]) return s; var n = (navigator.language || 'pt').slice(0, 2); return DICT[n] ? n : 'en'; })();
   function applyTexts() {
     var t = DICT[lang]; if (!t) return;
     $$('[data-i18n]').forEach(function (el) { var v = t[el.dataset.i18n]; if (v !== undefined) el.textContent = v; });

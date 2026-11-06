@@ -54,7 +54,7 @@
       ATTRS.forEach(function (a) { var v = el.getAttribute(a); var t = v && tr(norm(v)); if (t) attrs.push({ el: el, a: a, pt: v, tr: t }); });
     });
   }
-  function getLang() { try { var s = localStorage.getItem('fio-lang'); if (s === 'en' || s === 'es' || s === 'pt') return s; } catch (e) {} var n = (navigator.language || 'pt').slice(0, 2); return n === 'en' || n === 'es' ? n : 'pt'; }
+  function getLang() { try { var s = localStorage.getItem('fio-lang'); if (s === 'en' || s === 'es' || s === 'pt') return s; } catch (e) {} var n = (navigator.language || 'pt').slice(0, 2); return n === 'pt' || n === 'es' ? n : 'en'; }
   var cur = 'pt';
   function apply(l) {
     if (!items) collect();

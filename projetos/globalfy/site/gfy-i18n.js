@@ -25,6 +25,22 @@
     'Freelancer': ['Freelancer', 'Freelancer'],
     'Support': ['Suporte', 'Soporte'],
     'Log in': ['Entrar', 'Iniciar sesión'],
+    'Log in — Globalfy': ['Entrar — Globalfy', 'Iniciar sesión — Globalfy'],
+    'Log in to your Globalfy account and manage your US company.': ['Entre na sua conta Globalfy e administre sua empresa nos EUA.', 'Inicia sesión en tu cuenta Globalfy y administra tu empresa en EE. UU.'],
+    'Back to the site': ['Voltar para o site', 'Volver al sitio'],
+    'Welcome back': ['Bem-vindo de volta', 'Bienvenido de nuevo'],
+    'Log in to manage your US company.': ['Entre para administrar sua empresa nos EUA.', 'Inicia sesión para administrar tu empresa en EE. UU.'],
+    'Password': ['Senha', 'Contraseña'],
+    'Your password': ['Sua senha', 'Tu contraseña'],
+    'you@company.com': ['voce@empresa.com', 'tu@empresa.com'],
+    'Show password': ['Mostrar senha', 'Mostrar contraseña'],
+    'Remember me': ['Lembrar de mim', 'Recordarme'],
+    'Forgot password?': ['Esqueceu a senha?', '¿Olvidaste tu contraseña?'],
+    'New to Globalfy?': ['Novo na Globalfy?', '¿Nuevo en Globalfy?'],
+    'Open your company': ['Abra sua empresa', 'Abre tu empresa'],
+    'Secure connection · 256-bit encryption': ['Conexão segura · criptografia de 256 bits', 'Conexión segura · cifrado de 256 bits'],
+    'Enter a valid email and a password with at least 6 characters.': ['Digite um e-mail válido e uma senha com pelo menos 6 caracteres.', 'Ingresa un correo válido y una contraseña de al menos 6 caracteres.'],
+    'This is a demo: the real platform is not connected.': ['Esta é uma demonstração: a plataforma real não está conectada.', 'Esto es una demostración: la plataforma real no está conectada.'],
     'Start now': ['Começar agora', 'Empezar ahora'],
     'Home': ['Início', 'Inicio'],
     'US company formation · 100% online': ['Abertura de empresa nos EUA · 100% online', 'Apertura de empresa en EE. UU. · 100% online'],
@@ -558,11 +574,11 @@
   var norm = function (s) { return s.replace(/‑/g, '-').replace(/[‘’]/g, "'").replace(/[“”]/g, '"').replace(/\s+/g, ' ').trim(); };
   var IDX = { pt: 0, es: 1 };
   var get = function (lang, s) { if (lang === 'en') return null; var k = norm(s), r = D[k]; return r ? r[IDX[lang]] : null; };
-  var key = 'gfy-lang';
+  var key = 'fio-lang';
   var pick = function () {
     var q = (new URLSearchParams(location.search).get('lang') || '').slice(0, 2);
     if (q === 'pt' || q === 'es' || q === 'en') return q;
-    try { var s = localStorage.getItem(key); if (s) return s; } catch (e) {}
+    try { var s = localStorage.getItem(key); if (s === 'pt' || s === 'es' || s === 'en') return s; } catch (e) {}
     var n = (navigator.language || 'en').slice(0, 2); return n === 'pt' || n === 'es' ? n : 'en';
   };
   var lang = pick();

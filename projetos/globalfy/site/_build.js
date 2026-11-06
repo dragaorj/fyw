@@ -1,7 +1,7 @@
 // Gera as páginas do site recriado da Globalfy a partir de partes comuns (topo, rodapé, FAQ, CTA).
 // Uso: node _build.js   (rodar dentro de projetos/globalfy/site)
 const fs = require('fs');
-const V = '14';
+const V = '18';
 const u = (id, w = 900) => `https://images.unsplash.com/photo-${id}?w=${w}&q=70&auto=format&fit=crop`;
 const I = (n, c = '') => `<svg class="ico${c ? ' ' + c : ''}" aria-hidden="true"><use href="icons.svg?v=${V}#${n}"/></svg>`;
 const LOGO = `<svg viewBox="0 0 244 66" role="img" aria-label="Globalfy"><use href="icons.svg?v=${V}#logo"/></svg>`;
@@ -44,7 +44,7 @@ function nav(active) {
     <a class="logo" href="index.html" aria-label="Globalfy — home">${LOGO}</a>
     <nav class="nav-links" aria-label="Main">${a}</nav>
     <div class="nav-r">
-      <a class="nav-login" href="#">Log in</a>
+      <a class="nav-login" href="login.html">Log in</a>
       <div class="lang-dd"><button class="lang-cur" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Language"></button><div class="lang-sw" role="group" aria-label="Language"><button type="button" data-lang="en" aria-label="English" title="English">${FL.us}<span>English</span></button><button type="button" data-lang="pt" aria-label="Português" title="Português">${FL.br}<span>Português</span></button><button type="button" data-lang="es" aria-label="Español" title="Español">${FL.es}<span>Español</span></button></div></div>
       ${btnA('plans.html', 'Start now', 'sm')}
       <button class="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
@@ -53,7 +53,7 @@ function nav(active) {
 </header>
 <div class="menu" id="menu">
   <nav aria-label="Mobile"><a href="index.html">Home</a>${a}</nav>
-  <div class="lang-dd"><button class="lang-cur" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Language"></button><div class="lang-sw" role="group" aria-label="Language"><button type="button" data-lang="en" aria-label="English" title="English">${FL.us}<span>English</span></button><button type="button" data-lang="pt" aria-label="Português" title="Português">${FL.br}<span>Português</span></button><button type="button" data-lang="es" aria-label="Español" title="Español">${FL.es}<span>Español</span></button></div></div><div class="btns">${btn('plans.html', 'Start now', '', false)}${btnA('#', 'Log in', 'ghost')}</div>
+  <div class="lang-dd"><button class="lang-cur" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Language"></button><div class="lang-sw" role="group" aria-label="Language"><button type="button" data-lang="en" aria-label="English" title="English">${FL.us}<span>English</span></button><button type="button" data-lang="pt" aria-label="Português" title="Português">${FL.br}<span>Português</span></button><button type="button" data-lang="es" aria-label="Español" title="Español">${FL.es}<span>Español</span></button></div></div><div class="btns">${btn('plans.html', 'Start now', '', false)}${btnA('login.html', 'Log in', 'ghost')}</div>
 </div>`;
 }
 
@@ -95,11 +95,12 @@ function footer() {
       ${col('Resources', [['Blog', 'blog.html'], ['FAQ', '#faq'], ['Glossary of terms']])}
       ${col('Legal', [['Terms of service'], ['Privacy policy'], ['Affiliate agreement']])}
     </div>
-    <div class="foot-bot"><span>© 2026 Globalfy. All rights reserved.</span><div class="social"><a href="#" aria-label="Instagram">${I('instagram')}</a><a href="#" aria-label="LinkedIn">${I('linkedin')}</a><a href="#" aria-label="Facebook">${I('facebook')}</a><a href="#" aria-label="YouTube">${I('youtube')}</a></div></div>
+    <div class="foot-bot"><span>© 2026 Globalfy. All rights reserved.</span><div class="social"><a href="https://www.instagram.com/globalfy.en/" target="_blank" rel="noopener" aria-label="Instagram">${I('instagram')}</a><a href="https://www.linkedin.com/company/globalfy/" target="_blank" rel="noopener" aria-label="LinkedIn">${I('linkedin')}</a><a href="https://www.facebook.com/globalfy.en/" target="_blank" rel="noopener" aria-label="Facebook">${I('facebook')}</a><a href="https://www.youtube.com/@globalfy-en" target="_blank" rel="noopener" aria-label="YouTube">${I('youtube')}</a></div></div>
     <p class="legal">Globalfy is a technology company, not a law firm or a bank. The information on this site is not legal or tax advice. Banking services are provided by partner banks.</p>
   </div>
 </footer>
 <script src="../../_shared/totop.js?v=2" data-bg="#06B051" data-fg="#FFFFFF" defer></script>
+<script defer src="/assets/js/fyw-back.js?v=7"></script>
 <script src="gfy-i18n.js?v=${V}" defer></script>
 <script src="gfy.js?v=${V}" defer></script>
 </body>
@@ -519,3 +520,47 @@ POSTS.forEach((p) => {
 ${cta()}
 `, true);
 });
+
+// ---- página de login (verde, logo no topo, e-mail e senha) ----
+(function () {
+  const html = `${head('Log in — Globalfy', 'Log in to your Globalfy account and manage your US company.')}
+<body class="auth">
+<a class="skip" href="#main">Skip to content</a>
+<div class="auth-bg" aria-hidden="true"><span class="ab-1"></span><span class="ab-2"></span></div>
+<header class="auth-top">
+  <a class="auth-back" href="index.html" aria-label="Back to the site"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 5.5 4.5 12 11 18.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <div class="lang-dd"><button class="lang-cur" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Language"></button><div class="lang-sw" role="group" aria-label="Language"><button type="button" data-lang="en" aria-label="English" title="English">${FL.us}<span>English</span></button><button type="button" data-lang="pt" aria-label="Português" title="Português">${FL.br}<span>Português</span></button><button type="button" data-lang="es" aria-label="Español" title="Español">${FL.es}<span>Español</span></button></div></div>
+</header>
+<main id="main" class="auth-main">
+  <a class="auth-logo" href="index.html" aria-label="Globalfy — home">${LOGO}</a>
+  <form class="auth-card" novalidate>
+    <h1>Welcome back</h1>
+    <p class="auth-sub">Log in to manage your US company.</p>
+    <label class="fld"><span>Email</span><input type="email" name="email" autocomplete="email" placeholder="you@company.com" required></label>
+    <label class="fld"><span>Password</span><span class="pw"><input type="password" name="password" autocomplete="current-password" placeholder="Your password" required minlength="6"><button type="button" class="pw-t" aria-label="Show password"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button></span></label>
+    <div class="auth-row"><label class="rem"><input type="checkbox" checked><i></i><span>Remember me</span></label><a href="#">Forgot password?</a></div>
+    <button class="btn auth-go" type="submit">Log in<i>${I('arrow')}</i></button>
+    <p class="auth-msg" role="status" aria-live="polite"></p>
+    <p class="auth-new">New to Globalfy? <a href="plans.html">Open your company</a></p>
+  </form>
+  <p class="auth-safe"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m8.8 12 2.2 2.2 4.2-4.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Secure connection · 256-bit encryption</p>
+</main>
+<script defer src="/assets/js/fyw-back.js?v=7"></script>
+<script src="gfy-i18n.js?v=${V}" defer></script>
+<script src="gfy.js?v=${V}" defer></script>
+<script>
+(function () {
+  var f = document.querySelector('.auth-card'), m = f.querySelector('.auth-msg'), t = function (s) { return window.gfyT ? gfyT(s) : s; };
+  f.querySelector('.pw-t').addEventListener('click', function () { var i = f.querySelector('[name=password]'); i.type = i.type === 'password' ? 'text' : 'password'; this.classList.toggle('on', i.type === 'text'); });
+  f.addEventListener('submit', function (e) {
+    e.preventDefault(); var em = f.email.value.trim(), pw = f.password.value;
+    f.classList.remove('err', 'ok');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em) || pw.length < 6) { m.textContent = t('Enter a valid email and a password with at least 6 characters.'); void f.offsetWidth; f.classList.add('err'); return; }
+    f.classList.add('ok'); m.textContent = t('This is a demo: the real platform is not connected.');
+  });
+})();
+</script>
+</body>
+</html>`;
+  fs.writeFileSync('login.html', html); console.log('login.html', html.length);
+})();

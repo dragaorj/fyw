@@ -385,5 +385,75 @@
     [/^(.+?) Projeto de (.+) (?:feito pela|da) Fyw\.$/, function (m, k) { var a = D[m[1]] ? D[m[1]][k] : null; if (!a) return null; return a + (k ? ' Un proyecto de ' + m[2] + ' de Fyw.' : ' A ' + m[2] + ' project by Fyw.'); }],
     [/^(.+) Projeto da Fyw\.$/, function (m, k) { return null; }]
   ];
+  // ---- traduções que faltavam (Globalfy, topo da lista de projetos, rodapé, cores, imagens) ----
+  var X = {
+    'Voltar ao site': ['Back to the site', 'Volver al sitio'],
+    '<span></span>Portfólio Fyw': ['<span></span>Fyw portfolio', '<span></span>Portafolio Fyw'],
+    'Projetos que fazem <em>marcas venderem.</em>': ['Projects that make <em>brands sell.</em>', 'Proyectos que hacen <em>vender a las marcas.</em>'],
+    'Ver todos': ['See all', 'Ver todos'],
+    'Alguns projetos receberam pequenas atualizações para entrar neste portfólio, com ajustes que fazem mais sentido hoje do que na época em que foram entregues. Por isso, podem não ser idênticos à versão original.': ['Some projects received small updates to join this portfolio, with tweaks that make more sense today than when they were delivered. So they may not be identical to the original version.', 'Algunos proyectos recibieron pequeñas actualizaciones para entrar en este portafolio, con ajustes que tienen más sentido hoy que en la época en que se entregaron. Por eso, pueden no ser idénticos a la versión original.'],
+    '<a href="/">Início</a><a href="projetos.html">Projetos</a><a href="privacidade.html">Privacidade</a>': ['<a href="/">Home</a><a href="projetos.html">Projects</a><a href="privacidade.html">Privacy</a>', '<a href="/">Inicio</a><a href="projetos.html">Proyectos</a><a href="privacidade.html">Privacidad</a>'],
+    '<a href="/">Início</a><a href="../projetos.html">Projetos</a><a href="../privacidade.html">Privacidade</a>': ['<a href="/">Home</a><a href="../projetos.html">Projects</a><a href="../privacidade.html">Privacy</a>', '<a href="/">Inicio</a><a href="../projetos.html">Proyectos</a><a href="../privacidade.html">Privacidad</a>'],
+    'Pacto Global · COP30': ['UN Global Compact · COP30', 'Pacto Global · COP30'],
+    'Destaques do portfólio': ['Portfolio highlights', 'Destacados del portafolio'],
+    'Fintech · Abertura de empresas e contabilidade': ['Fintech · Company formation and accounting', 'Fintech · Apertura de empresas y contabilidad'],
+    'O site de uma fintech que leva empresas de qualquer país para os Estados Unidos.': ['The website of a fintech that takes companies from any country to the United States.', 'El sitio de una fintech que lleva empresas de cualquier país a Estados Unidos.'],
+    'A Globalfy abre empresas nos EUA (LLC ou Corp) para empreendedores de fora do país e cuida do que vem depois: EIN, agente registrado, endereço, conta bancária, contabilidade e impostos, com atendimento em inglês, espanhol e português.': ['Globalfy opens US companies (LLC or Corp) for entrepreneurs from abroad and takes care of what comes next: EIN, registered agent, address, bank account, accounting and taxes, with support in English, Spanish and Portuguese.', 'Globalfy abre empresas en EE. UU. (LLC o Corp) para emprendedores de fuera del país y se encarga de lo que viene después: EIN, agente registrado, dirección, cuenta bancaria, contabilidad e impuestos, con atención en inglés, español y portugués.'],
+    'Recriamos o site que desenhamos para a Globalfy em 2023, agora mais moderno e sem o vídeo no meio da home. Usamos o design system da marca (Satoshi, os três verdes e os componentes do produto) para que home, planos, páginas de plano e blog falem a mesma língua.': ['We recreated the website we designed for Globalfy in 2023, now more modern and without the video in the middle of the home page. We used the brand design system (Satoshi, the three greens and the product components) so the home, plans, plan pages and blog all speak the same language.', 'Recreamos el sitio que diseñamos para Globalfy en 2023, ahora más moderno y sin el video en medio de la home. Usamos el design system de la marca (Satoshi, los tres verdes y los componentes del producto) para que la home, los planes, las páginas de plan y el blog hablen el mismo idioma.'],
+    'O produto na vitrine': ['The product on display', 'El producto en la vitrina'],
+    'O topo mostra a abertura da empresa acontecendo: envio, registro no estado, EIN e revisão final, com os componentes do design system.': ['The top shows the company formation happening: submission, state filing, EIN and final review, built with the design system components.', 'La parte superior muestra la apertura de la empresa en curso: envío, registro en el estado, EIN y revisión final, con los componentes del design system.'],
+    'Planos sem dúvida': ['Plans without doubts', 'Planes sin dudas'],
+    'Três planos com preço anual, o mais escolhido em destaque e uma tabela que compara tudo, item por item.': ['Three plans with yearly pricing, the most popular one highlighted and a table that compares everything, item by item.', 'Tres planes con precio anual, el más elegido destacado y una tabla que compara todo, punto por punto.'],
+    'Blog que ensina': ['A blog that teaches', 'Un blog que enseña'],
+    'Artigos com resumo no topo, índice que acompanha a leitura e tabelas comparativas, inspirados nos temas que a Globalfy publica.': ['Articles with a summary at the top, a table of contents that follows the reading and comparison tables, inspired by the topics Globalfy publishes.', 'Artículos con resumen al inicio, un índice que acompaña la lectura y tablas comparativas, inspirados en los temas que publica Globalfy.'],
+    'Abrir uma empresa em outro país dá medo. O site precisava explicar um serviço burocrático com clareza, passar confiança e levar a pessoa até o plano certo, em todas as páginas do mesmo jeito.': ['Opening a company in another country is scary. The site had to explain a bureaucratic service clearly, build trust and lead people to the right plan, consistently across every page.', 'Abrir una empresa en otro país da miedo. El sitio necesitaba explicar un servicio burocrático con claridad, transmitir confianza y llevar a la persona al plan correcto, igual en todas las páginas.'],
+    'No lugar do vídeo, a home mostra o próprio produto: um painel em que as etapas da abertura vão sendo concluídas. Planos lado a lado, tabela de comparação, perguntas frequentes e um blog com guias práticos.': ['Instead of the video, the home page shows the product itself: a dashboard where the formation steps get completed. Plans side by side, a comparison table, FAQ and a blog with practical guides.', 'En lugar del video, la home muestra el propio producto: un panel en el que se van completando las etapas de la apertura. Planes lado a lado, tabla comparativa, preguntas frecuentes y un blog con guías prácticas.'],
+    'Projeto entregue em 2023. Para entrar neste portfólio, ele recebeu pequenas atualizações, com ajustes que fazem mais sentido hoje do que na época. Por isso, pode não ser idêntico à versão entregue.': ['Project delivered in 2023. To join this portfolio, it received small updates, with tweaks that make more sense today than back then. So it may not be identical to the delivered version.', 'Proyecto entregado en 2023. Para entrar en este portafolio, recibió pequeñas actualizaciones, con ajustes que tienen más sentido hoy que en aquel momento. Por eso, puede no ser idéntico a la versión entregada.'],
+    '<b>Verde primário</b><span>#223F3A</span>': ['<b>Primary green</b><span>#223F3A</span>', '<b>Verde primario</b><span>#223F3A</span>'],
+    '<b>Verde Globalfy</b><span>#06B051</span>': ['<b>Globalfy green</b><span>#06B051</span>', '<b>Verde Globalfy</b><span>#06B051</span>'],
+    '<b>Verde terciário</b><span>#39CD80</span>': ['<b>Tertiary green</b><span>#39CD80</span>', '<b>Verde terciario</b><span>#39CD80</span>'],
+    '<b>Menta</b><span>#EBFAF2</span>': ['<b>Mint</b><span>#EBFAF2</span>', '<b>Menta</b><span>#EBFAF2</span>'],
+    '<b>Violeta</b><span>#6C3F99</span>': ['<b>Violet</b><span>#6C3F99</span>', '<b>Violeta</b><span>#6C3F99</span>'],
+    '<b>Azul-marinho</b><span>#26314E</span>': ['<b>Navy blue</b><span>#26314E</span>', '<b>Azul marino</b><span>#26314E</span>'],
+    '<b>Dourado</b><span>#B98632</span>': ['<b>Gold</b><span>#B98632</span>', '<b>Dorado</b><span>#B98632</span>'],
+    '<span class="pp2-fx" aria-hidden="true"></span><b>10</b><span>páginas recriadas: home, planos, freelancer, suporte, blog e artigos</span>': ['<span class="pp2-fx" aria-hidden="true"></span><b>10</b><span>pages recreated: home, plans, freelancer, support, blog and articles</span>', '<span class="pp2-fx" aria-hidden="true"></span><b>10</b><span>páginas recreadas: home, planes, freelancer, soporte, blog y artículos</span>'],
+    '<span class="pp2-fx" aria-hidden="true"></span><b>3</b><span>planos comparados lado a lado, item por item</span>': ['<span class="pp2-fx" aria-hidden="true"></span><b>3</b><span>plans compared side by side, item by item</span>', '<span class="pp2-fx" aria-hidden="true"></span><b>3</b><span>planes comparados lado a lado, punto por punto</span>'],
+    '<span class="pp2-fx" aria-hidden="true"></span><b>3</b><span>idiomas de atendimento destacados no site</span>': ['<span class="pp2-fx" aria-hidden="true"></span><b>3</b><span>support languages highlighted on the site</span>', '<span class="pp2-fx" aria-hidden="true"></span><b>3</b><span>idiomas de atención destacados en el sitio</span>'],
+    'Precisa de um site que explique o seu serviço e venda por você?': ['Need a website that explains your service and sells for you?', '¿Necesitas un sitio que explique tu servicio y venda por ti?'],
+    'Site da Globalfy no desktop (role para ver)': ['Globalfy website on desktop (scroll to view)', 'Sitio de Globalfy en escritorio (desplázate para ver)'],
+    'Site da Globalfy no celular (role para ver)': ['Globalfy website on mobile (scroll to view)', 'Sitio de Globalfy en el celular (desplázate para ver)'],
+    'Home da Globalfy com o painel de abertura da empresa': ['Globalfy home page with the company formation dashboard', 'Home de Globalfy con el panel de apertura de la empresa'],
+    'Página de planos da Globalfy': ['Globalfy plans page', 'Página de planes de Globalfy'],
+    'Seção de banco, impostos e contabilidade': ['Banking, taxes and accounting section', 'Sección de banco, impuestos y contabilidad'],
+    'Calendário de obrigações da Globalfy': ['Globalfy compliance calendar', 'Calendario de obligaciones de Globalfy'],
+    'Site do Impacta Mais no desktop (role para ver)': ['Impacta Mais website on desktop (scroll to view)', 'Sitio de Impacta Mais en escritorio (desplázate para ver)'],
+    'Site do Impacta Mais no celular (role para ver)': ['Impacta Mais website on mobile (scroll to view)', 'Sitio de Impacta Mais en el celular (desplázate para ver)'],
+    'Sistema de agenda no desktop': ['Scheduling system on desktop', 'Sistema de agenda en escritorio'],
+    'Sistema de agenda no celular': ['Scheduling system on mobile', 'Sistema de agenda en el celular'],
+    'Site da Lumière no desktop (role para ver)': ['Lumière website on desktop (scroll to view)', 'Sitio de Lumière en escritorio (desplázate para ver)'],
+    'Site da Lumière no celular (role para ver)': ['Lumière website on mobile (scroll to view)', 'Sitio de Lumière en el celular (desplázate para ver)'],
+    'Site do Pacto Global no desktop (role para ver)': ['UN Global Compact website on desktop (scroll to view)', 'Sitio del Pacto Global en escritorio (desplázate para ver)'],
+    'Site do Pacto Global no celular (role para ver)': ['UN Global Compact website on mobile (scroll to view)', 'Sitio del Pacto Global en el celular (desplázate para ver)'],
+    'Repetir animação do logo': ['Replay logo animation', 'Repetir animación del logo'],
+    'Dra. Ashley Lumière Jones': ['Dr. Ashley Lumière Jones', 'Dra. Ashley Lumière Jones'],
+    'Basílica de Nossa Senhora de Nazaré, em Belém': ['Basilica of Our Lady of Nazareth, in Belém', 'Basílica de Nuestra Señora de Nazaret, en Belém'],
+    'Palestrante da programação do Pacto Global': ['Speaker at the UN Global Compact program', 'Ponente de la programación del Pacto Global'],
+    'Fintech · UI/UX & Web': ['Fintech · UI/UX & Web', 'Fintech · UI/UX y Web'],
+    'Evento · UI/UX & Web · Apps': ['Event · UI/UX & Web · Apps', 'Evento · UI/UX y Web · Apps'],
+    'Saúde · UI/UX & Web': ['Health · UI/UX & Web', 'Salud · UI/UX y Web'],
+    'Clima · UI/UX & Web': ['Climate · UI/UX & Web', 'Clima · UI/UX y Web'],
+    'Odontologia · UI/UX & Web': ['Dentistry · UI/UX & Web', 'Odontología · UI/UX y Web'],
+    'Impact Minds · UI/UX & Web': ['Impact Minds · UI/UX & Web', 'Impact Minds · UI/UX y Web'],
+    'Impacta Mais — V1': ['Impacta Mais — V1', 'Impacta Mais — V1'],
+    'Agenda Impacta Mais 2026': ['Impacta Mais Schedule 2026', 'Agenda Impacta Mais 2026']
+  };
+  for (var xk in X) if (!D[xk]) D[xk] = X[xk];
+  W['EUA'] = ['USA', 'EE. UU.'];
+  // padrões: chips de serviço + ano, números com legenda, itens do carrossel de projetos
+  P.push(
+    [/^<span class="pp2-chip">(.+?)<\/span><span class="pp2-chip pp2-year">(\d{4})<\/span>$/, function (m, k) { return '<span class="pp2-chip">' + tw(m[1], k) + '</span><span class="pp2-chip pp2-year">' + m[2] + '</span>'; }],
+    [/^<b>(\d+)<\/b><span>(projetos|países)<\/span>$/, function (m, k) { var t = { projetos: ['projects', 'proyectos'], 'países': ['countries', 'países'] }[m[2]]; return '<b>' + m[1] + '</b><span>' + t[k] + '</span>'; }],
+    [/^<b>(.+)<\/b><small><i><\/i>(.+)<\/small>$/, function (m, k) { return '<b>' + m[1] + '</b><small><i></i>' + tw(m[2], k) + '</small>'; }]
+  );
   window.FYW_PAGE_I18N = D; window.FYW_PAGE_I18N_W = W; window.FYW_PAGE_I18N_P = P;
 })();

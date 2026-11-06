@@ -24,7 +24,7 @@ window.__fywTagBg = function (hex) { var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''
     const s = store.get('fio-lang', null);
     if (s && DICT[s]) return s;
     const n = (navigator.language || 'pt').slice(0, 2);
-    return DICT[n] ? n : 'pt';
+    return DICT[n] ? n : 'en';
   })();
 
   function applyTexts() {

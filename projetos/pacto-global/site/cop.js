@@ -61,7 +61,7 @@
   ];
 
   var lang = 'pt';
-  try { lang = localStorage.getItem('cop30-lang') || (navigator.language || '').slice(0, 2) === 'en' && 'en' || 'pt'; } catch (e) {}
+  lang = (function(){var O={pt:1,en:1,es:1};try{var s=localStorage.getItem('fio-lang');if(O[s])return s;}catch(e){}var n=(navigator.language||'en').slice(0,2).toLowerCase();return O[n]?n:'en';})(); if (lang !== 'pt') lang = 'en';
   var cur = 0;
 
   function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
@@ -92,7 +92,7 @@
   }
   function setLang(l) {
     lang = l; root.lang = l === 'pt' ? 'pt-BR' : 'en';
-    try { localStorage.setItem('cop30-lang', l); } catch (e) {}
+    
     $$('[data-t]').forEach(function (el) { var k = el.dataset.t, v = l === 'en' ? EN[k] : PT[k]; if (v != null) el.innerHTML = v; });
     $$('.lang button').forEach(function (b) { b.classList.toggle('is-on', b.dataset.lang === l); });
     document.title = l === 'pt' ? 'Pacto Global na COP30 — Belém, 11 a 17 de novembro' : 'Global Compact at COP30 — Belém, November 11–17';

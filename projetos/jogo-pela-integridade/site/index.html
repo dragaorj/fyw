@@ -376,7 +376,7 @@
     </div>
     <div style="border-top:1px solid {{ line }};padding:20px clamp(20px,6.3vw,130px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;font-size:12px;color:{{ fgSoft }}">
       <div>{{ t.rights }}</div>
-      <div>{{ t.devBy }} <a href="https://fyw.com.br/" target="_blank" rel="noopener" style="font-weight:700;color:{{ fg }}">Fyw</a></div>
+      <div>{{ t.devBy }} <a href="https://www.linkedin.com/in/marlonwebdesigner/" target="_blank" rel="noopener" style="font-weight:700;color:{{ fg }}">Marlon Dias</a></div>
     </div>
     <div aria-hidden="true" style="height:6px;background:linear-gradient(90deg,#7A090D 0%,#D30F15 50%,#F6C444 100%)"></div>
   </footer>
@@ -490,7 +490,7 @@ class Component extends DCLogic {
       if (el) { ['touchstart','pointerdown'].forEach(e => el.addEventListener(e, this._holdOn, { passive: true })); ['touchend','pointerup'].forEach(e => el.addEventListener(e, this._holdOff, { passive: true })); }
     }, 500);
     try {
-      const lang = localStorage.getItem('jpi-lang'); const theme = localStorage.getItem('jpi-theme');
+      const lang = (function(){var O={pt:1,en:1,es:1};try{var s=localStorage.getItem('fio-lang');if(O[s])return s;}catch(e){}var n=(navigator.language||'en').slice(0,2).toLowerCase();return O[n]?n:'en';})() === 'pt' ? 'pt' : 'en'; const theme = localStorage.getItem('jpi-theme');
       const s = {};
       if (lang === 'pt' || lang === 'en') s.lang = lang;
       if (theme === 'dark' || theme === 'light') s.theme = theme;
@@ -750,7 +750,7 @@ class Component extends DCLogic {
       footBg: dark ? '#0A0A0A' : '#EAEAEA',
       langLabel: lang === 'pt' ? 'EN' : 'PT',
       themeLabel: dark ? (lang === 'pt' ? 'CLARO' : 'LIGHT') : (lang === 'pt' ? 'ESCURO' : 'DARK'),
-      toggleLang: () => { const v = lang === 'pt' ? 'en' : 'pt'; try { localStorage.setItem('jpi-lang', v); } catch (e) {} this.setState({ lang: v }); },
+      toggleLang: () => { const v = lang === 'pt' ? 'en' : 'pt'; try { localStorage.setItem('fio-lang', v); } catch (e) {} this.setState({ lang: v }); },
       toggleTheme: () => { const v = dark ? 'light' : 'dark'; try { localStorage.setItem('jpi-theme', v); } catch (e) {} this.setState({ theme: v }); },
       bg: dark ? '#111111' : '#F4F4F4',
       altBg: dark ? '#161616' : '#FFFFFF',
@@ -792,5 +792,5 @@ html::-webkit-scrollbar,body::-webkit-scrollbar,*::-webkit-scrollbar{display:non
   if (document.body) init(); else document.addEventListener('DOMContentLoaded', init);
 })();
 </script>
-<script defer src="/assets/js/fyw-back.js"></script><script src="../../_shared/totop.js?v=2" data-bg="#DC1414" data-fg="#FFFFFF" defer></script></body>
+<script defer src="/assets/js/fyw-back.js?v=7"></script><script src="../../_shared/totop.js?v=2" data-bg="#DC1414" data-fg="#FFFFFF" defer></script></body>
 </html>
