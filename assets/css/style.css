@@ -5525,3 +5525,48 @@ html body .zoom-stack .zb-frame { box-shadow: none !important; }
 @keyframes zbArc { 0% { stroke-dashoffset: 1; } 100% { stroke-dashoffset: 0; } }
 @keyframes zbSpin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .zb-v * { animation: none !important; } }
+
+/* aviso discreto "Role a página" (funciona sobre fundo claro ou escuro) */
+.zs-scroll { position: absolute; left: 50%; bottom: max(22px, 3.5svh); translate: -50% 0; z-index: 9; margin: 0; display: inline-flex; align-items: center; gap: 10px; font-size: .8125rem; letter-spacing: .02em; color: #fff; mix-blend-mode: difference; opacity: .62; white-space: nowrap; pointer-events: none; transition: opacity .5s; }
+.zs-scroll.is-off { opacity: 0; }
+.zs-scroll-ico { position: relative; width: 16px; height: 25px; border: 1.5px solid currentColor; border-radius: 9px; }
+.zs-scroll-ico::after { content: ""; position: absolute; left: 50%; top: 5px; width: 2px; height: 5px; margin-left: -1px; border-radius: 2px; background: currentColor; animation: zsWheel 1.8s cubic-bezier(.65,0,.35,1) infinite; }
+@keyframes zsWheel { 0% { transform: translateY(0); opacity: 1; } 70% { transform: translateY(8px); opacity: 0; } 100% { transform: translateY(0); opacity: 0; } }
+@media (pointer: coarse) { .zs-scroll-ico { width: 14px; height: 22px; } }
+/* celular: o palco ocupa a tela toda mesmo quando a barra do navegador some (sem faixa branca embaixo) */
+.zoom-stack .zs-stage { height: 100vh; height: 100lvh; }
+/* ícone do aviso: seta pequena descendo (substitui o "mouse" que deformava no celular) */
+html body .zs-scroll .zs-scroll-ico { width: 10px; height: 16px; border: 0; border-radius: 0; flex: none; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; animation: zsArrow 1.8s cubic-bezier(.65,0,.35,1) infinite; }
+html body .zs-scroll .zs-scroll-ico::after { content: none; }
+@keyframes zsArrow { 0%, 100% { transform: translateY(-2px); opacity: .5; } 50% { transform: translateY(3px); opacity: 1; } }
+/* celular: menos vazio antes da seção (a frase aparece logo depois dos números) e frase maior, em 4 linhas */
+@media (max-width: 599px) {
+  html body .zoom-stack { margin-top: calc(140px - 50lvh) !important; }
+  html body .zoom-stack .zs-stage { background: transparent; pointer-events: none; }
+  html body .zoom-stack .zoom-intro-title:not(.zs-outro) { font-size: 13.4vw !important; max-width: 7.2em !important; line-height: .95; text-wrap: wrap; }
+}
+html body .zoom-stack p.zs-scroll { width: auto; height: auto; border: 0; border-radius: 0; padding: 0; }
+/* hero no celular: título maior, cada linha ocupando a largura da tela */
+@media (max-width: 599px) {
+  html body .hero .hero-title, html body .hero .hero-title .ht-type { font-size: 10.4vw !important; line-height: 1.02 !important; letter-spacing: -.045em !important; }
+  html body .hero .hero-title { max-width: none !important; margin-inline: -4px !important; }
+}
+/* celular: os avisos da "máquina de vendas" aparecem no topo da janela, um por vez, como notificação */
+@media (max-width: 599px) {
+  html body .sm { position: relative; }
+  html body .sm-toasts { position: absolute !important; left: 12px; right: 12px; top: var(--sm-top, 84px) !important; width: auto; padding: 0; display: grid; z-index: 4; pointer-events: none; }
+  html body .sm-t { grid-area: 1 / 1; width: 100%; opacity: 0 !important; translate: 0 -14px !important; scale: .96 !important; box-shadow: 0 18px 40px -16px rgba(11,11,11,.45) !important;
+    transition: opacity .45s ease, translate .6s cubic-bezier(.16,1,.3,1), scale .6s cubic-bezier(.16,1,.3,1) !important; transition-delay: 0s !important; }
+  html body .sm.is-s2 .sm-t.is-show { opacity: 1 !important; translate: 0 0 !important; scale: 1 !important; pointer-events: auto; }
+}
+/* celular: títulos das seções maiores, ocupando a largura da tela (como o hero) */
+@media (max-width: 599px) {
+  html body :is(.title, .story-title, .clients-title, .cta-title, .footer-title):not(.zoom-intro-title) {
+    font-size: 12.6vw !important; line-height: .98 !important; letter-spacing: -.045em !important; max-width: none !important; text-wrap: pretty !important;
+  }
+}
+/* hero no celular: cards maiores para ocupar a tela (título em 2 linhas largas, bloco centralizado) */
+@media (max-width: 599px) {
+  html body .hero-stage { --fw: clamp(120px, min(38vw, 24svh), 176px) !important; }
+  html body .hero .hfan { margin-top: 30px !important; margin-bottom: 30px !important; }
+}

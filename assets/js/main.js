@@ -1300,9 +1300,12 @@
       clearTimeout(timer); const id = ++run;
       const list = phrases();
       // reserva a altura da frase mais longa para o layout não pular
-      const h1 = el.closest('.hero-title'); h1.style.minHeight = '';
-      let mh = 0; list.forEach(s => { el.textContent = s; mh = Math.max(mh, h1.offsetHeight); });
+      const h1 = el.closest('.hero-title'); h1.style.minHeight = ''; h1.style.paddingTop = '';
+      const hs = []; let mh = 0; list.forEach(s => { el.textContent = s; hs.push(h1.offsetHeight); mh = Math.max(mh, h1.offsetHeight); });
       h1.style.minHeight = mh + 'px';
+      // celular: a sobra de altura fica em cima da frase, então ela fica sempre colada nos cards
+      const anchor = k => { h1.style.paddingTop = innerWidth < 600 ? Math.max(0, mh - hs[k]) + 'px' : ''; };
+      anchor(0);
       if (window.__fywLayoutWheel) window.__fywLayoutWheel();
       if (sysReduced || a11y.motion || a11y.clean) { el.textContent = list[0]; return; }
       // digita a frase, segura, some com fade e a próxima já entra digitando
@@ -1319,7 +1322,7 @@
           el.classList.add('is-out');
           timer = setTimeout(() => {
             if (id !== run) return;
-            p = (p + 1) % list.length; i = 0; el.textContent = ''; el.classList.remove('is-out');
+            p = (p + 1) % list.length; i = 0; el.textContent = ''; anchor(p); el.classList.remove('is-out');
             timer = setTimeout(step, 120);
           }, 380);
         }, p === 0 ? 2600 : 2000);
@@ -1373,6 +1376,15 @@
     const set = m => { sm.classList.add('is-s1'); sm.classList.toggle('is-s2', m === 2); opts.forEach(o => o.setAttribute('aria-pressed', String(+o.dataset.mode === m))); };
     let auto = [];
     opts.forEach(o => o.addEventListener('click', () => { auto.forEach(clearTimeout); auto = []; set(+o.dataset.mode); }));
+    // celular: um aviso por vez, no topo da janela do site, trocando sozinho
+    (() => {
+      const ts = [...sm.querySelectorAll('.sm-t')], win = sm.querySelector('.sm-win'); if (!ts.length || !win) return;
+      let k = 0;
+      const place = () => sm.style.setProperty('--sm-top', (win.offsetTop + 46) + 'px');
+      const show = () => { ts.forEach((t, j) => t.classList.toggle('is-show', j === k)); };
+      place(); show(); addEventListener('resize', place);
+      setInterval(() => { if (innerWidth >= 600 || !sm.classList.contains('is-s2') || document.hidden) return; k = (k + 1) % ts.length; show(); }, 2600);
+    })();
     const still = matchMedia('(prefers-reduced-motion: reduce)').matches || d.classList.contains('a11y-motion') || d.classList.contains('a11y-clean');
     if (still || !('IntersectionObserver' in window)) { set(2); return; }
     const io = new IntersectionObserver(es => {

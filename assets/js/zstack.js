@@ -55,12 +55,13 @@
   var DP = { x: 0, y: 0, s: .12 };
   var measureDot = function () { var el = word, t = el.firstChild; if (!t || !t.data) return; var j = t.data.lastIndexOf('.'); if (j < 0) return; var r = document.createRange(); r.setStart(t, j); r.setEnd(t, j + 1); var b = r.getBoundingClientRect(), o = sec.querySelector('.zs-orbit').getBoundingClientRect(); DP.x = b.left + b.width / 2 - o.left; DP.y = b.top + b.height * .78 - o.top; DP.s = Math.max(.05, b.width * .55 / (innerWidth < 600 ? 92 : Math.min(200, innerWidth * .11))); };
   var renderOrbit = function () {
-    var W = innerWidth, H = innerHeight, mob = W < 600, RX = W * (mob ? .46 : .4), RY = H * (mob ? .26 : .27), base = mob ? 92 : Math.min(200, W * .11);
+    var W = innerWidth, H = innerHeight, mob = W < 600, RX = W * (mob ? .5 : .4), RY = mob ? Math.min(H * .16, W * .34) : H * .27, // no celular: anel deitado (inclinado), igual ao desktop
+        base = mob ? 92 : Math.min(200, W * .11);
     orbs.forEach(function (o, i) {
       // spread = 0..1 no fim: as bolinhas se juntam todas no centro (é dali que o site abre)
       var sd = seeds[i], th = sd.a + spin + scrollSpin, g = gather * gather * (3 - 2 * gather), m = spread * spread * (3 - 2 * spread), rr = sd.r * (1 - m) * g;
-      var x = Math.cos(th) * RX * rr, depth = Math.sin(th), y = depth * RY * rr + sd.h * H * .07 * g, k = (depth + 1) / 2; // 0 = fundo, 1 = frente
-      var sc = (.55 + k * .75) * sd.s, op = .62 + k * .38; y *= (1 - m); sc = sc + (.5 - sc) * m; op = op + (1 - op) * m;
+      var x = Math.cos(th) * RX * rr, depth = Math.sin(th), y = depth * RY * rr + sd.h * (mob ? W * .05 : H * .07) * g, k = (depth + 1) / 2; // 0 = fundo, 1 = frente
+      var sc = (mob ? .42 + k * .95 : .55 + k * .75) * sd.s, op = .62 + k * .38; y *= (1 - m); sc = sc + (.5 - sc) * m; op = op + (1 - op) * m;
       // no começo as bolinhas saem de dentro do ponto final da frase (pequenas, todas no ponto) e se abrem em órbita
       var gp = Math.min(1, Math.max(0, g * 1.15 - i * .012)); x = DP.x + (x - DP.x) * gp; y = DP.y + (y - DP.y) * gp;
       var rot = Math.cos(th) * -6 * gp; sc = DP.s + (sc - DP.s) * gp; op = gp < .02 ? 0 : op * gp + (1 - gp);
@@ -140,7 +141,7 @@
     };
     var cta = sec.querySelector('.zs-cta');
     measure(); word.textContent = WORDS[lang()][0];
-    var cover = function (P) { if (!P) return 4; var far = Math.max(Math.hypot(P.sx, P.sy), Math.hypot(innerWidth - P.sx, P.sy), Math.hypot(P.sx, innerHeight - P.sy), Math.hypot(innerWidth - P.sx, innerHeight - P.sy)); return far * 2.1 / FB; };
+    var cover = function (P) { if (!P) return 4; var HH = Math.max(innerHeight, stage.offsetHeight, (window.screen && screen.height) || 0), far = Math.max(Math.hypot(P.sx, P.sy), Math.hypot(innerWidth - P.sx, P.sy), Math.hypot(P.sx, HH - P.sy), Math.hypot(innerWidth - P.sx, HH - P.sy)); return far * 2.1 / FB; };
     var mob = innerWidth < 600, A = .11, B = .42, nW = WORDS.pt.length;
     var tl = gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top top', end: function () { return '+=' + (mob ? 560 : 680) + '%'; }, scrub: 1, pin: stage, invalidateOnRefresh: true, onRefreshInit: measure,
         onUpdate: function (s) {
@@ -157,6 +158,8 @@
       .fromTo(fill, { scale: 0 }, { scale: function () { return cover(D); }, ease: 'power2.in', duration: .09 }, .015)
       .to(title, { autoAlpha: 0, duration: .02 }, .095)
       .fromTo(cosmos, { autoAlpha: 0 }, { autoAlpha: 1, duration: .02 }, .1)
+      // com a tela já tomada pela cor, o palco e a seção inteira ganham essa cor também (nunca sobra borda, mesmo se a tela mudar de tamanho)
+      .fromTo([stage, sec], { backgroundColor: 'rgba(0,0,0,0)' }, { backgroundColor: function () { return getComputedStyle(fill).backgroundColor; }, duration: .001, immediateRender: false }, .1)
       .to(sec.querySelector('.zs-say'), { autoAlpha: 0, filter: 'blur(8px)', duration: .02 }, .415)
       .to(cosmos, { autoAlpha: 0, duration: .005 }, .485);
     buildScene(tl, .455);
@@ -166,7 +169,8 @@
     var E = .8, P = function () { return O || D; };
     // ponto final da frase nova, no sistema de coordenadas da moldura
     var inFrame = function () { var f = frame.getBoundingClientRect(), s = stage.getBoundingClientRect(); return { x: P().sx - (f.left - s.left), y: P().sy - (f.top - s.top) }; };
-    tl.set(fill, { left: function () { return P().sx; }, top: function () { return P().sy; }, scale: function () { return Math.max(cover(D), cover(O)); } }, E)
+    tl.set([stage, sec], { backgroundColor: '' }, E)
+      .set(fill, { left: function () { return P().sx; }, top: function () { return P().sy; }, scale: function () { return Math.max(cover(D), cover(O)); } }, E)
       .set(outro, { scale: 7, autoAlpha: 0 }, E)
       .to(frame, { clipPath: function () { var q = inFrame(); return 'circle(0px at ' + q.x + 'px ' + q.y + 'px)'; }, duration: .07, ease: 'power3.inOut' }, E)
       .to(fill, { scale: 0, ease: 'power2.inOut', duration: .09 }, E + .005)
@@ -178,6 +182,28 @@
     tl.eventCallback('onUpdate', syncTypers);
     // depois de recalcular (resize, fontes), redesenha a cena no ponto atual da rolagem
     ScrollTrigger.addEventListener('refresh', function () { var pr = tl.progress(); tl.progress(0, true).progress(pr); syncTypers(); });
+    // ---- aviso "Role a página" + no celular a seção toca sozinha (para se a pessoa tocar na tela) ----
+    var hint = sec.querySelector('.zs-scroll'), ST = tl.scrollTrigger;
+    var coarse = matchMedia('(pointer: coarse)').matches, auto = null, armed = true, touching = false, waitT = 0;
+    var stopAuto = function () { clearTimeout(waitT); if (auto) { cancelAnimationFrame(auto); auto = null; } };
+    var goTo = function (y) { if (window.__lenis) window.__lenis.scrollTo(y, { immediate: true, force: true }); else window.scrollTo(0, y); };
+    var startAuto = function () {
+      stopAuto(); if (ST.progress <= 0 || ST.progress >= .9) return; // só toca se a pessoa está dentro da seção
+      var endY = ST.start + (ST.end - ST.start) * .97, v = (ST.end - ST.start) / 28000, last = performance.now(), y = window.scrollY;
+      var step = function (now) { var dt = Math.min(48, now - last); last = now; y = Math.max(y, window.scrollY) + v * dt; if (y >= endY) { goTo(endY); auto = null; return; } goTo(y); auto = requestAnimationFrame(step); };
+      auto = requestAnimationFrame(step);
+    };
+    var arm = function () { clearTimeout(waitT); waitT = setTimeout(function () { if (touching) return arm(); startAuto(); }, 450); };
+    if (coarse) {
+      addEventListener('touchstart', function () { touching = true; stopAuto(); }, { passive: true });
+      addEventListener('touchend', function () { touching = false; }, { passive: true });
+    }
+    ['wheel', 'keydown', 'mousedown'].forEach(function (ev) { addEventListener(ev, function () { if (auto) stopAuto(); }, { passive: true }); });
+    ScrollTrigger.create({ trigger: sec, start: 'top top', end: function () { return ST.end; },
+      onUpdate: function (s) { if (hint) hint.classList.toggle('is-off', s.progress > .78); },
+      onEnter: function () { if (coarse && armed) { armed = false; arm(); } },
+      onLeave: function () { stopAuto(); },
+      onLeaveBack: function () { stopAuto(); armed = true; } });
     addEventListener('resize', function () { clearTimeout(window.__zsR); window.__zsR = setTimeout(function () { ScrollTrigger.refresh(); }, 200); });
     new MutationObserver(function () { curW = -1; word.textContent = WORDS[lang()][0]; ScrollTrigger.refresh(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
   };
