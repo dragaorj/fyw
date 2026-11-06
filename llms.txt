@@ -27,12 +27,14 @@ Empresas de qualquer nicho que precisam de um site que explique o que fazem, mos
 
 ## Projetos
 
+- [iFood — redesign conceitual](https://fyw.com.br/projetos/ifood.html): landing do iFood pensada primeiro para o celular, com busca no topo, pedido ao vivo e animações com GSAP (projeto autoral, sem vínculo com o iFood).
 - [Globalfy](https://fyw.com.br/projetos/globalfy.html): site de uma fintech que abre e mantém empresas nos EUA para empreendedores de qualquer país.
 - [Lumière](https://fyw.com.br/projetos/lumiere.html): clínica de odontologia estética em Miami.
 - [Latimpacto](https://fyw.com.br/projetos/latimpacto.html): site da Impact Minds, em três idiomas.
 - [Impacta Mais](https://fyw.com.br/projetos/impacta-mais.html): site e agenda de um fórum de economia de impacto no Brasil.
 - [Pacto Global da ONU – Rede Brasil](https://fyw.com.br/projetos/pacto-global.html): site para a COP30, em Belém.
 - [Kyoto](https://fyw.com.br/projetos/kyoto.html): marca, embalagens e site para um arroz premium japonês.
+- [Let Me Be](https://fyw.com.br/projetos/let-me-be.html): rebranding completo de uma marca brasileira de beleza capilar: lettering, paleta, tipografia, redes sociais e embalagens.
 - [Cimed](https://fyw.com.br/projetos/cimed.html): site institucional com produtos, marcas e busca.
 - [Beta Online](https://fyw.com.br/projetos/beta-online.html): design system e site novo para uma escola de Perícia Judicial.
 - [Jogo pela Integridade (São Paulo FC)](https://fyw.com.br/projetos/jogo-pela-integridade.html): site oficial do jogo.

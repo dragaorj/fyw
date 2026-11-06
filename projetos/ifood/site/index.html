@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>iFood · Redesign conceitual por Fyw</title>
+  <meta name="description" content="Redesign conceitual da landing page do iFood, criado pela Fyw. Não é o site oficial.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#EA1D2C">
+  <link rel="icon" href="img/ifood-logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400;500;600&display=swap">
+  <link rel="preload" as="image" href="img/burger.webp">
+  <link rel="stylesheet" href="if.css?v=5">
+</head>
+<body>
+  <a class="skip" href="#main" data-i="skip">Pular para o conteúdo</a>
+
+  <!-- topo -->
+  <header class="top" id="top">
+    <a class="logo" href="#top" aria-label="iFood — início"><img src="img/ifood-logo.svg" width="76" height="40" alt="iFood"></a>
+    <button class="addr" type="button" aria-label="Endereço de entrega">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+      <span><small data-i="deliverTo">Entregar em</small><b>Rua Augusta, 1200</b></span>
+      <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>
+    </button>
+    <nav class="top-nav" aria-label="Principal">
+      <a href="#cats" data-i="nRest">Restaurantes</a><a href="#verts" data-i="nMarket">Mercado</a><a href="#doors" data-i="nPartners">Para você</a>
+    </nav>
+    <div class="top-act">
+      <div class="lang" role="group" aria-label="Idioma"><button data-l="pt" class="is-on">PT</button><button data-l="en">EN</button><button data-l="es">ES</button></div>
+      <button class="bag" type="button" aria-label="Sacola"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg><i>2</i></button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- hero -->
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i></div>
+      <div class="hero-word" aria-hidden="true"><span>fome · fome · fome · fome · fome · fome · </span><span>fome · fome · fome · fome · fome · fome · </span></div>
+      <div class="hero-txt">
+        <p class="kick"><span class="dot"></span><span data-i="kick">Aberto agora perto de você</span></p>
+        <h1 class="h1"><span class="ln"><span data-i="h1a">Bateu a</span> <span class="h1-pic" aria-hidden="true"><img src="img/burger.webp" width="900" height="676" alt=""></span> <span data-i="h1a2">fome?</span></span><span class="ln"><span data-i="h1b">A gente leva</span> <span class="swap" aria-live="polite"><b class="sw is-on" data-i="w1">o almoço.</b><b class="sw" data-i="w2">o mercado.</b><b class="sw" data-i="w3">o remédio.</b><b class="sw" data-i="w4">a ração.</b></span></span></h1>
+        <form class="search" role="search" onsubmit="return false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg>
+          <label class="sr" for="q" data-i="searchLbl">Buscar</label>
+          <input id="q" type="search" autocomplete="off" placeholder="Buscar pizza, sushi, farmácia…">
+          <button type="submit" data-i="go">Buscar</button>
+        </form>
+        <ul class="quick" aria-label="Sugestões">
+          <li><button type="button" data-q="Pizza">🍕 Pizza</button></li><li><button type="button" data-q="Açaí">🍇 Açaí</button></li><li><button type="button" data-q="Japonesa">🍣 Japonesa</button></li><li><button type="button" data-q="Hambúrguer">🍔 Hambúrguer</button></li>
+        </ul>
+      </div>
+      <div class="hero-art">
+        <span class="deck d1" aria-hidden="true"></span><span class="deck d2" aria-hidden="true"></span>
+        <article class="promo" aria-labelledby="promo-t">
+          <div class="promo-top"><span class="promo-tag" data-i="pTag">Só hoje</span><span class="promo-clock"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg><span data-i="pEnds">termina em</span> <b class="cd">02:14:33</b></span></div>
+          <div class="promo-img" aria-hidden="true"><img src="img/burger.webp" width="900" height="676" alt=""><svg class="ring" viewBox="0 0 200 200"><circle cx="100" cy="100" r="98" fill="#1A0F0F"/><text x="100" y="104" text-anchor="middle" class="ring-big">-30%</text><text x="100" y="130" text-anchor="middle" class="ring-sm" data-i="pOff">no combo</text><defs><path id="rp" d="M100 100m-78 0a78 78 0 1 1 156 0a78 78 0 1 1-156 0"/></defs><text><textPath href="#rp" textLength="486" lengthAdjust="spacing" data-i="ring">semana do burger • só no app •</textPath></text></svg></div>
+          <div class="promo-txt">
+            <small data-i="pKick">Semana do Burger · Brasa Burger</small>
+            <h2 id="promo-t">Combo Brasa</h2>
+            <p data-i="pDesc">Burger duplo, fritas rústicas e refri 350 ml.</p>
+            <div class="price"><s>R$ 42,90</s><b>R$ 29,90</b></div>
+          </div>
+          <div class="promo-act">
+            <button class="btn is-red add-promo" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span data-i="pAdd">Adicionar</span></button>
+            <button class="coupon" type="button" aria-label="Copiar cupom FOME10"><span class="cp-code">FOME10</span><span class="cp-lbl" data-i="pCopy">copiar</span></button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- categorias -->
+    <section class="sec cats" id="cats">
+      <div class="sec-h"><h2 data-i="catsT">O que você quer agora?</h2></div>
+      <ul class="cat-rail">
+        <li style="--c:#EA1D2C"><a href="#near"><span class="ci"><img src="img/burger2.webp" width="900" height="599" alt="" loading="lazy"></span><b data-i="c1">Restaurantes</b></a></li>
+        <li style="--c:#2BA84A"><a href="#verts"><span class="ci"><img src="img/market.webp" width="900" height="600" alt="" loading="lazy"></span><b data-i="c2">Mercado</b></a></li>
+        <li style="--c:#2F6BFF"><a href="#verts"><span class="ci"><img src="img/pharmacy.webp" width="900" height="600" alt="" loading="lazy"></span><b data-i="c3">Farmácia</b></a></li>
+        <li style="--c:#FF8A00"><a href="#verts"><span class="ci"><img src="img/pet.webp" width="900" height="600" alt="" loading="lazy"></span><b data-i="c4">Pet</b></a></li>
+        <li style="--c:#8B3DFF"><a href="#verts"><span class="ci"><img src="img/drinks.webp" width="900" height="599" alt="" loading="lazy"></span><b data-i="c5">Bebidas</b></a></li>
+        <li style="--c:#D9467B"><a href="#near"><span class="ci"><img src="img/donut.webp" width="900" height="592" alt="" loading="lazy"></span><b data-i="c6">Doces</b></a></li>
+        <li style="--c:#7A4B2A"><a href="#near"><span class="ci"><img src="img/coffee.webp" width="900" height="600" alt="" loading="lazy"></span><b data-i="c7">Café</b></a></li>
+      </ul>
+    </section>
+
+    <!-- roleta -->
+    <section class="sec roll">
+      <div class="roll-card">
+        <div class="roll-txt">
+          <p class="tag" data-i="rollK">Indeciso?</p>
+          <h2 data-i="rollT">Deixa a fome escolher.</h2>
+          <p data-i="rollP">Um toque e a roleta sorteia o que pedir hoje.</p>
+          <button class="btn is-light roll-go" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3"/><path d="M18 3v4h-4M6 21v-4h4"/></svg><span data-i="rollB">Girar a roleta</span></button>
+        </div>
+        <div class="roll-win" aria-live="polite">
+          <div class="reel">
+            <figure data-n="Pizza"><img src="img/pizza.webp" width="900" height="603" alt="" loading="lazy"><figcaption>Pizza</figcaption></figure>
+            <figure data-n="Sushi"><img src="img/sushi.webp" width="900" height="1352" alt="" loading="lazy"><figcaption>Sushi</figcaption></figure>
+            <figure data-n="Salada"><img src="img/salad.webp" width="900" height="600" alt="" loading="lazy"><figcaption data-i="fSalad">Salada</figcaption></figure>
+            <figure data-n="Burger"><img src="img/burger.webp" width="900" height="676" alt="" loading="lazy"><figcaption>Burger</figcaption></figure>
+            <figure data-n="Bowl"><img src="img/bowl.webp" width="900" height="675" alt="" loading="lazy"><figcaption>Bowl</figcaption></figure>
+            <figure data-n="Sorvete"><img src="img/icecream.webp" width="900" height="1350" alt="" loading="lazy"><figcaption data-i="fIce">Sorvete</figcaption></figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- faixa -->
+    <div class="strip" aria-hidden="true"><div class="strip-in"><span data-i="st1">Frete grátis em lojas selecionadas</span><i>✦</i><span data-i="st2">Cupom de boas-vindas</span><i>✦</i><span data-i="st3">Mercado em minutos</span><i>✦</i><span data-i="st4">Pague pelo app</span><i>✦</i><span data-i="st1">Frete grátis em lojas selecionadas</span><i>✦</i><span data-i="st2">Cupom de boas-vindas</span><i>✦</i><span data-i="st3">Mercado em minutos</span><i>✦</i><span data-i="st4">Pague pelo app</span><i>✦</i></div></div>
+
+    <!-- perto de você -->
+    <section class="sec near" id="near">
+      <div class="sec-h"><h2 data-i="nearT">Perto de você</h2><p class="note" data-i="nearN">Lojas fictícias, só para o conceito</p></div>
+      <ul class="shops">
+        <li><a href="#near"><span class="sp"><img src="img/burger2.webp" width="900" height="599" alt="" loading="lazy"><em class="free" data-i="free">Frete grátis</em></span><b>Brasa Burger</b><small><span class="st">★ 4,8</span> · <span data-i="tBurger">Lanches</span> · 20–30 min</small></a></li>
+        <li><a href="#near"><span class="sp"><img src="img/pizza.webp" width="900" height="603" alt="" loading="lazy"></span><b>Nonna Forno</b><small><span class="st">★ 4,9</span> · Pizza · 35–45 min</small></a></li>
+        <li><a href="#near"><span class="sp"><img src="img/sushi.webp" width="900" height="1352" alt="" loading="lazy"><em class="free" data-i="free">Frete grátis</em></span><b>Sushi Kai</b><small><span class="st">★ 4,7</span> · <span data-i="tJap">Japonesa</span> · 30–40 min</small></a></li>
+        <li><a href="#near"><span class="sp"><img src="img/bowl.webp" width="900" height="675" alt="" loading="lazy"></span><b>Verde Bowl</b><small><span class="st">★ 4,8</span> · <span data-i="tHealthy">Saudável</span> · 15–25 min</small></a></li>
+        <li><a href="#near"><span class="sp"><img src="img/donut.webp" width="900" height="592" alt="" loading="lazy"></span><b>Doce Vó</b><small><span class="st">★ 4,9</span> · <span data-i="tSweets">Doces</span> · 20–30 min</small></a></li>
+      </ul>
+    </section>
+
+    <!-- como funciona -->
+    <section class="sec how">
+      <div class="sec-h"><p class="tag" data-i="howK">Do toque à porta</p><h2 data-i="howT">Três passos. Zero esforço.</h2></div>
+      <div class="how-map">
+        <svg class="route" viewBox="0 0 320 560" preserveAspectRatio="none" aria-hidden="true"><path class="r-bg" d="M60 20 C 260 80, 280 200, 160 270 S 40 440, 250 540"/><path class="r-fg" d="M60 20 C 260 80, 280 200, 160 270 S 40 440, 250 540"/></svg>
+        <ol class="steps">
+          <li><span class="n">1</span><div><b data-i="h1t">Escolha</b><p data-i="h1p">Restaurante, mercado, farmácia ou pet. Tudo num lugar só.</p></div></li>
+          <li><span class="n">2</span><div><b data-i="h2t">Pague no app</b><p data-i="h2p">Cartão, Pix ou vale-refeição, sem sair da tela.</p></div></li>
+          <li><span class="n">3</span><div><b data-i="h3t">Acompanhe</b><p data-i="h3p">Veja o entregador no mapa até a campainha tocar.</p></div></li>
+        </ol>
+        <div class="rider" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="23" fill="#EA1D2C"/><path d="M13 30a4 4 0 1 0 8 0 4 4 0 1 0-8 0M27 30a4 4 0 1 0 8 0 4 4 0 1 0-8 0M17 30h6l4-8h5l3 8M24 22h-5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+    </section>
+
+    <!-- verticais -->
+    <section class="sec verts" id="verts">
+      <div class="sec-h"><p class="tag" data-i="vK">Muito além da comida</p><h2 data-i="vT">Um app, a casa inteira.</h2></div>
+      <div class="bento">
+        <a class="bx bx-mk" href="#verts" style="--c:#2BA84A"><img src="img/market.webp" width="900" height="600" alt="" loading="lazy"><span><b data-i="c2">Mercado</b><small data-i="vMk">Hortifrúti fresquinho em minutos</small></span></a>
+        <a class="bx bx-ph" href="#verts" style="--c:#2F6BFF"><img src="img/pharmacy.webp" width="900" height="600" alt="" loading="lazy"><span><b data-i="c3">Farmácia</b><small data-i="vPh">Do analgésico ao protetor solar</small></span></a>
+        <a class="bx bx-pt" href="#verts" style="--c:#FF8A00"><img src="img/pet.webp" width="900" height="600" alt="" loading="lazy"><span><b data-i="c4">Pet</b><small data-i="vPt">Ração e mimos sem carregar peso</small></span></a>
+        <a class="bx bx-dr" href="#verts" style="--c:#8B3DFF"><img src="img/drinks.webp" width="900" height="599" alt="" loading="lazy"><span><b data-i="c5">Bebidas</b><small data-i="vDr">Gelada, na hora do brinde</small></span></a>
+      </div>
+    </section>
+
+    <!-- portas do ecossistema -->
+    <section class="sec doors" id="doors">
+      <div class="door-peek" aria-hidden="true"><img alt=""></div>
+      <div class="sec-h"><p class="tag" data-i="dK">Faça parte</p><h2 data-i="dT">Tem um iFood para cada um.</h2></div>
+      <ul class="door-list">
+        <li style="--c:#EA1D2C"><a data-n="01" href="https://parceiros.ifood.com.br/" target="_blank" rel="noopener"><img src="img/chef.webp" width="900" height="1350" alt="" loading="lazy"><span><small data-i="d1k">Para restaurantes e lojas</small><b data-i="d1">Venda mais com a gente</b></span><i class="go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></i></a></li>
+        <li style="--c:#FF8A00"><a data-n="02" href="https://entregador.ifood.com.br/" target="_blank" rel="noopener"><img src="img/moto.webp" width="900" height="573" alt="" loading="lazy"><span><small data-i="d2k">Para entregadores</small><b data-i="d2">Faça seus horários</b></span><i class="go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></i></a></li>
+        <li style="--c:#2F6BFF"><a data-n="03" href="https://carreiras.ifood.com.br/" target="_blank" rel="noopener"><img src="img/office.webp" width="900" height="600" alt="" loading="lazy"><span><small data-i="d3k">Carreiras</small><b data-i="d3">Trabalhe no iFood</b></span><i class="go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></i></a></li>
+        <li style="--c:#2BA84A"><a data-n="04" href="https://beneficios.ifood.com.br/" target="_blank" rel="noopener"><img src="img/lunch.webp" width="900" height="600" alt="" loading="lazy"><span><small data-i="d4k">Para empresas</small><b data-i="d4">Benefícios para o seu time</b></span><i class="go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></i></a></li>
+      </ul>
+    </section>
+
+    <!-- app -->
+    <section class="sec app">
+      <div class="app-card">
+        <div class="app-txt">
+          <h2 data-i="aT">Pediu, chegou. No app é ainda mais rápido.</h2>
+          <p data-i="aP">Notificação de cada etapa, pagamento salvo e cupons só do app.</p>
+          <div class="stores">
+            <a class="btn is-dark" href="https://apps.apple.com/br/app/ifood-pedir-delivery-online/id483017239" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.5 2-3.6a4.3 4.3 0 0 0-3.4-1.8c-1.4-.2-2.8.8-3.5.8s-1.8-.8-3-.8A4.5 4.5 0 0 0 4.7 9.6c-1.6 2.8-.4 6.9 1.1 9.2.8 1.1 1.7 2.3 2.9 2.3s1.6-.8 3-.8 1.8.8 3 .7 2-1.1 2.8-2.3a9.5 9.5 0 0 0 1.3-2.6 4 4 0 0 1-2.4-3.5ZM14.2 5.6A4 4 0 0 0 15.1 2.7a4.1 4.1 0 0 0-2.7 1.4 3.8 3.8 0 0 0-1 2.8 3.4 3.4 0 0 0 2.8-1.3Z" fill="currentColor"/></svg><span>App Store</span></a>
+            <a class="btn is-dark" href="https://play.google.com/store/apps/details?id=br.com.brainweb.ifood" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3.5v17l9-8.5-9-8.5Zm10.3 9.7L6 21l11.3-6.3-3-1.5Zm0-2.4 3 1.5L6 3l8.3 7.8ZM18.6 11l-2.5 1.2 2.5 1.3 2-1.2c.6-.4.6-1 0-1.3l-2-1.2v1.2Z" fill="currentColor"/></svg><span>Google Play</span></a>
+          </div>
+        </div>
+        <div class="phone" aria-hidden="true">
+          <div class="ph-screen">
+            <div class="ph-top"><img src="img/ifood-logo.svg" width="46" height="24" alt=""><span class="ph-pill"></span></div>
+            <div class="ph-map"><svg viewBox="0 0 200 140"><path d="M10 120 C 60 100, 70 40, 120 50 S 170 30, 190 15" fill="none" stroke="#EA1D2C" stroke-width="4" stroke-dasharray="7 7" stroke-linecap="round"/><circle cx="190" cy="15" r="7" fill="#1A0F0F"/><circle class="ph-dot" cx="10" cy="120" r="8" fill="#EA1D2C" stroke="#fff" stroke-width="3"/></svg></div>
+            <div class="ph-card"><b data-i="liveT">Seu pedido saiu</b><small data-i="phS">Chega em 8–12 min</small><div class="live-bar"><i></i></div></div>
+            <div class="ph-row"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <img src="img/ifood-logo.svg" width="76" height="40" alt="iFood">
+    <p data-i="disc">Redesign conceitual criado pela Fyw para portfólio. Não é o site oficial do iFood; marcas e nomes pertencem aos seus donos. Lojas, avaliações e prazos mostrados são fictícios.</p>
+    <p><a href="https://www.ifood.com.br/" target="_blank" rel="noopener" data-i="official">Ir para o site oficial do iFood</a> · <a href="https://fyw.com.br/" target="_top" data-i="byFyw">Design por Fyw</a></p>
+  </footer>
+
+
+  <!-- painéis: sacola, endereço e busca -->
+  <div class="scrim" hidden></div>
+  <aside class="sheet" id="sh-bag" role="dialog" aria-modal="true" aria-labelledby="bag-t" hidden>
+    <header class="sh-h"><h2 id="bag-t" data-i="bagT">Sua sacola</h2><button class="sh-x" type="button" aria-label="Fechar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header>
+    <div class="sh-body">
+      <p class="bag-from"><span data-i="bagFrom">Pedido em</span> <b>Brasa Burger</b></p>
+      <ul class="bag-list"></ul>
+      <div class="bag-empty" hidden><b data-i="bagEmpty">Sua sacola está vazia</b><p data-i="bagEmptyP">Que tal o Combo Brasa com 30% off?</p></div>
+      <div class="bag-cp"><input type="text" placeholder="Cupom" data-ph="bagCp" autocomplete="off" aria-label="Cupom"><button type="button" data-i="bagApply">Aplicar</button></div>
+    </div>
+    <footer class="sh-f">
+      <dl class="bag-sum"><div><dt data-i="bagSub">Subtotal</dt><dd class="v-sub"></dd></div><div><dt data-i="bagFee">Entrega</dt><dd class="v-fee"></dd></div><div class="v-disc-row" hidden><dt data-i="bagDisc">Cupom FOME10</dt><dd class="v-disc"></dd></div><div class="is-total"><dt>Total</dt><dd class="v-tot"></dd></div></dl>
+      <button class="btn is-red is-wide checkout" type="button"><span data-i="bagGo">Fazer pedido</span><b class="v-tot2"></b></button>
+    </footer>
+  </aside>
+  <aside class="sheet" id="sh-addr" role="dialog" aria-modal="true" aria-labelledby="addr-t" hidden>
+    <header class="sh-h"><h2 id="addr-t" data-i="addrT">Onde você está?</h2><button class="sh-x" type="button" aria-label="Fechar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></header>
+    <div class="sh-body">
+      <label class="addr-in"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg><input type="text" placeholder="Buscar endereço e número" data-ph="addrPh" autocomplete="off"></label>
+      <button class="addr-gps" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7.5"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg><span><b data-i="addrGps">Usar minha localização</b><small data-i="addrGpsS">Demonstração: não acessa sua localização</small></span></button>
+      <ul class="addr-list">
+        <li><button type="button" class="is-on" data-addr="Rua Augusta, 1200"><span class="ad-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1v-8Z"/></svg></span><span><b data-i="addrHome">Casa</b><small>Rua Augusta, 1200 · Consolação</small></span><i class="ad-ok"></i></button></li>
+        <li><button type="button" data-addr="Av. Paulista, 1578"><span class="ad-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="7" width="16" height="12" rx="2"/><path d="M9 7V5h6v2"/></svg></span><span><b data-i="addrWork">Trabalho</b><small>Av. Paulista, 1578 · Bela Vista</small></span><i class="ad-ok"></i></button></li>
+        <li><button type="button" data-addr="Rua Harmonia, 450"><span class="ad-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></svg></span><span><b data-i="addrMom">Casa da mãe</b><small>Rua Harmonia, 450 · Vila Madalena</small></span><i class="ad-ok"></i></button></li>
+      </ul>
+    </div>
+  </aside>
+  <aside class="sheet is-full" id="sh-search" role="dialog" aria-modal="true" aria-label="Busca" hidden>
+    <header class="sh-h sr-h">
+      <label class="sr-in"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg><input id="q2" type="search" autocomplete="off" placeholder="Pratos, lojas ou categorias" data-ph="srPh"></label>
+      <button class="sr-x" type="button" data-i="close">Fechar</button>
+    </header>
+    <div class="sh-body">
+      <div class="sr-idle"><p class="sr-k" data-i="srRecent">Buscas recentes</p><ul class="sr-chips"></ul><p class="sr-k" data-i="srTop">Em alta agora</p><ol class="sr-top"></ol></div>
+      <ul class="sr-res" hidden></ul>
+      <p class="sr-none" hidden></p>
+    </div>
+  </aside>
+
+  <!-- pedido acompanhado ao vivo (aparece depois de pedir) -->
+  <div class="track" role="status" aria-live="polite" hidden>
+    <div class="live-h"><span class="pulse"></span><b class="tr-t"></b><em><span class="mins">25</span> min</em></div>
+    <div class="live-bar"><i></i></div>
+    <ol class="live-steps"><li data-i="s1">Confirmado</li><li data-i="s2">Preparando</li><li data-i="s3">A caminho</li><li data-i="s4">Entregue</li></ol>
+  </div>
+  <div class="toast" role="status" aria-live="polite"></div>
+
+  <!-- barra inferior (celular) -->
+  <nav class="tabbar" aria-label="Atalhos">
+    <a href="#top" class="is-on"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1v-8Z"/></svg><span data-i="tb1">Início</span></a>
+    <a href="#q" class="tb-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg><span data-i="tb2">Busca</span></a>
+    <a href="#near" class="tb-bag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12v16l-3-2-3 2-3-2-3 2V4Z"/><path d="M9 9h6M9 13h4"/></svg><span data-i="tb3">Pedidos</span></a>
+    <a href="#doors"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span data-i="tb4">Perfil</span></a>
+  </nav>
+
+  <script src="../../../assets/vendor/gsap.min.js"></script>
+  <script src="../../../assets/vendor/ScrollTrigger.min.js"></script>
+  <script src="if.js?v=5"></script>
+</body>
+</html>

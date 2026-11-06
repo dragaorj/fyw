@@ -1193,6 +1193,102 @@ window.__fywTagBg = function (hex) { var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''
         new MutationObserver(() => { paintBg(theme()); if (window.__fywClouds) window.__fywClouds.setOptions(PAL[theme()]); })
           .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
         if (sysReduced || a11y.motion || a11y.clean) return; // sem animações: fica só o céu em degradê
+        // sem placa de vídeo de verdade (o 3D seria desenhado pelo processador, o que trava a página por segundos —
+        // acontece nos testes do Google e em aparelhos muito fracos): fica o céu em degradê, sem as nuvens animadas
+        const softGL = (() => { try {
+          const c = document.createElement('canvas'), gl = c.getContext('webgl', { failIfMajorPerformanceCaveat: true }) || c.getContext('experimental-webgl', { failIfMajorPerformanceCaveat: true });
+          if (!gl) return true;
+          const ext = gl.getExtension('WEBGL_debug_renderer_info'), r = ext ? String(gl.getParameter(ext.UNMASKED_RENDERER_WEBGL)) : '';
+          const lose = gl.getExtension('WEBGL_lose_context'); if (lose) lose.loseContext();
+          return /swiftshader|llvmpipe|software|basic render|mesa offscreen/i.test(r);
+        } catch (e) { return true; } })();
+        if (softGL) { softSky(); return; }
+        // nuvens leves (sem 3D): desenhadas pelo processador numa tela pequena (~200 px de largura) e ampliadas pelo navegador.
+        // Mesmo céu, mesmas cores e mar de nuvens em perspectiva vindo na direção de quem vê, por ~1–2 ms por quadro
+        function softSky() {
+          const N = 128, M = N - 1;
+          const noise = seed => { // ruído suave que se repete sem emenda (128×128), 4 camadas de detalhe
+            let s = seed; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+            const out = new Float32Array(N * N);
+            for (let o = 0, amp = .5, cells = 4; o < 4; o++, amp *= .5, cells *= 2) {
+              const g = new Float32Array(cells * cells); for (let i = 0; i < g.length; i++) g[i] = rnd();
+              const k = cells / N;
+              for (let y = 0; y < N; y++) {
+                const fy = y * k, y0 = fy | 0, ty = fy - y0, sy = ty * ty * (3 - 2 * ty), r0 = y0 * cells, r1 = ((y0 + 1) % cells) * cells;
+                for (let x = 0; x < N; x++) {
+                  const fx = x * k, x0 = fx | 0, tx = fx - x0, sx = tx * tx * (3 - 2 * tx), x1 = (x0 + 1) % cells;
+                  const a = g[r0 + x0] + (g[r0 + x1] - g[r0 + x0]) * sx, b = g[r1 + x0] + (g[r1 + x1] - g[r1 + x0]) * sx;
+                  out[y * N + x] += (a + (b - a) * sy) * amp;
+                }
+              }
+            }
+            return out;
+          };
+          const A = noise(9301), B = noise(49297);
+          const at = (T, x, y) => { // leitura suave (bilinear) com repetição
+            x -= Math.floor(x / N) * N; y -= Math.floor(y / N) * N;
+            const x0 = x | 0, y0 = y | 0, tx = x - x0, ty = y - y0, x1 = (x0 + 1) & M, y1 = (y0 + 1) & M, r0 = y0 * N, r1 = y1 * N;
+            const a = T[r0 + x0] + (T[r0 + x1] - T[r0 + x0]) * tx, b = T[r1 + x0] + (T[r1 + x1] - T[r1 + x0]) * tx;
+            return a + (b - a) * ty;
+          };
+          const cv = document.createElement('canvas'), ctx = cv.getContext('2d', { alpha: false });
+          box.appendChild(cv); box.classList.add('is-soft');
+          let W = 0, H = 0, img, px, rows;
+          const size = () => {
+            const r = box.getBoundingClientRect(), w = Math.max(1, r.width), h = Math.max(1, r.height);
+            W = Math.round(Math.min(220, Math.max(140, w / 8))); H = Math.max(60, Math.round(W * h / w));
+            if (cv.width === W && cv.height === H) return;
+            cv.width = W; cv.height = H; img = ctx.createImageData(W, H); px = img.data;
+            const HOR = .3; rows = new Float32Array(H * 3); // por linha: profundidade, névoa e posição no céu
+            for (let y = 0; y < H; y++) { const v = y / (H - 1), d = v - HOR; rows[y * 3] = d > 0 ? 1 / (d + .045) : 0; rows[y * 3 + 1] = d > 0 ? Math.min(1, d * 5.5) : 0; rows[y * 3 + 2] = v; }
+          };
+          size(); addEventListener('resize', size, { passive: true });
+          const rgb = n => [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+          let C; const colors = () => { const p = PAL[theme()]; C = { sky: rgb(p.skyColor), cl: rgb(p.cloudColor), sh: rgb(p.cloudShadowColor), sun: rgb(p.sunColor), lite: rgb(p.sunlightColor), glare: rgb(p.sunGlareColor) }; };
+          colors(); new MutationObserver(colors).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+          let mx = 0, tmx = 0; addEventListener('pointermove', e => { tmx = (e.clientX / innerWidth - .5); }, { passive: true });
+          const draw = t => {
+            mx += (tmx - mx) * .05;
+            const { sky, cl, sh, sun, lite } = C, ox = mx * 30, z0 = t * 9;
+            // névoa do horizonte: a cor da nuvem levemente puxada para o céu
+            const hzR = cl[0] * .88 + sky[0] * .12, hzG = cl[1] * .88 + sky[1] * .12, hzB = cl[2] * .88 + sky[2] * .12;
+            // vales entre as nuvens: sombra da nuvem misturada ao céu
+            const gR = sh[0] * .5 + cl[0] * .2 + sky[0] * .3, gG = sh[1] * .5 + cl[1] * .2 + sky[1] * .3, gB = sh[2] * .5 + cl[2] * .2 + sky[2] * .3;
+            for (let y = 0; y < H; y++) {
+              const z = rows[y * 3], fog = rows[y * 3 + 1], v = rows[y * 3 + 2];
+              // céu: puxa um pouco para a cor do sol perto do horizonte
+              const hz = Math.max(0, 1 - Math.abs(v - .3) * 3.2), sk0 = sky[0] + (sun[0] - sky[0]) * hz * .3, sk1 = sky[1] + (sun[1] - sky[1]) * hz * .3, sk2 = sky[2] + (sun[2] - sky[2]) * hz * .3;
+              // passagem suave céu → nuvens (sem linha dura no horizonte)
+              const hb = Math.min(1, Math.max(0, (v - .24) / .09)), sb = hb * hb * (3 - 2 * hb);
+              let i = y * W * 4;
+              for (let x = 0; x < W; x++, i += 4) {
+                let r = sk0, g = sk1, b = sk2;
+                if (sb > 0) {
+                  let cr = hzR, cg = hzG, cb = hzB;
+                  if (z) {
+                    const u = (x / W - .5) * z * 26 + ox, w = z * 16 + z0;
+                    const n = at(A, u, w) * .68 + at(B, u * 2.1 + 11, w * 2.1 - t * 4) * .32;
+                    const dens = Math.min(1, Math.max(0, (n - .38) * 4));
+                    const lit = Math.min(1, Math.max(0, .82 + (n - at(A, u - 1.6, w - 1.6) * .68 - at(B, u * 2.1 + 9.4, w * 2.1 - t * 4 - 3.4) * .32) * 9)); // luz vindo de cima
+                    const k = lit * .14; // topo das nuvens com um toque da luz do sol
+                    const tr = sh[0] + (cl[0] - sh[0]) * lit + (lite[0] - cl[0]) * k, tg = sh[1] + (cl[1] - sh[1]) * lit + (lite[1] - cl[1]) * k, tb = sh[2] + (cl[2] - sh[2]) * lit + (lite[2] - cl[2]) * k;
+                    const sr = gR + (tr - gR) * dens, sg = gG + (tg - gG) * dens, sb2 = gB + (tb - gB) * dens;
+                    cr = hzR + (sr - hzR) * fog; cg = hzG + (sg - hzG) * fog; cb = hzB + (sb2 - hzB) * fog;
+                  }
+                  r += (cr - r) * sb; g += (cg - g) * sb; b += (cb - b) * sb;
+                }
+                px[i] = r; px[i + 1] = g; px[i + 2] = b; px[i + 3] = 255;
+              }
+            }
+            ctx.putImageData(img, 0, 0);
+          };
+          const t0 = performance.now(); let req = 0, last = 0, on = true;
+          const loop = now => { req = requestAnimationFrame(loop); if (now - last < 40) return; last = now; draw((now - t0) / 1000); }; // ~25 quadros por segundo
+          draw(0); requestAnimationFrame(() => box.classList.add('is-live'));
+          const play = () => { if (!req && on && !document.hidden) req = requestAnimationFrame(loop); }, stop = () => { if (req) cancelAnimationFrame(req); req = 0; };
+          new IntersectionObserver(es => { on = es[0].isIntersecting; on ? play() : stop(); }).observe(box);
+          document.addEventListener('visibilitychange', () => document.hidden ? stop() : play());
+        }
 
         let started = false;
         const start = () => {

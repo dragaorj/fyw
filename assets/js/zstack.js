@@ -11,9 +11,9 @@
   var lang = function () { var l = (document.documentElement.lang || 'pt').slice(0, 2); return l === 'en' || l === 'es' ? l : 'pt'; };
   // tipos de cliente reais da Fyw (Lumière, SPFC, Latimpacto/Impacta, Kyoto, Beta, Cimed, Pacto Global)
   var WORDS = {
-    pt: ['cuida de sorrisos.', 'move torcidas.', 'reúne multidões.', 'leva sabor à mesa.', 'ensina profissões.', 'cuida da saúde.', 'cuida do planeta.', 'cuida da sua empresa.', 'empodera a beleza.'],
-    en: ['cares for smiles.', 'moves crowds of fans.', 'brings people together.', 'brings flavor to the table.', 'teaches careers.', 'takes care of health.', 'takes care of the planet.', 'takes care of your company.', 'empowers beauty.'],
-    es: ['cuida sonrisas.', 'mueve hinchadas.', 'reúne multitudes.', 'lleva sabor a la mesa.', 'enseña profesiones.', 'cuida la salud.', 'cuida el planeta.', 'cuida tu empresa.', 'empodera la belleza.']
+    pt: ['cuida de sorrisos.', 'move torcidas.', 'reúne multidões.', 'leva sabor à mesa.', 'ensina profissões.', 'cuida da saúde.', 'cuida do planeta.', 'cuida da sua empresa.', 'empodera a beleza.', 'leva comida até você.'],
+    en: ['cares for smiles.', 'moves crowds of fans.', 'brings people together.', 'brings flavor to the table.', 'teaches careers.', 'takes care of health.', 'takes care of the planet.', 'takes care of your company.', 'empowers beauty.', 'brings food to your door.'],
+    es: ['cuida sonrisas.', 'mueve hinchadas.', 'reúne multitudes.', 'lleva sabor a la mesa.', 'enseña profesiones.', 'cuida la salud.', 'cuida el planeta.', 'cuida tu empresa.', 'empodera la belleza.', 'lleva comida hasta ti.']
   };
   var dotPoint = function (el) {
     var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), n, last = null; while ((n = w.nextNode())) if (n.data.trim()) last = n;
@@ -28,8 +28,10 @@
   var gate = function (on) { if (on === gOn) return; gOn = on; gsap.to(gObj, { v: on ? 1 : 0, duration: on ? 1.1 : .45, ease: on ? 'power2.out' : 'power2.in', overwrite: true, onUpdate: function () { gather = gObj.v; if (gather < .02) measureDot(); renderOrbit(); } }); };
   var pendW = null, autoX = 0, baseU = 0, baseK = 0, lastScrollT = 0, lastStepT = 0, inGalaxy = false;
   var N = orbs.length, spin = 0, scrollSpin = Math.PI / 2, spinT = Math.PI / 2, spread = 0, gather = 0, live = false;
+  // posição do giro automático (com a mesma curva usada em todo lugar: a rolagem e o giro sozinho nunca discordam, então nada anda para trás)
+  var autoPos = function (x) { var ai = Math.floor(x), fr = x - ai; return ai + fr * .35 + (.5 - Math.cos(fr * Math.PI) / 2) * .65; };
   // logo branca de cada cliente na frente da foto (copiada do mural de clientes), sobre uma película escura
-  var LOGOS = ['lumiere', 'jogo-pela-integridade', 'latimpacto', 'kyoto', 'beta-online', 'cimed', 'pacto-global', 'globalfy', 'let-me-be'];
+  var LOGOS = ['lumiere', 'jogo-pela-integridade', 'latimpacto', 'kyoto', 'beta-online', 'cimed', 'pacto-global', 'globalfy', 'let-me-be', 'ifood'];
   // cópia da logo com ids únicos (máscaras/gradientes), senão a logo original e a cópia brigam
   var cloneMark = function (a, suf) {
     var c = a.cloneNode(true); c.removeAttribute('role'); c.setAttribute('aria-hidden', 'true');
@@ -90,8 +92,8 @@
     if (!live) return; var now = performance.now(), dt = Math.min(64, now - (lastStepT || now)); lastStepT = now;
     // parado na galáxia: as fotos orbitam a frase sem parar, devagar; desaceleram quando uma chega no centro (embaixo da frase) e a frase troca ali
     if (inGalaxy && !orbHover && (gather < 1 || now - lastScrollT > 450) && !document.hidden) { // começa a girar junto com a abertura das bolinhas
-      autoX += dt / 5600; var ai = Math.floor(autoX), fr = autoX - ai, ef = fr * .35 + (.5 - Math.cos(fr * Math.PI) / 2) * .65, pos = baseK + ai + ef;
-      spinT = Math.PI / 2 - pos * Math.PI * 2 / N; setWord(((Math.round(baseK + ai + ef) % N) + N) % N);
+      autoX += dt / 5600; var pos = baseK + autoPos(autoX);
+      spinT = Math.PI / 2 - pos * Math.PI * 2 / N; setWord(((Math.round(pos) % N) + N) % N);
     }
     scrollSpin += (spinT - scrollSpin) * .12; renderOrbit();
   };
@@ -269,7 +271,7 @@
           if (p < .1) { var q = dotPoint(title); if (q) gsap.set(fill, { left: q.sx, top: q.sy }); }
           var on = p > A - .03 && p < B + .05; if (on !== live) { live = on; if (on) gsap.ticker.add(tick); else gsap.ticker.remove(tick); }
           // a rolagem também gira a galáxia; na saída as imagens se espalham para fora
-          var P0 = A + .05, uR = Math.max(0, Math.min(nW - 1, (p - P0) / (B - P0) * nW - .5)), kk = Math.round(uR), dd = uR - kk, ee = Math.min(1, Math.max(0, Math.abs(dd) - .1) / .4); ee = .5 - Math.cos(ee * Math.PI) / 2; if (gather >= 1) autoX = Math.round(autoX); baseU = kk + (dd < 0 ? -1 : 1) * ee * .5; baseK = kk; spinT = Math.PI / 2 - (baseU + autoX) * Math.PI * 2 / N; var nowT = performance.now(); lastScrollT = nowT; inGalaxy = p > A - .013 && p < B - .01; spread = p > B ? Math.min(1, (p - B) / .04) : 0; gate(gOn ? p >= A - .04 : p >= A - .013); // folga para não ligar e desligar quando a rolagem para no limite
+          var P0 = A + .05, uR = Math.max(0, Math.min(nW - 1, (p - P0) / (B - P0) * nW - .5)), kk = Math.round(uR), dd = uR - kk, ee = Math.min(1, Math.max(0, Math.abs(dd) - .1) / .4); ee = .5 - Math.cos(ee * Math.PI) / 2; if (gather >= 1) autoX = Math.ceil(autoX - 1e-6); baseU = kk + (dd < 0 ? -1 : 1) * ee * .5; baseK = kk; spinT = Math.PI / 2 - (baseU + autoPos(autoX)) * Math.PI * 2 / N; /* o ajuste só vai para frente (antes arredondava e podia recuar) */ var nowT = performance.now(); lastScrollT = nowT; inGalaxy = p > A - .013 && p < B - .01; spread = p > B ? Math.min(1, (p - B) / .04) : 0; gate(gOn ? p >= A - .04 : p >= A - .013); // folga para não ligar e desligar quando a rolagem para no limite
           if (p >= A - .02 && p <= B + .02) setWord((kk + autoX) % N);
           if (gather < .02) measureDot(); if (live) renderOrbit();
         } } });

@@ -17,12 +17,12 @@
     var loop = function (t) {
       raf = 0; if (!vis) return;
       var dt = last ? Math.min(64, t - last) : 16; last = t;
-      if (!drag && t - lastUser > IDLE && !reduce) { ph += dt / 1000 * 0.55; goal = 50 + AMP * Math.sin(ph); }
+      if (!drag && t - lastUser > IDLE && !reduce) { ph += dt / 1000 * 0.55; goal = 50 - AMP * Math.sin(ph); } // começa indo para a esquerda: abre mostrando o logo novo (depois)
       p += (goal - p) * (drag ? 0.35 : 0.08);
       paint(); raf = requestAnimationFrame(loop);
     };
     var go = function () { if (!raf && vis) { last = 0; raf = requestAnimationFrame(loop); } };
-    var to = function (v) { user(); goal = Math.max(0, Math.min(100, v)); ph = Math.asin(Math.max(-1, Math.min(1, (goal - 50) / AMP))); go(); };
+    var to = function (v) { user(); goal = Math.max(0, Math.min(100, v)); ph = Math.asin(Math.max(-1, Math.min(1, (50 - goal) / AMP))); go(); };
     var fromX = function (x) { var r = ba.getBoundingClientRect(); return (x - r.left) / r.width * 100; };
     ba.addEventListener('pointerdown', function (e) { drag = true; ba.classList.add('is-drag'); if (e.pointerType === 'mouse') ba.setPointerCapture(e.pointerId); to(fromX(e.clientX)); });
     ba.addEventListener('pointermove', function (e) { if (drag || e.pointerType === 'mouse') to(fromX(e.clientX)); });

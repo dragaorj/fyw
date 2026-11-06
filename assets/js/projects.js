@@ -11,11 +11,9 @@ window.FYW_PROJECTS = {
   'let-me-be':   { name: 'Let Me Be', type: 'Rebranding', color: '#008575', title: 'Let Me Be', sub: 'Rebranding · Cosméticos', svc: [4, 0], img: 'assets/img/projetos/let-me-be/thumb.webp' },
   'kyoto':       { name: 'Kyoto',         type: 'Branding', color: '#0178FF', title: 'Kyoto Rice', sub: 'Branding · UI/UX & Web', svc: [0, 1], img: 'assets/img/projetos/kyoto/thumb.webp?v=3' },
   'impacta-mais': { name: 'Impacta Mais', type: 'UI/UX & Web', color: '#F7621E', title: 'Impacta Mais', sub: 'UI/UX & Web · Apps & Sistemas', svc: [1, 2], img: 'assets/img/projetos/impacta-mais/thumb.webp' },
-  'orbe':        { name: 'Orbe Studio',   type: 'Rebranding' },
+  'ifood':       { name: 'iFood', type: 'UI/UX & Web', color: '#EA1D2C', title: 'iFood', sub: 'Redesign conceitual', svc: [1], img: 'assets/img/projetos/ifood/thumb.webp?v=1' },
   'lumiere':     { name: 'Lumière', type: 'UI/UX & Web', color: '#1B4A82', title: 'Lumière Dentists', sub: 'UI/UX & Web', svc: [1], img: 'assets/img/projetos/lumiere/thumb.webp?v=2' },
   'latimpacto':  { name: 'Latimpacto', type: 'UI/UX & Web', color: '#985CCC', title: 'Latimpacto', sub: 'Impact Minds', svc: [1], img: 'assets/img/projetos/latimpacto/thumb.webp' },
   'pacto-global': { name: 'Pacto Global', type: 'UI/UX & Web', color: '#3D7B44', title: 'Pacto Global', sub: 'COP30 · UI/UX & Web', svc: [1], img: 'assets/img/projetos/pacto-global/thumb.webp' },
   'globalfy':    { name: 'Globalfy', type: 'UI/UX & Web', color: '#06B051', title: 'Globalfy', sub: 'Fintech · UI/UX & Web', svc: [1], img: 'assets/img/projetos/globalfy/thumb.webp?v=2' },
-  'brisa':       { name: 'Brisa',         type: 'Branding' },
-  'prisma':      { name: 'Prisma',        type: 'App' },
 };
