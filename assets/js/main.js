@@ -955,13 +955,18 @@ window.__fywTagBg = function (hex) { var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''
     const overZoom = !!(top0 && top0.closest('.zoom'));
     const zp = overZoom && document.querySelector(".zoom.is-final .zoom-pin");
     if (zp) { const r = zp.getBoundingClientRect(); if (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) return 0.25; }
-    // seção "Feito para impressionar": a bolinha que vira tela e a moldura do site não recebem clique, então são checadas pela área
-    if (top0 && top0.closest('.zoom-stack')) {
-      const lumOf = el => { const m = getComputedStyle(el).backgroundColor.match(/[\d.]+/g); return m ? (0.2126 * m[0] + 0.7152 * m[1] + 0.0722 * m[2]) / 255 : null; };
+    // seção "Feito para impressionar" (apresentação): fica presa na tela e não recebe clique, então não aparece no elementsFromPoint;
+    // por isso é checada pela área: moldura do site, bolinha que vira tela e a cor de fundo que a apresentação ganha
+    const zst = document.querySelector('.zoom-stack .zs-stage'), zr = zst && zst.getBoundingClientRect();
+    if (zr && x >= zr.left && x <= zr.right && y >= zr.top && y <= zr.bottom) {
+      const lumOf = el => { const c = getComputedStyle(el).backgroundColor, m = c.match(/[\d.]+/g); if (!m || (m[3] !== undefined && +m[3] < .5)) return null; return (0.2126 * m[0] + 0.7152 * m[1] + 0.0722 * m[2]) / (c.startsWith('color(') ? 1 : 255); };
       const fr = document.querySelector('.zoom-stack .zb-frame');
-      if (fr && getComputedStyle(fr.closest('.zs-build')).visibility !== 'hidden' && +getComputedStyle(fr).opacity > .5) { const r = fr.getBoundingClientRect(); if (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) return lumOf(fr); }
+      if (fr && getComputedStyle(fr.closest('.zs-build')).visibility !== 'hidden' && +getComputedStyle(fr).opacity > .5) { const r = fr.getBoundingClientRect(); if (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) { const v = lumOf(fr); if (v !== null) return v; } }
       const fl = document.querySelector('.zoom-stack .zi-fill');
-      if (fl) { const r = fl.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2; if (r.width > 4 && Math.hypot(x - cx, y - cy) < r.width / 2) return lumOf(fl); }
+      if (fl) { const r = fl.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2; if (r.width > 4 && Math.hypot(x - cx, y - cy) < r.width / 2) { const v = lumOf(fl); if (v !== null) return v; } }
+      // fundo que a apresentação ganha (claro ou escuro, conforme o tema e a cena)
+      const sv = lumOf(zst); if (sv !== null) return sv;
+      const sec = zst.closest('.zoom-stack'), qv = sec && lumOf(sec); if (qv !== null && qv !== undefined && qv !== false) return qv;
     }
     const zgr = overZoom && document.querySelector(".zoom-grid"); if (zgr) { for (const t of zgr.querySelectorAll(".zg")) { const r = t.getBoundingClientRect(); if (getComputedStyle(t).opacity > 0.5 && x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) return 0.3; } }
     const els = hits.filter(el => !dock.contains(el) && !el.classList.contains('cursor') && !el.closest('.cursor') && !el.closest('.zs-o')); // bolinhas da galáxia não contam: vale o fundo
