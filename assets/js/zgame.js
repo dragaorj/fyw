@@ -19,9 +19,9 @@
       ['PLUGIN', '100% CÓDIGO LIMPIO'], ['DISEÑO VIEJO', 'HECHO DESDE CERO EN FIGMA'], ['BUG', 'PROBADO EN CADA PANTALLA'], ['SIN VENTAS', 'HECHO PARA VENDER'], ['POPUP MOLESTO', 'NAVEGACIÓN CLARA'], ['SIN GOOGLE', 'PENSADO PARA GOOGLE'], ['ROTO EN MÓVIL', 'PERFECTO EN MÓVIL'], ['CÓDIGO PESADO', 'CÓDIGO LIGERO']]
   };
   var TXT = {
-    pt: { spT: 'ESPECIAL PRONTO! TOQUE 2X NA TELA', spK: 'ESPECIAL PRONTO! ESPAÇO OU CLIQUE', spGo: 'ESPECIAL FYW!', help: 'A FYW VEIO TE AJUDAR!', intro: 'META: UM SITE QUE RESOLVE O SEU PROBLEMA', goal: 'META', score: 'PONTOS', lose: 'DE NOVO!', win: 'SITE 100% LIMPO!', hint: 'Mova o mouse. A nave atira sozinha.', hintT: 'Arraste o dedo. A nave atira sozinha.' },
-    en: { spT: 'SPECIAL READY! DOUBLE TAP', spK: 'SPECIAL READY! SPACE OR CLICK', spGo: 'FYW SPECIAL!', help: 'FYW IS HERE TO HELP!', intro: 'GOAL: A WEBSITE THAT SOLVES YOUR PROBLEM', goal: 'GOAL', score: 'SCORE', lose: 'AGAIN!', win: '100% CLEAN SITE!', hint: 'Move the mouse. The ship fires on its own.', hintT: 'Drag your finger. The ship fires on its own.' },
-    es: { spT: 'ESPECIAL LISTO! TOCA 2 VECES', spK: 'ESPECIAL LISTO! ESPACIO O CLIC', spGo: 'ESPECIAL FYW!', help: 'FYW VINO A AYUDARTE!', intro: 'META: UN SITIO QUE RESUELVE TU PROBLEMA', goal: 'META', score: 'PUNTOS', lose: 'OTRA VEZ!', win: 'SITIO 100% LIMPIO!', hint: 'Mueve el mouse. La nave dispara sola.', hintT: 'Arrastra el dedo. La nave dispara sola.' }
+    pt: { sndT: 'TOQUE PARA LIGAR O SOM', sndK: 'CLIQUE PARA LIGAR O SOM', spT: 'ESPECIAL PRONTO! TOQUE 2X NA TELA', spK: 'ESPECIAL PRONTO! ESPAÇO OU CLIQUE', spGo: 'ESPECIAL FYW!', help: 'A FYW VEIO TE AJUDAR!', intro: 'META: UM SITE QUE RESOLVE O SEU PROBLEMA', goal: 'META', score: 'PONTOS', lose: 'DE NOVO!', win: 'SITE 100% LIMPO!', hint: 'Mova o mouse. A nave atira sozinha.', hintT: 'Arraste o dedo. A nave atira sozinha.' },
+    en: { sndT: 'TAP FOR SOUND', sndK: 'CLICK TO TURN ON SOUND', spT: 'SPECIAL READY! DOUBLE TAP', spK: 'SPECIAL READY! SPACE OR CLICK', spGo: 'FYW SPECIAL!', help: 'FYW IS HERE TO HELP!', intro: 'GOAL: A WEBSITE THAT SOLVES YOUR PROBLEM', goal: 'GOAL', score: 'SCORE', lose: 'AGAIN!', win: '100% CLEAN SITE!', hint: 'Move the mouse. The ship fires on its own.', hintT: 'Drag your finger. The ship fires on its own.' },
+    es: { sndT: 'TOCA PARA EL SONIDO', sndK: 'HAZ CLIC PARA ACTIVAR EL SONIDO', spT: 'ESPECIAL LISTO! TOCA 2 VECES', spK: 'ESPECIAL LISTO! ESPACIO O CLIC', spGo: 'ESPECIAL FYW!', help: 'FYW VINO A AYUDARTE!', intro: 'META: UN SITIO QUE RESUELVE TU PROBLEMA', goal: 'META', score: 'PUNTOS', lose: 'OTRA VEZ!', win: 'SITIO 100% LIMPIO!', hint: 'Mueve el mouse. La nave dispara sola.', hintT: 'Arrastra el dedo. La nave dispara sola.' }
   };
   // ---------- fonte pixel 5x7 ----------
   var G = {
@@ -180,6 +180,8 @@
       for (var q = 0; q < 6; q++) { cx.fillStyle = Math.random() < .5 ? '#FFFFFF' : '#9EE7FF'; cx.fillRect(Math.round(bx + (Math.random() - .5) * bw2 * 2), Math.round(top + Math.random() * (cy0 - top)), 1, 2); } cx.globalAlpha = 1;
       drawShip(); }
     if (S.sp && (S.t * 3 | 0) % 2) { var sm = touch ? TXT[lang()].spT : TXT[lang()].spK; text(cx, sm, Math.round(W / 2 - textW(sm) / 2), Math.round(H - 26), '#FFC600', 1); }
+    // o navegador só libera som depois do 1º clique/toque/tecla: enquanto isso, um aviso piscando pede o clique
+    if (soundOn && (!AC || AC.state !== 'running') && (S.t * 2 | 0) % 2 === 0) { var sm2 = touch ? TXT[lang()].sndT : TXT[lang()].sndK; text(cx, sm2, Math.round(W / 2 - textW(sm2) / 2), Math.round(H - (S.sp ? 40 : 26)), P.fg, 1); }
     if (S.say) { var k = S.t - S.say.t0; if (k < 1.6) bigText(S.say.txt, S.say.c, k < .12 ? k / .12 : k > 1.25 ? Math.max(0, (1.6 - k) / .35) : 1, k < .12 ? (1 - k / .12) * 8 : 0); }
     if (S.t < 2.3) bigText(TXT[lang()].intro, P.acc, S.t < .2 ? S.t / .2 : S.t > 1.9 ? Math.max(0, (2.3 - S.t) / .4) : 1, 0);
     if (S.win) { var kw = S.t - S.winAt + .3; if (kw > .3) bigText(TXT[lang()].win, P.acc, Math.min(1, (kw - .3) * 3), 0); }

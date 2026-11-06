@@ -5206,3 +5206,6 @@ html body .zoom-play .zoom-intro-title { font-size: clamp(3rem, 6.4vw, 8.5rem) !
 .wr-join .wr-thumb { margin: 0 !important; }
 .work-row.is-open .wr-join .wr-thumb { margin: 0 .22em !important; }
 @media (hover: hover) { .work-row:hover .wr-join .wr-thumb { margin: 0 .22em !important; } }
+/* mural de clientes clean em todos os dispositivos: só os logos (sem bandeira, serviço, "Ver projeto" ou seta) */
+html body .logo-wall .lw-cell:not(.lw-next) .lw-info, html body .logo-wall .lw-cell:not(.lw-next) .lw-reg, html body .logo-wall .lw-cell:not(.lw-next) .lw-go, html body .logo-wall .lw-cell:not(.lw-next) .lw-more, html body .logo-wall .lw-cell:not(.lw-next) .lw-svc { display: none !important; }
+html body .logo-wall .lw-cell:hover .lw-logo, html body .logo-wall .lw-cell:focus-within .lw-logo { transform: scale(1.06) !important; }
