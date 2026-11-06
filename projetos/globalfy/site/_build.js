@@ -1,7 +1,7 @@
 // Gera as páginas do site recriado da Globalfy a partir de partes comuns (topo, rodapé, FAQ, CTA).
 // Uso: node _build.js   (rodar dentro de projetos/globalfy/site)
 const fs = require('fs');
-const V = '13';
+const V = '14';
 const u = (id, w = 900) => `https://images.unsplash.com/photo-${id}?w=${w}&q=70&auto=format&fit=crop`;
 const I = (n, c = '') => `<svg class="ico${c ? ' ' + c : ''}" aria-hidden="true"><use href="icons.svg?v=${V}#${n}"/></svg>`;
 const LOGO = `<svg viewBox="0 0 244 66" role="img" aria-label="Globalfy"><use href="icons.svg?v=${V}#logo"/></svg>`;

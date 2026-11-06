@@ -25,7 +25,7 @@
   // ---- galáxia: cada imagem numa órbita elíptica inclinada; a profundidade muda tamanho, nitidez e ordem ----
   // giro sozinho: parado na galáxia, ela passa de um cliente para o outro; rolar a página volta a mandar
   var gObj = { v: 0 }, gOn = false;
-  var gate = function (on) { if (on === gOn) return; gOn = on; gsap.to(gObj, { v: on ? 1 : 0, duration: on ? 1.5 : .6, ease: on ? 'power3.out' : 'power2.in', overwrite: true, onUpdate: function () { gather = gObj.v; if (gather < .02) measureDot(); renderOrbit(); } }); };
+  var gate = function (on) { if (on === gOn) return; gOn = on; gsap.to(gObj, { v: on ? 1 : 0, duration: on ? 1.1 : .45, ease: on ? 'power2.out' : 'power2.in', overwrite: true, onUpdate: function () { gather = gObj.v; if (gather < .02) measureDot(); renderOrbit(); } }); };
   var pendW = null, autoX = 0, baseU = 0, baseK = 0, lastScrollT = 0, lastStepT = 0, inGalaxy = false;
   var N = orbs.length, spin = 0, scrollSpin = Math.PI / 2, spinT = Math.PI / 2, spread = 0, gather = 0, live = false;
   // logo branca de cada cliente na frente da foto (copiada do mural de clientes), sobre uma película escura
@@ -64,15 +64,15 @@
         base = mob ? 92 : Math.min(200, W * (W < H ? .15 : .11));
     orbs.forEach(function (o, i) {
       // spread = 0..1 no fim: as bolinhas se juntam todas no centro (é dali que o site abre)
-      var sd = seeds[i], th = sd.a + spin + scrollSpin, g = gather * gather * (3 - 2 * gather), m = spread * spread * (3 - 2 * spread), rr = sd.r * (1 - m) * g;
-      var x = Math.cos(th) * RX * rr, depth = Math.sin(th), y = depth * RY * rr + sd.h * (mob ? W * .05 : H * .07) * g, k = (depth + 1) / 2; // 0 = fundo, 1 = frente
+      var sd = seeds[i], th = sd.a + spin + scrollSpin, g = gather * gather * (3 - 2 * gather), m = spread * spread * (3 - 2 * spread), rr = sd.r * (1 - m);
+      var x = Math.cos(th) * RX * rr, depth = Math.sin(th), y = depth * RY * rr + sd.h * (mob ? W * .05 : H * .07), k = (depth + 1) / 2; // 0 = fundo, 1 = frente
       var sc = (mob ? .42 + k * .95 : .55 + k * .75) * sd.s, op = .62 + k * .38; y *= (1 - m); sc = sc + (.5 - sc) * m; op = op + (1 - op) * m;
       // no começo as bolinhas saem de dentro do ponto final da frase (pequenas, todas no ponto) e se abrem em órbita
-      var gp = Math.min(1, Math.max(0, g * 1.15 - i * .012)); x = DP.x + (x - DP.x) * gp; y = DP.y + (y - DP.y) * gp;
-      var rot = Math.cos(th) * -6 * gp; sc = DP.s + (sc - DP.s) * gp; op = gp < .02 ? 0 : op * gp + (1 - gp);
+      var gp = Math.min(1, Math.max(0, gather * 1.12 - i * .015)); gp = 1 - Math.pow(1 - gp, 3); var gr = .82 + .18 * gp; x *= gr; y *= gr;
+      sc *= .55 + .45 * gp; op *= gp;
       o.style.transform = 'translate(-50%,-50%) translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) scale(' + sc.toFixed(3) + ')'; // sem inclinação: a logo fica reta
       // só a foto em foco (na frente, embaixo da frase) mostra a película e a logo
-      var f = depth > .986 && m < .5 && gp > .98 ? 1 : 0; o.style.setProperty('--f', f); // branco só bem no centro; a troca é feita pela transição do CSS (entra e sai rápido)
+      var f = depth > .986 && m < .5 && gp > .97 ? 1 : 0; o.style.setProperty('--f', f); // branco só bem no centro; a troca é feita pela transição do CSS (entra e sai rápido)
       o.style.width = (base * .86) + 'px'; o.style.opacity = op.toFixed(3); o.style.zIndex = depth > 0 ? 3 : 1; // círculo um pouco menor (a logo compensa no CSS); sem desfoque (bolinhas flat, mais leve)
     });
   };
@@ -246,7 +246,7 @@
           if (p < .1) { var q = dotPoint(title); if (q) gsap.set(fill, { left: q.sx, top: q.sy }); }
           var on = p > A - .03 && p < B + .05; if (on !== live) { live = on; if (on) gsap.ticker.add(tick); else gsap.ticker.remove(tick); }
           // a rolagem também gira a galáxia; na saída as imagens se espalham para fora
-          var P0 = A + .05, uR = Math.max(0, Math.min(nW - 1, (p - P0) / (B - P0) * nW - .5)), kk = Math.round(uR), dd = uR - kk, ee = Math.min(1, Math.max(0, Math.abs(dd) - .1) / .4); ee = .5 - Math.cos(ee * Math.PI) / 2; autoX = Math.round(autoX); baseU = kk + (dd < 0 ? -1 : 1) * ee * .5; baseK = kk; spinT = Math.PI / 2 - (baseU + autoX) * Math.PI * 2 / N; var nowT = performance.now(); lastScrollT = nowT; inGalaxy = p > A - .013 && p < B - .01; spread = p > B ? Math.min(1, (p - B) / .04) : 0; gate(gOn ? p >= A - .04 : p >= A - .013); // folga para não ligar e desligar quando a rolagem para no limite
+          var P0 = A + .05, uR = Math.max(0, Math.min(nW - 1, (p - P0) / (B - P0) * nW - .5)), kk = Math.round(uR), dd = uR - kk, ee = Math.min(1, Math.max(0, Math.abs(dd) - .1) / .4); ee = .5 - Math.cos(ee * Math.PI) / 2; if (gather >= 1) autoX = Math.round(autoX); baseU = kk + (dd < 0 ? -1 : 1) * ee * .5; baseK = kk; spinT = Math.PI / 2 - (baseU + autoX) * Math.PI * 2 / N; var nowT = performance.now(); lastScrollT = nowT; inGalaxy = p > A - .013 && p < B - .01; spread = p > B ? Math.min(1, (p - B) / .04) : 0; gate(gOn ? p >= A - .04 : p >= A - .013); // folga para não ligar e desligar quando a rolagem para no limite
           if (p >= A - .02 && p <= B + .02) setWord((kk + autoX) % N);
           if (gather < .02) measureDot(); if (live) renderOrbit();
         } } });
