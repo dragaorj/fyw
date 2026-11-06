@@ -61,14 +61,14 @@
     o.addEventListener('pointerleave', function () { orbHover = false; o.classList.remove('is-hov'); });
   });
   // uma foto por frase, na mesma ordem das frases; a foto da frase atual vem para a frente (embaixo da frase)
-  var seeds = orbs.map(function (o, i) { return { a: i / N * Math.PI * 2, r: .92 + (i % 2) * .08, h: ((i * 3) % 5 - 2) / 4, s: .92 + (i % 3) * .05 }; });
+  var seeds = orbs.map(function (o, i) { return { a: i / N * Math.PI * 2, r: 1, h: 0, s: .92 + (i % 3) * .05 }; });
   // centro do ponto final da palavra grande (em relação ao centro da tela)
   var DP = { x: 0, y: 0, s: .12 };
   var measureDot = function () { var el = word, t = el.firstChild; if (!t || !t.data) return; var j = t.data.lastIndexOf('.'); if (j < 0) return; var r = document.createRange(); r.setStart(t, j); r.setEnd(t, j + 1); var b = r.getBoundingClientRect(), o = sec.querySelector('.zs-orbit').getBoundingClientRect(); DP.x = b.left + b.width / 2 - o.left; DP.y = b.top + b.height * .78 - o.top; DP.s = Math.max(.05, b.width * .55 / (innerWidth < 600 ? 84 : Math.min(200, innerWidth * (innerWidth < innerHeight ? .15 : .11)))); };
   var renderOrbit = function () {
     // anel sempre deitado (elipse limpa), igual em celular, tablet em pé e computador
     var W = innerWidth, H = innerHeight, mob = W < 600, tall = W < H, RX = W * (mob ? .4 : (tall ? .4 : .4)), RY = mob ? Math.min(H * .19, RX * .62) : Math.min(H * .27, RX * (tall ? .5 : .42)),
-        base = mob ? 84 : Math.min(200, W * (tall ? .15 : .11)), JIT = mob ? 0 : H * .07;
+        base = mob ? 84 : Math.min(200, W * (tall ? .15 : .11)), JIT = 0; // todas as bolinhas exatamente sobre a mesma elipse (sem desvio), em qualquer tela
     orbs.forEach(function (o, i) {
       // spread = 0..1 no fim: as bolinhas se juntam todas no centro (é dali que o site abre)
       var sd = seeds[i], th = sd.a + spin + scrollSpin, g = gather * gather * (3 - 2 * gather), m = spread * spread * (3 - 2 * spread), rr = sd.r * (1 - m);

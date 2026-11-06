@@ -6435,3 +6435,11 @@ html body .zoom-stack .zs-o.is-hov::after, html body .zoom-stack .zs-o.is-hov .z
 .lmb-psy p { grid-area: p; margin: 4px 0 0; font-size: .9375rem; color: var(--muted); max-width: 60ch; }
 @media (min-width: 900px) { .lmb-psy { grid-template-columns: 1fr 1fr; column-gap: 48px; } }
 .lmb-psy-end { margin: 20px 0 0; max-width: 72ch; font-size: 1.0625rem; line-height: 1.5; }
+/* galáxia: logo da Fyw acima da frase, na mesma cor do texto (branca no fundo escuro, preta no claro) */
+.zs-say-logo { display: block; width: auto; height: clamp(26px, 2.6vw, 40px); margin-bottom: clamp(10px, 1.4vw, 20px); color: currentColor; fill: currentColor; }
+@media (max-width: 599px) { .zs-say-logo { height: 24px; margin-bottom: 8px; } }
+/* galáxia: com o mouse em cima, a logo fica na cor da marca (antes ficava branca sobre o branco e sumia) */
+@media (hover: hover) and (pointer: fine) {
+  html body .zoom-stack .zs-o:hover .zs-lg.no-col:not(.zs-lg-cimed) svg:not(.zs-lg-col), html body .zoom-stack .zs-o.is-hov .zs-lg.no-col:not(.zs-lg-cimed) svg:not(.zs-lg-col) { color: var(--oc) !important; }
+  html body .zoom-stack .zs-o:hover .zs-lg.zs-lg-cimed.no-col svg:not(.zs-lg-col), html body .zoom-stack .zs-o.is-hov .zs-lg.zs-lg-cimed.no-col svg:not(.zs-lg-col) { color: #0B0B0B !important; }
+}
