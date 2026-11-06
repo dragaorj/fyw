@@ -265,3 +265,4 @@ body{background:#F1F1EF url(img/fundo.svg) center top/100% 100% no-repeat}
 .agenda-sec{padding-bottom:clamp(40px,4vw,64px)}
 .spk{padding-top:clamp(24px,3vw,48px)}
 @media (max-width:760px){.days,.spk-row{overflow-x:auto;touch-action:pan-x pan-y;cursor:grab;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}.days img,.spk-row img{-webkit-user-drag:none;pointer-events:none}}
+.totop{display:none!important}

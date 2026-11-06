@@ -14,6 +14,7 @@ window.FYW_PROJECTS = {
   'lumiere':     { name: 'Lumière', type: 'UI/UX & Web', color: '#1B4A82', title: 'Lumière Dentists', sub: 'UI/UX & Web', svc: [1], img: 'assets/img/projetos/lumiere/thumb.webp?v=2' },
   'latimpacto':  { name: 'Latimpacto', type: 'UI/UX & Web', color: '#985CCC', title: 'Latimpacto', sub: 'Impact Minds', svc: [1], img: 'assets/img/projetos/latimpacto/thumb.webp' },
   'pacto-global': { name: 'Pacto Global', type: 'UI/UX & Web', color: '#3D7B44', title: 'Pacto Global', sub: 'COP30 · UI/UX & Web', svc: [1], img: 'assets/img/projetos/pacto-global/thumb.webp' },
+  'globalfy':    { name: 'Globalfy', type: 'UI/UX & Web', color: '#06B051', title: 'Globalfy', sub: 'Fintech · UI/UX & Web', svc: [1], img: 'assets/img/projetos/globalfy/thumb.webp?v=2' },
   'brisa':       { name: 'Brisa',         type: 'Branding' },
   'prisma':      { name: 'Prisma',        type: 'App' },
 };

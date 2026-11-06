@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Globalfy — UI/UX &amp; Web | Fyw</title>
+  <meta name="description" content="Novo site da Globalfy, fintech que abre e mantém empresas nos EUA para empreendedores de qualquer país: home, planos, páginas de produto e blog redesenhados. Projeto da Fyw." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://fyw.com.br/projetos/globalfy.html" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Globalfy — UI/UX &amp; Web | Fyw" />
+  <meta property="og:description" content="O site de uma fintech que leva empresas de qualquer país para os Estados Unidos." />
+  <meta property="og:image" content="https://fyw.com.br/assets/img/projetos/globalfy/g1.webp" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="icon" href="../assets/img/favicon-dark.svg?v=2" type="image/svg+xml" media="(prefers-color-scheme: light)" />
+  <link rel="icon" href="../assets/img/favicon-light.svg?v=2" type="image/svg+xml" media="(prefers-color-scheme: dark)" />
+  <script>
+    (function () { var d = document.documentElement; try {
+      var t = localStorage.getItem('fio-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); d.setAttribute('data-theme', t);
+      var a = JSON.parse(localStorage.getItem('fio-a11y') || '{}'); if (a.size) d.style.setProperty('--fs-scale', a.size);
+      ['contrast','motion','clean','links','spacing'].forEach(function (k) { if (a[k]) d.classList.add('a11y-' + k); });
+    } catch (e) {} })();
+  </script>
+  <link rel="preload" as="font" type="font/woff2" href="../assets/fonts/google-sans-latin.woff2" crossorigin />
+  <style>@font-face{font-family:'Google Sans';font-style:normal;font-weight:400 700;font-display:block;src:url(../assets/fonts/google-sans-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}@font-face{font-family:'Google Sans';font-style:normal;font-weight:400 700;font-display:block;src:url(../assets/fonts/google-sans-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}</style>
+  
+  <script>
+    (function () {
+      var d = document.documentElement, R = Math.random, s = function (k, v) { d.style.setProperty(k, v); };
+      var acc = [['#C8F53C', '#0B0B0B'], ['#FF6A2B', '#0B0B0B'], ['#2F6BFF', '#EEEDE9'], ['#7B5CFF', '#EEEDE9']][Math.floor(R() * 4)];
+      s('--accent', acc[0]); s('--accent-ink', acc[1]); s('--accent-dot', acc[0] === '#C8F53C' ? '#2F9E44' : acc[0]);
+      var hues = ['#B49CFF', '#8DB4FF', '#FFA36B', '#C8F53C', '#FF9BD2', '#7FE3C8'];
+      for (var i = hues.length - 1; i > 0; i--) { var j = Math.floor(R() * (i + 1)), x = hues[i]; hues[i] = hues[j]; hues[j] = x; }
+      for (var k = 1; k <= 4; k++) { s('--g' + k, hues[k - 1]); }
+    })();
+  </script>
+  <link rel="stylesheet" href="../assets/css/style.min.css?v=20261128i" />
+  <script>
+    // Paleta sorteada a cada visita (não fica salva): cor de destaque + cores/posições das manchas
+    (function () {
+      var d = document.documentElement, R = Math.random, s = function (k, v) { d.style.setProperty(k, v); };
+      var acc = [['#C8F53C', '#0B0B0B'], ['#FF6A2B', '#0B0B0B'], ['#2F6BFF', '#EEEDE9'], ['#7B5CFF', '#EEEDE9']][Math.floor(R() * 4)];
+      s('--accent', acc[0]); s('--accent-ink', acc[1]); s('--accent-dot', acc[0] === '#C8F53C' ? '#2F9E44' : acc[0]);
+      var hues = ['#B49CFF', '#8DB4FF', '#FFA36B', '#C8F53C', '#FF9BD2', '#7FE3C8'];
+      for (var i = hues.length - 1; i > 0; i--) { var j = Math.floor(R() * (i + 1)), t = hues[i]; hues[i] = hues[j]; hues[j] = t; }
+      for (var k = 1; k <= 4; k++) {
+        s('--au' + k, hues[k - 1]);
+        s('--a' + k + 'x', Math.round(-10 + R() * 75) + 'cqw');
+        s('--a' + k + 'y', Math.round(-10 + R() * 70) + 'cqh');
+      }
+      var glass = ['#FF6A2B', '#1E7A4C', '#7B5CFF', '#FFB45E', '#2F6BFF', '#C8F53C'];
+      for (var m = glass.length - 1; m > 0; m--) { var n = Math.floor(R() * (m + 1)), u = glass[m]; glass[m] = glass[n]; glass[n] = u; }
+      for (var g = 1; g <= 4; g++) s('--g' + g, glass[g - 1]);
+      // cores das seções (cards, depoimentos, marcas, faixa, menu, linha do processo): nova ordem a cada carregamento
+      var fams = [
+        ['#FF6A2B', '#7B5CFF', '#12A594', '#E8478B'],
+        ['#2F6BFF', '#FF6A2B', '#E8478B', '#12A594'],
+        ['#7B5CFF', '#2F9E44', '#FF6A2B', '#2F6BFF'],
+        ['#E8478B', '#2F6BFF', '#2F9E44', '#7B5CFF'],
+        ['#12A594', '#7B5CFF', '#FF6A2B', '#2F6BFF'],
+        ['#FF6A2B', '#2F6BFF', '#2F9E44', '#E8478B']
+      ];
+      var cs = fams[Math.floor(R() * fams.length)].slice();
+      for (var q = cs.length - 1; q > 0; q--) { var r = Math.floor(R() * (q + 1)), v = cs[q]; cs[q] = cs[r]; cs[r] = v; }
+      for (var c = 1; c <= 4; c++) { s('--c' + c, cs[c - 1]); s('--g' + c, cs[c - 1]); }
+      s('--c5', cs[0]); s('--c6', cs[1]);
+    })();
+  </script>
+</head>
+<body class="project-page pp2 pj-gf" style="--pa:#06B051">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="fyw-logo" viewBox="0 0 804 513"><path fill="currentColor" d="M167.766 0C181.085 1.8904e-05 193.839 1.00516 206.027 3.01562C206.198 3.04375 206.368 3.07158 206.537 3.09961C220.661 5.43922 228.408 19.8275 223.516 33.2822L209.876 70.793C207.405 77.5889 200.003 81.2363 192.833 80.293C188.058 79.5391 183.723 79.1621 179.828 79.1621C170.153 79.1621 163.241 81.2352 159.095 85.3818C155.074 89.5284 152.435 94.995 151.179 101.78L149.037 114.597H210.108C223.005 114.597 233.69 124.603 234.537 137.472L246.111 313.392C246.176 314.376 246.993 315.141 247.979 315.141C248.742 315.141 249.429 314.678 249.715 313.971L324.103 129.905C327.842 120.653 336.822 114.597 346.801 114.597H441.707C455.024 114.597 465.899 125.242 466.184 138.556L469.413 289.691C469.429 290.427 470.03 291.015 470.766 291.016C471.329 291.016 471.835 290.666 472.033 290.139L532.082 130.461C535.671 120.917 544.8 114.597 554.997 114.597H615.826C628.855 114.597 639.602 124.802 640.275 137.813L648.055 288.215C648.092 288.939 648.691 289.508 649.416 289.508C649.995 289.508 650.511 289.141 650.702 288.594L705.722 131.009C709.153 121.18 718.425 114.597 728.835 114.597H778.771C796.24 114.597 808.088 132.368 801.369 148.494L701.143 389.039C697.341 398.162 688.427 404.104 678.544 404.104H604.75C592.145 404.104 581.601 394.534 580.383 381.988L567.62 250.533C567.524 249.548 566.696 248.796 565.706 248.796C564.936 248.796 564.239 249.256 563.937 249.964L504.44 389.24C500.589 398.256 491.73 404.104 481.927 404.104H408.282C395.55 404.104 384.942 394.344 383.885 381.655L373.26 254.16L285.808 428.229C277.766 444.188 267.713 458.513 255.65 471.204C243.713 484.021 229.012 494.135 211.546 501.549C194.08 508.962 173.221 512.67 148.97 512.67C136.907 512.67 125.661 511.728 115.231 509.843C114.447 509.711 113.671 509.574 112.901 509.434C99.0337 506.908 93.0004 491.746 99.043 479.011L113.313 448.936C118.767 437.442 132.057 432.648 144.661 434.378C144.841 434.403 145.021 434.427 145.2 434.45C152.111 435.33 158.206 434.827 163.483 432.942C168.761 431.058 173.096 427.476 176.488 422.198C178.671 418.803 179.504 414.715 178.824 410.736L141.115 189.989H136.44L104.082 383.657C102.11 395.457 91.8992 404.104 79.9355 404.104H25.5361C10.4039 404.104 -1.10516 390.513 1.38867 375.588L32.4004 189.989H24.4883C9.32791 189.989 -2.18827 176.35 0.352539 161.404L4.8457 134.976C6.8464 123.207 17.0438 114.597 28.9814 114.597H44.9971L46.3828 106.304C50.2781 82.4294 57.7549 62.6384 68.8125 46.9316C79.9957 31.2249 94.0061 19.4761 110.844 11.6855C127.807 3.89499 146.781 0 167.766 0Z"/></symbol></svg>
+  <a class="skip-link" href="#main">Pular para o conteúdo</a>
+  <header class="nav">
+    <a href="/" class="logo" aria-label="Fyw — página inicial"><svg viewBox="0 0 804 513" aria-hidden="true"><use href="#fyw-logo"/></svg></a>
+    <div class="nav-tools">
+      <a href="../projetos.html" class="pp2-back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 5.5 4.5 12l6.5 6.5"/></svg>Todos os projetos</a>
+      <button class="menu-btn" aria-expanded="false" aria-controls="mobile-menu" data-i18n-aria="nav.menu" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+  <main id="main">
+    <section class="pp2-hero is-text gf-hero" data-glow>
+      <span class="pp2-fx" aria-hidden="true"></span>
+      <div class="pp2-brand"><svg class="pb-logo gf-logo" viewBox="56 82 244 66" role="img" aria-label="Globalfy"><path d="M98.4682 83.3008H107.613C107.821 83.3008 108.021 83.379 108.168 83.5182C108.315 83.6574 108.398 83.8463 108.398 84.0431V131.738C108.398 131.836 108.378 131.932 108.338 132.022C108.299 132.111 108.241 132.193 108.168 132.261C108.095 132.33 108.008 132.384 107.913 132.42C107.818 132.457 107.716 132.475 107.613 132.474H98.4682C98.2618 132.474 98.0639 132.397 97.9179 132.259C97.772 132.121 97.69 131.934 97.69 131.738V84.0431C97.6891 83.946 97.7086 83.8496 97.7473 83.7595C97.786 83.6695 97.8432 83.5876 97.9155 83.5186C97.9879 83.4496 98.074 83.3948 98.1689 83.3574C98.2637 83.32 98.3655 83.3008 98.4682 83.3008V83.3008Z" fill="currentColor"/><path d="M121.524 130.283C118.84 128.905 116.59 126.807 115.026 124.222C113.443 121.55 112.632 118.49 112.683 115.383C112.632 112.276 113.443 109.215 115.026 106.544C116.586 103.95 118.836 101.845 121.524 100.464C124.441 99.0184 127.65 98.2666 130.904 98.2666C134.157 98.2666 137.366 99.0184 140.283 100.464C142.957 101.853 145.195 103.957 146.75 106.544C148.328 109.217 149.137 112.277 149.086 115.383C149.137 118.489 148.328 121.549 146.75 124.222C145.19 126.8 142.953 128.897 140.283 130.283C137.365 131.725 134.156 132.474 130.904 132.474C127.651 132.474 124.442 131.725 121.524 130.283ZM136.983 122.075C138.566 120.392 139.357 118.159 139.357 115.377C139.357 112.594 138.566 110.366 136.983 108.69C136.209 107.862 135.268 107.209 134.222 106.774C133.177 106.338 132.051 106.131 130.919 106.165C129.783 106.133 128.652 106.341 127.6 106.776C126.549 107.212 125.601 107.864 124.818 108.69C123.227 110.357 122.431 112.59 122.431 115.389C122.431 118.188 123.227 120.417 124.818 122.075C125.602 122.901 126.55 123.553 127.601 123.988C128.652 124.423 129.783 124.632 130.919 124.601C132.051 124.634 133.176 124.426 134.222 123.991C135.267 123.556 136.208 122.903 136.983 122.075Z" fill="currentColor"/><path d="M233.389 83.3008H242.534C242.742 83.3008 242.942 83.379 243.089 83.5182C243.236 83.6574 243.319 83.8463 243.319 84.0431V131.738C243.319 131.836 243.298 131.932 243.259 132.022C243.219 132.111 243.161 132.193 243.089 132.261C243.016 132.33 242.929 132.384 242.834 132.42C242.739 132.457 242.637 132.475 242.534 132.474H233.389C233.287 132.474 233.186 132.455 233.091 132.418C232.997 132.381 232.911 132.327 232.839 132.259C232.767 132.19 232.709 132.109 232.67 132.02C232.631 131.931 232.611 131.835 232.611 131.738V84.0431C232.61 83.946 232.629 83.8496 232.668 83.7595C232.707 83.6695 232.764 83.5876 232.836 83.5186C232.909 83.4496 232.995 83.3948 233.09 83.3574C233.185 83.32 233.286 83.3008 233.389 83.3008V83.3008Z" fill="currentColor"/><path d="M187.464 106.408C185.901 103.806 183.652 101.691 180.967 100.298C178.538 99.0359 175.869 98.3132 173.14 98.1791C172.629 98.141 172.125 98.0903 171.596 98.0903C171.067 98.0903 170.563 98.141 170.046 98.1791C167.757 98.3072 165.509 98.8398 163.404 99.7526V84.0431C163.406 83.8501 163.332 83.6641 163.199 83.5252C163.065 83.3864 162.883 83.3058 162.692 83.3008H154.109C153.913 83.3008 153.726 83.379 153.588 83.5182C153.449 83.6574 153.372 83.8462 153.372 84.0431V131.736C153.373 131.932 153.452 132.119 153.59 132.257C153.728 132.395 153.914 132.472 154.109 132.472H162.692C162.886 132.472 163.072 132.395 163.209 132.257C163.346 132.119 163.423 131.931 163.423 131.736V130.816C166.009 131.936 168.799 132.5 171.615 132.472C174.866 132.522 178.08 131.759 180.967 130.252C183.641 128.853 185.88 126.739 187.438 124.142C189.018 121.455 189.827 118.381 189.776 115.259C189.829 112.151 189.029 109.088 187.464 106.408V106.408ZM177.696 122.003C176.919 122.834 175.976 123.49 174.929 123.927C173.882 124.365 172.754 124.574 171.621 124.541C170.484 124.572 169.352 124.362 168.3 123.925C167.249 123.488 166.3 122.833 165.515 122.003C164.459 120.866 163.737 119.456 163.429 117.93C163.009 116.181 163.009 114.356 163.429 112.607C163.737 111.083 164.459 109.675 165.515 108.54C166.299 107.709 167.248 107.054 168.3 106.617C169.352 106.179 170.483 105.97 171.621 106.002C172.754 105.968 173.882 106.177 174.929 106.614C175.976 107.052 176.92 107.708 177.696 108.54C179.276 110.232 180.065 112.476 180.065 115.272C180.065 118.068 179.276 120.312 177.696 122.003Z" fill="currentColor"/><path d="M218.283 99.0082V99.9049C215.718 98.8013 212.951 98.2444 210.16 98.2693C206.895 98.2151 203.668 98.9699 200.764 100.467C198.076 101.848 195.825 103.954 194.265 106.548C192.682 109.22 191.871 112.281 191.923 115.389C191.871 118.497 192.682 121.558 194.265 124.23C195.832 126.811 198.081 128.905 200.764 130.28C203.668 131.775 206.896 132.528 210.16 132.471C212.951 132.498 215.717 131.944 218.283 130.842V131.739C218.283 131.933 218.36 132.119 218.497 132.257C218.634 132.394 218.82 132.471 219.014 132.471H227.597C227.791 132.471 227.977 132.394 228.114 132.257C228.251 132.119 228.328 131.933 228.328 131.739V99.0082C228.328 98.8133 228.251 98.6263 228.114 98.488C227.977 98.3496 227.791 98.271 227.597 98.2693H219.014C218.82 98.271 218.634 98.3496 218.497 98.488C218.36 98.6263 218.283 98.8133 218.283 99.0082V99.0082ZM216.224 122.071C215.449 122.898 214.508 123.551 213.462 123.987C212.417 124.422 211.291 124.63 210.16 124.597C209.023 124.627 207.892 124.418 206.841 123.983C205.79 123.548 204.842 122.896 204.058 122.071C202.458 120.387 201.658 118.153 201.658 115.37C201.658 112.588 202.458 110.354 204.058 108.67C204.841 107.843 205.789 107.191 206.841 106.756C207.892 106.321 209.023 106.112 210.16 106.144C211.291 106.11 212.417 106.318 213.463 106.753C214.508 107.189 215.45 107.842 216.224 108.67C217.267 109.8 217.979 111.196 218.283 112.705C218.703 114.457 218.703 116.284 218.283 118.035C217.978 119.544 217.266 120.94 216.224 122.071V122.071Z" fill="currentColor"/><path d="M95.5488 130.151V99.0177C95.5488 98.8216 95.4675 98.6335 95.3225 98.4943C95.1776 98.355 94.9809 98.276 94.775 98.2743H85.6838C85.478 98.276 85.2812 98.355 85.1363 98.4943C84.9914 98.6335 84.9101 98.8216 84.9101 99.0177V99.9771C82.1775 98.8346 79.2232 98.2523 76.2391 98.2679C72.7964 98.23 69.3968 99.0003 66.3408 100.511C63.4995 101.898 61.1204 104.013 59.4707 106.617C57.8032 109.299 56.9489 112.37 57.0028 115.487C56.9445 118.613 57.8014 121.693 59.4774 124.382C61.1236 126.983 63.501 129.094 66.3408 130.475C69.4066 131.983 72.8157 132.747 76.2658 132.699C79.3371 132.665 82.3699 132.043 85.1836 130.869V130.869C85.1858 133.127 84.3088 135.305 82.7223 136.982C81.0482 138.659 79.6475 139.472 77.0328 139.472C76.827 139.474 76.6302 139.553 76.4853 139.692C76.3404 139.832 76.2591 140.02 76.2591 140.216V146.697C76.26 146.796 76.2814 146.894 76.3222 146.985C76.363 147.076 76.4223 147.158 76.4967 147.227C76.5711 147.296 76.6591 147.351 76.7557 147.387C76.8523 147.424 76.9556 147.442 77.0595 147.44C80.2493 147.396 83.3847 146.646 86.2174 145.248C89.0497 143.849 91.4188 141.729 93.0608 139.123C94.7391 136.435 95.5983 133.355 95.5421 130.228C95.5421 130.228 95.5488 130.183 95.5488 130.151ZM84.9101 117.946C84.6099 119.542 83.837 121.024 82.6823 122.215C81.8627 123.048 80.8669 123.705 79.7607 124.143C78.6545 124.581 77.4632 124.79 76.2658 124.757C75.0647 124.788 73.8702 124.578 72.76 124.14C71.6499 123.702 70.649 123.046 69.8225 122.215C68.1372 120.521 67.2924 118.278 67.2879 115.487C67.2835 112.695 68.1284 110.452 69.8225 108.758C70.6498 107.928 71.6508 107.273 72.7608 106.835C73.8707 106.398 75.0648 106.187 76.2658 106.217C77.4631 106.184 78.654 106.394 79.76 106.832C80.866 107.27 81.862 107.927 82.6823 108.758C83.8334 109.95 84.6059 111.428 84.9101 113.022C85.2747 114.645 85.2747 116.323 84.9101 117.946V117.946Z" fill="currentColor"/><path d="M298.991 130.123V103.952C298.991 103.854 298.971 103.757 298.932 103.666C298.893 103.575 298.836 103.493 298.765 103.423C298.693 103.354 298.608 103.3 298.514 103.262C298.42 103.225 298.32 103.207 298.219 103.208H289.302C289.202 103.208 289.103 103.227 289.01 103.264C288.918 103.302 288.834 103.357 288.763 103.426C288.692 103.495 288.637 103.577 288.599 103.668C288.561 103.758 288.542 103.855 288.543 103.952V124.675C288.13 124.675 287.888 124.675 287.803 124.675C285.008 124.299 283.685 123.612 282.173 122.129C280.661 120.646 280.157 118.527 280.039 116.006V108.598C280.04 108.499 280.02 108.4 279.981 108.308C279.942 108.216 279.883 108.133 279.81 108.064L274.743 103.29L269.813 98.3707C269.743 98.2988 269.659 98.2414 269.566 98.202C269.472 98.1626 269.372 98.1421 269.27 98.1416H261.322C261.491 96.53 262.179 95.0113 263.286 93.8011C263.99 93.0346 264.848 92.4171 265.808 91.9868C266.767 91.5565 267.807 91.3227 268.864 91.2999C269.06 91.2917 269.246 91.2105 269.382 91.0731C269.519 90.9357 269.596 90.7526 269.597 90.5616V83.9426C269.6 83.7928 269.548 83.6469 269.451 83.5305C269.354 83.414 269.218 83.3346 269.067 83.3062H268.929C268.873 83.299 268.816 83.299 268.759 83.3062C265.658 83.365 262.613 84.1139 259.856 85.4955C257.408 86.7241 255.307 88.5177 253.737 90.7191C252.168 92.9205 251.178 95.4626 250.854 98.1225H246.219C246.017 98.1242 245.824 98.2033 245.682 98.3428C245.54 98.4823 245.46 98.6707 245.46 98.8671V107.561C245.46 107.658 245.48 107.754 245.518 107.843C245.556 107.933 245.612 108.014 245.682 108.083C245.753 108.151 245.837 108.206 245.929 108.243C246.021 108.28 246.12 108.299 246.219 108.299H250.704V131.892C250.704 131.989 250.724 132.086 250.762 132.176C250.801 132.266 250.857 132.348 250.928 132.416C251 132.485 251.084 132.539 251.177 132.576C251.27 132.613 251.369 132.631 251.47 132.63H260.386C260.486 132.631 260.586 132.613 260.679 132.576C260.772 132.539 260.856 132.485 260.927 132.416C260.999 132.348 261.055 132.266 261.094 132.176C261.132 132.086 261.152 131.989 261.152 131.892V108.299H269.597V115.3C269.597 115.3 269.597 115.351 269.597 115.383C269.543 118.515 270.387 121.6 272.032 124.293C273.645 126.893 275.968 129.008 278.743 130.403C281.535 131.819 284.627 132.588 287.777 132.649H288.556C288.311 134.268 287.546 135.769 286.369 136.939C284.726 138.619 283.397 139.485 280.844 139.485C280.743 139.484 280.643 139.502 280.549 139.539C280.455 139.577 280.37 139.631 280.298 139.7C280.226 139.77 280.169 139.852 280.131 139.943C280.092 140.034 280.072 140.131 280.072 140.229V146.702C280.071 146.8 280.09 146.898 280.129 146.988C280.167 147.079 280.225 147.161 280.297 147.23C280.369 147.299 280.454 147.353 280.548 147.389C280.643 147.425 280.743 147.443 280.844 147.44C283.967 147.385 287.032 146.618 289.793 145.2C292.585 143.817 294.929 141.709 296.562 139.109C298.205 136.415 299.048 133.331 298.998 130.199C298.998 130.199 298.991 130.154 298.991 130.123Z" fill="currentColor"/></svg></div>
+      <div class="pp2-hero-in">
+        <h1 class="pp2-title">Globalfy</h1>
+        <dl class="pp2-meta"><div><dt>Cliente</dt><dd>Globalfy</dd></div><div><dt>Serviço</dt><dd>UI/UX &amp; Web</dd></div><div><dt>Setor</dt><dd>Fintech · Abertura de empresas e contabilidade</dd></div><div><dt>Local</dt><dd><svg class="flag" viewBox="0 0 30 20" role="img" aria-label="Estados Unidos"><rect width="30" height="20" rx="2.5" fill="#fff"/><path d="M0 0h30v1.54H0zm0 3.08h30v1.54H0zm0 3.08h30v1.54H0zm0 3.08h30v1.54H0zm0 3.08h30v1.54H0zm0 3.08h30v1.54H0zm0 3.08h30V20H0z" fill="#B22234"/><rect width="13" height="10.8" fill="#3C3B6E"/></svg>EUA</dd></div></dl>
+        <div class="pp2-svc-row"><span class="pp2-chip">UI/UX &amp; Web</span><span class="pp2-chip pp2-year">2023</span></div>
+      </div>
+    </section>
+
+    <section class="pp2-sec lp-sec is-top">
+      <div class="lp-stage" data-rv>
+        <figure class="lp-browser">
+          <div class="lp-bar" aria-hidden="true"><i></i><i></i><i></i><span class="lp-title">Globalfy</span></div>
+          <div class="lp-scroll" data-lenis-prevent tabindex="0" role="region" aria-label="Site da Globalfy no desktop (role para ver)">
+            <div class="lp-live" data-w="1440"><iframe src="globalfy/site/?v=2" title="Site da Globalfy na versão desktop" width="1440" height="4100" loading="lazy"></iframe></div>
+          </div>
+        </figure>
+        <figure class="lp-phone">
+          <div class="lp-scroll" data-lenis-prevent tabindex="0" role="region" aria-label="Site da Globalfy no celular (role para ver)">
+            <div class="lp-live" data-w="390"><iframe src="globalfy/site/?v=2" title="Site da Globalfy na versão para celular" width="390" height="3100" loading="lazy"></iframe></div>
+          </div>
+        </figure>
+      </div>
+      <p class="lp-hint" data-rv>As telas rolam sozinhas — role ou toque para navegar</p>
+      <a class="pp2-live is-gal lp-open" href="globalfy/site/" target="_blank" rel="noopener"><span>Ver site ao vivo</span><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></i></a>
+    </section>
+
+    <section class="pp2-sec pp2-intro">
+      <div class="pp2-split">
+        <div class="pp2-about-head" data-rv>
+          <p class="pp2-label">Sobre o projeto</p>
+          <p class="pp2-lead">O site de uma fintech que leva empresas de qualquer país para os Estados Unidos.</p>
+        </div>
+        <div class="pp2-about" data-rv>
+          <p>A Globalfy abre empresas nos EUA (LLC ou Corp) para empreendedores de fora do país e cuida do que vem depois: EIN, agente registrado, endereço, conta bancária, contabilidade e impostos, com atendimento em inglês, espanhol e português.</p>
+          <p>Recriamos o site que desenhamos para a Globalfy em 2023, agora mais moderno e sem o vídeo no meio da home. Usamos o design system da marca (Satoshi, os três verdes e os componentes do produto) para que home, planos, páginas de plano e blog falem a mesma língua.</p>
+        </div>
+      </div>
+      <p class="pj-note" data-rv><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6v.01"/></svg><span>Projeto entregue em 2023. Para entrar neste portfólio, ele recebeu pequenas atualizações, com ajustes que fazem mais sentido hoje do que na época. Por isso, pode não ser idêntico à versão entregue.</span></p>
+      <div class="pp2-duo">
+      <article class="pp2-card" data-glow data-rv style="--pc:#06B051">
+        <span class="pp2-fx" aria-hidden="true"></span>
+        <span class="pp2-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v5l3 2"/></svg></span><span class="pp2-n" aria-hidden="true">01</span>
+        <h2>O desafio</h2><p>Abrir uma empresa em outro país dá medo. O site precisava explicar um serviço burocrático com clareza, passar confiança e levar a pessoa até o plano certo, em todas as páginas do mesmo jeito.</p>
+      </article>
+      <article class="pp2-card" data-glow data-rv style="--pc:#223F3A">
+        <span class="pp2-fx" aria-hidden="true"></span>
+        <span class="pp2-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c.6 4.6 3.4 7.4 8 8-4.6.6-7.4 3.4-8 8-.6-4.6-3.4-7.4-8-8 4.6-.6 7.4-3.4 8-8Z"/></svg></span><span class="pp2-n" aria-hidden="true">02</span>
+        <h2>A solução</h2><p>No lugar do vídeo, a home mostra o próprio produto: um painel em que as etapas da abertura vão sendo concluídas. Planos lado a lado, tabela de comparação, perguntas frequentes e um blog com guias práticos.</p>
+      </article>
+      </div>
+    </section>
+
+    <section class="pp2-sec">
+      <p class="pp2-label" data-rv>O que o projeto resolve</p>
+      <div class="ky-grid">
+      <article class="pp2-card" data-glow data-rv style="--pc:#06B051">
+        <span class="pp2-fx" aria-hidden="true"></span>
+        <span class="pp2-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span><span class="pp2-n" aria-hidden="true">01</span>
+        <h2>O produto na vitrine</h2><p>O topo mostra a abertura da empresa acontecendo: envio, registro no estado, EIN e revisão final, com os componentes do design system.</p>
+      </article>
+      <article class="pp2-card" data-glow data-rv style="--pc:#223F3A">
+        <span class="pp2-fx" aria-hidden="true"></span>
+        <span class="pp2-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span><span class="pp2-n" aria-hidden="true">02</span>
+        <h2>Planos sem dúvida</h2><p>Três planos com preço anual, o mais escolhido em destaque e uma tabela que compara tudo, item por item.</p>
+      </article>
+      <article class="pp2-card" data-glow data-rv style="--pc:#06B051">
+        <span class="pp2-fx" aria-hidden="true"></span>
+        <span class="pp2-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h10l4 4V19.5H5z"/><path d="M8.5 12h7M8.5 15.5h5"/></svg></span><span class="pp2-n" aria-hidden="true">03</span>
+        <h2>Blog que ensina</h2><p>Artigos com resumo no topo, índice que acompanha a leitura e tabelas comparativas, inspirados nos temas que a Globalfy publica.</p>
+      </article>
+      </div>
+    </section>
+
+    <section class="pp2-sec ky-palette-sec">
+      <p class="pp2-label" data-rv>Paleta</p>
+      <ul class="ky-palette" data-rv>
+        <li style="--c:#223F3A;--t:#FFFFFF"><b>Verde primário</b><span>#223F3A</span></li>
+        <li style="--c:#06B051;--t:#FFFFFF"><b>Verde Globalfy</b><span>#06B051</span></li>
+        <li style="--c:#39CD80;--t:#111111"><b>Verde terciário</b><span>#39CD80</span></li>
+        <li style="--c:#EBFAF2;--t:#111111"><b>Menta</b><span>#EBFAF2</span></li>
+        <li style="--c:#6C3F99;--t:#FFFFFF"><b>Violeta</b><span>#6C3F99</span></li>
+      </ul>
+    </section>
+
+    <section class="pp2-sec pp2-gal-sec">
+      <div class="pp2-gal-head" data-rv>
+        <div class="pp2-gal-btns"><button class="pp2-gal-btn is-prev" aria-label="Imagem anterior"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></button><button class="pp2-gal-btn" aria-label="Próxima imagem"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></button></div>
+      </div>
+      <div class="pp2-gal" data-rv tabindex="0" aria-label="Imagens do projeto Globalfy">
+          <figure class="pp2-slide"><img src="../assets/img/projetos/globalfy/g1.webp" width="1120" height="720" alt="Home da Globalfy com o painel de abertura da empresa" loading="eager" decoding="async"></figure>
+          <figure class="pp2-slide"><img src="../assets/img/projetos/globalfy/g2.webp" width="825" height="531" alt="Página de planos da Globalfy" loading="eager" decoding="async"></figure>
+          <figure class="pp2-slide"><img src="../assets/img/projetos/globalfy/g3.webp" width="825" height="531" alt="Seção de banco, impostos e contabilidade" loading="lazy" decoding="async"></figure>
+          <figure class="pp2-slide"><img src="../assets/img/projetos/globalfy/g4.webp" width="825" height="531" alt="Calendário de obrigações da Globalfy" loading="lazy" decoding="async"></figure>
+      </div>
+    </section>
+
+    <section class="pp2-sec">
+      <p class="pp2-label" data-rv>Em números</p>
+      <div class="pp2-stats">
+      <div class="pp2-stat" data-glow data-rv style="--pc:#06B051"><span class="pp2-fx" aria-hidden="true"></span><b>10</b><span>páginas recriadas: home, planos, freelancer, suporte, blog e artigos</span></div>
+      <div class="pp2-stat" data-glow data-rv style="--pc:#223F3A"><span class="pp2-fx" aria-hidden="true"></span><b>3</b><span>planos comparados lado a lado, item por item</span></div>
+      <div class="pp2-stat" data-glow data-rv style="--pc:#06B051"><span class="pp2-fx" aria-hidden="true"></span><b>3</b><span>idiomas de atendimento destacados no site</span></div>
+      </div>
+    </section>
+
+    <nav class="pp2-sec pp2-nav" aria-label="Outros projetos">
+      <a href="lumiere.html" class="pp2-navcard" data-glow data-rv><span class="pp2-fx" aria-hidden="true"></span><img src="../assets/img/projetos/lumiere/card.webp?v=2" width="200" height="200" alt="" loading="lazy"><span><small>Projeto anterior</small><b>Lumière Dentists</b></span><i class="pp2-go is-back"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></i></a>
+      <a href="latimpacto.html" class="pp2-navcard is-next" data-glow data-rv><span class="pp2-fx" aria-hidden="true"></span><span><small>Próximo projeto</small><b>Latimpacto</b></span><img src="../assets/img/projetos/latimpacto/card.webp" width="200" height="200" alt="" loading="lazy"><i class="pp2-go"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></i></a>
+    </nav>
+  </main>
+
+  <section class="cta section pp2-cta" id="contact" data-rv>
+    <div class="glass-bg" aria-hidden="true"><div class="gb-aura"><i class="g1"></i><i class="g2"></i><i class="g3"></i><i class="g4"></i></div><span class="flute-sheen"></span></div>
+    <h2 class="cta-title">Precisa de um site que explique o seu serviço e venda por você?</h2>
+    <div class="cta-row">
+      <a href="/#contact" class="btn btn-accent"><span class="btn-roll"><span>Vamos conversar</span><span aria-hidden="true">Vamos conversar</span></span><i class="btn-arrow"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></i></a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-card legal-footer">
+      <div class="footer-bottom">
+        <svg class="footer-mark" viewBox="0 0 804 513" aria-hidden="true"><use href="#fyw-logo"/></svg>
+        <span>© 2027 Fyw. Todos os direitos reservados. <span class="f-cnpj">CNPJ 27.354.079/0001-05</span></span>
+        <span class="fb-credit">Website desenvolvido por <a href="https://www.linkedin.com/in/marlonwebdesigner/" target="_blank" rel="noopener" class="fb-author">Marlon Dias</a></span>
+        <span class="fb-links"><a href="/">Início</a><a href="../projetos.html">Projetos</a><a href="../privacidade.html">Privacidade</a></span>
+      </div>
+    </div>
+  </footer>
+  <script>
+    (function () {
+      // revela os blocos ao rolar
+      var els = document.querySelectorAll('[data-rv]');
+      if (!('IntersectionObserver' in window) || document.documentElement.classList.contains('a11y-motion')) { els.forEach(function (e) { e.classList.add('is-in'); }); }
+      else { var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' }); els.forEach(function (e) { io.observe(e); }); }
+      // galeria: setas e arrastar
+      var gal = document.querySelector('.pp2-gal');
+      if (gal) {
+        document.querySelectorAll('.pp2-gal-btn').forEach(function (b) { b.addEventListener('click', function () {
+          var w = gal.querySelector('.pp2-slide').offsetWidth + 14; gal.scrollBy({ left: b.classList.contains('is-prev') ? -w : w, behavior: 'smooth' }); }); });
+        var down = false, sx = 0, sl = 0;
+        gal.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') return; down = true; sx = e.clientX; sl = gal.scrollLeft; gal.classList.add('is-drag'); });
+        addEventListener('pointerup', function () { down = false; gal.classList.remove('is-drag'); });
+        gal.addEventListener('pointermove', function (e) { if (down) gal.scrollLeft = sl - (e.clientX - sx); });
+        // carrossel contínuo: desliza direto e suave, em loop (as imagens se repetem no fim sem emenda);
+        // pausa enquanto a pessoa interage e continua de onde ela parou
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !document.documentElement.classList.contains('a11y-motion')) {
+          var slides = Array.prototype.slice.call(gal.querySelectorAll('.pp2-slide'));
+          slides.forEach(function (s) { var c = s.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.querySelectorAll('img').forEach(function (i) { i.alt = ''; i.loading = 'lazy'; }); gal.appendChild(c); });
+          gal.classList.add('is-marquee');
+          var SPEED = 42, pausedUntil = 0, vis = false, raf = 0, last = 0, pos = 0;
+          var half = function () { return gal.scrollWidth / 2; };
+          var hold = function () { pausedUntil = performance.now() + 3500; };
+          ['pointerdown', 'wheel', 'touchstart', 'keydown'].forEach(function (ev) { gal.addEventListener(ev, hold, { passive: true }); });
+          document.querySelectorAll('.pp2-gal-btn').forEach(function (b) { b.addEventListener('click', hold); });
+          var step = function (t) {
+            raf = 0; if (!vis) return;
+            var dt = last ? Math.min(64, t - last) : 16; last = t;
+            if (down || performance.now() < pausedUntil) { pos = gal.scrollLeft; }
+            else {
+              pos += SPEED * dt / 1000;
+              if (pos >= half()) pos -= half();
+              gal.scrollLeft = pos;
+            }
+            if (gal.scrollLeft >= half()) { gal.scrollLeft -= half(); pos = gal.scrollLeft; }
+            raf = requestAnimationFrame(step);
+          };
+          var go = function () { if (!raf && vis) { last = 0; pos = gal.scrollLeft; raf = requestAnimationFrame(step); } };
+          if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { vis = es[0].isIntersecting; if (vis) go(); }, { threshold: 0.2 }).observe(gal);
+          else { vis = true; go(); }
+        }
+      }
+      // brilho de cor que segue o mouse
+      if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+      var cur = null, ev = null, raf = 0, SEL = '[data-glow]';
+      function frame() { raf = 0; if (!ev) return; var el = ev.target.closest && ev.target.closest(SEL);
+        if (el !== cur) { if (cur) cur.classList.remove('is-glow'); cur = el; if (el) el.classList.add('is-glow'); }
+        if (!el) return; var r = el.getBoundingClientRect(); el.style.setProperty('--gx', (ev.clientX - r.left) + 'px'); el.style.setProperty('--gy', (ev.clientY - r.top) + 'px'); }
+      addEventListener('pointermove', function (e) { ev = e; if (!raf) raf = requestAnimationFrame(frame); }, { passive: true });
+    })();
+  </script>
+  <div class="cursor" aria-hidden="true"></div>
+  <script>
+    (function () {
+      if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+      var d = document.documentElement; if (d.classList.contains('a11y-motion') || d.classList.contains('a11y-clean')) return;
+      var c = document.querySelector('.cursor'); d.classList.add('has-cursor');
+      var x = -50, y = -50, raf = 0;
+      function place() { raf = 0; c.style.transform = 'translate3d(' + x + 'px,' + y + 'px,0)'; }
+      addEventListener('pointermove', function (e) { x = e.clientX; y = e.clientY; if (!raf) raf = requestAnimationFrame(place); }, { passive: true });
+      document.addEventListener('mouseover', function (e) { c.classList.toggle('is-hover', !!(e.target.closest && e.target.closest('a, button'))); });
+      document.addEventListener('mouseleave', function () { c.classList.add('is-hidden'); });
+      document.addEventListener('mouseenter', function () { c.classList.remove('is-hidden'); });
+    })();
+  </script>
+
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Menu" hidden><span class="fg-layer" aria-hidden="true"></span>
+    <div class="mm-tabs" role="tablist" aria-label="Menu">
+      <button class="mm-tab is-on" role="tab" id="mm-tab-main" aria-selected="true" aria-controls="mm-pane-main" data-pane="main" data-i18n="mm.tab.menu">Menu principal</button>
+      <button class="mm-tab" role="tab" id="mm-tab-a11y" aria-selected="false" aria-controls="mm-pane-a11y" data-pane="a11y" tabindex="-1" data-i18n="mm.tab.a11y">Acessibilidade</button>
+    </div>
+    <div class="mm-pane" id="mm-pane-main" role="tabpanel" aria-labelledby="mm-tab-main" data-pane="main">
+      <a href="/#story" data-i18n="nav.story">Sobre</a><a href="/#services" data-i18n="nav.services">Serviços</a><a href="../projetos.html" data-i18n="nav.work">Projetos</a><a href="/#clients" data-i18n="nav.clients">Clientes</a><a href="/#contact" data-i18n="nav.contact">Contato</a>
+      <div class="mm-row">
+        <div class="lang mm-lang" role="group" aria-label="Idioma"><button data-lang="pt">PT</button><button data-lang="en">EN</button><button data-lang="es">ES</button></div>
+        <button class="icon-btn mm-theme" data-i18n-aria="theme.toggle" aria-label="Alternar tema claro/escuro"><svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg><svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" fill="currentColor"/></svg></button><a class="icon-btn mm-privacy" href="../privacidade.html" data-i18n-aria="footer.privacy" aria-label="Privacidade" title="Privacidade e cookies"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M21 12.3A9 9 0 1 1 11.7 3a3 3 0 0 0 3.6 3.6 3 3 0 0 0 3.4 3.4 3 3 0 0 0 2.3 2.3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="8.5" cy="10" r="1.3" fill="currentColor"/><circle cx="14" cy="15" r="1.3" fill="currentColor"/><circle cx="9" cy="15.5" r="1.1" fill="currentColor"/></svg></a>
+      </div>
+  
+    </div>
+    <div class="mm-pane mm-a11y-pane" id="mm-pane-a11y" role="tabpanel" aria-labelledby="mm-tab-a11y" data-pane="a11y" hidden>
+      <div class="a11y-size">
+        <span data-i18n="a11y.size">Tamanho do texto</span>
+        <div class="a11y-stepper">
+          <button data-size="-1" data-i18n-aria="a11y.smaller" aria-label="Diminuir texto">A−</button>
+          <output class="a11y-size-val" aria-live="polite">100%</output>
+          <button data-size="1" data-i18n-aria="a11y.bigger" aria-label="Aumentar texto">A+</button>
+        </div>
+      </div>
+      <div class="a11y-opts">
+        <button class="a11y-opt" data-opt="contrast" aria-pressed="false"><i>◐</i><span data-i18n="a11y.contrast">Alto contraste</span></button>
+        <button class="a11y-opt" data-opt="motion" aria-pressed="false"><i>⏸</i><span data-i18n="a11y.motion">Sem animações</span></button>
+        <button class="a11y-opt" data-opt="clean" aria-pressed="false"><i>☰</i><span data-i18n="a11y.clean">Modo leitura limpo</span></button>
+        <button class="a11y-opt" data-opt="links" aria-pressed="false"><i>⎁</i><span data-i18n="a11y.links">Destacar links</span></button>
+        <button class="a11y-opt" data-opt="spacing" aria-pressed="false"><i>↔</i><span data-i18n="a11y.spacing">Espaçamento de leitura</span></button>
+      </div>
+      <button type="button" class="a11y-reset"><svg class="ar-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3.5 3.8v4.6h4.6"/></svg><span data-i18n="a11y.reset">Restaurar padrão</span></button>
+    </div>
+  </nav>
+  <div class="dock" aria-label="Navegação rápida">
+    <a href="/" class="dock-btn dock-logo" aria-label="Fyw — página inicial"><svg viewBox="0 0 804 513" aria-hidden="true"><use href="#fyw-logo"/></svg></a>
+    <button class="dock-btn dock-menu" aria-controls="mobile-menu" aria-expanded="false" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+    <button class="dock-btn dock-top" aria-label="Voltar ao topo"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></button>
+  </div>
+  <script src="../assets/js/i18n.js?v=20261121a"></script>
+  <script src="../assets/js/i18n-pages-data.js?v=15"></script>
+  <script defer src="../assets/js/i18n-pages.js?v=1"></script>
+  <script src="../assets/js/menu-inner.js?v=20261110b"></script>
+  <script defer src="../assets/js/lp-preview.js?v=15"></script>
+  <script src="../assets/js/autoscroll.js?v=20261111b"></script>
+<script defer src="/assets/js/lead-form.js?v=22"></script></body>
+</html>

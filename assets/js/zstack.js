@@ -11,9 +11,9 @@
   var lang = function () { var l = (document.documentElement.lang || 'pt').slice(0, 2); return l === 'en' || l === 'es' ? l : 'pt'; };
   // tipos de cliente reais da Fyw (Lumière, SPFC, Latimpacto/Impacta, Kyoto, Beta, Cimed, Pacto Global)
   var WORDS = {
-    pt: ['cuida de sorrisos.', 'move torcidas.', 'reúne multidões.', 'leva sabor à mesa.', 'ensina profissões.', 'cuida da saúde.', 'cuida do planeta.'],
-    en: ['cares for smiles.', 'moves crowds of fans.', 'brings people together.', 'brings flavor to the table.', 'teaches careers.', 'takes care of health.', 'takes care of the planet.'],
-    es: ['cuida sonrisas.', 'mueve hinchadas.', 'reúne multitudes.', 'lleva sabor a la mesa.', 'enseña profesiones.', 'cuida la salud.', 'cuida el planeta.']
+    pt: ['cuida de sorrisos.', 'move torcidas.', 'reúne multidões.', 'leva sabor à mesa.', 'ensina profissões.', 'cuida da saúde.', 'cuida do planeta.', 'cuida da sua empresa.'],
+    en: ['cares for smiles.', 'moves crowds of fans.', 'brings people together.', 'brings flavor to the table.', 'teaches careers.', 'takes care of health.', 'takes care of the planet.', 'takes care of your company.'],
+    es: ['cuida sonrisas.', 'mueve hinchadas.', 'reúne multitudes.', 'lleva sabor a la mesa.', 'enseña profesiones.', 'cuida la salud.', 'cuida el planeta.', 'cuida tu empresa.']
   };
   var dotPoint = function (el) {
     var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), n, last = null; while ((n = w.nextNode())) if (n.data.trim()) last = n;
@@ -29,7 +29,7 @@
   var pendW = null, autoX = 0, baseU = 0, baseK = 0, lastScrollT = 0, lastStepT = 0, inGalaxy = false;
   var N = orbs.length, spin = 0, scrollSpin = Math.PI / 2, spinT = Math.PI / 2, spread = 0, gather = 0, live = false;
   // logo branca de cada cliente na frente da foto (copiada do mural de clientes), sobre uma película escura
-  var LOGOS = ['lumiere', 'jogo-pela-integridade', 'latimpacto', 'kyoto', 'beta-online', 'cimed', 'pacto-global'];
+  var LOGOS = ['lumiere', 'jogo-pela-integridade', 'latimpacto', 'kyoto', 'beta-online', 'cimed', 'pacto-global', 'globalfy'];
   // cópia da logo com ids únicos (máscaras/gradientes), senão a logo original e a cópia brigam
   var cloneMark = function (a, suf) {
     var c = a.cloneNode(true); c.removeAttribute('role'); c.setAttribute('aria-hidden', 'true');
@@ -73,7 +73,7 @@
       o.style.transform = 'translate(-50%,-50%) translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) scale(' + sc.toFixed(3) + ')'; // sem inclinação: a logo fica reta
       // só a foto em foco (na frente, embaixo da frase) mostra a película e a logo
       var f = Math.min(1, Math.max(0, (depth - .9) / .08)); f = f * f * (3 - 2 * f) * (1 - m) * gp; o.style.setProperty('--f', f.toFixed(3));
-      o.style.width = base + 'px'; o.style.opacity = op.toFixed(3); o.style.zIndex = depth > 0 ? 3 : 1; o.style.filter = depth < -.2 && m < .5 ? 'blur(' + ((-depth - .2) * 1.2 * (1 - m)).toFixed(1) + 'px)' : 'none';
+      o.style.width = (base * .86) + 'px'; // círculo um pouco menor (a logo compensa no CSS) o.style.opacity = op.toFixed(3); o.style.zIndex = depth > 0 ? 3 : 1; o.style.filter = depth < -.2 && m < .5 ? 'blur(' + ((-depth - .2) * 1.2 * (1 - m)).toFixed(1) + 'px)' : 'none';
     });
   };
   var tick = function () {

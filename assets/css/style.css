@@ -5641,3 +5641,118 @@ html body.pj-jpi .pp2-brand > i { height: calc(80px * var(--k)) !important; }
   html body .zoom-stack .zoom-intro { padding-inline: 32px !important; }
   html body .zoom-stack .zoom-intro-title:not(.zs-outro) { font-size: min(clamp(3rem, 6.4vw, 8.5rem), calc((100vw - 96px) / 13)) !important; max-width: none !important; text-wrap: balance; }
 }
+
+/* ===== Página de projetos: topo novo (vitrine com os projetos passando) ===== */
+html body.pj3 .pj3-hero { position: relative; isolation: isolate; overflow: hidden; background: #0B0B0B; color: #EEEDE9; border-radius: 0 0 28px 28px; padding: clamp(118px, 13vw, 168px) 0 clamp(40px, 5vw, 64px); display: grid; gap: clamp(40px, 5vw, 72px); }
+html body.pj3 .pj3-hero::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: repeating-linear-gradient(90deg, rgba(238,237,233,.035) 0 1px, transparent 1px 36px); }
+.pj3-glow { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.pj3-glow i { position: absolute; width: 52vw; aspect-ratio: 1; border-radius: 50%; filter: blur(90px); opacity: .32; background: var(--accent, #C8F53C); top: -24vw; right: -12vw; animation: pj3Glow 18s ease-in-out infinite alternate; }
+.pj3-glow i + i { background: var(--c2, #7B5CFF); top: auto; bottom: -30vw; right: auto; left: -16vw; opacity: .22; animation-duration: 22s; }
+@keyframes pj3Glow { to { translate: -12vw 8vw; } }
+.pj3-copy { width: 100%; max-width: var(--max, 1600px); margin: 0 auto; padding: 0 var(--edge, var(--gutter, 16px)); display: grid; gap: 22px; }
+@media (min-width: 1000px) { .pj3-copy { grid-template-columns: 1.35fr .65fr; align-items: end; column-gap: 64px; } .pj3-eyebrow, .pj3-title { grid-column: 1; } .pj3-sum, .pj3-stats { grid-column: 2; } .pj3-sum { grid-row: 2; align-self: start; } .pj3-stats { grid-row: 2; align-self: end; } }
+.pj3-eyebrow { display: inline-flex; align-items: center; gap: 10px; margin: 0; font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(238,237,233,.7); }
+.pj3-eyebrow span { width: 8px; height: 8px; border-radius: 50%; background: var(--accent, #C8F53C); box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent, #C8F53C) 22%, transparent); }
+html body.pj3 .pj3-title { margin: 0; color: #EEEDE9; font-size: clamp(2.9rem, 8.2vw, 8rem); line-height: .94; letter-spacing: -.05em; font-weight: 500; text-wrap: balance; }
+.pj3-title em { font-style: normal; color: var(--accent, #C8F53C); }
+.pj3-sum { margin: 0; font-size: clamp(1rem, 1.3vw, 1.2rem); line-height: 1.55; color: rgba(238,237,233,.72); max-width: 34ch; }
+.pj3-stats { list-style: none; margin: 0; padding: 18px 0 0; display: flex; gap: clamp(24px, 3vw, 44px); border-top: 1px solid rgba(238,237,233,.14); }
+.pj3-stats b { display: block; font-size: clamp(2rem, 3.4vw, 3rem); font-weight: 500; letter-spacing: -.04em; line-height: 1; color: #EEEDE9; }
+.pj3-stats span { font-size: 13px; color: rgba(238,237,233,.6); }
+.pj3-reel { display: grid; gap: 16px; transform: rotate(-3deg) scale(1.06); -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent); mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent); }
+.pj3-row { overflow: hidden; }
+.pj3-track { display: flex; gap: 16px; width: max-content; animation: pj3Move 70s linear infinite; }
+.pj3-row.is-rev .pj3-track { animation-direction: reverse; animation-duration: 80s; }
+.pj3-reel:hover .pj3-track { animation-play-state: paused; }
+@keyframes pj3Move { to { transform: translateX(calc(-50% - 8px)); } }
+.pj3-card { position: relative; flex: none; width: clamp(230px, 24vw, 380px); aspect-ratio: 1080 / 840; border-radius: 18px; overflow: hidden; background: #1A1A19; box-shadow: 0 24px 50px -24px rgba(0,0,0,.8); transition: transform .5s var(--ease, ease), box-shadow .5s; }
+.pj3-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1s var(--ease, ease), filter .5s; filter: saturate(.92) brightness(.92); }
+.pj3-card::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px rgba(238,237,233,.08); background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,.55)); pointer-events: none; }
+.pj3-card:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -24px color-mix(in srgb, var(--pc) 60%, #000); }
+.pj3-card:hover img { transform: scale(1.05); filter: none; }
+.pj3-cap { position: absolute; left: 12px; bottom: 12px; right: 12px; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 10px; color: #fff; }
+.pj3-cap b { font-size: 15px; font-weight: 600; letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pj3-cap small { display: inline-flex; align-items: center; gap: 6px; flex: none; height: 26px; padding: 0 10px; border-radius: 99px; font-size: 11.5px; font-weight: 600; background: rgba(11,11,11,.5); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); white-space: nowrap; }
+.pj3-cap small i { width: 7px; height: 7px; border-radius: 50%; background: var(--pc); }
+.pj3-down { justify-self: center; display: inline-flex; align-items: center; gap: 10px; height: 46px; padding: 0 8px 0 20px; border-radius: 99px; color: #EEEDE9; font-size: 14px; font-weight: 600; background: rgba(238,237,233,.08); border: 1px solid rgba(238,237,233,.16); white-space: nowrap; transition: background .3s; }
+.pj3-down:hover { background: rgba(238,237,233,.16); }
+.pj3-down svg { width: 30px; height: 30px; padding: 7px; border-radius: 50%; background: var(--accent, #C8F53C); color: var(--accent-ink, #0B0B0B); fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+@media (max-width: 599px) { .pj3-card { width: 62vw; border-radius: 14px; } .pj3-reel { gap: 10px; } .pj3-track { gap: 10px; } .pj3-cap small { display: none; } }
+@media (prefers-reduced-motion: reduce) { .pj3-track, .pj3-glow i { animation: none; } }
+html.a11y-motion .pj3-track, html.a11y-motion .pj3-glow i { animation: none; }
+/* Globalfy: logo no mural, na galáxia e no topo da página do projeto */
+.lw-gf .lw-mark { height: clamp(22px, 2vw, 30px) !important; width: auto; }
+html body.pj-gf .pp2-brand .gf-logo { width: calc(250px * var(--k)) !important; height: auto; color: #EEEDE9; display: block; }
+.zs-lg-globalfy svg { width: 62%; }
+/* aviso: projetos atualizados para o portfólio */
+.pj-note { display: flex; align-items: flex-start; gap: 12px; max-width: 760px; margin: 28px 0 0; padding: 16px 20px; border-radius: 18px; font-size: 14.5px; line-height: 1.55; color: var(--fg-2, rgba(11,11,11,.72)); background: color-mix(in srgb, currentColor 5%, transparent); border: 1px solid color-mix(in srgb, currentColor 10%, transparent); }
+.pj-note svg { flex: none; width: 20px; height: 20px; margin-top: 1px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; opacity: .7; }
+.pj-note-list { max-width: var(--max, 1600px); margin: 20px auto 0; width: calc(100% - 2 * var(--gutter, 16px)); }
+@media (min-width: 900px) { .pj-note-list { width: calc(100% - 2 * var(--edge, 48px)); } }
+
+/* ===== Galáxia: bolinhas na cor de cada marca (sem foto); a logo aparece quando a bolinha chega no centro ===== */
+html body .zoom-stack .zs-o { --oc: #1A1A19; --lc: #FFFFFF; background: radial-gradient(circle at 32% 28%, color-mix(in srgb, var(--oc) 72%, #FFFFFF) 0%, var(--oc) 52%, color-mix(in srgb, var(--oc) 70%, #000000) 100%); box-shadow: 0 24px 48px -20px color-mix(in srgb, var(--oc) 70%, #000000), inset 0 1px 1px rgba(255,255,255,.25); }
+html body .zoom-stack .zs-o img { opacity: 0 !important; }
+html body .zoom-stack .zs-o::after { display: none !important; }
+html body .zoom-stack .zs-o .zs-lg { color: var(--lc) !important; }
+html body .zoom-stack .zs-o .zs-lg svg { filter: drop-shadow(0 2px 8px rgba(0,0,0,.18)) !important; color: var(--lc) !important; }
+html body .zoom-stack .zs-o:has(.zs-lg-lumiere) { --oc: #1B4A82; }
+html body .zoom-stack .zs-o:has(.zs-lg-jogo-pela-integridade) { --oc: #D41414; }
+html body .zoom-stack .zs-o:has(.zs-lg-latimpacto) { --oc: #985CCC; }
+html body .zoom-stack .zs-o:has(.zs-lg-kyoto) { --oc: #0178FF; }
+html body .zoom-stack .zs-o:has(.zs-lg-beta-online) { --oc: #5A0A0D; }
+html body .zoom-stack .zs-o:has(.zs-lg-cimed) { --oc: #FFC600; --lc: #0B0B0B; }
+html body .zoom-stack .zs-o:has(.zs-lg-pacto-global) { --oc: #3D7B44; }
+html body .zoom-stack .zs-o:has(.zs-lg-globalfy) { --oc: #06B051; }
+/* Beta: logo colorida (o vermelho da marca aparece sobre o vermelho escuro; o cinza vira branco) */
+html body .zoom-stack .zs-lg-beta-online svg:not(.zs-lg-col) { display: none !important; }
+html body .zoom-stack .zs-lg-beta-online .zs-lg-col { display: block !important; }
+html body .zoom-stack .zs-lg-beta-online .zs-lg-col [fill="#242424"] { fill: #FFFFFF !important; }
+html body .zoom-stack .zs-lg-beta-online .zs-lg-col [fill="#CD2323"] { fill: #FF3B3B !important; }
+/* mouse em cima: só mostra a logo, sem trocar a cor */
+@media (hover: hover) and (pointer: fine) {
+  html body .zoom-stack .zs-o:hover .zs-lg { opacity: 1; }
+  html body .zoom-stack .zs-o:hover .zs-lg:not(.zs-lg-beta-online) svg:not(.zs-lg-col) { display: block !important; color: var(--lc) !important; }
+  html body .zoom-stack .zs-o:hover .zs-lg:not(.zs-lg-beta-online) .zs-lg-col { display: none !important; }
+  html body .zoom-stack .zs-o { transition: transform .4s var(--ease, ease); }
+}
+/* galáxia: bolinhas flat (cor sólida, sem volume nem brilho) */
+html body .zoom-stack .zs-o { background: var(--oc) !important; box-shadow: none !important; }
+html body .zoom-stack .zs-o .zs-lg svg { filter: none !important; }
+/* galáxia: em foco a bolinha ganha brilho na cor da marca + película escura, e a logo aparece colorida */
+html body .zoom-stack .zs-o { box-shadow: 0 0 calc(var(--f, 0) * 70px) calc(var(--f, 0) * 8px) color-mix(in srgb, var(--oc) 75%, transparent) !important; }
+html body .zoom-stack .zs-o::after { display: block !important; content: ""; position: absolute; inset: 0; border-radius: inherit; background: rgba(11,11,11,.74) !important; opacity: var(--f, 0) !important; pointer-events: none; }
+html body .zoom-stack .zs-o .zs-lg:not(.no-col) svg:not(.zs-lg-col) { display: none !important; }
+html body .zoom-stack .zs-o .zs-lg:not(.no-col) .zs-lg-col { display: block !important; }
+html body .zoom-stack .zs-o .zs-lg.no-col svg { color: color-mix(in srgb, var(--oc) 62%, #FFFFFF) !important; }
+html body .zoom-stack .zs-o:has(.zs-lg-cimed) .zs-lg.no-col svg { color: #FFC600 !important; }
+html body .zoom-stack .zs-o:has(.zs-lg-globalfy) .zs-lg.no-col svg { color: #39CD80 !important; }
+html body .zoom-stack .zs-lg-beta-online .zs-lg-col [fill="#CD2323"] { fill: #E52A2A !important; }
+@media (hover: hover) and (pointer: fine) {
+  html body .zoom-stack .zs-o:hover { --f: 1 !important; }
+  html body .zoom-stack .zs-o:hover .zs-lg:not(.no-col) svg:not(.zs-lg-col) { display: none !important; }
+  html body .zoom-stack .zs-o:hover .zs-lg:not(.no-col) .zs-lg-col { display: block !important; }
+  html body .zoom-stack .zs-o:hover .zs-lg.no-col svg { color: color-mix(in srgb, var(--oc) 62%, #FFFFFF) !important; }
+  html body .zoom-stack .zs-o:hover:has(.zs-lg-cimed) .zs-lg.no-col svg { color: #FFC600 !important; }
+  html body .zoom-stack .zs-o:hover:has(.zs-lg-globalfy) .zs-lg.no-col svg { color: #39CD80 !important; }
+}
+html body .zoom-stack .zs-o:has(.zs-lg-beta-online) { --oc: #CD2323; }
+/* galáxia v3: em foco a bolinha fica clara, com um brilho suave da cor da marca atrás da logo (sem anel na borda); logos coloridas */
+html body .zoom-stack .zs-o { box-shadow: none !important; }
+html body .zoom-stack .zs-o::after { background: radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--oc) 34%, #FFFFFF) 0%, color-mix(in srgb, var(--oc) 12%, #FFFFFF) 38%, #FFFFFF 72%) !important; }
+html body .zoom-stack .zs-o .zs-lg.no-col svg { color: var(--oc) !important; }
+html body .zoom-stack .zs-o:has(.zs-lg-cimed)::after { background: radial-gradient(circle at 50% 50%, #FFE27A 0%, #FFC600 70%) !important; }
+html body .zoom-stack .zs-o:has(.zs-lg-cimed) .zs-lg.no-col svg { color: #0B0B0B !important; }
+html body .zoom-stack .zs-o:has(.zs-lg-globalfy) .zs-lg.no-col svg { color: #06B051 !important; }
+html body .zoom-stack .zs-lg-beta-online .zs-lg-col [fill="#242424"] { fill: #242424 !important; }
+html body .zoom-stack .zs-lg-beta-online .zs-lg-col [fill="#CD2323"] { fill: #CD2323 !important; }
+@media (hover: hover) and (pointer: fine) {
+  html body .zoom-stack .zs-o:hover .zs-lg.no-col svg { color: var(--oc) !important; }
+  html body .zoom-stack .zs-o:hover:has(.zs-lg-cimed) .zs-lg.no-col svg { color: #0B0B0B !important; }
+  html body .zoom-stack .zs-o:hover:has(.zs-lg-globalfy) .zs-lg.no-col svg { color: #06B051 !important; }
+}
+/* galáxia v4: em foco a bolinha fica branca e lisa, sem brilho */
+html body .zoom-stack .zs-o::after, html body .zoom-stack .zs-o:has(.zs-lg-cimed)::after { background: #FFFFFF !important; }
+/* círculos 14% menores; a logo mantém o tamanho */
+html body .zoom-stack .zs-lg svg { width: 72% !important; max-height: 54% !important; }
+html body .zoom-stack .zs-lg-jogo-pela-integridade svg, html body .zoom-stack .zs-lg-kyoto svg { width: 58% !important; max-height: 60% !important; }

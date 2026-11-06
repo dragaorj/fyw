@@ -4,7 +4,7 @@
   if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   var P = window.FYW_PROJECTS || {};
   // película e cor do logo por marca
-  var TONE = { 'pacto-global': ['rgba(38,49,78,.84)', '#FFFFFF', 'mono'], lumiere: ['rgba(5,35,70,.84)', '#FFFFFF', 'mono'], 'impacta-mais': ['rgba(17,17,17,.82)', null, 'color'], latimpacto: ['rgba(38,14,62,.86)', '#FFFFFF', 'mono'], cimed: ['rgba(224,170,0,.92)', '#0B0B0B', 'mono'], kyoto: ['rgba(0,28,64,.82)', '#7CBBFF', 'mono'], 'beta-online': ['rgba(74,4,6,.82)', null, 'color'], 'jogo-pela-integridade': ['rgba(6,6,6,.8)', null, 'color'] };
+  var TONE = { 'pacto-global': ['rgba(38,49,78,.84)', '#FFFFFF', 'mono'], lumiere: ['rgba(5,35,70,.84)', '#FFFFFF', 'mono'], 'impacta-mais': ['rgba(17,17,17,.82)', null, 'color'], latimpacto: ['rgba(38,14,62,.86)', '#FFFFFF', 'mono'], cimed: ['rgba(224,170,0,.92)', '#0B0B0B', 'mono'], kyoto: ['rgba(0,28,64,.82)', '#7CBBFF', 'mono'], 'beta-online': ['rgba(74,4,6,.82)', null, 'color'], 'jogo-pela-integridade': ['rgba(6,6,6,.8)', null, 'color'], globalfy: ['rgba(6,176,81,.9)', '#FFFFFF', 'mono'] };
   function logoFor(slug) {
     var cell = '.lw-inner[href="projetos/' + slug + '.html"] ';
     var tone = TONE[slug] || [];
