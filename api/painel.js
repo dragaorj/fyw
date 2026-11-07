@@ -18,7 +18,9 @@ function valid(t) {
   return +v.split('.')[1] > Date.now() / 1000;
 }
 const cookie = req => { const m = String(req.headers.cookie || '').match(/(?:^|;\s*)fyw_painel=([^;]+)/); return m ? decodeURIComponent(m[1]) : ''; };
-const setCookie = (res, v, age) => res.setHeader('Set-Cookie', 'fyw_painel=' + encodeURIComponent(v) + '; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=' + age);
+const setCookie = (res, v, age) => res.setHeader('Set-Cookie', ['fyw_painel=' + encodeURIComponent(v) + '; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=' + age, EU]);
+// marca este aparelho como seu: as suas visitas no site deixam de contar (vale 1 ano e continua depois de sair)
+const EU = 'fyw_eu=1; Path=/; Secure; SameSite=Lax; Max-Age=' + 365 * 24 * 3600;
 // freio contra tentativa de adivinhar a senha (por instância da função)
 const tries = new Map();
 
@@ -42,6 +44,7 @@ module.exports = async (req, res) => {
   }
   if (a === 'logout') { setCookie(res, '', 0); return res.status(200).json({ ok: true }); }
   if (!valid(cookie(req))) return res.status(401).json({ erro: 'Entre com a senha.' });
+  if (!/(?:^|;s*)fyw_eu=1/.test(String(req.headers.cookie || ''))) res.setHeader('Set-Cookie', EU);
   if (a === 'me') return res.status(200).json({ ok: true, banco: ready() });
   if (!ready()) return res.status(503).json({ erro: 'Banco não conectado: defina SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY e rode supabase/fa.sql.' });
 

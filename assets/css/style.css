@@ -6377,3 +6377,6 @@ html body .zoom-stack p.zs-scroll.is-end { opacity: .7; }
 /* menu: link discreto para o painel */
 .mm-pane a.mm-login { display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; font-size: .9375rem !important; letter-spacing: 0 !important; opacity: .55; }
 .mm-pane a.mm-login:hover { opacity: 1; }
+/* "Feito para impressionar. Pensado para vender." sempre em 2 linhas no computador, mesmo em tela larga:
+   a 1ª frase (até 10,1em no espanhol) cabe na linha, a frase inteira (≈19em) não */
+@media (min-width: 600px) { html body .zoom-stack .zoom-intro-title:not(.zs-outro) { max-width: 10.6em !important; margin-inline: auto !important; } }

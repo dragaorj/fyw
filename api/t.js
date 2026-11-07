@@ -10,7 +10,8 @@ function source(ref, utm) {
   if (!ref) return 'direto';
   let h = ''; try { h = new URL(ref).hostname.replace(/^(www|m|l|lm|out|mobile)\./, ''); } catch (e) { return 'direto'; }
   const M = [[/google\./, 'google'], [/instagram\.com/, 'instagram'], [/facebook\.com|fb\.me/, 'facebook'], [/linkedin\.com|lnkd\.in/, 'linkedin'], [/^t\.co$|twitter\.com|x\.com/, 'x'],
-    [/whatsapp|wa\.me/, 'whatsapp'], [/bing\.com/, 'bing'], [/youtube\.com|youtu\.be/, 'youtube'], [/chatgpt\.com|openai\.com/, 'chatgpt'], [/duckduckgo/, 'duckduckgo'], [/behance\.net/, 'behance'], [/github\.com/, 'github']];
+    [/whatsapp|wa\.me/, 'whatsapp'], [/bing\.com/, 'bing'], [/youtube\.com|youtu\.be/, 'youtube'], [/chatgpt\.com|openai\.com/, 'chatgpt'], [/duckduckgo/, 'duckduckgo'], [/behance\.net/, 'behance'], [/github\.com/, 'github'],
+    [/tiktok\.com/, 'tiktok'], [/threads\.net/, 'threads'], [/pinterest\./, 'pinterest'], [/perplexity\.ai/, 'perplexity'], [/gemini\.google/, 'gemini'], [/claude\.ai/, 'claude'], [/yahoo\./, 'yahoo']];
   for (const [re, n] of M) if (re.test(h)) return n;
   return h;
 }
@@ -28,12 +29,13 @@ module.exports = async (req, res) => {
   if (!ready()) return res.status(204).end(); // banco ainda não conectado: ignora sem erro
   let e = req.body;
   try { if (typeof e === 'string') e = JSON.parse(e); else if (Buffer.isBuffer(e)) e = JSON.parse(e.toString()); } catch (x) { return res.status(400).end(); }
-  if (!e || typeof e !== 'object' || !['pv', 'click', 'leave'].includes(e.t)) return res.status(400).end();
+  if (!e || typeof e !== 'object' || !['pv', 'click', 'leave', 'perf', 'err', 'goal'].includes(e.t)) return res.status(400).end();
   const ua = String(req.headers['user-agent'] || '');
   if (/bot|crawl|spider|lighthouse|headless|preview|facebookexternalhit/i.test(ua)) return res.status(204).end();
 
+  if (/(?:^|;s*)(fyw_eu=1|fyw_painel=)/.test(String(req.headers.cookie || ''))) return res.status(204).end(); // é você: não conta
   const sid = clean(e.sid, 24);
-  if (e.t !== 'pv' && !sid) return res.status(204).end(); // cliques e tempo só com consentimento
+  if ((e.t === 'click' || e.t === 'leave') && !sid) return res.status(204).end(); // cliques e tempo só com consentimento
   const ip = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim();
   const day = new Date(Date.now() - 3 * 3600e3).toISOString().slice(0, 10);
   const anon = crypto.createHash('sha256').update(ip + '|' + ua + '|' + day + '|' + key().slice(-12)).digest('hex').slice(0, 16);
@@ -46,7 +48,9 @@ module.exports = async (req, res) => {
     country: clean(req.headers['x-vercel-ip-country'], 4), city, region: clean(req.headers['x-vercel-ip-country-region'], 10),
     dev: dev.kind, br: dev.br, lang: clean(e.l, 4), w: num(e.w, 0, 10000)
   };
-  if (e.t === 'pv') Object.assign(row, { title: clean(e.title, 90), ref, ref_host: refHost, src: source(ref, clean(e.source, 40)), campaign: clean(e.campaign, 60) });
+  if (e.t === 'pv') Object.assign(row, { title: clean(e.title, 90), ref, ref_host: refHost, src: source(ref, clean(e.source, 40)), campaign: clean(e.campaign, 60), scr: clean(e.scr, 20), vh: num(e.vh, 0, 10000), dpr: num(e.dpr, 0, 10) });
+  if (e.t === 'perf') Object.assign(row, { load: num(e.load, 0, 120000), ttfb: num(e.ttfb, 0, 120000), lcp: num(e.lcp, 0, 120000) });
+  if (e.t === 'err' || e.t === 'goal') Object.assign(row, { txt: clean(e.txt, 120), href: clean(e.href, 120) });
   if (e.t === 'click') Object.assign(row, { x: num(e.x, 0, 100), y: num(e.y, 0, 1e6), h: num(e.h, 0, 1e6), txt: clean(e.txt, 60), href: clean(e.href, 120) });
   if (e.t === 'leave') Object.assign(row, { dur: num(e.dur, 0, 3600), depth: num(e.depth, 0, 100) });
   try {
