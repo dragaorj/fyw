@@ -1,8 +1,35 @@
 {
   "redirects": [
-    { "source": "/index.html", "destination": "/", "permanent": true }
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    }
   ],
   "functions": {
-    "api/lighthouse.js": { "maxDuration": 60 }
-  }
+    "api/lighthouse.js": {
+      "maxDuration": 60
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/painel",
+      "destination": "/painel.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/painel(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    }
+  ]
 }

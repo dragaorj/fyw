@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Painel · Fyw</title>
+<link rel="icon" href="/favicon.ico">
+<style>
+@font-face { font-family: 'Google Sans'; font-weight: 300 700; font-display: swap; src: url(/assets/fonts/google-sans-latin.woff2) format('woff2'); }
+@font-face { font-family: 'Google Sans'; font-weight: 300 700; font-display: swap; src: url(/assets/fonts/google-sans-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+1E00-1EFF; }
+:root { --bg: #0B0B0B; --ink: #EEEDE9; --card: #141414; --line: rgba(238,237,233,.1); --muted: rgba(238,237,233,.58); --acc: #C8F53C; --or: #FF6A2B; --bl: #4F7BFF; }
+:root[data-theme="light"] { --bg: #EEEDE9; --ink: #0B0B0B; --card: #F8F7F4; --line: rgba(11,11,11,.1); --muted: rgba(11,11,11,.58); }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--ink); font-family: 'Google Sans', system-ui, sans-serif; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+button, input, select { font: inherit; color: inherit; }
+.wrap { max-width: 1320px; margin: 0 auto; padding: 24px 16px 80px; }
+@media (min-width: 900px) { .wrap { padding: 32px 40px 100px; } }
+.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 36px; }
+.brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: inherit; }
+.brand svg { width: 64px; height: 41px; fill: currentColor; }
+.brand span { font-size: .8125rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.pill { height: 40px; padding: 0 18px; border: 0; border-radius: 99px; background: var(--card); box-shadow: inset 0 0 0 1px var(--line); cursor: pointer; white-space: nowrap; font-size: .875rem; }
+.pill:hover { box-shadow: inset 0 0 0 1px var(--muted); }
+.pill.on { background: var(--ink); color: var(--bg); box-shadow: none; }
+/* login */
+.login { min-height: calc(100vh - 160px); display: grid; place-items: center; }
+.lcard { width: min(420px, 100%); padding: 36px; border-radius: 28px; background: var(--card); box-shadow: inset 0 0 0 1px var(--line); display: grid; gap: 18px; }
+.lcard h1 { font-size: 2rem; font-weight: 500; letter-spacing: -.04em; }
+.lcard p { color: var(--muted); font-size: .9375rem; line-height: 1.5; }
+.lcard input { height: 54px; padding: 0 18px; border-radius: 16px; border: 0; background: var(--bg); box-shadow: inset 0 0 0 1px var(--line); outline: none; }
+.lcard input:focus { box-shadow: inset 0 0 0 2px var(--acc); }
+.btn { height: 54px; border: 0; border-radius: 99px; background: var(--acc); color: #0B0B0B; font-weight: 600; cursor: pointer; white-space: nowrap; }
+.err { color: var(--or); font-size: .875rem; min-height: 1.2em; }
+/* painel */
+.head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
+.head h1 { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 500; letter-spacing: -.045em; line-height: 1; }
+.head p { color: var(--muted); margin-top: 8px; font-size: .9375rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.live { display: inline-flex; align-items: center; gap: 8px; font-size: .875rem; color: var(--muted); }
+.live i { width: 9px; height: 9px; border-radius: 50%; background: #2BD46A; box-shadow: 0 0 0 0 rgba(43,212,106,.6); animation: pulse 2s infinite; }
+@keyframes pulse { 70% { box-shadow: 0 0 0 10px rgba(43,212,106,0); } 100% { box-shadow: 0 0 0 0 rgba(43,212,106,0); } }
+.grid { display: grid; gap: 14px; }
+.kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 14px; }
+@media (min-width: 900px) { .kpis { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+.card { position: relative; padding: 22px; border-radius: 24px; background: var(--card); box-shadow: inset 0 0 0 1px var(--line); min-width: 0; }
+.card h3 { font-size: .8125rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+.kpi b { display: block; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 400; letter-spacing: -.04em; line-height: 1; }
+.kpi span { display: block; margin-top: 10px; font-size: .8125rem; color: var(--muted); }
+.two { grid-template-columns: 1fr; margin-bottom: 14px; }
+@media (min-width: 900px) { .two { grid-template-columns: repeat(2, minmax(0, 1fr)); } .three { grid-template-columns: repeat(3, minmax(0, 1fr)); } .wide { grid-template-columns: 1.6fr 1fr; } }
+.chart svg { width: 100%; height: 220px; display: block; }
+.bars { list-style: none; display: grid; gap: 10px; }
+.bars li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; font-size: .9375rem; }
+.bars li span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bars li b { font-weight: 500; font-variant-numeric: tabular-nums; }
+.bars li i { grid-column: 1 / -1; height: 6px; border-radius: 99px; background: var(--line); overflow: hidden; }
+.bars li i::after { content: ""; display: block; height: 100%; width: var(--w); border-radius: 99px; background: var(--c, var(--acc)); }
+.empty { color: var(--muted); font-size: .9375rem; }
+.sess { list-style: none; display: grid; gap: 8px; max-height: 560px; overflow: auto; }
+.sess li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 4px 14px; align-items: center; padding: 14px 16px; border-radius: 16px; background: var(--bg); cursor: pointer; }
+.sess li:hover { box-shadow: inset 0 0 0 1px var(--muted); }
+.sess .src { height: 30px; padding: 0 12px; border-radius: 99px; display: inline-flex; align-items: center; font-size: .8125rem; background: var(--line); white-space: nowrap; }
+.sess .mid { min-width: 0; } .sess .mid b { display: block; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .sess .mid small { color: var(--muted); font-size: .8125rem; }
+.sess .r { text-align: right; font-size: .8125rem; color: var(--muted); white-space: nowrap; }
+.tl { list-style: none; display: grid; gap: 0; }
+.tl li { position: relative; padding: 0 0 18px 26px; font-size: .9375rem; }
+.tl li::before { content: ""; position: absolute; left: 6px; top: 6px; width: 9px; height: 9px; border-radius: 50%; background: var(--acc); }
+.tl li::after { content: ""; position: absolute; left: 10px; top: 18px; bottom: 0; width: 1px; background: var(--line); }
+.tl li.click::before { background: var(--or); } .tl li.leave::before { background: var(--bl); }
+.tl small { display: block; color: var(--muted); font-size: .8125rem; margin-top: 2px; }
+.drawer { position: fixed; inset: 0 0 0 auto; width: min(480px, 100%); background: var(--card); box-shadow: -30px 0 60px -30px rgba(0,0,0,.6); padding: 84px 28px 28px; overflow: auto; transform: translateX(105%); transition: transform .4s cubic-bezier(.2,.7,.2,1); z-index: 10; }
+.drawer.on { transform: none; }
+.drawer .x { position: absolute; right: 20px; top: 20px; }
+.drawer h2 { font-size: 1.5rem; font-weight: 500; letter-spacing: -.03em; margin: 8px 0 18px; }
+.heat { position: relative; overflow: hidden; border-radius: 16px; background: #fff; height: 680px; }
+.heat iframe { position: absolute; left: 0; top: 0; width: 1440px; border: 0; transform-origin: 0 0; pointer-events: none; }
+.heat canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.heat-scroll { overflow: auto; max-height: 680px; border-radius: 16px; }
+select.pill { padding-right: 32px; }
+.note { color: var(--muted); font-size: .8125rem; margin-top: 12px; line-height: 1.5; }
+[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="/"><svg viewBox="0 0 804 513" aria-label="Fyw"><use href="#fyw-logo"/></svg><span>Painel</span></a>
+    <div class="chips"><button class="pill" id="theme" type="button">Tema</button><button class="pill" id="sair" type="button" hidden>Sair</button></div>
+  </header>
+
+  <section class="login" id="login" hidden>
+    <form class="lcard" id="lform">
+      <h1>Entrar</h1>
+      <p>Área restrita do painel de visitas da Fyw.</p>
+      <input type="password" id="senha" autocomplete="current-password" placeholder="Senha" required>
+      <button class="btn" type="submit">Entrar no painel</button>
+      <p class="err" id="lerr"></p>
+    </form>
+  </section>
+
+  <main id="app" hidden>
+    <div class="head">
+      <div><h1>Visitas do site</h1><p><span class="live"><i></i><span id="live">0 pessoas agora</span></span></p></div>
+      <div class="chips" id="per"><button class="pill" data-d="1" type="button">Hoje</button><button class="pill on" data-d="7" type="button">7 dias</button><button class="pill" data-d="30" type="button">30 dias</button><button class="pill" data-d="90" type="button">90 dias</button></div>
+    </div>
+    <p class="err" id="aerr"></p>
+    <div class="grid kpis">
+      <div class="card kpi"><h3>Visitantes</h3><b id="k-uv">0</b><span>pessoas diferentes</span></div>
+      <div class="card kpi"><h3>Visitas</h3><b id="k-v">0</b><span>entradas no site</span></div>
+      <div class="card kpi"><h3>Páginas vistas</h3><b id="k-pv">0</b><span>no total</span></div>
+      <div class="card kpi"><h3>Páginas por visita</h3><b id="k-ppv">0</b><span>em média</span></div>
+      <div class="card kpi"><h3>Tempo na página</h3><b id="k-dur">0s</b><span>média (quem aceitou)</span></div>
+      <div class="card kpi"><h3>Rolagem</h3><b id="k-dep">0%</b><span>até onde leram</span></div>
+    </div>
+    <div class="grid wide two">
+      <div class="card chart"><h3>Visitantes por dia</h3><div id="chart"></div></div>
+      <div class="card"><h3>De onde vieram</h3><ul class="bars" id="src"></ul></div>
+    </div>
+    <div class="grid three two">
+      <div class="card"><h3>Sites que mandaram visitas</h3><ul class="bars" id="refs"></ul></div>
+      <div class="card"><h3>Campanhas (utm)</h3><ul class="bars" id="camp"></ul></div>
+      <div class="card"><h3>Primeira página da visita</h3><ul class="bars" id="land"></ul></div>
+    </div>
+    <div class="grid two">
+      <div class="card"><h3>Páginas mais vistas</h3><ul class="bars" id="pages"></ul></div>
+      <div class="card"><h3>Tempo e rolagem por página</h3><ul class="bars" id="time"></ul></div>
+    </div>
+    <div class="grid three two">
+      <div class="card"><h3>Cidades</h3><ul class="bars" id="city"></ul></div>
+      <div class="card"><h3>Países</h3><ul class="bars" id="country"></ul></div>
+      <div class="card"><h3>Aparelhos e navegadores</h3><ul class="bars" id="dev"></ul><div style="height:18px"></div><ul class="bars" id="br"></ul></div>
+    </div>
+    <div class="grid two">
+      <div class="card"><h3>Onde clicaram</h3><ul class="bars" id="clicks"></ul></div>
+      <div class="card"><h3>Visitas recentes</h3><ul class="sess" id="sess"></ul><p class="note">Só aparecem aqui as visitas de quem aceitou os cookies de análise no aviso do site.</p></div>
+    </div>
+    <div class="grid" style="margin-top:14px">
+      <div class="card"><h3>Mapa de cliques</h3><div class="chips" style="margin-bottom:14px"><select class="pill" id="hpage"></select></div>
+        <div class="heat-scroll"><div class="heat" id="heat"><iframe id="hframe" title="Página" loading="lazy"></iframe><canvas id="hcan"></canvas></div></div>
+        <p class="note">Cliques feitos no computador, desenhados sobre a página. Quanto mais quente, mais cliques.</p></div>
+    </div>
+  </main>
+</div>
+<aside class="drawer" id="drawer"><button class="pill x" id="dx" type="button">Fechar</button><p class="note" id="dmeta"></p><h2>Caminho da visita</h2><ul class="tl" id="tl"></ul></aside>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="fyw-logo" viewBox="0 0 804 513"><path fill="currentColor" d="M167.766 0C181.085 1.8904e-05 193.839 1.00516 206.027 3.01562C206.198 3.04375 206.368 3.07158 206.537 3.09961C220.661 5.43922 228.408 19.8275 223.516 33.2822L209.876 70.793C207.405 77.5889 200.003 81.2363 192.833 80.293C188.058 79.5391 183.723 79.1621 179.828 79.1621C170.153 79.1621 163.241 81.2352 159.095 85.3818C155.074 89.5284 152.435 94.995 151.179 101.78L149.037 114.597H210.108C223.005 114.597 233.69 124.603 234.537 137.472L246.111 313.392C246.176 314.376 246.993 315.141 247.979 315.141C248.742 315.141 249.429 314.678 249.715 313.971L324.103 129.905C327.842 120.653 336.822 114.597 346.801 114.597H441.707C455.024 114.597 465.899 125.242 466.184 138.556L469.413 289.691C469.429 290.427 470.03 291.015 470.766 291.016C471.329 291.016 471.835 290.666 472.033 290.139L532.082 130.461C535.671 120.917 544.8 114.597 554.997 114.597H615.826C628.855 114.597 639.602 124.802 640.275 137.813L648.055 288.215C648.092 288.939 648.691 289.508 649.416 289.508C649.995 289.508 650.511 289.141 650.702 288.594L705.722 131.009C709.153 121.18 718.425 114.597 728.835 114.597H778.771C796.24 114.597 808.088 132.368 801.369 148.494L701.143 389.039C697.341 398.162 688.427 404.104 678.544 404.104H604.75C592.145 404.104 581.601 394.534 580.383 381.988L567.62 250.533C567.524 249.548 566.696 248.796 565.706 248.796C564.936 248.796 564.239 249.256 563.937 249.964L504.44 389.24C500.589 398.256 491.73 404.104 481.927 404.104H408.282C395.55 404.104 384.942 394.344 383.885 381.655L373.26 254.16L285.808 428.229C277.766 444.188 267.713 458.513 255.65 471.204C243.713 484.021 229.012 494.135 211.546 501.549C194.08 508.962 173.221 512.67 148.97 512.67C136.907 512.67 125.661 511.728 115.231 509.843C114.447 509.711 113.671 509.574 112.901 509.434C99.0337 506.908 93.0004 491.746 99.043 479.011L113.313 448.936C118.767 437.442 132.057 432.648 144.661 434.378C144.841 434.403 145.021 434.427 145.2 434.45C152.111 435.33 158.206 434.827 163.483 432.942C168.761 431.058 173.096 427.476 176.488 422.198C178.671 418.803 179.504 414.715 178.824 410.736L141.115 189.989H136.44L104.082 383.657C102.11 395.457 91.8992 404.104 79.9355 404.104H25.5361C10.4039 404.104 -1.10516 390.513 1.38867 375.588L32.4004 189.989H24.4883C9.32791 189.989 -2.18827 176.35 0.352539 161.404L4.8457 134.976C6.8464 123.207 17.0438 114.597 28.9814 114.597H44.9971L46.3828 106.304C50.2781 82.4294 57.7549 62.6384 68.8125 46.9316C79.9957 31.2249 94.0061 19.4761 110.844 11.6855C127.807 3.89499 146.781 0 167.766 0Z"/></symbol></defs></svg>
+<script src="/assets/js/painel.js?v=1"></script>
+</body>
+</html>

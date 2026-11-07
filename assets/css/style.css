@@ -6374,3 +6374,6 @@ html body .zoom-stack p.zs-scroll.is-end { opacity: .7; }
   .lw-next .lw-cta-t { font-size: clamp(1.4rem, 2.1vw, 2.1rem); }
   .lw-cta-txt { gap: 8px; }
 }
+/* menu: link discreto para o painel */
+.mm-pane a.mm-login { display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; font-size: .9375rem !important; letter-spacing: 0 !important; opacity: .55; }
+.mm-pane a.mm-login:hover { opacity: 1; }
