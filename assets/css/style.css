@@ -6215,3 +6215,5 @@ html body .pj-note span { color: var(--ink); opacity: .78; }
   html body.pj-kyoto .pp2-hero .pp2-brand svg, html body.pj-lmb .pp2-hero .pp2-brand svg, html body.pj-pg .pp2-hero .pp2-brand svg, html body.pj-jpi .pp2-hero .pp2-brand svg { height: 52px !important; }
   html body.pj-jpi .pp2-hero .pp2-brand > i { height: 44px !important; }
 }
+/* celular e tablet: sem o logo do cliente no topo das páginas de projeto */
+@media (max-width: 899px) { html body.pp2 .pp2-hero .pp2-brand { display: none !important; } }
