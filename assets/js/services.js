@@ -133,7 +133,7 @@
   // projetos do site que usam este serviço (dados em assets/js/projects.js → svc)
   function work(i, u) {
     const P = window.FYW_PROJECTS || {};
-    const id = S[L()][i] ? S[L()][i].id : i, items = Object.keys(P).filter(k => Array.isArray(P[k].svc) && P[k].svc.includes(id));
+    const id = S[L()][i] ? S[L()][i].id : i, items = Object.keys(P).filter(k => !P[k].hidden && Array.isArray(P[k].svc) && P[k].svc.includes(id));
     if (!items.length) return '';
     return '<section class="sv-sec sv-in" style="--d:3"><h3>' + u.work + '</h3><div class="sv-work">' + items.map(k => {
       const x = P[k];

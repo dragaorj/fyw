@@ -6352,3 +6352,25 @@ html body .zoom-stack .zs-o.is-hov, html body .zoom-stack .zs-o.is-hov::after, h
 /* aviso "Role para baixo" segue a cor da frase final: preto no fundo claro, branco no escuro */
 html body .zoom-stack p.zs-scroll { mix-blend-mode: normal; color: var(--ink); }
 html body .zoom-stack p.zs-scroll.is-end { opacity: .7; }
+/* leque com 9 cards (Let Me Be oculta até o lançamento): no celular esconde as duas pontas */
+@media (max-width: 599px) { .hfan.n9 > .hf-card:nth-child(9) { display: none; } }
+
+/* mural de clientes: o cartão final estica até fechar a linha (2 colunas no celular/tablet, 2 de 4 no computador) */
+.logo-wall .lw-next { grid-column: span 2; aspect-ratio: auto !important; min-height: 220px; }
+.lw-next .lw-cta { position: relative; inset: auto; height: 100%; flex-direction: row; align-items: flex-end; justify-content: space-between; gap: 24px; padding: clamp(24px, 3vw, 40px); }
+.lw-cta-txt { display: grid; gap: 12px; max-width: 30ch; }
+.lw-next .lw-cta-t { font-size: clamp(1.6rem, 2.6vw, 2.4rem); line-height: 1.04; max-width: 14ch; }
+.lw-cta-s { font-size: clamp(.875rem, 1vw, 1rem); line-height: 1.45; opacity: .7; font-weight: 400; }
+.lw-next .lw-cta-l { flex: none; gap: 12px; height: 54px; padding: 0 8px 0 22px; border-radius: 99px; background: var(--bg); color: var(--ink); white-space: nowrap; }
+.lw-next .lw-cta-l .lw-go { width: 40px; height: 40px; }
+@media (max-width: 599px) {
+  .logo-wall .lw-next { grid-column: auto; }
+  .lw-next .lw-cta { flex-direction: column; align-items: stretch; }
+  .lw-next .lw-cta-l { justify-content: space-between; }
+}
+@media (min-width: 900px) {
+  .logo-wall .lw-next { min-height: 0; }
+  .lw-next .lw-cta { padding: clamp(20px, 2vw, 32px); align-items: center; }
+  .lw-next .lw-cta-t { font-size: clamp(1.4rem, 2.1vw, 2.1rem); }
+  .lw-cta-txt { gap: 8px; }
+}

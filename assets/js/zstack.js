@@ -11,9 +11,9 @@
   var lang = function () { var l = (document.documentElement.lang || 'pt').slice(0, 2); return l === 'en' || l === 'es' ? l : 'pt'; };
   // tipos de cliente reais da Fyw (Lumière, SPFC, Latimpacto/Impacta, Kyoto, Beta, Cimed, Pacto Global)
   var WORDS = {
-    pt: ['cuida de sorrisos.', 'move torcidas.', 'reúne multidões.', 'leva sabor à mesa.', 'ensina profissões.', 'cuida da saúde.', 'cuida do planeta.', 'cuida da sua empresa.', 'empodera a beleza.', 'leva comida até você.'],
-    en: ['cares for smiles.', 'moves crowds of fans.', 'brings people together.', 'brings flavor to the table.', 'teaches careers.', 'takes care of health.', 'takes care of the planet.', 'takes care of your company.', 'empowers beauty.', 'brings food to your door.'],
-    es: ['cuida sonrisas.', 'mueve hinchadas.', 'reúne multitudes.', 'lleva sabor a la mesa.', 'enseña profesiones.', 'cuida la salud.', 'cuida el planeta.', 'cuida tu empresa.', 'empodera la belleza.', 'lleva comida hasta ti.']
+    pt: ['cuida de sorrisos.', 'move torcidas.', 'reúne multidões.', 'leva sabor à mesa.', 'ensina profissões.', 'cuida da saúde.', 'cuida do planeta.', 'cuida da sua empresa.', /* OCULTO let-me-be: 'empodera a beleza.', */ 'leva comida até você.'],
+    en: ['cares for smiles.', 'moves crowds of fans.', 'brings people together.', 'brings flavor to the table.', 'teaches careers.', 'takes care of health.', 'takes care of the planet.', 'takes care of your company.', /* OCULTO let-me-be: 'empowers beauty.', */ 'brings food to your door.'],
+    es: ['cuida sonrisas.', 'mueve hinchadas.', 'reúne multitudes.', 'lleva sabor a la mesa.', 'enseña profesiones.', 'cuida la salud.', 'cuida el planeta.', 'cuida tu empresa.', /* OCULTO let-me-be: 'empodera la belleza.', */ 'lleva comida hasta ti.']
   };
   var dotPoint = function (el) {
     var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), n, last = null; while ((n = w.nextNode())) if (n.data.trim()) last = n;
@@ -32,7 +32,7 @@
   // giro contínuo e uniforme: as bolinhas não param na frente, só passam (a logo vai aparecendo conforme chegam)
   var autoPos = function (x) { return x; };
   // logo branca de cada cliente na frente da foto (copiada do mural de clientes), sobre uma película escura
-  var LOGOS = ['lumiere', 'jogo-pela-integridade', 'latimpacto', 'kyoto', 'beta-online', 'cimed', 'pacto-global', 'globalfy', 'let-me-be', 'ifood'];
+  var LOGOS = ['lumiere', 'jogo-pela-integridade', 'latimpacto', 'kyoto', 'beta-online', 'cimed', 'pacto-global', 'globalfy', /* OCULTO let-me-be: 'let-me-be', */ 'ifood'];
   // cópia da logo com ids únicos (máscaras/gradientes), senão a logo original e a cópia brigam
   var cloneMark = function (a, suf) {
     var c = a.cloneNode(true); c.removeAttribute('role'); c.setAttribute('aria-hidden', 'true');

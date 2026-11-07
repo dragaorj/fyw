@@ -8,7 +8,7 @@ window.FYW_PROJECTS = {
   'beta-online': { name: 'Beta Online', type: 'Design System', color: '#0F1115', title: 'Beta Online', sub: 'Design System · UI/UX & Web', svc: [3, 1], img: 'assets/img/projetos/beta-online/thumb.webp?v=3' },
   'jogo-pela-integridade': { name: 'SPFC', type: 'UI/UX & Web', color: '#DC1414', title: 'São Paulo FC', sub: 'Jogo pela Integridade', svc: [1], img: 'assets/img/projetos/jogo-pela-integridade/thumb.webp?v=3' },
   'cimed':       { name: 'Cimed', type: 'UI/UX & Web', color: '#FFC600', ink: '#0B0B0B', title: 'Cimed', sub: 'UI/UX & Web', svc: [1], img: 'assets/img/projetos/cimed/thumb.webp?v=2' },
-  'let-me-be':   { name: 'Let Me Be', type: 'Rebranding', color: '#008575', title: 'Let Me Be', sub: 'Rebranding · Cosméticos', svc: [4, 0], img: 'assets/img/projetos/let-me-be/thumb.webp' },
+  'let-me-be':   { hidden: true /* OCULTO let-me-be: tirar para mostrar de novo */, name: 'Let Me Be', type: 'Rebranding', color: '#008575', title: 'Let Me Be', sub: 'Rebranding · Cosméticos', svc: [4, 0], img: 'assets/img/projetos/let-me-be/thumb.webp' },
   'kyoto':       { name: 'Kyoto',         type: 'Branding', color: '#0178FF', title: 'Kyoto Rice', sub: 'Branding · UI/UX & Web', svc: [0, 1], img: 'assets/img/projetos/kyoto/thumb.webp?v=3' },
   'impacta-mais': { name: 'Impacta Mais', type: 'UI/UX & Web', color: '#F7621E', title: 'Impacta Mais', sub: 'UI/UX & Web · Apps & Sistemas', svc: [1, 2], img: 'assets/img/projetos/impacta-mais/thumb.webp' },
   'ifood':       { name: 'iFood', type: 'UI/UX & Web', color: '#EA1D2C', title: 'iFood', sub: 'Redesign conceitual', svc: [1], img: 'assets/img/projetos/ifood/thumb.webp?v=2' },
