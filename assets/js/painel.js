@@ -235,26 +235,44 @@
   async function renderMapa() {
     const sec = $('#sec');
     sec.style.gridTemplateColumns = '1fr'; sec.style.gridTemplateRows = 'minmax(0, 1fr)';
-    sec.innerHTML = '<section class="card"><div class="hbar"><select class="pill" id="hpage"><option>Carregando…</option></select><span class="note" id="hnote"></span></div><div class="heatbox" id="hbox"><div class="heat" id="heat"><iframe id="hframe" title="Página" tabindex="-1" loading="lazy"></iframe><canvas id="hcan"></canvas></div></div></section>';
+    sec.innerHTML = '<section class="card"><div class="hbar"><select class="pill" id="hpage"><option>Carregando…</option></select><span class="note" id="hnote"></span></div><div class="heatbox" id="hbox"><div class="heat" id="heat"><div class="vp" id="hvp"><iframe id="hframe" title="Página" tabindex="-1"></iframe></div><canvas id="hcan"></canvas></div></div></section>';
     let list = []; try { list = await api('clickpages', '&dias=' + dias); } catch (x) {}
     if (cur !== 'mapa') return;
     const sel = $('#hpage');
     sel.innerHTML = list.length ? list.map(x => '<option value="' + esc(x.k) + '">' + esc(PAGE(x.k)) + ' · ' + fmt(x.n) + ' cliques</option>').join('') : '<option value="">Sem cliques ainda</option>';
     sel.addEventListener('change', heat); heat();
   }
+  let PTS = [];
   async function heat() {
     const sel = $('#hpage'); if (!sel) return;
-    const p = sel.value, box = $('#heat'), fr = $('#hframe'), cv = $('#hcan'), wrap = $('#hbox');
-    if (!p) { box.style.height = '0px'; fr.removeAttribute('src'); return; }
+    const p = sel.value, fr = $('#hframe'), wrap = $('#hbox');
+    if (!p) { fr.removeAttribute('src'); return; }
     let pts = []; try { pts = await api('clicks', '&dias=' + dias + '&p=' + encodeURIComponent(p)); } catch (x) {}
-    const all = pts.length; pts = pts.filter(q => (q[3] || 0) >= 1000);
-    $('#hnote').textContent = pts.length + ' cliques no computador' + (all > pts.length ? ' · ' + (all - pts.length) + ' no celular ficam fora do mapa' : '');
-    const bw = wrap.clientWidth, k = bw / 1440, H = Math.min(Math.max(1800, ...pts.map(q => q[1] * 1440 / (q[3] || 1440) + 300)), 12000);
-    box.style.width = bw + 'px'; box.style.height = Math.round(H * k) + 'px';
-    fr.style.height = H + 'px'; fr.style.transform = 'scale(' + k + ')'; if (fr.getAttribute('src') !== p) fr.src = p;
-    cv.width = bw; cv.height = Math.round(H * k);
-    const g = cv.getContext('2d'); g.clearRect(0, 0, cv.width, cv.height);
-    pts.forEach(q => { const x = q[0] / 100 * cv.width, y = q[1] * (1440 / (q[3] || 1440)) * k, r = 24, grd = g.createRadialGradient(x, y, 0, x, y, r); grd.addColorStop(0, 'rgba(255,90,30,.6)'); grd.addColorStop(1, 'rgba(255,90,30,0)'); g.fillStyle = grd; g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fill(); });
+    const all = pts.length; PTS = pts.filter(q => (q[3] || 0) >= 1000);
+    $('#hnote').textContent = PTS.length + ' cliques no computador' + (all > PTS.length ? ' · ' + (all - PTS.length) + ' no celular ficam fora do mapa' : '');
+    if (fr.getAttribute('src') !== p) { fr.onload = () => { try { const st = fr.contentDocument.createElement('style'); st.textContent = '.cookie{display:none!important}'; fr.contentDocument.head.appendChild(st); } catch (x) {} try { const w = fr.contentWindow; w.addEventListener('load', () => setTimeout(heatDraw, 300)); } catch (x) {} setTimeout(heatDraw, 800); setTimeout(heatDraw, 2500); }; fr.src = p; wrap.scrollTop = 0; }
+    heatDraw();
+  }
+  function heatDraw() {
+    const fr = $('#hframe'), cv = $('#hcan'), wrap = $('#hbox'), box = $('#heat'), vp = $('#hvp'); if (!fr || !wrap) return;
+    // escala: a página em 1440 px reduzida para caber (nunca ampliada)
+    const k = Math.min(1, (wrap.clientWidth - 2) / 1440), vw = Math.round(1440 * k), vh = wrap.clientHeight;
+    fr.style.height = Math.round(vh / k) + 'px'; fr.style.transform = 'scale(' + k + ')';
+    vp.style.width = vw + 'px'; vp.style.height = vh + 'px';
+    let H = 0; try { const d = fr.contentDocument; H = Math.max(d.documentElement.scrollHeight, d.body ? d.body.scrollHeight : 0); } catch (x) {}
+    if (!H) H = Math.max(1800, ...PTS.map(q => q[1] * 1440 / (q[3] || 1440) + 300));
+    const th = Math.round(H * k);
+    box.style.width = vw + 'px'; box.style.height = th + 'px';
+    vp.style.marginBottom = -vh + 'px';
+    cv.width = vw; cv.height = th; cv.style.width = vw + 'px'; cv.style.height = th + 'px';
+    const g = cv.getContext('2d'); g.clearRect(0, 0, vw, th);
+    PTS.forEach(q => { const x = q[0] / 100 * vw, y = (q[2] ? q[1] / q[2] * H : q[1]) * k, r = 22, grd = g.createRadialGradient(x, y, 0, x, y, r); grd.addColorStop(0, 'rgba(255,90,30,.65)'); grd.addColorStop(1, 'rgba(255,90,30,0)'); g.fillStyle = grd; g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fill(); });
+    wrap.onscroll = heatSync; heatSync();
+  }
+  function heatSync() {
+    const fr = $('#hframe'), wrap = $('#hbox'); if (!fr || !wrap) return;
+    const k = Math.min(1, (wrap.clientWidth - 2) / 1440), y = wrap.scrollTop / k;
+    try { const w = fr.contentWindow; if (w.__lenis) w.__lenis.scrollTo(y, { immediate: true, force: true }); else w.scrollTo(0, y); } catch (x) {}
   }
 
   /* dados */
