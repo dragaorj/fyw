@@ -29,7 +29,8 @@
   var pendW = null, autoX = 0, baseU = 0, baseK = 0, lastScrollT = 0, lastStepT = 0, inGalaxy = false;
   var N = orbs.length, spin = 0, scrollSpin = Math.PI / 2, spinT = Math.PI / 2, spread = 0, gather = 0, live = false;
   // posição do giro automático (com a mesma curva usada em todo lugar: a rolagem e o giro sozinho nunca discordam, então nada anda para trás)
-  var autoPos = function (x) { var ai = Math.floor(x), fr = x - ai; return ai + fr * .35 + (.5 - Math.cos(fr * Math.PI) / 2) * .65; };
+  // giro contínuo e uniforme: as bolinhas não param na frente, só passam (a logo vai aparecendo conforme chegam)
+  var autoPos = function (x) { return x; };
   // logo branca de cada cliente na frente da foto (copiada do mural de clientes), sobre uma película escura
   var LOGOS = ['lumiere', 'jogo-pela-integridade', 'latimpacto', 'kyoto', 'beta-online', 'cimed', 'pacto-global', 'globalfy', 'let-me-be', 'ifood'];
   // cópia da logo com ids únicos (máscaras/gradientes), senão a logo original e a cópia brigam
@@ -114,7 +115,9 @@
       sc *= .55 + .45 * gp; op *= gp;
       o.style.transform = 'translate(-50%,-50%) translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) scale(' + sc.toFixed(3) + ')'; // sem inclinação: a logo fica reta
       // só a foto em foco (na frente, embaixo da frase) mostra a película e a logo
-      var f = depth > .986 && m < .5 && gp > .97 ? 1 : 0; if (o.__f !== f) { o.__f = f; o.style.setProperty('--f', f); } // branco só bem no centro; a troca é feita pela transição do CSS
+      // branco e logo crescem aos poucos enquanto a bolinha se aproxima da frente e somem aos poucos quando ela sai
+      var fe = Math.min(1, Math.max(0, (depth - .925) / .07)); fe = fe * fe * (3 - 2 * fe);
+      var f = (fe * Math.min(1, Math.max(0, 1 - m * 2)) * Math.min(1, Math.max(0, (gp - .9) / .1))).toFixed(2); if (o.__f !== f) { o.__f = f; o.style.setProperty('--f', f); }
       // só mexe no que mudou: largura (layout) só quando a tela muda de tamanho; opacidade e camada só quando mudam — sem travadas no celular
       var w = Math.round(base * .86); if (o.__w !== w) { o.__w = w; o.style.width = w + 'px'; }
       var ops = op.toFixed(2); if (o.__op !== ops) { o.__op = ops; o.style.opacity = ops; }
@@ -296,6 +299,9 @@
     };
     var cta = sec.querySelector('.zs-cta');
     measure(); word.textContent = WORDS[lang()][0];
+    // mede a área do texto antes da galáxia abrir (medir na hora dava um tranco quando as bolinhas apareciam)
+    var preSafe = function () { (window.requestIdleCallback || setTimeout)(function () { measureSafe(); measureDot(); }); };
+    preSafe(); ScrollTrigger.addEventListener('refresh', preSafe);
     var cover = function (P) { if (!P) return 4; var HH = Math.max(innerHeight, stage.offsetHeight, (window.screen && screen.height) || 0), far = Math.max(Math.hypot(P.sx, P.sy), Math.hypot(innerWidth - P.sx, P.sy), Math.hypot(P.sx, HH - P.sy), Math.hypot(innerWidth - P.sx, HH - P.sy)); return far * 2.1 / FB; };
     var mob = innerWidth < 600, A = .11, B = .42, nW = WORDS.pt.length;
     var tl = gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top top', end: function () { return '+=' + (mob ? 560 : 680) + '%'; }, scrub: 1, pin: stage, invalidateOnRefresh: true, onRefreshInit: measure,
@@ -304,8 +310,8 @@
           if (p < .1) { var q = dotPoint(title); if (q) gsap.set(fill, { left: q.sx, top: q.sy }); }
           var on = p > A - .03 && p < B + .05; if (on !== live) { live = on; if (on) gsap.ticker.add(tick); else gsap.ticker.remove(tick); }
           // a rolagem também gira a galáxia; na saída as imagens se espalham para fora
-          var P0 = A + .05, uR = Math.max(0, Math.min(nW - 1, (p - P0) / (B - P0) * nW - .5)), kk = Math.round(uR), dd = uR - kk, ee = Math.min(1, Math.max(0, Math.abs(dd) - .1) / .4); ee = .5 - Math.cos(ee * Math.PI) / 2; if (gather >= 1) autoX = Math.ceil(autoX - 1e-6); baseU = kk + (dd < 0 ? -1 : 1) * ee * .5; baseK = kk; spinT = Math.PI / 2 - (baseU + autoPos(autoX)) * Math.PI * 2 / N; /* o ajuste só vai para frente (antes arredondava e podia recuar) */ var nowT = performance.now(); lastScrollT = nowT; inGalaxy = p > A - .013 && p < B - .01; spread = p > B ? Math.min(1, (p - B) / .04) : 0; gate(gOn ? p >= A - .04 : p >= A - .013); // folga para não ligar e desligar quando a rolagem para no limite
-          if (p >= A - .02 && p <= B + .02) setWord((kk + autoX) % N);
+          var P0 = A + .05, uR = Math.max(0, Math.min(nW - 1, (p - P0) / (B - P0) * nW - .5)), kk = Math.round(uR), dd = uR - kk, ee = Math.min(1, Math.max(0, Math.abs(dd) - .1) / .4); ee = .5 - Math.cos(ee * Math.PI) / 2; baseU = uR; baseK = uR; /* rolagem move o giro de forma contínua (sem parar em cada bolinha nem pular) */ spinT = Math.PI / 2 - (baseU + autoPos(autoX)) * Math.PI * 2 / N; /* o ajuste só vai para frente (antes arredondava e podia recuar) */ var nowT = performance.now(); lastScrollT = nowT; inGalaxy = p > A - .013 && p < B - .01; spread = p > B ? Math.min(1, (p - B) / .04) : 0; gate(gOn ? p >= A - .04 : p >= A - .013); // folga para não ligar e desligar quando a rolagem para no limite
+          if (p >= A - .02 && p <= B + .02) setWord(((Math.round(baseU + autoX) % N) + N) % N);
           if (gather < .02) measureDot(); if (live) renderOrbit();
         } } });
     // entrada: zoom no ponto final até a cor da letra tomar a tela
@@ -340,30 +346,42 @@
     ScrollTrigger.addEventListener('refresh', function () { var pr = tl.progress(); tl.progress(0, true).progress(pr); syncTypers(); });
     // ---- aviso "Role a página" + no celular a seção toca sozinha (para se a pessoa tocar na tela) ----
     var hint = sec.querySelector('.zs-scroll'), ST = tl.scrollTrigger;
-    var coarse = matchMedia('(pointer: coarse)').matches, auto = null, armed = true, touching = false, waitT = 0;
-    var stopAuto = function () { clearTimeout(waitT); if (auto) { cancelAnimationFrame(auto); auto = null; } };
-    var goTo = function (y) { if (window.__lenis) window.__lenis.scrollTo(y, { immediate: true, force: true }); else window.scrollTo(0, y); };
-    var startAuto = function () {
-      stopAuto(); if (ST.progress <= 0 || ST.progress >= .9) return; // só toca se a pessoa está dentro da seção
-      var endY = ST.start + (ST.end - ST.start) * .97, v = (ST.end - ST.start) / 28000, last = performance.now(), y = window.scrollY;
-      var step = function (now) { var dt = Math.min(48, now - last); last = now; y = Math.max(y, window.scrollY) + v * dt; if (y >= endY) { goTo(endY); auto = null; return; } goTo(y); auto = requestAnimationFrame(step); };
+    // ---- a apresentação inteira toca sozinha (celular, tablet e computador) até a frase final ----
+    // a pessoa mexeu (rolou, tocou, clicou, apertou tecla, arrastou): pausa; parou de mexer: continua de onde está
+    // ritmo por trecho (ms para atravessar cada pedaço): abertura, bolinhas se abrindo, uma frase a cada ~2,2 s, o site se montando e a saída
+    var SEG = [[0, .11, 3200], [.11, .16, 1600], [.16, .42, 22000], [.42, .8, 10500], [.8, .955, 3200]], ENDP = .955, IDLE = 1600;
+    var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches, auto = null, touching = false, lastUser = -1e9, lastSet = null;
+    var goTo = function (y) { lastSet = y; if (window.__lenis) window.__lenis.scrollTo(y, { immediate: true, force: true }); else window.scrollTo(0, y); };
+    var rate = function (p) { for (var i = 0; i < SEG.length; i++) if (p < SEG[i][1]) return (SEG[i][1] - SEG[i][0]) / SEG[i][2]; return 0; }; // progresso por ms
+    var stopAuto = function () { if (auto) { cancelAnimationFrame(auto); auto = null; } };
+    var user = function () { lastUser = performance.now(); stopAuto(); };
+    var inside = function () { var y = window.scrollY; return y > ST.start - 2 && y < ST.start + (ST.end - ST.start) * ENDP - 2; };
+    var runAuto = function () {
+      if (auto || reduce) return;
+      var last = performance.now(), y = Math.max(window.scrollY, ST.start), len = ST.end - ST.start; lastSet = null;
+      var step = function (now) {
+        var dt = Math.min(50, now - last); last = now;
+        // rolou por fora (barra de rolagem, atalho): conta como mexer
+        if (lastSet !== null && Math.abs(window.scrollY - lastSet) > 40) { user(); return; }
+        var p = (y - ST.start) / len, endY = ST.start + len * ENDP;
+        y += rate(p) * len * dt;
+        if (y >= endY) { goTo(endY); auto = null; return; }
+        goTo(y); auto = requestAnimationFrame(step);
+      };
       auto = requestAnimationFrame(step);
     };
-    var arm = function () { clearTimeout(waitT); waitT = setTimeout(function () { if (touching) return arm(); startAuto(); }, 450); };
-    if (coarse) {
-      addEventListener('touchstart', function () { touching = true; stopAuto(); }, { passive: true });
-      addEventListener('touchend', function () { touching = false; }, { passive: true });
-    }
-    ['wheel', 'keydown', 'mousedown'].forEach(function (ev) { addEventListener(ev, function () { if (auto) stopAuto(); }, { passive: true }); });
+    // vigia leve: a cada meio segundo, se a pessoa está dentro da apresentação e parou de mexer, volta a tocar
+    setInterval(function () { if (!auto && !touching && !document.hidden && performance.now() - lastUser > IDLE && inside()) runAuto(); }, 500);
+    addEventListener('touchstart', function () { touching = true; user(); }, { passive: true });
+    addEventListener('touchend', function () { touching = false; lastUser = performance.now(); }, { passive: true });
+    addEventListener('touchcancel', function () { touching = false; lastUser = performance.now(); }, { passive: true });
+    ['wheel', 'keydown', 'mousedown', 'pointerdown'].forEach(function (ev) { addEventListener(ev, user, { passive: true }); });
     ScrollTrigger.create({ trigger: sec, start: 'top top', end: function () { return ST.end; },
-      onUpdate: function (s) {
-        if (hint) hint.classList.toggle('is-off', s.progress > .78);
-      },
-      onEnter: function () { if (coarse && armed) { armed = false; arm(); } },
-      onLeave: function () { stopAuto(); },
-      onLeaveBack: function () { stopAuto(); armed = true; if (!jumping) played = false; } });
-    var played = false, jumping = false;
-    addEventListener('resize', function () { clearTimeout(window.__zsR); window.__zsR = setTimeout(function () { ScrollTrigger.refresh(); }, 200); });
+      onUpdate: function (s) { if (hint) hint.classList.toggle('is-end', s.progress > .9); },
+      onLeave: stopAuto, onLeaveBack: stopAuto });
+    // celular: a barra de endereço aparecendo/sumindo muda só a altura; recalcular aí dava um tranco na apresentação
+    var lastW = innerWidth;
+    addEventListener('resize', function () { if (innerWidth === lastW && matchMedia('(pointer: coarse)').matches) return; lastW = innerWidth; clearTimeout(window.__zsR); window.__zsR = setTimeout(function () { ScrollTrigger.refresh(); }, 200); });
     new MutationObserver(function () { curW = -1; word.textContent = WORDS[lang()][0]; ScrollTrigger.refresh(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
   };
   if (document.readyState === 'complete') init(); else addEventListener('load', init);

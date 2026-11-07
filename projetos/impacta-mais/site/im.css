@@ -893,3 +893,10 @@ html:not(.v1) .hero-ph img{object-position:40% 50%}
   .hd.is-open .hd-ast img{transform:rotate(135deg)}
 }
 @media (max-width:860px){ html:not(.v1) .hero-r{width:100%} }
+/* V2 celular: o topo ocupa a tela inteira (sem a próxima seção aparecendo embaixo); a foto vai até o fim, atrás do vidro */
+@media (max-width:860px){
+  html:not(.v1) .hero{display:flex;flex-direction:column;justify-content:flex-end;min-height:100svh}
+  html:not(.v1) .hero-ph{inset:0;height:auto}
+  html:not(.v1) .hero-shade{height:auto;bottom:0}
+  html:not(.v1) .hero-in{margin-top:min(98vw,470px)}
+}

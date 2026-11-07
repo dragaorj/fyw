@@ -6217,3 +6217,28 @@ html body .pj-note span { color: var(--ink); opacity: .78; }
 }
 /* celular e tablet: sem o logo do cliente no topo das páginas de projeto */
 @media (max-width: 899px) { html body.pp2 .pp2-hero .pp2-brand { display: none !important; } }
+
+/* desempenho: números mais finos e elegantes */
+html body .pg-n { font-weight: 400; letter-spacing: -.05em; font-size: clamp(1.625rem, 3vw, 2.25rem); }
+html body .pg-arc, html body .pg-bg { stroke-width: 6; }
+html body .pm-v { font-weight: 400; letter-spacing: -.02em; }
+html body .pm-top b { font-weight: 500; }
+/* depoimentos que cabem inteiros na tela: sem esmaecer em cima e embaixo */
+html body .t-wall.is-fit, html body .tone .t-wall.is-fit { -webkit-mask-image: none !important; mask-image: none !important; }
+
+/* celular sem barra de status: o site ocupa a tela toda, por trás do recorte da câmera */
+.lp-phone.is-bleed .lp-scroll.is-live .lp-live { top: 0; }
+.lp-phone.is-bleed .lp-scroll.is-live::before { display: none; }
+
+/* galáxia: a bolinha em foco fica toda branca (o fundo também), sem o fio da cor da bolinha na borda */
+html body .zoom-stack .zs-o { background: color-mix(in srgb, var(--oc), #FFFFFF calc(var(--f, 0) * 100%)) !important; transition: background-color .5s cubic-bezier(.4,0,.2,1) !important; }
+html body .zoom-stack .zs-o.is-hov { transition-duration: .22s !important; }
+/* a apresentação toca sozinha: o aviso "Role a página para baixo" só aparece na tela final, centralizado embaixo do botão */
+html body .zoom-stack p.zs-scroll { display: inline-flex; flex-direction: column; align-items: center; gap: 12px; bottom: max(28px, 6svh); color: #fff; mix-blend-mode: difference; font-size: .875rem; letter-spacing: .01em; opacity: 0; transform: translateY(12px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+html body .zoom-stack p.zs-scroll.is-end { opacity: .8; transform: none; }
+html body .zoom-stack .zs-scroll .zs-scroll-ico { box-sizing: content-box; width: 12px; height: 18px; padding: 12px 14px; border: 1.5px solid currentColor; border-radius: 99px; }
+/* galáxia: a logo e o branco aparecem aos poucos conforme a bolinha chega na frente (o JS manda o --f de 0 a 1, sem transição) */
+html body .zoom-stack .zs-o, html body .zoom-stack .zs-o::after, html body .zoom-stack .zs-o .zs-lg { transition: none !important; }
+html body .zoom-stack .zs-o.is-hov, html body .zoom-stack .zs-o.is-hov::after, html body .zoom-stack .zs-o.is-hov .zs-lg { transition: background-color .22s, opacity .22s !important; }
+/* design system do Beta (fechado) no modo escuro: a caixa clara some no preto sem deixar fio branco na borda */
+[data-theme="dark"] .bds.is-collapsed { border-color: transparent; background: linear-gradient(180deg, #F8F8F8 58%, #0B0B0B 97%); }

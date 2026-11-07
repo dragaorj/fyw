@@ -1625,6 +1625,10 @@ window.__fywTagBg = function (hex) { var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''
 (function () {
   var wall = document.querySelector('.t-wall'); if (!wall) return;
   var set = function () {
+    // a altura do mural acompanha os depoimentos: em telas em pé não sobra espaço vazio embaixo
+    wall.style.height = ''; var hWall = wall.clientHeight, hMax = 0;
+    [].forEach.call(wall.querySelectorAll('.t-col'), function (col) { if (col.offsetParent === null) return; var tr = col.querySelector('.t-track'); if (tr) hMax = Math.max(hMax, tr.scrollHeight); });
+    var fit = innerWidth >= 600 && hMax && hMax + 24 < hWall; if (fit) wall.style.height = (hMax + 24) + 'px'; wall.classList.toggle('is-fit', !!fit);
     [].forEach.call(wall.querySelectorAll('.t-col'), function (col) {
       var tr = col.querySelector('.t-track'); if (!tr) return;
       var d = Math.max(0, tr.scrollHeight - col.clientHeight + 32);
