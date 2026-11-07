@@ -39,7 +39,30 @@
       m.style.setProperty('--p', p.toFixed(1) + '%'); m.classList.toggle('is-over', v > LIMIT[k]);
     });
     var t = sec.querySelector('.perf-when'); if (t) { t.textContent = ' · ' + when(d.at); t.setAttribute('datetime', d.at); }
+    if (animate) playLoad(); else showLoad();
   };
+  // ---- página de exemplo abrindo: a barra carrega, os blocos aparecem e o cronômetro para no tempo real medido (LCP) ----
+  var pl = sec.querySelector('.pl-card'), plT = pl && pl.querySelector('.pl-t'), plL = pl && pl.querySelector('.pl-l'), plB = pl ? [].slice.call(pl.querySelectorAll('.pl-b')) : [], raf = 0, plOn = false;
+  var lbl = function () { if (!plL) return; pl.classList.toggle('is-mob', cur !== 'desktop'); /* celular mostra um celular; computador, o navegador */ var k = cur === 'desktop' ? 'perf.ready.d' : 'perf.ready.m', D = window.FIO_I18N || {}; plL.setAttribute('data-i18n', k); plL.textContent = (D[lang()] && D[lang()][k]) || (D.pt && D.pt[k]) || plL.textContent; };
+  var drawLoad = function (p) {
+    var ms = DATA[cur].metrics.lcp || 1500; pl.style.setProperty('--lp', p.toFixed(3));
+    plT.textContent = fmt('lcp', ms * p); var n = Math.floor(p * plB.length + .001);
+    plB.forEach(function (b, i) { b.classList.toggle('on', i < n); });
+    pl.classList.toggle('is-done', p >= 1);
+  };
+  var showLoad = function () { if (pl) { lbl(); drawLoad(1); } };
+  var playLoad = function () {
+    if (!pl) return; lbl(); cancelAnimationFrame(raf);
+    if (reduce) { drawLoad(1); return; }
+    var ms = DATA[cur].metrics.lcp || 1500, dur = Math.max(900, ms), t0 = performance.now() + 250; drawLoad(0);
+    var step = function (now) { var p = Math.max(0, Math.min(1, (now - t0) / dur)); drawLoad(1 - Math.pow(1 - p, 1.6)); if (p < 1) raf = requestAnimationFrame(step); };
+    raf = requestAnimationFrame(step);
+  };
+  // enquanto a página de exemplo está na tela, ela abre de novo a cada poucos segundos
+  if (pl && !reduce && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { plOn = es[0].isIntersecting; }, { threshold: .3 }).observe(pl);
+    setInterval(function () { if (plOn && seen && !document.hidden) playLoad(); }, 6500);
+  }
   // medição ao vivo (uma por dispositivo; a Vercel guarda em cache)
   var live = function (s) {
     // a função só existe na Vercel: no site local não chama (evita erro 404 no console)

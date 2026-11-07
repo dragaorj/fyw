@@ -126,12 +126,13 @@
   };
   var tick = function () {
     if (!live) return; var now = performance.now(), dt = Math.min(64, now - (lastStepT || now)); lastStepT = now;
-    // parado na galáxia: as fotos orbitam a frase sem parar, devagar; desaceleram quando uma chega no centro (embaixo da frase) e a frase troca ali
-    if (inGalaxy && !orbHover && (gather < 1 || now - lastScrollT > 450) && !document.hidden) { // começa a girar junto com a abertura das bolinhas
-      if (!dragging) { autoX += dt / 5600 + vel * dt; vel *= Math.pow(.93, dt / 16); if (Math.abs(vel) < 1e-6) vel = 0; } var pos = baseK + autoPos(autoX);
-      spinT = Math.PI / 2 - pos * Math.PI * 2 / N; setWord(((Math.round(pos) % N) + N) % N);
+    // a galáxia gira sempre, na mesma velocidade, rolando a página ou não (a rolagem só abre e fecha a cena);
+    // a frase troca quando a bolinha seguinte passa pela frente. Só para com o mouse em cima de uma bolinha ou arrastando.
+    if (!orbHover && !document.hidden) {
+      if (!dragging) { autoX += dt / 2400 + vel * dt; vel *= Math.pow(.93, dt / 16); if (Math.abs(vel) < 1e-6) vel = 0; }
+      spinT = Math.PI / 2 - autoX * Math.PI * 2 / N; if (inGalaxy) setWord(((Math.round(autoX) % N) + N) % N);
     }
-    scrollSpin += (spinT - scrollSpin) * .12; renderOrbit();
+    scrollSpin = dragging ? scrollSpin + (spinT - scrollSpin) * .35 : spinT; renderOrbit();
   };
   var curW = -1;
   var setWord = function (i) {
@@ -148,6 +149,7 @@
   var typer = function (el, key, caret) { var o = { n: 0 }; el.__o = o; var T = { o: o, set: function () { var t = tr(key), s = t.slice(0, Math.round(o.n * t.length)); if (el.textContent !== s) el.textContent = s; el.classList.toggle('is-typing', !!caret && o.n > 0 && o.n < 1); } }; TYPERS.push(T); return T; };
   // posição de um elemento dentro da moldura (para onde o cursor vai)
   var at = function (q, fx, fy) { return function () { var e = B$(q), f = frame.getBoundingClientRect(), r = e.getBoundingClientRect(); return { x: r.left - f.left + r.width * fx, y: r.top - f.top + r.height * fy }; }; };
+  var TOUR = { t: 0, f: null };
   var buildScene = function (tl, t0) {
     if (!build) return;
     var T2 = typer(B$('.zb-h'), 'zb.h', true), TL = typer(B$('.zb-logo'), 'zb.logo', false);
@@ -168,21 +170,31 @@
       .fromTo(cursor, { autoAlpha: 0, x: function () { return frame.offsetWidth * .9; }, y: function () { return frame.offsetHeight * .95; } }, { autoAlpha: 1, duration: .01 }, t + .06);
     t -= .03; // o resto da montagem começa logo depois que a tela abre
     // 1) menu
-    move('.zb-nav', .1, .5, t + .09); click('.zb-nav', .1, .5, t + .115);
-    tl.fromTo(B$('.zb-nav'), { clipPath: 'inset(-24px 100% -24px -24px)' }, { clipPath: 'inset(-24px -24px -24px -24px)', duration: .025, ease: 'power2.out' }, t + .117)
-      .fromTo(TL.o, { n: 0 }, { n: 1, duration: .015, ease: 'none', onUpdate: TL.set }, t + .12);
+    move('.zb-nav', .1, .5, t + .07, .016); click('.zb-nav', .1, .5, t + .087);
+    tl.fromTo(B$('.zb-nav'), { clipPath: 'inset(-24px 100% -24px -24px)' }, { clipPath: 'inset(-24px -24px -24px -24px)', duration: .02, ease: 'power2.out' }, t + .089)
+      .fromTo(TL.o, { n: 0 }, { n: 1, duration: .012, ease: 'none', onUpdate: TL.set }, t + .091);
     // 2) título digitando
-    move('.zb-copy', .05, .2, t + .145); click('.zb-copy', .05, .2, t + .17);
-    tl.fromTo(T2.o, { n: 0 }, { n: 1, duration: .05, ease: 'none', onUpdate: T2.set }, t + .172)
-      .fromTo(B$('.zb-p').children, { scaleX: 0 }, { scaleX: 1, transformOrigin: '0 50%', duration: .02, stagger: .006, ease: 'power2.out' }, t + .215);
+    move('.zb-copy', .05, .2, t + .105, .016); click('.zb-copy', .05, .2, t + .122);
+    tl.fromTo(T2.o, { n: 0 }, { n: 1, duration: .035, ease: 'none', onUpdate: T2.set }, t + .124)
+      .fromTo(B$('.zb-p').children, { scaleX: 0 }, { scaleX: 1, transformOrigin: '0 50%', duration: .016, stagger: .005, ease: 'power2.out' }, t + .152);
     // 3) imagem
-    move('.zb-img', .5, .5, t + .24); click('.zb-img', .5, .5, t + .265);
-    tl.fromTo(B$('.zb-img'), { clipPath: 'circle(0% at 50% 50%)' }, { clipPath: 'circle(75% at 50% 50%)', duration: .03, ease: 'power2.out' }, t + .267);
+    move('.zb-img', .5, .5, t + .168, .016); click('.zb-img', .5, .5, t + .185);
+    tl.fromTo(B$('.zb-img'), { clipPath: 'circle(0% at 50% 50%)' }, { clipPath: 'circle(75% at 50% 50%)', duration: .024, ease: 'power2.out' }, t + .187);
     // 4) botão
-    move('.zb-copy', .2, .92, t + .3); click('.zb-copy', .2, .92, t + .325);
-    tl.fromTo(sec.querySelectorAll('.zb-cta, .zb-cta2'), { scale: 0, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: .02, ease: 'back.out(2)' }, t + .327)
-      .fromTo(B$('.zb-cards').children, { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .02, stagger: .006, ease: 'power3.out' }, t + .335)
-      .to(cursor, { autoAlpha: 0, duration: .01 }, t + .36)
+    move('.zb-copy', .2, .92, t + .2, .014); click('.zb-copy', .2, .92, t + .215);
+    tl.fromTo(sec.querySelectorAll('.zb-cta, .zb-cta2'), { scale: 0, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: .016, ease: 'back.out(2)' }, t + .217)
+      .fromTo(B$('.zb-cards').children, { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: .016, stagger: .005, ease: 'power3.out' }, t + .222);
+    // 5) passeio pelo site (o estado de cada momento é aplicado em tour(), pela posição da rolagem):
+    //    menu → Produtos → adiciona ao carrinho → abre o carrinho → aba Clientes → menu → Contato
+    move('.zb-navbtn', .5, .5, t + .238, .011); click('.zb-navbtn', .5, .5, t + .25);
+    move('.zb-menu b[data-pg="1"]', .3, .5, t + .256, .011); click('.zb-menu b[data-pg="1"]', .3, .5, t + .268);
+    move('.zv-1 .zv-prod.p1 .zv-add', .5, .5, t + .276, .011); click('.zv-1 .zv-prod.p1 .zv-add', .5, .5, t + .287);
+    move('.zb-cart', .5, .5, t + .295, .011); click('.zb-cart', .5, .5, t + .307);
+    move('.zb-links i:nth-child(3)', .5, .5, t + .31, .007); click('.zb-links i:nth-child(3)', .5, .5, t + .318);
+    move('.zb-navbtn', .5, .5, t + .326, .011); click('.zb-navbtn', .5, .5, t + .338);
+    move('.zb-menu b[data-pg="3"]', .3, .5, t + .344, .008); click('.zb-menu b[data-pg="3"]', .3, .5, t + .353);
+    TOUR.t = t;
+    tl.to(cursor, { autoAlpha: 0, duration: .01 }, t + .365)
       // a tela fecha de volta num círculo antes da saída
 ;
 
@@ -223,6 +235,22 @@
     };
     // textos extras: nota média (página de depoimento) e cartão do local no mapa
     [['pt', '4,9', 'nota média · 2.300 avaliações', 'Sua loja', 'Aberto agora'], ['en', '4.9', 'average rating · 2,300 reviews', 'Your store', 'Open now'], ['es', '4,9', 'nota media · 2.300 reseñas', 'Tu tienda', 'Abierto ahora']].forEach(function (r) { TX[r[0]].rate = r[1]; TX[r[0]].rateT = r[2]; TX[r[0]].place = r[3]; TX[r[0]].open = r[4]; });
+    // frases de benefício que aparecem embaixo do site, uma por etapa do passeio; carrinho e avaliações
+    var SAY = {
+      pt: ['Um site sob medida, com a cara da sua marca.', 'Uma mensagem clara, que vende logo de cara.', 'Imagens que prendem a atenção do cliente.', 'Botões que levam direto ao contato ou à compra.', 'Menu simples: tudo a um clique.', 'Sua loja aberta 24 horas por dia.', 'Carrinho prático: menos cliques, mais vendas.', 'Avaliações que passam confiança.', 'Contato e mapa: o cliente chega até você.'],
+      en: ['A tailor-made site that looks like your brand.', 'A clear message that sells right away.', 'Images that hold your customer’s attention.', 'Buttons that lead straight to contact or checkout.', 'A simple menu: everything one click away.', 'Your store open 24 hours a day.', 'An easy cart: fewer clicks, more sales.', 'Reviews that build trust.', 'Contact and map: customers find you.'],
+      es: ['Un sitio a medida, con la cara de tu marca.', 'Un mensaje claro que vende desde el inicio.', 'Imágenes que atrapan la atención del cliente.', 'Botones que llevan directo al contacto o a la compra.', 'Menú simple: todo a un clic.', 'Tu tienda abierta las 24 horas.', 'Carrito práctico: menos clics, más ventas.', 'Reseñas que generan confianza.', 'Contacto y mapa: el cliente llega hasta ti.']
+    };
+    [['pt', 'Seu carrinho', 'Total', 'Finalizar compra', 'Mais avaliações', [['Mariana L.', 'Comprei pelo celular em 2 minutos.'], ['Rafael T.', 'Responderam no WhatsApp na hora.'], ['Júlia M.', 'Site lindo e muito fácil de usar.']]],
+     ['en', 'Your cart', 'Total', 'Checkout', 'More reviews', [['Mariana L.', 'Bought on my phone in 2 minutes.'], ['Rafael T.', 'They answered on WhatsApp right away.'], ['Julia M.', 'Beautiful site, so easy to use.']]],
+     ['es', 'Tu carrito', 'Total', 'Finalizar compra', 'Más reseñas', [['Mariana L.', 'Compré desde el celular en 2 minutos.'], ['Rafael T.', 'Respondieron por WhatsApp al instante.'], ['Julia M.', 'Sitio lindo y muy fácil de usar.']]]
+    ].forEach(function (r) { var o = TX[r[0]]; o.cartT = r[1]; o.total = r[2]; o.buy = r[3]; o.revT = r[4]; o.revs = r[5]; });
+    // desenhos dos produtos (kit, frasco premium, assinatura)
+    var PIC = [
+      '<svg viewBox="0 0 120 120" aria-hidden="true"><path class="pz-s" d="M30 54h60v38a6 6 0 0 1-6 6H36a6 6 0 0 1-6-6Z"/><rect class="pz-f" x="25" y="42" width="70" height="15" rx="4"/><path class="pz-a" d="M55 42h10v56H55Z"/><path class="pz-a" d="M60 42c-6-12-20-14-20-6s14 6 20 6c6 0 20 2 20-6s-14-6-20 6Z"/></svg>',
+      '<svg viewBox="0 0 120 120" aria-hidden="true"><rect class="pz-f" x="46" y="26" width="26" height="8" rx="3"/><path class="pz-s" d="M72 30h12" /><rect class="pz-f" x="53" y="34" width="14" height="12" rx="2"/><rect class="pz-f" x="40" y="46" width="40" height="56" rx="12"/><rect class="pz-a" x="48" y="62" width="24" height="22" rx="4"/></svg>',
+      '<svg viewBox="0 0 120 120" aria-hidden="true"><rect class="pz-f" x="26" y="32" width="68" height="62" rx="9"/><path class="pz-a" d="M26 41a9 9 0 0 1 9-9h50a9 9 0 0 1 9 9v8H26Z"/><path class="pz-s" d="M43 26v12M77 26v12"/><path class="pz-c" d="M48 71l8 8 17-17"/></svg>'
+    ];
     // mapa desenhado: quadras, avenidas, parque e rio (cores seguem o tema)
     var MAP = '<svg class="zv-map-svg" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">'
       + '<path class="mp-water" d="M-10 318C60 296 96 340 160 330S270 280 330 300 410 330 410 330V410H-10Z"/>'
@@ -242,19 +270,32 @@
     var views = document.createElement('div'); views.className = 'zb-views'; page.appendChild(views);
     var menu = document.createElement('div'); menu.className = 'zb-menu'; frame.appendChild(menu);
     var sheet = document.createElement('div'); sheet.className = 'zb-sheet'; frame.appendChild(sheet);
+    var cartp = document.createElement('div'); cartp.className = 'zb-cartp'; frame.appendChild(cartp);
+    var items = [];
+    var paintCart = function () {
+      var t = tx(), sum = 0;
+      var rows = items.map(function (k) { var p = t.prods[k], n = parseFloat(p[1].replace(/[^\d,.]/g, '').replace(',', '.')) || 0; sum += n; return '<div class="cp-row"><span class="cp-pic p' + k + '">' + PIC[k] + '</span><b>' + p[0] + '</b><em>' + p[1] + '</em></div>'; }).join('');
+      var cur = (t.prods[0][1].match(/^[^\d]+/) || [''])[0];
+      cartp.innerHTML = '<p class="cp-h">' + t.cartT + '</p>' + rows + '<div class="cp-tot"><span>' + t.total + '</span><b>' + cur + (L3() === 'en' ? sum.toFixed(2) : sum.toFixed(2).replace('.', ',')) + '</b></div><span class="cp-buy">' + t.buy + ' <em>→</em></span>';
+      cart.querySelector('b').textContent = items.length; cart.classList.toggle('has', items.length > 0);
+    };
+    var addItem = function (k, btn) { items.push(k); paintCart(); cart.classList.remove('bump'); void cart.offsetWidth; cart.classList.add('bump'); if (btn) { btn.textContent = tx().added; btn.classList.add('ok'); } };
+    // frase embaixo do site
+    var say = document.createElement('p'); say.className = 'zb-say'; say.setAttribute('aria-hidden', 'true'); build.appendChild(say);
+    var sayI = -1, setSay = function (i) { if (i === sayI) return; sayI = i; if (i < 0) { say.classList.remove('on'); return; } say.classList.remove('on'); clearTimeout(say.__t); say.__t = setTimeout(function () { say.textContent = SAY[L3()][i]; say.classList.add('on'); }, 160); };
     var paint = function () {
       var t = tx(); if (cta2) cta2.textContent = t.more;
       menu.innerHTML = t.menu.map(function (m, i) { return '<b data-pg="' + i + '">' + m + '</b>'; }).join('');
       sheet.innerHTML = '<div class="zs-h"><b>' + t.sheet + '</b><i class="zs-x" aria-label="Fechar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></i></div><div class="zs-g">' + t.proj.map(function (p, i) { return '<span class="zs-c c' + i + '"><em></em><b>' + p + '</b></span>'; }).join('') + '</div>';
       views.innerHTML =
-        '<section class="zv zv-1"><p class="zv-t">' + t.prodT + '</p><div class="zv-grid">' + t.prods.map(function (p, i) { return '<div class="zv-prod p' + i + '"><span class="zv-img"></span><b>' + p[0] + '</b><span class="zv-row"><em>' + p[1] + '</em><span class="zv-add">' + t.add + '</span></span></div>'; }).join('') + '</div></section>'
+        '<section class="zv zv-1"><p class="zv-t">' + t.prodT + '</p><div class="zv-grid">' + t.prods.map(function (p, i) { return '<div class="zv-prod p' + i + '"><span class="zv-img">' + PIC[i] + '</span><b>' + p[0] + '</b><span class="zv-row"><em>' + p[1] + '</em><span class="zv-add">' + t.add + '</span></span></div>'; }).join('') + '</div></section>'
         + '<section class="zv zv-2"><div class="zv-quote"><div class="zv-q-txt"><span class="zv-stars">★★★★★</span><p>' + t.quote + '</p><span class="zv-who"><i></i>' + t.who + '</span></div>'
-        + '<div class="zv-rate"><b>' + t.rate + '</b><span class="zv-stars">★★★★★</span><small>' + t.rateT + '</small><ul>' + [[5, 86], [4, 10], [3, 3], [2, 1], [1, 0]].map(function (r) { return '<li><em>' + r[0] + '</em><i style="--w:' + r[1] + '%"></i></li>'; }).join('') + '</ul></div></div><p class="zv-t">' + t.cliT + '</p><div class="zv-logos"><i></i><i></i><i></i><i></i><i></i></div></section>'
+        + '<div class="zv-rate"><b>' + t.rate + '</b><span class="zv-stars">★★★★★</span><small>' + t.rateT + '</small><ul>' + [[5, 86], [4, 10], [3, 3], [2, 1], [1, 0]].map(function (r) { return '<li><em>' + r[0] + '</em><i style="--w:' + r[1] + '%"></i></li>'; }).join('') + '</ul></div></div><p class="zv-t">' + t.revT + '</p><div class="zv-revs">' + t.revs.map(function (r, i) { return '<div class="zv-rev r' + i + '"><span class="zv-stars">★★★★★</span><p>“' + r[1] + '”</p><span class="zv-who"><i></i>' + r[0] + '</span></div>'; }).join('') + '</div></section>'
         + '<section class="zv zv-3"><div class="zv-form"><p class="zv-t big">' + t.formT + '</p>' + t.fields.map(function (f, i) { return '<label class="zv-in' + (i === 2 ? ' area' : '') + '"><span>' + f + '</span></label>'; }).join('') + '<span class="zv-send">' + t.send + ' <em>→</em></span></div><div class="zv-map">' + MAP + '<i></i><span class="zv-pin-card"><b>' + t.place + '</b><small><em></em>' + t.open + '</small></span></div></section>';
       [].forEach.call(menu.children, function (x) { x.classList.toggle('on', +x.dataset.pg === pg); });
     };
-    var pg = 0; paint();
-    new MutationObserver(paint).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+    var pg = 0; paint(); paintCart();
+    new MutationObserver(function () { paint(); paintCart(); if (sayI >= 0) say.textContent = SAY[L3()][sayI]; }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
     var goPage = function (n) {
       if (n === pg) return; pg = n;
       if (links) [].forEach.call(links.children, function (x, k) { x.classList.toggle('on', k === n); });
@@ -262,13 +303,24 @@
       frame.classList.add('swap');
       setTimeout(function () { page.setAttribute('data-pg', n); frame.classList.remove('swap'); }, 220);
     };
+    var tS = {};
+    TOUR.f = function (time) {
+      var x = time - TOUR.t, set = function (k, v, fn) { if (tS[k] !== v) { tS[k] = v; fn(v); } };
+      set('say', x < .05 || x > .372 ? -1 : x < .105 ? 0 : x < .165 ? 1 : x < .198 ? 2 : x < .236 ? 3 : x < .27 ? 4 : x < .305 ? 5 : x < .318 ? 6 : x < .352 ? 7 : 8, setSay);
+      set('menu', (x >= .252 && x < .27) || (x >= .34 && x < .355), function (v) { if (v) [].forEach.call(menu.children, function (c) { c.classList.toggle('on', +c.dataset.pg === pg); }); frame.classList.toggle('menu-open', v); });
+      set('pg', x < .27 ? 0 : x < .32 ? 1 : x < .355 ? 2 : 3, goPage);
+      set('add', x >= .289, function (v) { var b = B$('.zv-1 .zv-prod.p1 .zv-add'); if (v) { if (items.indexOf(1) < 0) addItem(1, b); } else { items = items.filter(function (k) { return k !== 1; }); paintCart(); if (b) { b.textContent = tx().add; b.classList.remove('ok'); } } });
+      set('cart', x >= .309 && x < .32, function (v) { frame.classList.toggle('cart-open', v); });
+    };
     frame.addEventListener('click', function (e) {
       rip(pt(e));
       var el = e.target;
       if (!el.closest('.zb-navbtn, .zb-menu')) frame.classList.remove('menu-open');
       if (el.closest('.zb-img')) { nextV(); return; }
       if (el.closest('.zs-x')) { frame.classList.remove('sheet-open'); return; }
-      var add = el.closest('.zv-add'); if (add) { nCart++; cart.querySelector('b').textContent = nCart; cart.classList.remove('bump'); void cart.offsetWidth; cart.classList.add('bump', 'has'); add.textContent = tx().added; add.classList.add('ok'); return; }
+      var add = el.closest('.zv-add'); if (add) { var pr = add.closest('.zv-prod'); addItem(+(pr.className.match(/p(\d)/) || [0, 0])[1], add); return; }
+      if (el.closest('.zb-cart')) { frame.classList.toggle('cart-open'); return; }
+      if (frame.classList.contains('cart-open') && !el.closest('.zb-cartp')) frame.classList.remove('cart-open');
       var snd = el.closest('.zv-send'); if (snd) { var fm = snd.closest('.zv-form'); fm.classList.add('sent'); MSG[L3()][4] = [tx().sent, '']; tI = 4; showToast(); setTimeout(function () { fm.classList.remove('sent'); }, 2400); return; }
       var inp = el.closest('.zv-in'); if (inp) { [].forEach.call(inp.parentNode.querySelectorAll('.zv-in'), function (x) { x.classList.toggle('focus', x === inp); }); return; }
       if (el.closest('.zv-prod, .zv-quote, .zv-logos i, .zs-c')) { var q = el.closest('.zv-prod, .zv-quote, .zv-logos i, .zs-c'); q.classList.remove('pop'); void q.offsetWidth; q.classList.add('pop'); return; }
@@ -295,7 +347,7 @@
       if (O) gsap.set(outro, { transformOrigin: O.tx + 'px ' + O.ty + 'px' });
       // CTA logo abaixo da frase final
       // (usa medidas de layout, sem transformações, porque a frase pode estar em zoom na hora da medida)
-      if (cta) { var oy = outro.offsetTop + (+gsap.getProperty(outro, 'y') || 0) + outro.offsetHeight * (1 + (+gsap.getProperty(outro, 'yPercent') || 0) / 100); cta.style.top = (oy + (innerWidth < 600 ? 28 : 44)) + 'px'; }
+      if (cta) { var oy = outro.offsetTop + (+gsap.getProperty(outro, 'y') || 0) + outro.offsetHeight * (1 + (+gsap.getProperty(outro, 'yPercent') || 0) / 100); cta.style.top = (oy + (innerWidth < 600 ? 28 : 44)) + 'px'; var hn = sec.querySelector('.zs-scroll'); if (hn) { var cr = cta.getBoundingClientRect(), sr = stage.getBoundingClientRect(); hn.style.top = (cr.bottom - (+gsap.getProperty(cta, 'y') || 0) - sr.top + (innerWidth < 600 ? 40 : 56)) + 'px'; hn.style.bottom = 'auto'; } }
     };
     var cta = sec.querySelector('.zs-cta');
     measure(); word.textContent = WORDS[lang()][0];
@@ -310,8 +362,8 @@
           if (p < .1) { var q = dotPoint(title); if (q) gsap.set(fill, { left: q.sx, top: q.sy }); }
           var on = p > A - .03 && p < B + .05; if (on !== live) { live = on; if (on) gsap.ticker.add(tick); else gsap.ticker.remove(tick); }
           // a rolagem também gira a galáxia; na saída as imagens se espalham para fora
-          var P0 = A + .05, uR = Math.max(0, Math.min(nW - 1, (p - P0) / (B - P0) * nW - .5)), kk = Math.round(uR), dd = uR - kk, ee = Math.min(1, Math.max(0, Math.abs(dd) - .1) / .4); ee = .5 - Math.cos(ee * Math.PI) / 2; baseU = uR; baseK = uR; /* rolagem move o giro de forma contínua (sem parar em cada bolinha nem pular) */ spinT = Math.PI / 2 - (baseU + autoPos(autoX)) * Math.PI * 2 / N; /* o ajuste só vai para frente (antes arredondava e podia recuar) */ var nowT = performance.now(); lastScrollT = nowT; inGalaxy = p > A - .013 && p < B - .01; spread = p > B ? Math.min(1, (p - B) / .04) : 0; gate(gOn ? p >= A - .04 : p >= A - .013); // folga para não ligar e desligar quando a rolagem para no limite
-          if (p >= A - .02 && p <= B + .02) setWord(((Math.round(baseU + autoX) % N) + N) % N);
+          var P0 = A + .05, uR = Math.max(0, Math.min(nW - 1, (p - P0) / (B - P0) * nW - .5)), kk = Math.round(uR), dd = uR - kk, ee = Math.min(1, Math.max(0, Math.abs(dd) - .1) / .4); ee = .5 - Math.cos(ee * Math.PI) / 2; baseU = uR; baseK = uR; /* rolagem move o giro de forma contínua (sem parar em cada bolinha nem pular) */ /* o giro é só pelo tempo (constante); a rolagem não mexe nele */ var nowT = performance.now(); lastScrollT = nowT; inGalaxy = p > A - .013 && p < B - .01; spread = p > B ? Math.min(1, (p - B) / .04) : 0; gate(gOn ? p >= A - .04 : p >= A - .013); // folga para não ligar e desligar quando a rolagem para no limite
+          if (p >= A - .02 && p <= B + .02) setWord(((Math.round(autoX) % N) + N) % N);
           if (gather < .02) measureDot(); if (live) renderOrbit();
         } } });
     // entrada: zoom no ponto final até a cor da letra tomar a tela
@@ -341,7 +393,7 @@
       .to(outro, { scale: 1, ease: 'power2.out', duration: .09 }, E + .02);
     if (cta) tl.fromTo(cta, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, ease: 'power3.out', duration: .04 }, E + .08);
     tl.set({}, {}, 1);
-    tl.eventCallback('onUpdate', syncTypers);
+    tl.eventCallback('onUpdate', function () { syncTypers(); if (TOUR.f) TOUR.f(tl.time()); });
     // depois de recalcular (resize, fontes), redesenha a cena no ponto atual da rolagem
     ScrollTrigger.addEventListener('refresh', function () { var pr = tl.progress(); tl.progress(0, true).progress(pr); syncTypers(); });
     // ---- aviso "Role a página" + no celular a seção toca sozinha (para se a pessoa tocar na tela) ----
@@ -349,16 +401,19 @@
     // ---- a apresentação inteira toca sozinha (celular, tablet e computador) até a frase final ----
     // a pessoa mexeu (rolou, tocou, clicou, apertou tecla, arrastou): pausa; parou de mexer: continua de onde está
     // ritmo por trecho (ms para atravessar cada pedaço): abertura, bolinhas se abrindo, uma frase a cada ~2,2 s, o site se montando e a saída
-    var SEG = [[0, .11, 3200], [.11, .16, 1600], [.16, .42, 22000], [.42, .8, 10500], [.8, .955, 3200]], ENDP = .955, IDLE = 1600;
+    var SEG = [[0, .11, 3200], [.11, .16, 1600], [.16, .42, 22000], [.42, .8, 16000], [.8, .955, 3200]], ENDP = .955, IDLE = 1600;
     var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches, auto = null, touching = false, lastUser = -1e9, lastSet = null;
     var goTo = function (y) { lastSet = y; if (window.__lenis) window.__lenis.scrollTo(y, { immediate: true, force: true }); else window.scrollTo(0, y); };
     var rate = function (p) { for (var i = 0; i < SEG.length; i++) if (p < SEG[i][1]) return (SEG[i][1] - SEG[i][0]) / SEG[i][2]; return 0; }; // progresso por ms
     var stopAuto = function () { if (auto) { cancelAnimationFrame(auto); auto = null; } };
     var user = function () { lastUser = performance.now(); stopAuto(); };
-    var inside = function () { var y = window.scrollY; return y > ST.start - 2 && y < ST.start + (ST.end - ST.start) * ENDP - 2; };
+    // começa assim que a frase "Feito para impressionar" está na tela (antes mesmo de a seção travar)
+    var fresh = true, down = true, lastY = window.scrollY;
+    addEventListener('scroll', function () { var y = window.scrollY; if (Math.abs(y - lastY) > 2) { if (!auto) down = y > lastY; lastY = y; } }, { passive: true });
+    var inside = function () { var y = window.scrollY; return y > ST.start - innerHeight * .35 && y < ST.start + (ST.end - ST.start) * ENDP - 2; };
     var runAuto = function () {
       if (auto || reduce) return;
-      var last = performance.now(), y = Math.max(window.scrollY, ST.start), len = ST.end - ST.start; lastSet = null;
+      var last = performance.now(), y = window.scrollY, len = ST.end - ST.start; lastSet = null;
       var step = function (now) {
         var dt = Math.min(50, now - last); last = now;
         // rolou por fora (barra de rolagem, atalho): conta como mexer
@@ -371,14 +426,15 @@
       auto = requestAnimationFrame(step);
     };
     // vigia leve: a cada meio segundo, se a pessoa está dentro da apresentação e parou de mexer, volta a tocar
-    setInterval(function () { if (!auto && !touching && !document.hidden && performance.now() - lastUser > IDLE && inside()) runAuto(); }, 500);
+    // chegando na seção: começa quase na hora (só espera o embalo da rolagem acabar); depois de a pessoa mexer, espera ela parar
+    setInterval(function () { if (!auto && !touching && !document.hidden && inside() && (!fresh || down) && performance.now() - lastUser > (fresh ? 250 : IDLE)) { fresh = false; runAuto(); } }, 120);
     addEventListener('touchstart', function () { touching = true; user(); }, { passive: true });
     addEventListener('touchend', function () { touching = false; lastUser = performance.now(); }, { passive: true });
     addEventListener('touchcancel', function () { touching = false; lastUser = performance.now(); }, { passive: true });
     ['wheel', 'keydown', 'mousedown', 'pointerdown'].forEach(function (ev) { addEventListener(ev, user, { passive: true }); });
     ScrollTrigger.create({ trigger: sec, start: 'top top', end: function () { return ST.end; },
       onUpdate: function (s) { if (hint) hint.classList.toggle('is-end', s.progress > .9); },
-      onLeave: stopAuto, onLeaveBack: stopAuto });
+      onLeave: function () { stopAuto(); fresh = true; }, onLeaveBack: function () { stopAuto(); fresh = true; } });
     // celular: a barra de endereço aparecendo/sumindo muda só a altura; recalcular aí dava um tranco na apresentação
     var lastW = innerWidth;
     addEventListener('resize', function () { if (innerWidth === lastW && matchMedia('(pointer: coarse)').matches) return; lastW = innerWidth; clearTimeout(window.__zsR); window.__zsR = setTimeout(function () { ScrollTrigger.refresh(); }, 200); });
