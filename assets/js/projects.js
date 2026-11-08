@@ -16,4 +16,5 @@ window.FYW_PROJECTS = {
   'latimpacto':  { name: 'Latimpacto', type: 'UI/UX & Web', color: '#985CCC', title: 'Latimpacto', sub: 'Impact Minds', svc: [1], img: 'assets/img/projetos/latimpacto/thumb.webp' },
   'pacto-global': { name: 'Pacto Global', type: 'UI/UX & Web', color: '#3D7B44', title: 'Pacto Global', sub: 'COP30 · UI/UX & Web', svc: [1], img: 'assets/img/projetos/pacto-global/thumb.webp' },
   'globalfy':    { name: 'Globalfy', type: 'UI/UX & Web', color: '#06B051', title: 'Globalfy', sub: 'Fintech · UI/UX & Web', svc: [1], img: 'assets/img/projetos/globalfy/thumb.webp?v=2' },
+  'bgold':       { name: 'BGold', type: 'UI/UX & Web', color: '#B89550', title: 'BGold Joalheria', sub: 'Joalheria · UI/UX & Web', svc: [1], img: 'assets/img/projetos/bgold/thumb.webp' },
 };

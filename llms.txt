@@ -28,6 +28,7 @@ Empresas de qualquer nicho que precisam de um site que explique o que fazem, mos
 ## Projetos
 
 - [iFood — redesign conceitual](https://fyw.com.br/projetos/ifood.html): landing do iFood pensada primeiro para o celular, com busca no topo, pedido ao vivo e animações com GSAP (projeto autoral, sem vínculo com o iFood).
+- [BGold Joalheria](https://fyw.com.br/projetos/bgold.html): site de uma joalheria de alianças feitas à mão, com um filme que acompanha a rolagem, do desenho à joia.
 - [Globalfy](https://fyw.com.br/projetos/globalfy.html): site de uma fintech que abre e mantém empresas nos EUA para empreendedores de qualquer país.
 - [Lumière](https://fyw.com.br/projetos/lumiere.html): clínica de odontologia estética em Miami.
 - [Latimpacto](https://fyw.com.br/projetos/latimpacto.html): site da Impact Minds, em três idiomas.

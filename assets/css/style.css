@@ -5682,7 +5682,9 @@ html body.pj3 .pj3-title { margin: 0; color: #EEEDE9; font-size: clamp(2.9rem, 8
 html.a11y-motion .pj3-track, html.a11y-motion .pj3-glow i { animation: none; }
 /* Globalfy: logo no mural, na galáxia e no topo da página do projeto */
 .lw-gf .lw-mark { height: clamp(22px, 2vw, 30px) !important; width: auto; }
+.lw-bg .lw-mark { height: clamp(26px, 2.3vw, 34px) !important; width: auto; }
 html body.pj-gf .pp2-brand .gf-logo { width: calc(250px * var(--k)) !important; height: auto; color: #EEEDE9; display: block; }
+.bg-logo { width: calc(240px * var(--k)) !important; height: auto; color: #EEEDE9; display: block; }
 .zs-lg-globalfy svg { width: 62%; }
 /* aviso: projetos atualizados para o portfólio */
 .pj-note { display: flex; align-items: flex-start; gap: 12px; max-width: 760px; margin: 28px 0 0; padding: 16px 20px; border-radius: 18px; font-size: 14.5px; line-height: 1.55; color: var(--fg-2, rgba(11,11,11,.72)); background: color-mix(in srgb, currentColor 5%, transparent); border: 1px solid color-mix(in srgb, currentColor 10%, transparent); }
