@@ -336,6 +336,46 @@
     });
   };
 
+  // ---- frases digitadas na hora (mesmo ritmo do título do topo): cada letra é um <span> que já ocupa o lugar,
+  //      então o layout não pula e o ponto final (de onde sai o zoom) continua sendo medido no lugar certo ----
+  var REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var Typer = function (el) {
+    var o = { n: 0, typing: false, caret: false, chars: [], timer: 0, busy: false };
+    var esc = function (c) { return c.replace(/&/g, '&amp;').replace(/</g, '&lt;'); };
+    o.split = function () {
+      var txt = el.textContent.replace(/\s+/g, ' ').trim(); if (!txt) return;
+      var full = o.chars.length && o.n >= o.chars.length;
+      o.busy = true;
+      el.innerHTML = txt.split(' ').map(function (w) { return '<span class="tw-w">' + w.split('').map(function (c) { return '<span class="tw-c">' + esc(c) + '</span>'; }).join('') + '</span>'; }).join(' ');
+      o.chars = [].slice.call(el.querySelectorAll('.tw-c'));
+      if (!el.getAttribute('aria-hidden')) el.setAttribute('aria-label', txt);
+      if (full || REDUCE) o.n = o.chars.length; else o.n = Math.min(o.n, o.chars.length);
+      o.render(); o.busy = false;
+    };
+    o.render = function () {
+      var L = o.chars.length;
+      o.chars.forEach(function (c, i) { c.classList.toggle('on', i < o.n); c.classList.toggle('cur', o.caret && o.n > 0 && i === o.n - 1); c.classList.toggle('pre', o.caret && o.n === 0 && i === 0); });
+      el.classList.toggle('tw-typing', o.typing); el.classList.toggle('tw-done', o.n >= L);
+    };
+    o.set = function (n, caret) { clearTimeout(o.timer); o.typing = false; o.n = n < 0 ? o.chars.length : n; o.caret = !!caret; o.render(); };
+    o.done = function () { return o.chars.length > 0 && o.n >= o.chars.length; };
+    o.type = function (cb) {
+      clearTimeout(o.timer);
+      if (REDUCE) { o.set(-1, false); if (cb) cb(); return; }
+      o.typing = true; o.caret = true; o.n = 0; o.render();
+      var step = function () {
+        o.n++; o.render();
+        if (o.n < o.chars.length) { o.timer = setTimeout(step, 38 + Math.random() * 30); return; }
+        o.typing = false; o.render(); if (cb) cb();
+      };
+      o.timer = setTimeout(step, 260);
+    };
+    // troca de idioma reescreve o texto da frase: separa as letras de novo, mantendo o estado
+    new MutationObserver(function () { if (!o.busy && !el.querySelector('.tw-c')) o.split(); }).observe(el, { childList: true });
+    o.split();
+    return o;
+  };
+
   var init = function () {
     if (!window.gsap || !window.ScrollTrigger) { setTimeout(init, 200); return; }
     gsap.registerPlugin(ScrollTrigger);
@@ -347,9 +387,10 @@
       if (O) gsap.set(outro, { transformOrigin: O.tx + 'px ' + O.ty + 'px' });
       // CTA logo abaixo da frase final
       // (usa medidas de layout, sem transformações, porque a frase pode estar em zoom na hora da medida)
-      if (cta) { var oy = outro.offsetTop + (+gsap.getProperty(outro, 'y') || 0) + outro.offsetHeight * (1 + (+gsap.getProperty(outro, 'yPercent') || 0) / 100); cta.style.top = (oy + (innerWidth < 600 ? 28 : 44)) + 'px'; var hn = sec.querySelector('.zs-scroll'); if (hn) { var cr = cta.getBoundingClientRect(), sr = stage.getBoundingClientRect(); hn.style.top = (cr.bottom - (+gsap.getProperty(cta, 'y') || 0) - sr.top + (innerWidth < 600 ? 40 : 56)) + 'px'; hn.style.bottom = 'auto'; } }
+      if (cta) { var oy = outro.offsetTop + (+gsap.getProperty(outro, 'y') || 0) + outro.offsetHeight * (1 + (+gsap.getProperty(outro, 'yPercent') || 0) / 100); cta.style.top = (oy + (innerWidth < 600 ? 28 : 44)) + 'px'; var hn = sec.querySelector('.zs-scroll'); if (hn) { var cr = cta.getBoundingClientRect(), sr = stage.getBoundingClientRect(); hintTop = (cr.bottom - (+gsap.getProperty(cta, 'y') || 0) - sr.top + (innerWidth < 600 ? 40 : 56)) + 'px'; } }
     };
-    var cta = sec.querySelector('.zs-cta');
+    var cta = sec.querySelector('.zs-cta'), hintTop = '';
+    var TI = Typer(title), TO = Typer(outro);
     measure(); word.textContent = WORDS[lang()][0];
     // mede a área do texto antes da galáxia abrir (medir na hora dava um tranco quando as bolinhas apareciam)
     var preSafe = function () { (window.requestIdleCallback || setTimeout)(function () { measureSafe(); measureDot(); }); };
@@ -359,6 +400,9 @@
     var tl = gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top top', end: function () { return '+=' + (mob ? 560 : 680) + '%'; }, scrub: 1, pin: stage, invalidateOnRefresh: true, onRefreshInit: measure,
         onUpdate: function (s) {
           var p = s.progress;
+          // rolou para dentro antes de a frase terminar de ser digitada: ela aparece inteira
+          if (p > .004 && !TI.done()) { TI.set(-1, false); introAt = performance.now(); }
+          if (p > .004 && TI.caret) TI.set(-1, false);
           if (p < .1) { var q = dotPoint(title); if (q) gsap.set(fill, { left: q.sx, top: q.sy }); }
           var on = p > A - .03 && p < B + .05; if (on !== live) { live = on; if (on) gsap.ticker.add(tick); else gsap.ticker.remove(tick); }
           // a rolagem também gira a galáxia; na saída as imagens se espalham para fora
@@ -385,15 +429,23 @@
     var inFrame = function () { var f = frame.getBoundingClientRect(), s = stage.getBoundingClientRect(); return { x: P().sx - (f.left - s.left), y: P().sy - (f.top - s.top) }; };
     tl.set([stage, sec], { backgroundColor: '' }, E)
       .set(fill, { left: function () { return P().sx; }, top: function () { return P().sy; }, scale: function () { return Math.max(cover(D), cover(O)); } }, E)
-      .set(outro, { scale: 7, autoAlpha: 0 }, E)
+      .set(outro, { scale: 1, autoAlpha: 0 }, E)
       .to(frame, { clipPath: function () { var q = inFrame(); return 'circle(0px at ' + q.x + 'px ' + q.y + 'px)'; }, duration: .07, ease: 'power3.inOut' }, E)
       .to(fill, { scale: 0, ease: 'power2.inOut', duration: .09 }, E + .005)
       .to(build, { autoAlpha: 0, duration: .002 }, E + .07)
-      .to(outro, { autoAlpha: 1, duration: .03 }, E + .02)
-      .to(outro, { scale: 1, ease: 'power2.out', duration: .09 }, E + .02);
-    if (cta) tl.fromTo(cta, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, ease: 'power3.out', duration: .04 }, E + .08);
+      .set(outro, { autoAlpha: 1 }, E + .07);
     tl.set({}, {}, 1);
-    tl.eventCallback('onUpdate', function () { syncTypers(); if (TOUR.f) TOUR.f(tl.time()); });
+    // a frase final é digitada assim que o fundo fecha no ponto; o botão aparece quando ela termina
+    if (cta) gsap.set(cta, { autoAlpha: 0, y: 24 });
+    var OT = E + .09, outroState = 0; // 0 = escondida, 1 = digitando, 2 = pronta
+    var showCta = function (on) { if (cta) gsap.to(cta, { autoAlpha: on ? 1 : 0, y: on ? 0 : 24, duration: on ? .7 : .25, ease: on ? 'power3.out' : 'power2.in', overwrite: true }); };
+    var syncOutro = function (time) {
+      if (time >= OT && outroState === 0) { outroState = 1; TO.type(function () { outroState = 2; TO.caret = true; TO.render(); showCta(true); outroDoneAt = performance.now(); }); }
+      else if (time < OT - .02 && outroState !== 0) { outroState = 0; TO.set(0, false); showCta(false); }
+    };
+    var outroDoneAt = 0;
+    TO.set(0, false);
+    tl.eventCallback('onUpdate', function () { syncTypers(); if (TOUR.f) TOUR.f(tl.time()); syncOutro(tl.time()); });
     // depois de recalcular (resize, fontes), redesenha a cena no ponto atual da rolagem
     ScrollTrigger.addEventListener('refresh', function () { var pr = tl.progress(); tl.progress(0, true).progress(pr); syncTypers(); });
     // ---- aviso "Role a página" + no celular a seção toca sozinha (para se a pessoa tocar na tela) ----
@@ -419,22 +471,63 @@
         // rolou por fora (barra de rolagem, atalho): conta como mexer
         if (lastSet !== null && Math.abs(window.scrollY - lastSet) > 40) { user(); return; }
         var p = (y - ST.start) / len, endY = ST.start + len * ENDP;
+        // antes da frase de abertura ser digitada, a rolagem só leva até ela ficar no centro e espera a digitação
+        var stopY = TI.done() ? endY : Math.min(endY, ST.start);
         y += rate(p) * len * dt;
-        if (y >= endY) { goTo(endY); auto = null; return; }
+        if (y >= stopY) { goTo(stopY); auto = null; if (!TI.done()) startIntro(); return; }
         goTo(y); auto = requestAnimationFrame(step);
       };
       auto = requestAnimationFrame(step);
     };
-    // vigia leve: a cada meio segundo, se a pessoa está dentro da apresentação e parou de mexer, volta a tocar
+    // frase de abertura: digitada quando a pessoa chega; a apresentação segue sozinha logo depois
+    var introAt = 0;
+    var startIntro = function () { if (TI.typing || TI.done()) return; TI.type(function () { TI.caret = true; TI.render(); introAt = performance.now(); }); };
+    var introReady = function () { return TI.done() && performance.now() - introAt > 900; };
+    // a pessoa mexeu (clicou, rolou, tocou) dentro da apresentação: aparece o aviso para continuar rolando
+    // e, no fim, a página não desce sozinha (ela está no controle)
+    var touched = false, started = function () { return TI.typing || TI.done(); };
+    var hintUntil = 0, mark = function () { if (started() && (inside() || ST.isActive)) { touched = true; hintUntil = performance.now() + 2200; paintHint(); } };
+    var curP = 0, paintHint = function () {
+      if (!hint) return; var on = ST.isActive && performance.now() < hintUntil; // só enquanto a pessoa mexe; parou, some
+      hint.classList.toggle('is-end', on);
+      hint.classList.toggle('on-fill', curP > .1 && curP < .8);
+      // na tela final fica embaixo do botão; no resto da apresentação, embaixo da tela
+      if (curP > .9 && hintTop) { hint.style.top = hintTop; hint.style.bottom = 'auto'; } else { hint.style.top = ''; hint.style.bottom = ''; }
+    };
+    // vigia leve: se a pessoa está dentro da apresentação e parou de mexer, volta a tocar
     // chegando na seção: começa quase na hora (só espera o embalo da rolagem acabar); depois de a pessoa mexer, espera ela parar
-    setInterval(function () { if (!auto && !touching && !document.hidden && inside() && (!fresh || down) && performance.now() - lastUser > (fresh ? 250 : IDLE)) { fresh = false; runAuto(); } }, 120);
-    addEventListener('touchstart', function () { touching = true; user(); }, { passive: true });
+    var goneOn = false;
+    setInterval(function () {
+      if (document.hidden) return;
+      var now = performance.now();
+      if (hint && hint.classList.contains('is-end') && now >= hintUntil) paintHint();
+      // a frase de abertura entrou bem na tela: começa a digitar, mesmo com a pessoa ainda rolando
+      if (!TI.typing && !TI.done()) { var tr0 = title.getBoundingClientRect(); if (tr0.height && tr0.top + tr0.height / 2 < innerHeight * .72 && tr0.bottom > 0) startIntro(); }
+      if (!auto && !touching && inside() && (!fresh || down) && now - lastUser > (fresh ? 250 : IDLE)) {
+        if (TI.done() ? introReady() : true) {
+          if (!TI.done() && window.scrollY >= ST.start - 4) startIntro(); else { fresh = false; runAuto(); }
+        }
+      }
+      // fim da apresentação sem a pessoa mexer: segura um pouco na frase final e desce até a próxima seção,
+      // para ela perceber que tem mais coisa embaixo
+      var len = ST.end - ST.start, atEnd = window.scrollY >= ST.start + len * (ENDP - .01) && window.scrollY < ST.end;
+      if (!goneOn && !touched && !auto && atEnd && outroState === 2 && now - outroDoneAt > 2600 && now - lastUser > 2600) {
+        goneOn = true; var nx = document.getElementById('process');
+        if (nx) { if (window.__lenis) window.__lenis.scrollTo(nx, { duration: 2.2, easing: function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; } }); else nx.scrollIntoView({ behavior: 'smooth' }); }
+      }
+    }, 120);
+    addEventListener('touchstart', function () { touching = true; user(); mark(); }, { passive: true });
+    addEventListener('touchmove', function () { mark(); }, { passive: true });
     addEventListener('touchend', function () { touching = false; lastUser = performance.now(); }, { passive: true });
     addEventListener('touchcancel', function () { touching = false; lastUser = performance.now(); }, { passive: true });
-    ['wheel', 'keydown', 'mousedown', 'pointerdown'].forEach(function (ev) { addEventListener(ev, user, { passive: true }); });
+    ['wheel', 'keydown', 'mousedown', 'pointerdown'].forEach(function (ev) { addEventListener(ev, function () { user(); mark(); }, { passive: true }); });
+    // saiu da apresentação: na volta, tudo começa de novo (frase digitada outra vez, sem aviso)
+    var reset = function () { stopAuto(); fresh = true; touched = false; goneOn = false; hintUntil = 0; paintHint(); };
     ScrollTrigger.create({ trigger: sec, start: 'top top', end: function () { return ST.end; },
-      onUpdate: function (s) { if (hint) hint.classList.toggle('is-end', s.progress > .9); },
-      onLeave: function () { stopAuto(); fresh = true; }, onLeaveBack: function () { stopAuto(); fresh = true; } });
+      onUpdate: function (s) { curP = s.progress; paintHint(); },
+      onLeave: reset, onLeaveBack: reset });
+    // seção saiu toda por baixo (a pessoa voltou para cima): a frase de abertura volta a ficar em branco
+    ScrollTrigger.create({ trigger: sec, start: 'top bottom', onLeaveBack: function () { TI.set(0, false); reset(); } });
     // celular: a barra de endereço aparecendo/sumindo muda só a altura; recalcular aí dava um tranco na apresentação
     var lastW = innerWidth;
     addEventListener('resize', function () { if (innerWidth === lastW && matchMedia('(pointer: coarse)').matches) return; lastW = innerWidth; clearTimeout(window.__zsR); window.__zsR = setTimeout(function () { ScrollTrigger.refresh(); }, 200); });

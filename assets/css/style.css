@@ -6382,3 +6382,17 @@ html body .zoom-stack p.zs-scroll.is-end { opacity: .7; }
 /* "Feito para impressionar. Pensado para vender." sempre em 2 linhas no computador, mesmo em tela larga:
    a 1ª frase (até 10,1em no espanhol) cabe na linha, a frase inteira (≈19em) não */
 @media (min-width: 600px) { html body .zoom-stack .zoom-intro-title:not(.zs-outro) { max-width: 10.6em !important; margin-inline: auto !important; } }
+
+/* apresentação: as frases de abertura e final são digitadas na hora (cada letra já ocupa o seu lugar) */
+.zoom-stack .tw-w { white-space: nowrap; }
+.zoom-stack .tw-c { opacity: 0; }
+.zoom-stack .tw-c.on { opacity: 1; }
+.zoom-stack .tw-c.cur, .zoom-stack .tw-c.pre { position: relative; }
+.zoom-stack .tw-c.cur::after, .zoom-stack .tw-c.pre::before { content: ""; position: absolute; top: .1em; width: .06em; height: .82em; border-radius: 2px; background: currentColor; opacity: 1; }
+.zoom-stack .tw-c.cur::after { left: 100%; margin-left: .04em; }
+.zoom-stack .tw-c.pre::before { right: 100%; margin-right: .04em; }
+.zoom-stack .tw-done .tw-c.cur::after, .zoom-stack .tw-c.pre::before { animation: caretBlink 1s steps(1) infinite; }
+.zoom-stack .tw-c.pre { opacity: 1; color: transparent; }
+.zoom-stack .tw-c.pre::before { background: var(--ink); }
+/* aviso para continuar rolando: só depois que a pessoa mexe; sobre a cor que toma a tela, inverte a cor */
+html body .zoom-stack p.zs-scroll.on-fill { mix-blend-mode: difference; color: #fff; }
