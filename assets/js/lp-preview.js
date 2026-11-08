@@ -10,8 +10,8 @@
   function autoScroll(box, t) {
     // t = { top(), set(y), max(), scale() }: abstrai "moldura" ou "janela do iframe"
     // rolagem contínua por tempo, sem animação suave do navegador no meio, sem medir a página a cada quadro
-    var ema = 0, tick = 0, on = false, raf = 0, last = 0, dir = 1, wait = 0, pausedUntil = 0, pos = 0, shown = -1, max = 0, maxAt = 0;
-    function getMax(now) { if (now - maxAt > 1000 || max <= 0) { max = t.max(); maxAt = now; } return max; }
+    var ema = 0, tick = 0, on = false, raf = 0, last = 0, dir = 1, wait = 0, pausedUntil = 0, pos = 0, shown = -1, max = 0, maxAt = 0, fast = 0, ramp = 0;
+    function getMax(now) { if (now - maxAt > 1000 || max <= 0) { max = t.max(); fast = t.fast ? t.fast() : 0; maxAt = now; } return max; }
     function step(now) {
       raf = 0; if (!on) return;
       var dt = last ? Math.min(50, now - last) : 16; last = now;
@@ -19,6 +19,18 @@
       var m = getMax(now);
       if (m > 0) {
         if (wait > 0) { wait -= dt; } else {
+          // trecho com filme guiado pela rolagem (data-fast): passa contínuo e mais rápido, em data-fast-s segundos,
+          // para o vídeo andar fluido em vez de trocar de quadro de vez em quando; segura um instante no fim do filme
+          if (fast > 0 && (dir > 0 ? pos < fast : pos <= fast)) {
+            ramp = Math.min(1, ramp + dt / 700);
+            var v = fast / ((t.fastS || 12) * 1000), e = ramp * ramp * (3 - 2 * ramp);
+            pos += dir * Math.max(0.05, e) * v * dt;
+            if (dir > 0 && pos >= fast) { pos = fast; wait = 1600; ramp = 0; }
+            if (pos <= 0) { pos = 0; dir = 1; wait = 1800; ramp = 0; }
+            t.set(pos); shown = pos;
+            raf = requestAnimationFrame(step); return;
+          }
+          ramp = 0;
           // 1 pixel físico a cada N quadros, com N tirado da taxa de atualização da tela (60 Hz: 1, 120/144 Hz: 2, 154+ Hz: 3):
           // cadência sempre regular, sem quadros alternando entre parado e andando
           var dpr = window.devicePixelRatio || 1, unit = Math.max(1, Math.round(dpr)), sc = t.scale ? t.scale() : 1;
@@ -37,9 +49,9 @@
       raf = requestAnimationFrame(step);
     }
     function go() { if (!raf && on && !reduce) { last = 0; pos = t.top(); shown = -1; maxAt = 0; raf = requestAnimationFrame(step); } }
-    function pause() { pausedUntil = performance.now() + 2500; }
+    function pause() { pausedUntil = performance.now() + 2500; ramp = 0; }
     box._pause = pause;
-    box._reset = function () { pos = 0; dir = 1; wait = 1200; maxAt = 0; t.set(0); };
+    box._reset = function () { pos = 0; dir = 1; wait = 1200; maxAt = 0; ramp = 0; t.set(0); };
     ['wheel', 'touchstart', 'touchmove', 'pointerdown', 'keydown'].forEach(function (ev) { box.addEventListener(ev, pause, { passive: true }); });
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (es) { on = es[0].isIntersecting; if (on) go(); }, { threshold: 0.1 }).observe(box);
@@ -72,6 +84,8 @@
     function win() { try { return f.contentWindow; } catch (e) { return null; } }
     autoScroll(box, {
       scale: s,
+      fastS: +wrap.dataset.fastS || 12,
+      fast: function () { var sel = wrap.dataset.fast; if (!sel) return 0; try { var w = win(), el = w.document.querySelector(sel); return el ? Math.max(0, el.offsetTop + el.offsetHeight - w.innerHeight) : 0; } catch (e) { return 0; } },
       top: function () { try { var w = win(); return w ? w.scrollY : 0; } catch (e) { return 0; } },
       set: function (y) { try { var w = win(); if (w) w.scrollTo({ top: y, behavior: 'instant' }); } catch (e) {} },
       max: function () { var w = win(); try { return w.document.documentElement.scrollHeight - w.innerHeight; } catch (e) { return 0; } }
