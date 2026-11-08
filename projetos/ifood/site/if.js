@@ -17,7 +17,8 @@
   PT.ph = ['Buscar pizza, sushi, farmácia…', 'Experimente “açaí perto de mim”', 'Mercado para hoje à noite?'];
   PT.phs = {}; $$('[data-ph]').forEach(function (el) { PT.phs[el.dataset.ph] = el.placeholder; });
   PT.s = { added: 'Adicionado à sacola', copied: 'Cupom FOME10 copiado', cpOk: 'Cupom aplicado: 10% off', cpBad: 'Cupom inválido. Tente FOME10', free: 'Grátis', addr: 'Entregando em', gps: 'Demonstração: usando um endereço de exemplo', sent: 'Pedido feito! Acompanhe aqui embaixo', st: ['Pedido confirmado', 'Preparando seu pedido', 'Seu pedido saiu', 'Entregue. Bom apetite!'], none: 'Nada encontrado para', shop: 'Loja', cat: 'Categoria', picked: 'O pedido de hoje:', and: ' e ' };
-  var lang = 'pt'; // empresa brasileira: a landing fica só em português
+  // segue o idioma escolhido no portfólio (fio-lang) e troca na hora quando o menu do portfólio muda
+  var lang = (function () { try { return localStorage.getItem('fio-lang') || 'pt'; } catch (e) { return 'pt'; } })();
   if (!T[lang]) lang = 'pt';
   var D = function () { return lang === 'pt' ? PT : T[lang]; }, S = function (k) { return D().s[k]; };
   var phI = 0, phC = 0, phDel = false, trackStep = -1;
@@ -30,6 +31,7 @@
     phI = 0; renderBag(); renderIdle(); if (trackStep >= 0) setTrack(trackStep);
   };
   $$('.lang button').forEach(function (b) { b.addEventListener('click', function () { applyLang(b.dataset.l); try { localStorage.setItem('fio-lang', lang); } catch (e) {} }); });
+  addEventListener('storage', function (e) { if (e.key === 'fio-lang' && (e.newValue || 'pt') !== lang) applyLang(e.newValue || 'pt'); });
 
   /* ---------- catálogo (fictício) ---------- */
   var money = function (v) { return 'R$ ' + v.toFixed(2).replace('.', ','); };

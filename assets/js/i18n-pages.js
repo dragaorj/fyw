@@ -44,7 +44,8 @@
   }
   var items = null, attrs = null, title0 = document.title;
   function collect() {
-    items = blocks(document).map(function (el) { var key = norm(el.innerHTML); return { el: el, pt: el.innerHTML, tr: tr(key) }; }).filter(function (o) { return o.tr; });
+    // bloco sem tradução inteira: libera o bloco para os textos de dentro serem traduzidos um a um
+    items = blocks(document).map(function (el) { var key = norm(el.innerHTML); return { el: el, pt: el.innerHTML, tr: tr(key) }; }).filter(function (o) { if (!o.tr) o.el.__trBlock = false; return o.tr; });
     // textos soltos (ex.: ao lado de bandeiras/ícones)
     var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT), n;
     while ((n = w.nextNode())) { var v = norm(n.nodeValue); if (!v || !/[A-Za-zÀ-ú]{2}/.test(v)) continue; var pe = n.parentElement; if (!pe || pe.closest(SKIP)) continue; var inBlock = false; for (var q = pe; q && q !== document.body; q = q.parentElement) if (q.__trBlock) { inBlock = true; break; } if (inBlock) continue; var t = tr(v); if (t) items.push({ text: n, pt: n.nodeValue, tr: [n.nodeValue.replace(v, t[0]), n.nodeValue.replace(v, t[1])] }); }

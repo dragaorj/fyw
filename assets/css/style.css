@@ -6243,7 +6243,7 @@ html body .zoom-stack .zs-scroll .zs-scroll-ico { box-sizing: content-box; width
 html body .zoom-stack .zs-o, html body .zoom-stack .zs-o::after, html body .zoom-stack .zs-o .zs-lg { transition: none !important; }
 html body .zoom-stack .zs-o.is-hov, html body .zoom-stack .zs-o.is-hov::after, html body .zoom-stack .zs-o.is-hov .zs-lg { transition: background-color .22s, opacity .22s !important; }
 /* design system do Beta (fechado) no modo escuro: a caixa clara some no preto sem deixar fio branco na borda */
-[data-theme="dark"] .bds.is-collapsed { border-color: transparent; background: linear-gradient(180deg, #F8F8F8 58%, #0B0B0B 97%); }
+[data-theme="dark"] .bds.is-collapsed { border: 0; background: linear-gradient(180deg, #F8F8F8 58%, #0B0B0B 97%); }
 
 /* ===== site de exemplo: passeio guiado ===== */
 /* moldura um pouco menor para caber a frase embaixo */

@@ -478,5 +478,43 @@
     [/^<b>(.+)<\/b><small><i><\/i>(.+)<\/small>$/, function (m, k) { return '<b>' + m[1] + '</b><small><i></i>' + tw(m[2], k) + '</small>'; }]
   );
   D['Cosméticos · Rebranding'] = ['Cosmetics · Rebranding', 'Cosméticos · Rebranding'];
+  // iFood (conceito) + avisos da privacidade
+  var X2 = {
+    'iFood (conceito)': ['iFood (concept)', 'iFood (concepto)'],
+    'Delivery': ['Delivery', 'Delivery'],
+    'Uma landing do iFood pensada primeiro para o celular: da fome ao pedido em poucos toques.': ['An iFood landing page designed for mobile first: from hunger to order in a few taps.', 'Una landing de iFood pensada primero para el celular: del hambre al pedido en pocos toques.'],
+    'O iFood é o maior app de delivery do Brasil e vai muito além da comida: mercado, farmácia, pet e bebidas, além dos sites para restaurantes parceiros, entregadores, carreiras e benefícios para empresas.': ['iFood is the largest delivery app in Brazil and goes far beyond food: groceries, pharmacy, pet and drinks, plus sites for partner restaurants, couriers, careers and corporate benefits.', 'iFood es la app de delivery más grande de Brasil y va mucho más allá de la comida: supermercado, farmacia, mascotas y bebidas, además de los sitios para restaurantes socios, repartidores, carreras y beneficios para empresas.'],
+    'Criamos este projeto em 2022 e o atualizamos para entrar nesta nova versão do portfólio. A landing ganhou um design system próprio: o vermelho da marca com creme, uma cor para cada categoria, a fonte Bricolage Grotesque nos títulos e animações com GSAP.': ['We created this project in 2022 and updated it for this new version of the portfolio. The landing page got its own design system: the brand red with cream, one color per category, Bricolage Grotesque for headings and animations with GSAP.', 'Creamos este proyecto en 2022 y lo actualizamos para esta nueva versión del portafolio. La landing ganó un design system propio: el rojo de la marca con crema, un color para cada categoría, la fuente Bricolage Grotesque en los títulos y animaciones con GSAP.'],
+    'Projeto criado em 2022. Para entrar nesta nova versão do portfólio, ele foi atualizado com o design, as animações e as interações de hoje, por isso não é idêntico à versão original. Lojas, preços, avaliações e prazos mostrados na landing são fictícios; os links levam aos sites oficiais do iFood.': ['Project created in 2022. For this new version of the portfolio it was updated with today’s design, animations and interactions, so it is not identical to the original version. Stores, prices, ratings and delivery times shown on the landing page are fictional; the links go to the official iFood sites.', 'Proyecto creado en 2022. Para esta nueva versión del portafolio se actualizó con el diseño, las animaciones y las interacciones de hoy, por eso no es idéntico a la versión original. Las tiendas, precios, reseñas y plazos que aparecen en la landing son ficticios; los enlaces llevan a los sitios oficiales de iFood.'],
+    'Quem abre o iFood está com fome e com pressa, quase sempre no celular. A página precisava levar direto à busca, mostrar que o app vai além da comida e abrir caminho para quem quer vender, entregar ou trabalhar lá.': ['People who open iFood are hungry and in a hurry, almost always on their phone. The page had to lead straight to search, show that the app goes beyond food and open the way for those who want to sell, deliver or work there.', 'Quien abre iFood tiene hambre y prisa, casi siempre en el celular. La página tenía que llevar directo a la búsqueda, mostrar que la app va más allá de la comida y abrir camino para quien quiere vender, repartir o trabajar allí.'],
+    'Busca logo no topo, um pedido acompanhado ao vivo, categorias com foto, uma roleta para quem não sabe o que pedir, a rota do entregador desenhada com a rolagem e uma barra de atalhos no polegar, como no app.': ['Search right at the top, an order tracked live, categories with photos, a wheel for those who don’t know what to order, the courier’s route drawn as you scroll and a shortcut bar under your thumb, just like in the app.', 'Búsqueda arriba de todo, un pedido seguido en vivo, categorías con foto, una ruleta para quien no sabe qué pedir, la ruta del repartidor dibujada con el scroll y una barra de atajos al alcance del pulgar, como en la app.'],
+    'Feito para o polegar': ['Made for the thumb', 'Hecho para el pulgar'],
+    'Tudo começa no celular: busca com sugestões, categorias que deslizam e uma barra inferior com Início, Busca, Pedidos e Perfil.': ['Everything starts on mobile: search with suggestions, swipeable categories and a bottom bar with Home, Search, Orders and Profile.', 'Todo empieza en el celular: búsqueda con sugerencias, categorías que se deslizan y una barra inferior con Inicio, Búsqueda, Pedidos y Perfil.'],
+    'Uma cor por categoria': ['One color per category', 'Un color por categoría'],
+    'Restaurantes em vermelho, mercado em verde, farmácia em azul e pet em laranja: dá para saber onde se está só pela cor.': ['Restaurants in red, groceries in green, pharmacy in blue and pet in orange: you know where you are just by the color.', 'Restaurantes en rojo, supermercado en verde, farmacia en azul y mascotas en naranja: sabes dónde estás solo por el color.'],
+    'Movimento com propósito': ['Motion with purpose', 'Movimiento con propósito'],
+    'A palavra do título troca entre almoço, mercado, remédio e ração; a rota se desenha enquanto você rola; a roleta escolhe o pedido.': ['The headline word switches between lunch, groceries, medicine and pet food; the route draws itself as you scroll; the wheel picks the order.', 'La palabra del título cambia entre almuerzo, supermercado, remedio y alimento para mascotas; la ruta se dibuja mientras haces scroll; la ruleta elige el pedido.'],
+    'Vermelho iFood': ['iFood red', 'Rojo iFood'],
+    'Vermelho profundo': ['Deep red', 'Rojo profundo'],
+    'Creme': ['Cream', 'Crema'],
+    'Tinta': ['Ink', 'Tinta'],
+    'Mercado': ['Groceries', 'Supermercado'],
+    'Farmácia': ['Pharmacy', 'Farmacia'],
+    'Pet': ['Pet', 'Mascotas'],
+    'portas para os sites oficiais: parceiros, entregadores, carreiras e benefícios': ['doors to the official sites: partners, couriers, careers and benefits', 'puertas a los sitios oficiales: socios, repartidores, carreras y beneficios'],
+    'categorias com foto e cor própria, de restaurantes a café': ['categories with their own photo and color, from restaurants to coffee', 'categorías con foto y color propios, de restaurantes a café'],
+    'painéis que funcionam de verdade: sacola, endereço e busca': ['panels that really work: bag, address and search', 'paneles que funcionan de verdad: bolsa, dirección y búsqueda'],
+    'Quer uma página que faça o cliente pedir em poucos toques?': ['Want a page that gets customers ordering in a few taps?', '¿Quieres una página que haga que el cliente pida en pocos toques?'],
+    'Landing do iFood no desktop (role para ver)': ['iFood landing page on desktop (scroll to view)', 'Landing de iFood en escritorio (desplázate para ver)'],
+    'Landing do iFood no celular (role para ver)': ['iFood landing page on mobile (scroll to view)', 'Landing de iFood en el celular (desplázate para ver)'],
+    'iFood · Redesign conceitual · UI/UX & Web | Fyw': ['iFood · Concept redesign · UI/UX & Web | Fyw', 'iFood · Rediseño conceptual · UI/UX y Web | Fyw'],
+    'Redesign conceitual da landing page do iFood, mobile first: busca no topo, pedido ao vivo, roleta da fome, rota animada e portas para parceiros, entregadores, carreiras e benefícios. Projeto autoral da Fyw.': ['Concept redesign of the iFood landing page, mobile first: search at the top, live order, hunger wheel, animated route and doors for partners, couriers, careers and benefits. An original Fyw project.', 'Rediseño conceptual de la landing page de iFood, mobile first: búsqueda arriba, pedido en vivo, ruleta del hambre, ruta animada y puertas para socios, repartidores, carreras y beneficios. Proyecto propio de Fyw.'],
+    'Delivery · Redesign conceitual': ['Delivery · Concept redesign', 'Delivery · Rediseño conceptual'],
+    'Redesign conceitual': ['Concept redesign', 'Rediseño conceptual'],
+    'Atual: cookies de análise aceitos.': ['Current: analytics cookies accepted.', 'Actual: cookies de análisis aceptadas.'],
+    'Atual: apenas cookies essenciais.': ['Current: essential cookies only.', 'Actual: solo cookies esenciales.'],
+    'Atual: nenhuma escolha feita.': ['Current: no choice made.', 'Actual: ninguna elección hecha.']
+  };
+  for (var xk2 in X2) if (!D[xk2]) D[xk2] = X2[xk2];
   window.FYW_PAGE_I18N = D; window.FYW_PAGE_I18N_W = W; window.FYW_PAGE_I18N_P = P;
 })();

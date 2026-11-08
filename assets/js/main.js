@@ -284,7 +284,8 @@ window.__fywTagBg = function (hex) { var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''
       /* --- Intro de carregamento --- */
       if (intro) {
         const tl = gsap.timeline({ defaults: { ease: E } });
-        tl.from('.hero-stage', { clipPath: 'inset(5% 5% 5% 5% round 28px)', duration: 1.6 }, 0)
+        // sem recorte animado no fundo: o recorte mostrava o fundo da página como filetes nas laterais
+        tl
           .from('.aura i', { scale: 0.4, opacity: 0, duration: 2.2, stagger: 0.15 }, 0);
         // o menu do topo não entra animado: aparece sempre, desde o início
       }
@@ -1564,6 +1565,26 @@ window.__fywTagBg = function (hex) { var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''
     els.forEach(e => io.observe(e));
   })();
   if ('scrollRestoration' in history && !location.hash) { history.scrollRestoration = 'manual'; window.scrollTo(0, 0); }
+  // chegando de outra página com âncora (/#services, /#clients...): vai até a seção e corrige a posição
+  // enquanto os efeitos fixos ainda mudam a altura da página; para assim que o visitante rolar
+  (() => {
+    let t = null; try { t = location.hash.length > 1 && document.getElementById(decodeURIComponent(location.hash.slice(1))); } catch (e) {}
+    if (!t) return;
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    const until = performance.now() + 7000; let stop = false, raf = 0;
+    const go = () => {
+      raf = 0; if (stop || performance.now() > until) return;
+      const y = Math.max(0, Math.round(t.getBoundingClientRect().top + window.scrollY));
+      if (Math.abs(window.scrollY - y) < 2) return;
+      const l = window.__lenis; if (l) { l.start(); l.scrollTo(y, { immediate: true, force: true }); } else window.scrollTo(0, y);
+    };
+    const soon = () => { if (!raf) raf = requestAnimationFrame(go); };
+    ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(ev => addEventListener(ev, () => { stop = true; }, { once: true, passive: true }));
+    go(); soon();
+    if (window.ScrollTrigger) ScrollTrigger.addEventListener('refresh', soon);
+    addEventListener('load', soon); if (document.fonts && document.fonts.ready) document.fonts.ready.then(soon);
+    const iv = setInterval(() => { if (stop || performance.now() > until) clearInterval(iv); else go(); }, 250);
+  })();
   renderA11y();
   applyTexts();
   // cards do hero: imagens e etiquetas sempre (com ou sem animações)
