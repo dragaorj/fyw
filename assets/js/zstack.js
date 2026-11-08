@@ -368,7 +368,7 @@
         if (o.n < o.chars.length) { o.timer = setTimeout(step, 38 + Math.random() * 30); return; }
         o.typing = false; o.render(); if (cb) cb();
       };
-      o.timer = setTimeout(step, 260);
+      o.timer = setTimeout(step, 60);
     };
     // troca de idioma reescreve o texto da frase: separa as letras de novo, mantendo o estado
     new MutationObserver(function () { if (!o.busy && !el.querySelector('.tw-c')) o.split(); }).observe(el, { childList: true });
@@ -497,21 +497,23 @@
     // vigia leve: se a pessoa está dentro da apresentação e parou de mexer, volta a tocar
     // chegando na seção: começa quase na hora (só espera o embalo da rolagem acabar); depois de a pessoa mexer, espera ela parar
     var goneOn = false;
+    var checkIntro = function () { if (!TI.typing && !TI.done()) { var tr0 = title.getBoundingClientRect(); if (tr0.height && tr0.top < innerHeight * .92 && tr0.bottom > 0) startIntro(); } };
+    addEventListener('scroll', checkIntro, { passive: true });
     setInterval(function () {
       if (document.hidden) return;
       var now = performance.now();
       if (hint && hint.classList.contains('is-end') && now >= hintUntil) paintHint();
-      // a frase de abertura entrou bem na tela: começa a digitar, mesmo com a pessoa ainda rolando
-      if (!TI.typing && !TI.done()) { var tr0 = title.getBoundingClientRect(); if (tr0.height && tr0.top + tr0.height / 2 < innerHeight * .72 && tr0.bottom > 0) startIntro(); }
+      // a frase de abertura apontou na tela: já começa a digitar, mesmo com a pessoa ainda rolando
+      checkIntro();
       if (!auto && !touching && inside() && (!fresh || down) && now - lastUser > (fresh ? 250 : IDLE)) {
         if (TI.done() ? introReady() : true) {
           if (!TI.done() && window.scrollY >= ST.start - 4) startIntro(); else { fresh = false; runAuto(); }
         }
       }
-      // fim da apresentação sem a pessoa mexer: segura um pouco na frase final e desce até a próxima seção,
+      // fim da apresentação: segura 1 s na frase final e desce sozinha até a próxima seção,
       // para ela perceber que tem mais coisa embaixo
       var len = ST.end - ST.start, atEnd = window.scrollY >= ST.start + len * (ENDP - .01) && window.scrollY < ST.end;
-      if (!goneOn && !touched && !auto && atEnd && outroState === 2 && now - outroDoneAt > 2600 && now - lastUser > 2600) {
+      if (!goneOn && !auto && !touching && atEnd && outroState === 2 && now - outroDoneAt > 1000 && now - lastUser > 1000) {
         goneOn = true; var nx = document.getElementById('process');
         if (nx) { if (window.__lenis) window.__lenis.scrollTo(nx, { duration: 2.2, easing: function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; } }); else nx.scrollIntoView({ behavior: 'smooth' }); }
       }
