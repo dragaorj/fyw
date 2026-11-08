@@ -263,6 +263,12 @@
       + '</svg>';
     var tx = function () { return TX[L3()]; };
     var cta2 = B$('.zb-cta2'), links = B$('.zb-links'), page = B$('.zb-page'), nav = B$('.zb-nav');
+    // o site simulado escala junto com o quadro: o conteúdo fica na mesma proporção em qualquer tela
+    // (antes o texto tinha tamanho fixo e, em quadros menores, as avaliações saíam pela borda de baixo)
+    if (page && frame && window.ResizeObserver) {
+      var fitPage = function () { if (innerWidth < 600) { page.style.zoom = ''; return; } var w = frame.clientWidth; if (w) page.style.zoom = (w / 960).toFixed(3); };
+      new ResizeObserver(fitPage).observe(frame); fitPage();
+    }
     // carrinho no menu (aparece na página de produtos)
     var cart = document.createElement('span'); cart.className = 'zb-cart'; cart.innerHTML = '<svg viewBox="0 0 24 24"><path d="M4 5h2l2 10h10l2-7H7.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="19" r="1.4" fill="currentColor"/><circle cx="17" cy="19" r="1.4" fill="currentColor"/></svg><b>0</b>';
     if (nav) nav.insertBefore(cart, B$('.zb-navbtn')); var nCart = 0;

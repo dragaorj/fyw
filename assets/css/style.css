@@ -6396,3 +6396,7 @@ html body .zoom-stack p.zs-scroll.is-end { opacity: .7; }
 .zoom-stack .tw-c.pre::before { background: var(--ink); }
 /* aviso para continuar rolando: só depois que a pessoa mexe; sobre a cor que toma a tela, inverte a cor */
 html body .zoom-stack p.zs-scroll.on-fill { mix-blend-mode: difference; color: #fff; }
+
+/* site simulado no celular: o bloco da nota 4,9 sai para as avaliações caberem no quadro */
+@media (max-width: 599px) { html body .zoom-stack .zv-rate { display: none; } }
+@media (max-width: 599px) and (max-height: 620px) { html body .zoom-stack .zb-page { zoom: .74; } }
