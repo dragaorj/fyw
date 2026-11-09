@@ -620,5 +620,7 @@
     'Black Friday Fyw: todo projeto fechado em novembro tem até 30% de desconto. Sites, marcas, embalagens, apps e sistemas feitos do zero.': ['Fyw Black Friday: every project closed in November gets up to 30% off. Websites, brands, packaging, apps and systems built from scratch.', 'Black Friday Fyw: todo proyecto cerrado en noviembre tiene hasta 30% de descuento. Sitios, marcas, empaques, apps y sistemas hechos desde cero.']
   };
   for (var xk4 in X4) if (!D[xk4]) D[xk4] = X4[xk4];
+  if (!D['Entrar no painel']) D['Entrar no painel'] = ['Sign in to the dashboard', 'Entrar al panel'];
+  if (!D['Painel']) D['Painel'] = ['Dashboard', 'Panel'];
   window.FYW_PAGE_I18N = D; window.FYW_PAGE_I18N_W = W; window.FYW_PAGE_I18N_P = P;
 })();
