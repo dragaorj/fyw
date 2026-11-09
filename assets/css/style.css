@@ -6420,3 +6420,7 @@ html body .zoom-stack p.zs-scroll.on-fill { mix-blend-mode: difference; color: #
   .logo-wall .lw-next .lw-cta-l .lw-go { width: 30px; height: 30px; }
   .logo-wall .lw-next .lw-cta-s { display: none; }
 }
+/* página de projetos: título sempre em duas linhas, um pouco menor */
+html body.pj3 .pj3-title { font-size: clamp(2rem, 5.4vw, 5.8rem); line-height: .98; text-wrap: nowrap; }
+html body.pj3 .pj3-title em { display: block; white-space: nowrap; }
+@media (min-width: 1000px) { html body.pj3 .pj3-sum { grid-row: 1; align-self: end; margin-bottom: 18px; } html body.pj3 .pj3-stats { grid-row: 2; align-self: end; } }
