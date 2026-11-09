@@ -50,6 +50,7 @@
     var t = DICT[lang]; if (!t) return;
     $$('[data-i18n]').forEach(function (el) { var v = t[el.dataset.i18n]; if (v !== undefined) el.textContent = v; });
     $$('[data-i18n-aria]').forEach(function (el) { var v = t[el.dataset.i18nAria]; if (v !== undefined) el.setAttribute('aria-label', v); });
+    $$('[data-i18n-html]').forEach(function (el) { var v = t[el.dataset.i18nHtml]; if (v !== undefined) el.innerHTML = v; });
     $$('.lang button', menu).forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.lang === lang)); });
   }
   $$('.lang button', menu).forEach(function (b) { b.addEventListener('click', function () { lang = b.dataset.lang; store.set('fio-lang', lang); applyTexts(); }); });
