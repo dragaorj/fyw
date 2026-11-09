@@ -6474,7 +6474,7 @@ html body.pj3 .pj3-title em { display: block; white-space: nowrap; }
 .bfp-btn:hover svg { transform: translateX(3px); }
 .bfp-big { position: absolute; right: 0; bottom: clamp(-60px, -4vw, -20px); margin: 0; font-size: clamp(9rem, 30vw, 30rem); line-height: .8; font-weight: 600; letter-spacing: -.07em; color: transparent; -webkit-text-stroke: 1.5px rgba(200,245,60,.28); pointer-events: none; }
 .bf-page .bf-strip { height: 72px; }
-.bfp-wrap { max-width: var(--max, 1600px); margin: 0 auto; padding: clamp(60px, 8vw, 120px) var(--edge, 16px) 0; display: grid; gap: clamp(60px, 8vw, 110px); }
+.bfp-wrap { max-width: none; margin: 0; padding: clamp(60px, 8vw, 120px) var(--edge, 16px) 0; display: grid; gap: clamp(60px, 8vw, 110px); }
 .bfp-sec { display: grid; gap: clamp(18px, 2.4vw, 30px); }
 .bfp-label { margin: 0; font-size: .8125rem; letter-spacing: .14em; text-transform: uppercase; opacity: .6; }
 .bfp-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(12px, 1.6vw, 20px); }
