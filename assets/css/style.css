@@ -6520,3 +6520,30 @@ html.bf-on body.dock-on .mobile-menu { margin-bottom: var(--bfh); }
 body.veil-on .bf-strip.is-fixed { z-index: 90; }
 @media (max-width: 599px) { html.bf-on { --bfh: 50px; } .bf-strip.is-fixed .bf-cta { height: 36px; } }
 @media print { .bf-strip.is-fixed { display: none; } html.bf-on body { padding-bottom: 0; } }
+
+/* Black Friday: as seções internas não recebem o recuo lateral geral das <section> (ficava em dobro) */
+html body .bfp-wrap > .bfp-sec { padding: 0 !important; margin: 0; max-width: none; width: 100%; }
+/* passos: 3 colunas só em telas largas; em telas médias, cada passo vira uma linha (título à esquerda, texto à direita) */
+@media (min-width: 700px) and (max-width: 1099px) {
+  .bfp-steps { grid-template-columns: 1fr; }
+  .bfp-steps li { grid-template-columns: minmax(200px, 38%) 1fr; column-gap: 32px; align-items: start; }
+  .bfp-steps .bfp-n { grid-column: 1; grid-row: 1; }
+  .bfp-steps h2 { grid-column: 1; grid-row: 2; margin: 0; }
+  .bfp-steps p { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+}
+/* efeitos ao passar o mouse */
+.bfp-steps li { position: relative; overflow: hidden; isolation: isolate; transition: opacity .7s, transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s, background .45s; }
+.bfp-steps li::before { content: ""; position: absolute; inset: auto -30% -60% auto; width: 80%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(closest-side, rgba(200,245,60,.45), transparent); opacity: 0; transform: scale(.6); transition: opacity .5s, transform .7s cubic-bezier(.2,.8,.2,1); z-index: -1; pointer-events: none; }
+.bfp-n { transition: transform .45s cubic-bezier(.3,1.6,.4,1); }
+.bfp-svcs li { cursor: default; transition: background .3s, color .3s, transform .35s cubic-bezier(.3,1.5,.4,1), box-shadow .3s; }
+.bfp-faq summary { transition: padding .35s cubic-bezier(.2,.8,.2,1), color .3s; }
+@media (hover: hover) and (pointer: fine) {
+  .bfp-steps li:hover { transform: translateY(-6px); box-shadow: inset 0 0 0 1.5px var(--bfg), 0 24px 50px -28px rgba(11,11,11,.45); }
+  .bfp-steps li:hover::before { opacity: 1; transform: scale(1); }
+  .bfp-steps li:hover .bfp-n { transform: rotate(-8deg) scale(1.12); }
+  .bfp-svcs li:hover { background: var(--bfg); color: #0B0B0B; box-shadow: none; transform: translateY(-3px) rotate(-1.5deg); }
+  .bfp-faq summary:hover { padding-left: 12px; }
+  .bfp-faq summary:hover::after { transform: rotate(90deg) scale(1.1); }
+  .bfp-faq details[open] summary:hover::after { transform: rotate(45deg) scale(1.1); }
+  .bfp-btn:hover { box-shadow: 0 16px 34px -14px rgba(200,245,60,.6); }
+}
