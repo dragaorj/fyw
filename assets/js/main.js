@@ -314,7 +314,10 @@ window.__fywTagBg = function (hex) { var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''
         const PILE = [-6, 4, -2, 7, -4, 3, -7, 5, -3];
         const S = fCards.map(() => ({ x: 0, y: 0, r: 0, s: 1, a: 1 }));
         // celular: o leque mostra todos os cards e dá para arrastar para os lados (pan)
-        const H = { pan: 0, to: 0 };
+        const H = { pan: 0, to: 0, loop: false, hold: false };
+        // celular: carrossel infinito; quem sai por um lado volta pelo outro (fora da tela)
+        const SPX = () => (G ? G.fw : 150) * 0.64, SPAN = () => n * SPX();
+        const wrapX = v => { const sp = SPAN(); return ((v + sp / 2) % sp + sp) % sp - sp / 2; };
         const fanOff = (i, w) => { const sp = w * (mob ? 0.64 : 0.6); return { x: (i - mid) * sp, y: Math.abs(i - mid) * w * (mob ? 0.03 : 0.05), r: ROT[i] }; };
         const pile = i => ({ x: (i % 3 - 1) * 4, y: 0, r: PILE[i % PILE.length] });
         // card i -> linha de trabalho (os 5 do meio vão para as 5 linhas; os outros saem de cena)
@@ -355,7 +358,8 @@ window.__fywTagBg = function (hex) { var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''
           fCards.forEach((el, i) => {
             const st = S[i];
             const tg0 = ease(clamp01(A.p / GATHER));
-            let cx = G.fx + st.x + (mob ? H.pan * (1 - tg0) : 0), cy = G.fy + st.y, w = G.fw * st.s, hgt = w, rot = st.r, op = st.a, rad = 14;
+            const off = mob ? wrapX(st.x + H.pan) : st.x;
+            let cx = G.fx + off, cy = G.fy + st.y + (mob ? Math.abs(off) / SPX() * G.fw * 0.03 - fanOff(i, G.fw).y : 0), w = G.fw * st.s, hgt = w, rot = st.r, op = st.a, rad = 14;
             const k = rowOf(i);
             // 1) junta todos no meio, um em cima do outro
             const pl = pile(i), tg = ease(clamp01(A.p / GATHER));
@@ -387,12 +391,12 @@ window.__fywTagBg = function (hex) { var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''
               }
             }
             // na pilha, o próximo a descer fica por cima
-            const z = A.p > 0.02 ? (k < 0 ? 1 : 100 - k) : (mob ? 50 - Math.round(Math.abs(i - mid + H.pan / (G.fw * 0.64)) * 10) : baseZ[i]);
+            const z = A.p > 0.02 ? (k < 0 ? 1 : 100 - k) : (mob ? 50 - Math.round(Math.abs(off) / SPX() * 10) : baseZ[i]);
             const props = { x: cx - w / 2, y: cy - hgt / 2, width: w, height: hgt, rotation: rot, autoAlpha: op, '--fr': rad + 'px', zIndex: z };
             if (capture) { capture[i] = props; return; }
             gsap.set(el, props);
             el.classList.toggle('is-live', A.p < 0.01);
-            const tag = el.querySelector('.hf-tag.is-rest'); if (tag) tag.style.opacity = String(clamp01(1 - A.p / 0.12) * (st.tag ?? 1));
+            const tag = el.querySelector('.hf-tag.is-rest'); if (tag) { let tc = 1; if (mob) { const c = clamp01(1 - Math.abs(off) / (SPX() * 0.62)); tc = c * c * (3 - 2 * c); } tag.style.opacity = String(clamp01(1 - A.p / 0.12) * (st.tag ?? 1) * tc); }
           });
         };
         // intro: pilha -> leque (anima o estado S; o render desenha)
@@ -404,15 +408,15 @@ window.__fywTagBg = function (hex) { var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''
           gsap.timeline({ delay: 0.45, onUpdate: () => { dirty = true; } })
             .to(S, { y: 0, r: i => pile(i).r, a: 1, s: 0.92, duration: 1.1, ease: 'expo.out', stagger: { each: 0.07, from: 'end' } })
             .to(S, { x: i => FL[i].x, y: i => FL[i].y, r: i => FL[i].r, s: 1, duration: 1.3, ease: 'expo.inOut', stagger: { each: 0.035, from: 'center' } }, '+=0.12')
-            .to(S, { tag: 1, duration: 0.6, ease: 'power2.out' }, '-=0.3');
+            .to(S, { tag: 1, duration: 0.6, ease: 'power2.out', onComplete: () => { H.loop = true; } }, '-=0.3');
           gsap.from('.hf-tag', { scale: 0, duration: 0.7, ease: 'back.out(2.2)', stagger: 0.14, delay: 3.1 });
-        } else S.forEach((st, i) => Object.assign(st, { x: FL[i].x, y: FL[i].y, r: FL[i].r }));
+        } else { S.forEach((st, i) => Object.assign(st, { x: FL[i].x, y: FL[i].y, r: FL[i].r })); H.loop = true; }
         const baseZ = fCards.map((el, i) => mob ? 50 - Math.round(Math.abs(i - mid) * 10) : (el.querySelector('.hf-tag') ? 40 + i : i + 1));
         fCards.forEach((el, i) => { el.style.zIndex = baseZ[i]; });
         // etiqueta nunca fica atrás de outro card: se o vizinho da esquerda está na frente, ela vai para o canto direito
         fCards.forEach((el, i) => { const tag = el.querySelector('.hf-tag'); if (!tag) return;
           if (mob) tag.classList.add('is-rest');
-          tag.classList.toggle('at-right', i > 0 && baseZ[i - 1] > baseZ[i]); });
+          tag.classList.toggle('at-right', !mob && i > 0 && baseZ[i - 1] > baseZ[i]); });
 
         // etiqueta acompanha o card no hover e segue o mouse (magnética), voltando com mola ao sair
         // foco: ao passar o mouse num card, o resto do hero desfoca suavemente e o card cresce
@@ -443,8 +447,11 @@ window.__fywTagBg = function (hex) { var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''
         let curY = window.scrollY;
         addEventListener('scroll', () => { curY = window.scrollY; }, { passive: true });
         addEventListener('resize', () => { curY = window.scrollY; }, { passive: true });
-        gsap.ticker.add(() => {
+        const calm = () => matchMedia('(prefers-reduced-motion: reduce)').matches || document.documentElement.classList.contains('a11y-motion');
+        gsap.ticker.add((tt, dtMs) => {
           const y = curY;
+          // celular: os cards passam sozinhos, devagar e sem parar (pausa enquanto o dedo arrasta ou fora do topo)
+          if (mob && H.loop && !H.hold && A.p < 0.02 && !calm()) { const dx = Math.min(dtMs, 50) * 0.034; H.pan -= dx; H.to -= dx; dirty = true; const sp = SPAN(); if (H.pan < -sp) { H.pan += sp; H.to += sp; } }
           const target = clamp01(y / (G.heroH * 0.9)) * PMAX;
           const d = target - A.p;
           if (Math.abs(d) > 0.0004) { A.p += d * 0.2; dirty = true; } else if (A.p !== target) { A.p = target; dirty = true; }
@@ -457,23 +464,21 @@ window.__fywTagBg = function (hex) { var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''
         });
         // celular: arrastar o leque para os lados (o card mais perto do centro vem para a frente); ao soltar, encaixa num card
         if (mob) {
-          const spX = () => G.fw * 0.64, maxP = () => mid * spX();
-          const clampP = v => Math.max(-maxP(), Math.min(maxP(), v));
-          let t0 = null, moved = false;
+                    let t0 = null, moved = false;
           const onFan = t => { if (A.p > 0.02) return false; const r = fanEl.getBoundingClientRect(); return t.clientY >= r.top - 20 && t.clientY <= r.bottom + 20; };
-          addEventListener('touchstart', e => { const t = e.touches[0]; if (e.touches.length !== 1 || !onFan(t)) { t0 = null; return; } t0 = { x: t.clientX, y: t.clientY, p: H.to, ax: 0, lx: t.clientX, lt: performance.now(), v: 0 }; moved = false; }, { passive: true });
+          addEventListener('touchstart', e => { const t = e.touches[0]; if (e.touches.length !== 1 || !onFan(t)) { t0 = null; return; } t0 = { x: t.clientX, y: t.clientY, p: H.to, ax: 0, lx: t.clientX, lt: performance.now(), v: 0 }; moved = false; H.hold = true; }, { passive: true });
           addEventListener('touchmove', e => {
             if (!t0) return; const t = e.touches[0], dx = t.clientX - t0.x, dy = t.clientY - t0.y;
             if (!t0.ax) { if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return; t0.ax = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y'; }
             if (t0.ax !== 'x') return;
             e.preventDefault(); moved = true;
             const now = performance.now(); t0.v = (t.clientX - t0.lx) / Math.max(1, now - t0.lt); t0.lx = t.clientX; t0.lt = now;
-            const raw = t0.p + dx, m = maxP();
-            H.to = raw > m ? m + (raw - m) * 0.3 : raw < -m ? -m + (raw + m) * 0.3 : raw; H.pan = H.to; dirty = true;
+            H.to = t0.p + dx; H.pan = H.to; dirty = true;
           }, { passive: false });
           addEventListener('touchend', () => {
-            if (!t0) return; if (t0.ax === 'x') { const s = spX(); H.to = clampP(Math.round((H.to + t0.v * 220) / s) * s); } t0 = null;
+            if (!t0) return; if (t0.ax === 'x') H.to += Math.max(-600, Math.min(600, t0.v * 260)); t0 = null; H.hold = false;
           }, { passive: true });
+          addEventListener('touchcancel', () => { t0 = null; H.hold = false; }, { passive: true });
           // depois de arrastar, o toque não abre o projeto
           document.addEventListener('click', e => { if (moved && e.target.closest && e.target.closest('.hf-card')) { e.preventDefault(); e.stopImmediatePropagation(); } moved = false; }, true);
         }
