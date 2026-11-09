@@ -34,7 +34,7 @@
       for (var k = 1; k <= 4; k++) { s('--g' + k, hues[k - 1]); }
     })();
   </script>
-  <link rel="stylesheet" href="../assets/css/style.min.css?v=20261132o" />
+  <link rel="stylesheet" href="../assets/css/style.min.css?v=20261132p" />
   <script>
     // Paleta sorteada a cada visita (não fica salva): cor de destaque + cores/posições das manchas
     (function () {
@@ -320,6 +320,12 @@
       <button type="button" class="a11y-reset"><svg class="ar-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3.5 3.8v4.6h4.6"/></svg><span data-i18n="a11y.reset">Restaurar padrão</span></button>
     </div>
   </nav>
+  <div class="bf-strip is-fixed" data-bf>
+    <div class="bf-track" aria-hidden="true"><div class="bf-run"><span class="bf-it" data-i18n-html="bf.run"><b>Black Friday Fyw</b><i></i>Novembro inteiro<i></i><b>Até 30% off</b> em todos os projetos fechados em novembro<i></i></span><span class="bf-it" data-i18n-html="bf.run"><b>Black Friday Fyw</b><i></i>Novembro inteiro<i></i><b>Até 30% off</b> em todos os projetos fechados em novembro<i></i></span></div><div class="bf-run"><span class="bf-it" data-i18n-html="bf.run"><b>Black Friday Fyw</b><i></i>Novembro inteiro<i></i><b>Até 30% off</b> em todos os projetos fechados em novembro<i></i></span><span class="bf-it" data-i18n-html="bf.run"><b>Black Friday Fyw</b><i></i>Novembro inteiro<i></i><b>Até 30% off</b> em todos os projetos fechados em novembro<i></i></span></div></div>
+    <span class="sr-only" data-i18n="bf.sr">Black Friday Fyw: todos os projetos fechados em novembro têm até 30% de desconto.</span>
+    <a class="bf-cta" href="/black-friday.html"><span data-i18n="bf.cta">Saiba mais</span><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5.5 19.5 12 13 18.5"/></svg></i></a>
+  </div>
+  <script>(function () { var s = document.currentScript.previousElementSibling; if (new Date().getMonth() !== 10 && !document.body.classList.contains('bf-page')) { s.remove(); return; } document.documentElement.classList.add('bf-on'); })();</script>
   <div class="dock" aria-label="Navegação rápida">
     <a href="/" class="dock-btn dock-logo" aria-label="Fyw · página inicial"><svg viewBox="0 0 804 513" aria-hidden="true"><use href="#fyw-logo"/></svg></a>
     <button class="dock-btn dock-menu" aria-controls="mobile-menu" aria-expanded="false" aria-label="Abrir menu"><span></span><span></span><span></span></button>

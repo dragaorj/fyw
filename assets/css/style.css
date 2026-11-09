@@ -6510,3 +6510,13 @@ html body.pj3 .pj3-title em { display: block; white-space: nowrap; }
 .bf-page .nav .logo, .bf-page .dock-logo { color: #EEEDE9; }
 .bfp-end-in .bfp-chip { justify-self: center; }
 @media (max-width: 599px) { .bfp-big { display: none; } .bfp-end-in h2 { white-space: nowrap; font-size: clamp(1.25rem, 6.2vw, 2rem); } }
+
+/* Black Friday: a faixa fica fixa no pé da tela em todo o site; o que flutua no rodapé sobe junto */
+html.bf-on { --bfh: 60px; }
+.bf-strip.is-fixed { position: fixed; left: 0; right: 0; bottom: 0; top: auto; z-index: 118; height: var(--bfh, 60px); box-shadow: 0 -10px 30px -12px rgba(11,11,11,.35); }
+html.bf-on body { padding-bottom: var(--bfh); }
+html.bf-on .dock, html.bf-on .fab-up, html.bf-on .fab-top, html.bf-on .cookie, html.bf-on .fyw-back-top { margin-bottom: var(--bfh) !important; }
+html.bf-on body.dock-on .mobile-menu { margin-bottom: var(--bfh); }
+body.veil-on .bf-strip.is-fixed { z-index: 90; }
+@media (max-width: 599px) { html.bf-on { --bfh: 50px; } .bf-strip.is-fixed .bf-cta { height: 36px; } }
+@media print { .bf-strip.is-fixed { display: none; } html.bf-on body { padding-bottom: 0; } }
