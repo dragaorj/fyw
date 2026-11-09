@@ -591,8 +591,8 @@
   // Black Friday
   var X4 = {
     'Black Friday Fyw': ['Fyw Black Friday', 'Black Friday Fyw'],
-    'Novembro inteiro<br><em>com 30% off.</em>': ['All of November<br><em>with 30% off.</em>', 'Todo noviembre<br><em>con 30% off.</em>'],
-    'Todo projeto fechado com a Fyw no mês de novembro tem 30% de desconto. Sites, marcas, embalagens, apps e sistemas, feitos do zero para o seu negócio.': ['Every project closed with Fyw in November gets 30% off. Websites, brands, packaging, apps and systems, built from scratch for your business.', 'Todo proyecto cerrado con Fyw en el mes de noviembre tiene 30% de descuento. Sitios, marcas, empaques, apps y sistemas, hechos desde cero para tu negocio.'],
+    'Novembro inteiro<br><em>com até 30% off.</em>': ['All of November<br><em>with up to 30% off.</em>', 'Todo noviembre<br><em>con hasta 30% off.</em>'],
+    'Todo projeto fechado com a Fyw no mês de novembro tem até 30% de desconto. Sites, marcas, embalagens, apps e sistemas, feitos do zero para o seu negócio.': ['Every project closed with Fyw in November gets up to 30% off. Websites, brands, packaging, apps and systems, built from scratch for your business.', 'Todo proyecto cerrado con Fyw en el mes de noviembre tiene hasta 30% de descuento. Sitios, marcas, empaques, apps y sistemas, hechos desde cero para tu negocio.'],
     'Quero meu orçamento': ['Get my quote', 'Quiero mi presupuesto'],
     'Ver projetos': ['See projects', 'Ver proyectos'],
     'Como funciona': ['How it works', 'Cómo funciona'],
@@ -601,23 +601,23 @@
     'Receba a proposta': ['Get the proposal', 'Recibe la propuesta'],
     'Enviamos uma proposta sob medida em até 48 horas, com escopo, prazo e investimento.': ['We send a tailored proposal within 48 hours, with scope, timeline and investment.', 'Enviamos una propuesta a medida en hasta 48 horas, con alcance, plazo e inversión.'],
     'Feche em novembro': ['Close in November', 'Cierra en noviembre'],
-    'Projetos fechados até 30 de novembro ganham 30% de desconto no valor da proposta.': ['Projects closed by November 30 get 30% off the proposal price.', 'Los proyectos cerrados hasta el 30 de noviembre tienen 30% de descuento en el valor de la propuesta.'],
+    'Projetos fechados até 30 de novembro ganham até 30% de desconto no valor da proposta.': ['Projects closed by November 30 get up to 30% off the proposal price.', 'Los proyectos cerrados hasta el 30 de noviembre tienen hasta 30% de descuento en el valor de la propuesta.'],
     'Vale para todos os serviços': ['Valid for every service', 'Vale para todos los servicios'],
     'Sites e landing pages': ['Websites and landing pages', 'Sitios y landing pages'],
     'Apps e sistemas': ['Apps and systems', 'Apps y sistemas'],
     'Design systems': ['Design systems', 'Design systems'],
     'Perguntas': ['Questions', 'Preguntas'],
     'O desconto vale para qualquer projeto?': ['Does the discount apply to any project?', '¿El descuento vale para cualquier proyecto?'],
-    'Sim. Todos os projetos fechados com a Fyw no mês de novembro têm 30% de desconto.': ['Yes. Every project closed with Fyw in November gets 30% off.', 'Sí. Todos los proyectos cerrados con Fyw en el mes de noviembre tienen 30% de descuento.'],
+    'Sim. Todos os projetos fechados com a Fyw no mês de novembro têm até 30% de desconto.': ['Yes. Every project closed with Fyw in November gets up to 30% off.', 'Sí. Todos los proyectos cerrados con Fyw en el mes de noviembre tienen hasta 30% de descuento.'],
     'Até quando posso fechar?': ['Until when can I close?', '¿Hasta cuándo puedo cerrar?'],
     'Até 30 de novembro. A Black Friday da Fyw dura o mês inteiro.': ['Until November 30. Fyw Black Friday lasts the whole month.', 'Hasta el 30 de noviembre. El Black Friday de Fyw dura todo el mes.'],
     'Acontece todo ano?': ['Does it happen every year?', '¿Sucede todos los años?'],
     'Sim. Todo mês de novembro é Black Friday na Fyw.': ['Yes. Every November is Black Friday at Fyw.', 'Sí. Todo noviembre es Black Friday en Fyw.'],
     'Só em novembro': ['November only', 'Solo en noviembre'],
-    'Seu projeto com 30% off.<br>Vamos começar?': ['Your project with 30% off.<br>Shall we start?', 'Tu proyecto con 30% off.<br>¿Empezamos?'],
+    'Seu projeto com até 30% off.<br>Vamos começar?': ['Your project with up to 30% off.<br>Shall we start?', 'Tu proyecto con hasta 30% off.<br>¿Empezamos?'],
     'Vamos conversar': ['Let’s talk', 'Hablemos'],
-    'Black Friday Fyw · 30% off em novembro': ['Fyw Black Friday · 30% off in November', 'Black Friday Fyw · 30% off en noviembre'],
-    'Black Friday Fyw: todo projeto fechado em novembro tem 30% de desconto. Sites, marcas, embalagens, apps e sistemas feitos do zero.': ['Fyw Black Friday: every project closed in November gets 30% off. Websites, brands, packaging, apps and systems built from scratch.', 'Black Friday Fyw: todo proyecto cerrado en noviembre tiene 30% de descuento. Sitios, marcas, empaques, apps y sistemas hechos desde cero.']
+    'Black Friday Fyw · até 30% off em novembro': ['Fyw Black Friday · up to 30% off in November', 'Black Friday Fyw · hasta 30% off en noviembre'],
+    'Black Friday Fyw: todo projeto fechado em novembro tem até 30% de desconto. Sites, marcas, embalagens, apps e sistemas feitos do zero.': ['Fyw Black Friday: every project closed in November gets up to 30% off. Websites, brands, packaging, apps and systems built from scratch.', 'Black Friday Fyw: todo proyecto cerrado en noviembre tiene hasta 30% de descuento. Sitios, marcas, empaques, apps y sistemas hechos desde cero.']
   };
   for (var xk4 in X4) if (!D[xk4]) D[xk4] = X4[xk4];
   window.FYW_PAGE_I18N = D; window.FYW_PAGE_I18N_W = W; window.FYW_PAGE_I18N_P = P;

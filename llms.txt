@@ -40,7 +40,7 @@ Empresas de qualquer nicho que precisam de um site que explique o que fazem, mos
 - [Beta Online](https://fyw.com.br/projetos/beta-online.html): design system e site novo para uma escola de Perícia Judicial.
 - [Jogo pela Integridade (São Paulo FC)](https://fyw.com.br/projetos/jogo-pela-integridade.html): site oficial do jogo.
 - [Todos os projetos](https://fyw.com.br/projetos.html)
-- [Black Friday Fyw](https://fyw.com.br/black-friday.html): em novembro, todos os projetos fechados com a Fyw têm 30% de desconto.
+- [Black Friday Fyw](https://fyw.com.br/black-friday.html): em novembro, todos os projetos fechados com a Fyw têm até 30% de desconto.
 
 ## English summary
 
