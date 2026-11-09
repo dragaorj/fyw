@@ -6404,3 +6404,19 @@ html body .zoom-stack p.zs-scroll.on-fill { mix-blend-mode: difference; color: #
 /* grade de clientes: os logos da linha do convite esticam até a altura dele (sem faixa cinza embaixo) */
 .logo-wall > .lw-cell { align-self: stretch; width: 100%; min-width: 0; }
 @media (min-width: 900px) and (max-width: 1099px) { .lw-next .lw-cta { flex-direction: column; align-items: flex-start; justify-content: center; gap: 16px; } .lw-cta-txt { max-width: none; } }
+
+/* mural de clientes com 11 marcas: o convite ocupa uma célula e a grade fecha certinha (3x4 no computador, 6x2 no tablet) */
+.lw-mm .lw-mark { height: clamp(52px, 5vw, 74px) !important; }
+.logo-wall .lw-next { grid-column: auto !important; }
+@media (min-width: 600px) {
+  .logo-wall .lw-next .lw-cta { flex-direction: column !important; align-items: flex-start !important; justify-content: space-between !important; gap: 14px !important; padding: clamp(18px, 2vw, 28px) !important; }
+  .logo-wall .lw-next .lw-cta-txt { gap: 6px; max-width: none; }
+  .logo-wall .lw-next .lw-cta-t { font-size: clamp(1.15rem, 1.55vw, 1.7rem) !important; }
+  .logo-wall .lw-next .lw-cta-s { font-size: clamp(.75rem, .82vw, .875rem); line-height: 1.4; }
+  .logo-wall .lw-next .lw-cta-l { height: 44px; padding-left: 18px; }
+}
+@media (min-width: 600px) and (max-width: 1199px) {
+  .logo-wall .lw-next .lw-cta-l { max-width: 100%; height: 40px; gap: 8px; padding: 0 5px 0 14px; font-size: .8125rem !important; }
+  .logo-wall .lw-next .lw-cta-l .lw-go { width: 30px; height: 30px; }
+  .logo-wall .lw-next .lw-cta-s { display: none; }
+}

@@ -1,6 +1,6 @@
 /* =========================================================
    Projetos da Fyw — fonte única dos dados dos projetos.
-   Edite aqui: "svc" diz em quais serviços o projeto aparece no painel (0 Branding, 1 UI/UX & Web, 2 Apps & Sistemas, 3 Design Systems, 4 Rebranding); o "tipo" aparece na etiqueta dos cards do hero
+   Edite aqui: "svc" diz em quais serviços o projeto aparece no painel (0 Branding, 1 UI/UX & Web, 2 Apps & Sistemas, 3 Design Systems, 4 Rebranding, 5 Packaging); o "tipo" aparece na etiqueta dos cards do hero
    (Branding, Website, App...). A ordem não importa; cada card
    aponta para o projeto pelo "slug" (nome da página em /projetos).
    ========================================================= */
@@ -16,5 +16,6 @@ window.FYW_PROJECTS = {
   'latimpacto':  { name: 'Latimpacto', type: 'UI/UX & Web', color: '#985CCC', title: 'Latimpacto', sub: 'Impact Minds', svc: [1], img: 'assets/img/projetos/latimpacto/thumb.webp' },
   'pacto-global': { name: 'Pacto Global', type: 'UI/UX & Web', color: '#3D7B44', title: 'Pacto Global', sub: 'COP30 · UI/UX & Web', svc: [1], img: 'assets/img/projetos/pacto-global/thumb.webp' },
   'globalfy':    { name: 'Globalfy', type: 'UI/UX & Web', color: '#06B051', title: 'Globalfy', sub: 'Fintech · UI/UX & Web', svc: [1], img: 'assets/img/projetos/globalfy/thumb.webp?v=2' },
+  'super-mansao-maromba': { name: 'Super', type: 'Packaging', color: '#F705BC', title: 'Super + Mansão Maromba', sub: 'Packaging · Branding', svc: [5, 0], img: 'assets/img/projetos/super-mansao-maromba/thumb.webp' },
   'bgold':       { name: 'BGold', type: 'UI/UX & Web', color: '#B89550', title: 'BGold Joalheria', sub: 'Joalheria · UI/UX & Web', svc: [1], img: 'assets/img/projetos/bgold/thumb.webp' },
 };

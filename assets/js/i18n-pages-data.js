@@ -516,5 +516,77 @@
     'Atual: nenhuma escolha feita.': ['Current: no choice made.', 'Actual: ninguna elección hecha.']
   };
   for (var xk2 in X2) if (!D[xk2]) D[xk2] = X2[xk2];
+  // Super + Mansão Maromba
+  var X3 = {
+    'Super + Mansão Maromba': ['Super + Mansão Maromba', 'Super + Mansão Maromba'],
+    'Packaging e Branding': ['Packaging and Branding', 'Packaging y Branding'],
+    'Packaging · Branding': ['Packaging · Branding', 'Packaging · Branding'],
+    'Packaging': ['Packaging', 'Packaging'],
+    'Higiene pessoal': ['Personal care', 'Higiene personal'],
+    'Enxaguante Bucal': ['Mouthwash', 'Enjuague bucal'],
+    'Gel Dental': ['Toothpaste', 'Gel dental'],
+    'Antitranspirante': ['Antiperspirant', 'Antitranspirante'],
+    'A linha': ['The line', 'La línea'],
+    'Enxaguante bucal Super edição Mansão Maromba': ['Super mouthwash, Mansão Maromba edition', 'Enjuague bucal Super edición Mansão Maromba'],
+    'Previne gengivite, tártaro e cáries, com 12 horas de hálito fresco': ['Prevents gingivitis, tartar and cavities, with 12 hours of fresh breath', 'Previene gingivitis, sarro y caries, con 12 horas de aliento fresco'],
+    'Gel dental Super edição Mansão Maromba': ['Super toothpaste, Mansão Maromba edition', 'Gel dental Super edición Mansão Maromba'],
+    'Sabor energético com flúor, ação anticárie e antiplaca': ['Energy flavor with fluoride, anti-cavity and anti-plaque action', 'Sabor energético con flúor, acción anticaries y antiplaca'],
+    'Antitranspirante Super edição Mansão Maromba': ['Super antiperspirant, Mansão Maromba edition', 'Antitranspirante Super edición Mansão Maromba'],
+    'Ação calmante e hidratante, sem parabenos e 0% alumínio': ['Soothing and moisturizing, paraben free and 0% aluminum', 'Acción calmante e hidratante, sin parabenos y 0% aluminio'],
+    'Dark': ['Dark', 'Dark'],
+    'Light': ['Light', 'Light'],
+    'Rótulos': ['Labels', 'Etiquetas'],
+    'Frente e verso de cada produto, nas versões dark e light. Toque em um rótulo para virar.': ['Front and back of each product, in dark and light versions. Tap a label to flip it.', 'Frente y dorso de cada producto, en versiones dark y light. Toca una etiqueta para darle la vuelta.'],
+    'Enxaguante Bucal · Dark': ['Mouthwash · Dark', 'Enjuague bucal · Dark'],
+    'Enxaguante Bucal · Light': ['Mouthwash · Light', 'Enjuague bucal · Light'],
+    'Gel Dental · Dark': ['Toothpaste · Dark', 'Gel dental · Dark'],
+    'Gel Dental · Light': ['Toothpaste · Light', 'Gel dental · Light'],
+    'Antitranspirante · Dark': ['Antiperspirant · Dark', 'Antitranspirante · Dark'],
+    'Antitranspirante · Light': ['Antiperspirant · Light', 'Antitranspirante · Light'],
+    'Logo pattern<br>Sabor Energético': ['Logo pattern<br>Sabor Energético', 'Logo pattern<br>Sabor Energético'],
+    'Logo da collab: o script da Super e o brasão pirata da Mansão Maromba, unidos pelo raio.': ['Collab logo: the Super script and the Mansão Maromba pirate crest, joined by the lightning bolt.', 'Logo de la collab: el script de Super y el escudo pirata de Mansão Maromba, unidos por el rayo.'],
+    'Uma edição especial da linha Super, da Cimed, em collab com a Mansão Maromba.': ['A special edition of Cimed’s Super line, in a collab with Mansão Maromba.', 'Una edición especial de la línea Super, de Cimed, en collab con Mansão Maromba.'],
+    'Criamos este projeto para o concurso da nova embalagem da linha Super, da Cimed, em parceria com a Mansão Maromba. A proposta era unir as duas marcas numa edição especial de enxaguante bucal, gel dental e antitranspirante.': ['We created this project for the contest for the new packaging of Cimed’s Super line, in partnership with Mansão Maromba. The brief was to bring both brands together in a special edition of mouthwash, toothpaste and antiperspirant.', 'Creamos este proyecto para el concurso del nuevo empaque de la línea Super, de Cimed, en alianza con Mansão Maromba. La propuesta era unir las dos marcas en una edición especial de enjuague bucal, gel dental y antitranspirante.'],
+    'A ideia virou uma história: os aliens piratas da Mansão Maromba abduzem a linha Super e devolvem tudo com o Sabor Energético. Dela saem o lettering, o pattern dos rótulos, as versões dark e light de cada produto e os mockups 3D, feitos no Figma, no Freepik Studio e no Photoshop.': ['The idea became a story: the Mansão Maromba space pirates abduct the Super line and bring it all back with Sabor Energético, the energy flavor. From it came the lettering, the label pattern, the dark and light versions of each product and the 3D mockups, made in Figma, Freepik Studio and Photoshop.', 'La idea se volvió una historia: los alienígenas piratas de Mansão Maromba abducen la línea Super y la devuelven con Sabor Energético. De ella salen el lettering, el pattern de las etiquetas, las versiones dark y light de cada producto y los mockups 3D, hechos en Figma, Freepik Studio y Photoshop.'],
+    'Juntar duas marcas de mundos diferentes, a Super, de higiene do dia a dia, e a Mansão Maromba, do entretenimento e do universo fitness, sem que nenhuma das duas deixe de ser reconhecida na gôndola.': ['Bringing together two brands from different worlds, Super, for everyday personal care, and Mansão Maromba, from entertainment and fitness, without either one losing its recognition on the shelf.', 'Unir dos marcas de mundos distintos, Super, de higiene diaria, y Mansão Maromba, del entretenimiento y el universo fitness, sin que ninguna de las dos deje de ser reconocida en el estante.'],
+    'Uma linha com universo próprio: nave alienígena, raio rosa e o lettering Sabor Energético sobre um pattern orgânico. O logo Super continua no centro de cada rótulo, agora em rosa e amarelo, com versão dark e light para cada produto.': ['A line with its own universe: an alien spaceship, a pink lightning bolt and the Sabor Energético lettering over an organic pattern. The Super logo stays at the center of every label, now in pink and yellow, with dark and light versions of each product.', 'Una línea con universo propio: nave alienígena, rayo rosa y el lettering Sabor Energético sobre un pattern orgánico. El logo Super sigue en el centro de cada etiqueta, ahora en rosa y amarillo, con versión dark y light para cada producto.'],
+    'Rótulos frente e verso para enxaguante bucal, gel dental e antitranspirante, nas versões dark e light, com mockups 3D de cada produto.': ['Front and back labels for mouthwash, toothpaste and antiperspirant, in dark and light versions, with 3D mockups of each product.', 'Etiquetas frente y dorso para enjuague bucal, gel dental y antitranspirante, en versiones dark y light, con mockups 3D de cada producto.'],
+    'Logo da collab Super + Mansão Maromba, lettering Sabor Energético, pattern dos rótulos, paleta e tipografia.': ['Super + Mansão Maromba collab logo, Sabor Energético lettering, label pattern, palette and typography.', 'Logo de la collab Super + Mansão Maromba, lettering Sabor Energético, pattern de las etiquetas, paleta y tipografía.'],
+    'Apresentação': ['Presentation', 'Presentación'],
+    'Apresentação do projeto em duas versões, para desktop e para o Instagram, contando a abdução e mostrando cada produto.': ['Project presentation in two versions, for desktop and for Instagram, telling the abduction story and showing each product.', 'Presentación del proyecto en dos versiones, para escritorio y para Instagram, contando la abducción y mostrando cada producto.'],
+    'Amarelo Cimed': ['Cimed yellow', 'Amarillo Cimed'],
+    'Rosa Super': ['Super pink', 'Rosa Super'],
+    'Rosa nave': ['Spaceship pink', 'Rosa nave'],
+    'Preto': ['Black', 'Negro'],
+    'Branco': ['White', 'Blanco'],
+    'Tipografia': ['Typography', 'Tipografía'],
+    'Títulos e nomes dos produtos': ['Headings and product names', 'Títulos y nombres de los productos'],
+    'Descrições e informações dos rótulos': ['Descriptions and label information', 'Descripciones e información de las etiquetas'],
+    'produtos na linha: enxaguante bucal, gel dental e antitranspirante': ['products in the line: mouthwash, toothpaste and antiperspirant', 'productos en la línea: enjuague bucal, gel dental y antitranspirante'],
+    'versões de cada produto, dark e light': ['versions of each product, dark and light', 'versiones de cada producto, dark y light'],
+    'rótulos desenhados, frente e verso': ['labels designed, front and back', 'etiquetas diseñadas, frente y dorso'],
+    'Quer uma embalagem que chame atenção na gôndola?': ['Want packaging that stands out on the shelf?', '¿Quieres un empaque que llame la atención en el estante?'],
+    'Enxaguante bucal Super Mansão Maromba, versão dark': ['Super Mansão Maromba mouthwash, dark version', 'Enjuague bucal Super Mansão Maromba, versión dark'],
+    'Enxaguante bucal Super Mansão Maromba, versão light': ['Super Mansão Maromba mouthwash, light version', 'Enjuague bucal Super Mansão Maromba, versión light'],
+    'Gel dental Super Mansão Maromba, versão dark': ['Super Mansão Maromba toothpaste, dark version', 'Gel dental Super Mansão Maromba, versión dark'],
+    'Gel dental Super Mansão Maromba, versão light': ['Super Mansão Maromba toothpaste, light version', 'Gel dental Super Mansão Maromba, versión light'],
+    'Antitranspirante Super Mansão Maromba, versão dark': ['Super Mansão Maromba antiperspirant, dark version', 'Antitranspirante Super Mansão Maromba, versión dark'],
+    'Antitranspirante Super Mansão Maromba, versão light': ['Super Mansão Maromba antiperspirant, light version', 'Antitranspirante Super Mansão Maromba, versión light'],
+    'Repetir a abdução': ['Replay the abduction', 'Repetir la abducción'],
+    'Produtos': ['Products', 'Productos'],
+    'Versão': ['Version', 'Versión'],
+    'Lettering Sabor Energético': ['Sabor Energético lettering', 'Lettering Sabor Energético'],
+    'Projeto Super + Mansão Maromba': ['Super + Mansão Maromba project', 'Proyecto Super + Mansão Maromba'],
+    'Super + Mansão Maromba · Packaging e Branding | Fyw': ['Super + Mansão Maromba · Packaging and Branding | Fyw', 'Super + Mansão Maromba · Packaging y Branding | Fyw'],
+    'Super + Mansão Maromba: rótulos, embalagens e branding de uma edição especial da linha Super, da Cimed, criados para o concurso da collab com a Mansão Maromba. Projeto da Fyw.': ['Super + Mansão Maromba: labels, packaging and branding for a special edition of Cimed’s Super line, created for the Mansão Maromba collab contest. A Fyw project.', 'Super + Mansão Maromba: etiquetas, empaques y branding de una edición especial de la línea Super, de Cimed, creados para el concurso de la collab con Mansão Maromba. Proyecto de Fyw.']
+  };
+  var RT = [['enxaguante bucal', 'mouthwash', 'enjuague bucal'], ['gel dental', 'toothpaste', 'gel dental'], ['antitranspirante', 'antiperspirant', 'antitranspirante']];
+  RT.forEach(function (p) { ['dark', 'light'].forEach(function (v) {
+    X3['Rótulo do ' + p[0] + ' ' + v + ': ver o verso'] = [p[1].charAt(0).toUpperCase() + p[1].slice(1) + ' ' + v + ' label: see the back', 'Etiqueta del ' + p[2] + ' ' + v + ': ver el dorso'];
+    X3['Rótulo do ' + p[0] + ' ' + v + ', frente'] = [p[1].charAt(0).toUpperCase() + p[1].slice(1) + ' ' + v + ' label, front', 'Etiqueta del ' + p[2] + ' ' + v + ', frente'];
+    X3['Rótulo do ' + p[0] + ' ' + v + ', verso'] = [p[1].charAt(0).toUpperCase() + p[1].slice(1) + ' ' + v + ' label, back', 'Etiqueta del ' + p[2] + ' ' + v + ', dorso'];
+  }); });
+  for (var xk3 in X3) if (!D[xk3]) D[xk3] = X3[xk3];
+  W['Packaging'] = ['Packaging', 'Packaging'];
   window.FYW_PAGE_I18N = D; window.FYW_PAGE_I18N_W = W; window.FYW_PAGE_I18N_P = P;
 })();
