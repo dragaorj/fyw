@@ -27,7 +27,7 @@ module.exports = async (req, res) => {
   const a = (req.query && req.query.a) || '', id = String((req.query && req.query.id) || '');
   let body = req.body; try { if (typeof body === 'string') body = JSON.parse(body || '{}'); } catch (x) { body = {}; }
   try {
-    if (a === 'list') return res.status(200).json(await rest('propostas?select=id,titulo,cliente,tipo,preco,logo,criado,atualizado&order=atualizado.desc'));
+    if (a === 'list') return res.status(200).json(await rest('propostas?select=id,titulo,cliente,tipo,preco,logo,pdfs:dados->pdfs,criado,atualizado&order=atualizado.desc'));
     if (a === 'get') {
       if (!UUID.test(id)) return res.status(400).json({ erro: 'Proposta inválida.' });
       const r = await rest('propostas?select=*&id=eq.' + id); if (!r || !r.length) return res.status(404).json({ erro: 'Proposta não encontrada.' });

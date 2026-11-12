@@ -67,7 +67,7 @@
     if (!r.ok) throw new Error(j.erro || ('Erro ' + r.status));
     return j;
   }
-  const lrow = p => ({ id: p.id, titulo: p.dados.titulo, cliente: p.dados.cliente, tipo: p.dados.tipo, preco: p.dados.preco, logo: p.dados.logo, criado: p.criado, atualizado: p.atualizado });
+  const lrow = p => ({ id: p.id, titulo: p.dados.titulo, cliente: p.dados.cliente, tipo: p.dados.tipo, preco: p.dados.preco, logo: p.dados.logo, pdfs: p.dados.pdfs, criado: p.criado, atualizado: p.atualizado });
   const store = {
     async list() {
       try {
@@ -104,6 +104,7 @@
   function nova() {
     const h = hoje();
     return {
+      modelo: 'nova', pdfs: [],
       tipoId: '', tipo: '', rotulo: 'Proposta comercial', titulo: 'Nome do projeto', cliente: 'Cliente', logo: '',
       data: h.longa, codigo: h.cod, prazo: 'Até 20 dias úteis', contato: 'fyw.ggwp@gmail.com',
       objetivo: '', objetivoTexto: ['', ''],
@@ -126,6 +127,7 @@
   function bas() {
     const d = nova();
     return Object.assign(d, {
+      modelo: 'bas',
       tipoId: 'agenda', tipo: 'Plataforma de agenda e programação', rotulo: 'Proposta comercial para plataforma de programação', titulo: 'Plataforma oficial de programação', cliente: 'Bio Amazon Summit', logo: B + 'logo.svg',
       data: '12 de novembro de 2026', codigo: 'PCF12112026', prazo: 'Até 20 dias úteis',
       objetivo: 'Agenda, palestrantes e trilhas do Bio Amazon Summit em uma única experiência digital.',
@@ -283,7 +285,19 @@
   const set = (o, p, v) => { const ks = p.split('.'); const last = ks.pop(); const t = ks.reduce((a, k) => a[k] == null ? (a[k] = {}) : a[k], o); t[last] = v; };
   const vin = (lab, k, o = {}) => '<label class="f"><span>' + lab + '</span>' + (o.area ? '<textarea data-k="' + k + '" rows="' + (o.rows || 3) + '">' + esc(get(D, k)) + '</textarea>' : '<input data-k="' + k + '" value="' + esc(get(D, k)) + '"' + (o.ph ? ' placeholder="' + esc(o.ph) + '"' : '') + '>') + (o.dica ? '<small>' + o.dica + '</small>' : '') + '</label>';
   const vls = (lab, k, dica, rows) => '<label class="f"><span>' + lab + '</span><textarea data-l="' + k + '" rows="' + (rows || 4) + '">' + esc(L(get(D, k)).join('\n')) + '</textarea><small>' + (dica || 'Um item por linha.') + '</small></label>';
-  const box = (num, t, html, open) => '<details class="bx"' + (open ? ' open' : '') + '><summary><i>' + num + '</i>' + t + '</summary><div class="bd">' + html + '</div></details>';
+  const box = (num, t, html, open, pad) => '<details class="bx"' + (open ? ' open' : '') + '><summary><i>' + num + '</i>' + t + '</summary><div class="bd">' + html + (pad ? '<div class="rs"><button class="x" type="button" ' + pad + '>Voltar ao padrão</button></div>' : '') + '</div></details>';
+  // campos de cada seção da proposta (para "Voltar ao padrão" por seção)
+  const SECOES = {
+    capa: ['logo', 'tipoId', 'tipo', 'rotulo', 'titulo', 'cliente', 'data', 'codigo', 'prazo', 'contato'],
+    objetivo: ['objetivo', 'objetivoTexto'], publico: ['publicoTitulo', 'publico'], demo: ['demo'],
+    estrutura: ['estruturaTag', 'estruturaTitulo', 'estrutura', 'funcionalidades'], crono: ['cronogramaTitulo', 'etapas', 'cronogramaNota'],
+    ben: ['beneficiosTitulo', 'beneficios'], inv: ['parceiro', 'precoTabela', 'preco', 'precoNota', 'escopo', 'condicoes'], fim: ['proximos', 'assinaturaCliente', 'legal']
+  };
+  const modeloDe = d => d.modelo === 'bas' ? bas() : nova();
+  let antes = null, tAntes = null, tUndo = 0;
+  const mostraDesfazer = () => { const u = $('#undo'); if (!u) return; u.hidden = false; clearTimeout(tUndo); tUndo = setTimeout(() => { const v = $('#undo'); if (v) v.hidden = true; }, 20000); };
+  const agora = () => new Date().toISOString();
+  const quando = iso => { try { const d = new Date(iso); return d.toLocaleDateString('pt-BR') + ' às ' + d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }); } catch (e) { return ''; } };
   const rep = (t, del, html) => '<div class="rep"><div class="rh"><span>' + t + '</span><button class="x" type="button" data-del="' + del + '">Remover</button></div>' + html + '</div>';
 
   function form() {
@@ -316,9 +330,10 @@
       D.condicoes.map((c, i) => rep('Condição ' + (i + 1), 'condicoes.' + i, '<div class="g2">' + vin('Título', 'condicoes.' + i + '.k') + vin('Valor', 'condicoes.' + i + '.v') + '</div>')).join('') +
       '<button class="add" type="button" data-add="condicoes">+ Adicionar condição</button>';
     const fim = vls('Próximos passos', 'proximos', 'Um por linha (até 3 ficam lado a lado).', 3) + vin('Nome na assinatura do cliente', 'assinaturaCliente', { ph: D.cliente }) + vin('Texto legal', 'legal', { area: true, rows: 5 });
-    $('#form').innerHTML = '<div class="eh"><a class="btn" href="#/"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>Propostas</a><button class="btn del" type="button" data-excluir>Excluir</button><span class="st" id="st"></span></div>' +
-      box('01', 'Capa e tipo', capa, true) + box('02', 'Objetivo', objetivo) + box('03', 'Público-alvo', publico) + box('04', 'Demonstração', demo) + box('05', 'Estrutura', estrutura) +
-      box('06', 'Cronograma', crono) + box('07', 'Benefícios', ben) + box('08', 'Investimento', inv) + box('09', 'Fechamento', fim);
+    $('#form').innerHTML = '<div class="eh"><a class="btn" href="#/"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>Propostas</a><button class="btn" type="button" data-padrao="tudo">Voltar tudo ao padrão</button><button class="btn del" type="button" data-excluir>Excluir</button><button class="x" type="button" id="undo" data-desfazer hidden>Desfazer</button><span class="st" id="st"></span></div>' +
+      box('01', 'Capa e tipo', capa, true, 'data-padrao="capa"') + box('02', 'Objetivo', objetivo, false, 'data-padrao="objetivo"') + box('03', 'Público-alvo', publico, false, 'data-padrao="publico"') +
+      box('04', 'Demonstração', demo, false, 'data-padrao="demo"') + box('05', 'Estrutura', estrutura, false, 'data-padrao="estrutura"') + box('06', 'Cronograma', crono, false, 'data-padrao="crono"') +
+      box('07', 'Benefícios', ben, false, 'data-padrao="ben"') + box('08', 'Investimento', inv, false, 'data-padrao="inv"') + box('09', 'Fechamento', fim, false, 'data-padrao="fim"');
     document.querySelectorAll('#form details').forEach((x, i) => { if (abertos.length) x.open = !!abertos[i]; });
     status();
   }
@@ -372,55 +387,114 @@
     if (b.dataset.del) { const p = b.dataset.del.split('.'), i = +p.pop(); get(D, p.join('.')).splice(i, 1); return mudou(true); }
     if (b.dataset.fdel) { const [i, j] = b.dataset.fdel.split('.').map(Number); D.demo.sessoes[i].fotos.splice(j, 1); return mudou(true); }
     if (b.hasAttribute('data-nologo')) { D.logo = ''; return mudou(true); }
+    if (b.dataset.padrao) {
+      const k = b.dataset.padrao, M = modeloDe(D);
+      if (k === 'tudo') { if (!confirm('Voltar a proposta inteira ao modelo padrão? Tudo o que foi escrito nela será trocado.')) return; antes = clone(D); M.pdfs = L(D.pdfs); D = M; }
+      else { antes = clone(D); for (const f of SECOES[k]) D[f] = clone(M[f]); if (k === 'inv' && D.tipoId) aplicaTipo(); }
+      mudou(true); mostraDesfazer(); return;
+    }
+    if (b.hasAttribute('data-desfazer')) { if (antes) { D = antes; antes = null; mudou(true); } return; }
     if (b.hasAttribute('data-excluir')) { if (!confirm('Excluir a proposta "' + (D.titulo || '') + '"? Não dá para desfazer.')) return; clearTimeout(tSalvar); await fila; if (ID) await store.del(ID); ID = null; location.hash = '#/'; }
   });
 
   /* ---------- tabela de preços (editável) ---------- */
   let tTab = 0;
+  const fmtN = v => (+v || 0) ? (+v).toLocaleString('pt-BR') : '';
+  const pctTxt = x => (+x.tabela && +x.parceiro && +x.parceiro < +x.tabela) ? 'Parceiro paga ' + Math.round((1 - x.parceiro / x.tabela) * 100) + '% a menos (economia de ' + R(x.tabela - x.parceiro) + (x.un || '') + ')' : '';
+  const money = (lab, k, v) => '<label class="f"><span>' + lab + '</span><span class="money"><i>R$</i><input data-t="' + k + '" data-m value="' + esc(fmtN(v)) + '" inputmode="numeric"></span></label>';
   function tform() {
     const abertos = [...document.querySelectorAll('#form details')].map(x => x.open);
-    const grupos = [...new Set(TAB.itens.map(x => x.grupo))];
+    const grupos = [...new Set(TAB.itens.map(x => x.grupo))], g0 = new Set(TAB0.itens.map(x => x.grupo));
     const pv = pacoteValores(TAB), pk = TAB.pacote;
-    const linha = (x, i) => rep(esc(x.nome || 'Serviço ' + (i + 1)), 'itens.' + i,
-      '<div class="g2">' + tin('Grupo', 'itens.' + i + '.grupo', x.grupo, 'list="grupos"') + tin('Serviço', 'itens.' + i + '.nome', x.nome) + '</div>' +
-      '<label class="f"><span>Descrição</span><textarea data-t="itens.' + i + '.desc" rows="2">' + esc(x.desc) + '</textarea></label>' +
-      '<div class="trow"><div class="g2b">' + tin('Preço tabela', 'itens.' + i + '.tabela', x.tabela, 'inputmode="numeric"') + tin('Preço parceiro', 'itens.' + i + '.parceiro', x.parceiro, 'inputmode="numeric"') + tin('Unidade', 'itens.' + i + '.un', x.un, 'placeholder="/mês"') + '</div></div>');
-    $('#form').innerHTML = '<div class="eh"><a class="btn" href="#/"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>Propostas</a><button class="btn" type="button" data-restaura>Voltar ao padrão 2027</button><span class="st" id="st"></span></div>' +
-      '<datalist id="grupos">' + grupos.map(g => '<option value="' + esc(g) + '">').join('') + '</datalist>' +
-      box('01', 'Serviços', TAB.itens.map(linha).join('') + '<button class="add" type="button" data-tadd>+ Adicionar serviço</button><small class="soma">Valores em reais, só números (ex.: 12500). Serviços com o mesmo grupo ficam juntos na tabela.</small>', true) +
-      box('02', 'Pacote (seção própria no fim)', tin('Nome', 'pacote.nome', pk.nome) + '<label class="f"><span>Título</span><textarea data-t="pacote.titulo" rows="2">' + esc(pk.titulo) + '</textarea></label>' +
+    const svc = i => {
+      const x = TAB.itens[i], k = 'itens.' + i;
+      return '<div class="svx"><div class="sh"><input class="nm" data-t="' + k + '.nome" value="' + esc(x.nome) + '" aria-label="Nome do serviço"><button class="x" type="button" data-del="' + k + '">Remover</button></div>' +
+        '<div class="g3">' + money('Tabela', k + '.tabela', x.tabela) + money('Parceiro', k + '.parceiro', x.parceiro) +
+        '<label class="f"><span>Cobrança</span><select data-t="' + k + '.un"><option value=""' + (x.un ? '' : ' selected') + '>Valor único</option><option value="/mês"' + (x.un === '/mês' ? ' selected' : '') + '>Por mês</option></select></label></div>' +
+        '<small class="pct" data-pct="' + i + '">' + pctTxt(x) + '</small>' +
+        '<label class="f"><span>Descrição</span><textarea data-t="' + k + '.desc" rows="2">' + esc(x.desc) + '</textarea></label>' +
+        '<label class="f"><span>Grupo</span><select data-grupo="' + i + '">' + grupos.map(g => '<option' + (g === x.grupo ? ' selected' : '') + '>' + esc(g) + '</option>').join('') + '<option value="__novo">Novo grupo…</option></select></label></div>';
+    };
+    let n = 0; const num = () => String(++n).padStart(2, '0');
+    const blocos = grupos.map(g => box(num(), esc(g) + ' <small>' + TAB.itens.filter(x => x.grupo === g).length + '</small>',
+      '<label class="f"><span>Nome do grupo</span><input data-gnome="' + esc(g) + '" value="' + esc(g) + '"></label>' +
+      TAB.itens.map((x, i) => x.grupo === g ? svc(i) : '').join('') +
+      '<button class="add" type="button" data-tadd="' + esc(g) + '">+ Serviço em ' + esc(g) + '</button>', false, g0.has(g) ? 'data-tpadrao="g:' + esc(g) + '"' : '')).join('');
+    $('#form').innerHTML = '<div class="eh"><a class="btn" href="#/"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>Propostas</a><button class="btn" type="button" data-tpadrao="tudo">Voltar tudo ao padrão</button><button class="x" type="button" id="undo" data-tdesfazer hidden>Desfazer</button><span class="st" id="st"></span></div>' +
+      '<p class="soma">Os valores ficam salvos e aparecem na hora na prévia. Cada seção tem o botão <b>Voltar ao padrão</b> (valores de 2027).</p>' +
+      blocos + '<button class="add" type="button" data-tgrupo>+ Novo grupo</button>' +
+      box(num(), 'Pacote da edição <small>fim da tabela</small>', tin('Nome', 'pacote.nome', pk.nome) + '<label class="f"><span>Título</span><textarea data-t="pacote.titulo" rows="2">' + esc(pk.titulo) + '</textarea></label>' +
         '<div class="f"><span>Serviços do pacote</span>' + TAB.itens.map(x => '<label class="chk"><input type="checkbox" data-pk="' + esc(x.id) + '"' + (pk.itens.includes(x.id) ? ' checked' : '') + '>' + esc(x.nome) + '</label>').join('') + '</div>' +
-        '<div class="g2">' + tin('Valor fixo do pacote', 'pacote.preco', pk.preco, 'inputmode="numeric"') + tin('Desconto parceiro (%)', 'pacote.parceiroDesconto', pk.parceiroDesconto, 'inputmode="numeric"') + '</div>' +
-        '<p class="soma">' + resumoPacote(pv) + '</p>', true) +
-      box('03', 'Condições de pagamento', '<label class="f"><span>Condições</span><textarea data-tl="pagamento" rows="4">' + esc(L(TAB.pagamento).join('\n')) + '</textarea><small>Uma por linha.</small></label>');
-    document.querySelectorAll('#form details').forEach((x, i) => { if (abertos.length) x.open = !!abertos[i]; });
+        '<div class="g2">' + money('Valor fixo do pacote', 'pacote.preco', pk.preco) + tin('Desconto parceiro (%)', 'pacote.parceiroDesconto', pk.parceiroDesconto, 'inputmode="numeric"') + '</div>' +
+        '<p class="soma" data-pv>' + resumoPacote(pv) + '</p>', false, 'data-tpadrao="pacote"') +
+      box(num(), 'Condições de pagamento', '<label class="f"><span>Condições</span><textarea data-tl="pagamento" rows="4">' + esc(L(TAB.pagamento).join('\n')) + '</textarea><small>Uma por linha.</small></label>', false, 'data-tpadrao="pagamento"');
+    const ds = document.querySelectorAll('#form details');
+    ds.forEach((x, i) => { x.open = abertos.length ? !!abertos[i] : i === 0; });
     status();
   }
   const resumoPacote = pv => 'Separados: ' + R(pv.somaTabela) + ' · Pacote: <b>' + R(pv.tabela) + '</b>' + (pv.economia ? ' (economia de ' + R(pv.economia) + ')' : '') + '<br>Pacote para parceiro: <b>' + R(pv.parceiro) + '</b>';
   const tin = (lab, k, v, extra) => '<label class="f"><span>' + lab + '</span><input data-t="' + k + '" value="' + esc(v == null ? '' : v) + '" ' + (extra || '') + '></label>';
   const NUM = /\.(tabela|parceiro|preco|parceiroDesconto)$/;
+  let VISTA = 'lista';
   function tmudou(refaz) {
     salvo = false; status(); if (refaz) tform();
     clearTimeout(tPrev); tPrev = setTimeout(() => preview(tdoc(TAB)), refaz ? 0 : 120);
-    clearTimeout(tTab); tTab = setTimeout(() => { const t = clone(TAB); fila = fila.then(() => store.tabelaSave(t)).then(() => { salvo = true; status(); }, e => status('Não salvou: ' + e.message)); }, 700);
+    clearTimeout(tTab); tTab = setTimeout(salvarTabela, 700);
+  }
+  function salvarTabela() {
+    clearTimeout(tTab); TAB.atualizado = agora(); const t = clone(TAB);
+    fila = fila.then(() => store.tabelaSave(t)).then(() => { salvo = true; status(); }, e => status('Não salvou: ' + e.message));
+    return fila;
   }
   function tabelaEventos(on) {
     const f = $('#form');
+    const atualizaResumo = () => { const s = document.querySelector('#form [data-pv]'); if (s) s.innerHTML = resumoPacote(pacoteValores(TAB)); };
     f.oninput = !on ? null : e => {
       const t = e.target;
-      if (t.dataset.t) { const v = NUM.test(t.dataset.t) ? +String(t.value).replace(/\D/g, '') || 0 : t.value; set(TAB, t.dataset.t, v); tmudou(false); if (NUM.test(t.dataset.t)) { const s = document.querySelector('#form .bx:nth-of-type(2) .soma'); const pv = pacoteValores(TAB); if (s) s.innerHTML = resumoPacote(pv); } }
+      if (t.dataset.t) {
+        const k = t.dataset.t, v = NUM.test(k) ? +String(t.value).replace(/\D/g, '') || 0 : t.value; set(TAB, k, v);
+        const m = /^itens\.(\d+)\./.exec(k); if (m) { const c = document.querySelector('#form [data-pct="' + m[1] + '"]'); if (c) c.textContent = pctTxt(TAB.itens[+m[1]]); }
+        atualizaResumo(); tmudou(false);
+      }
       else if (t.dataset.tl) { set(TAB, t.dataset.tl, t.value.split('\n').map(s => s.trim()).filter(Boolean)); tmudou(false); }
       else if (t.dataset.pk) { const id = t.dataset.pk, a = TAB.pacote.itens; if (t.checked) { if (!a.includes(id)) a.push(id); } else a.splice(a.indexOf(id), 1); tmudou(true); }
     };
+    f.onchange = !on ? null : e => {
+      const t = e.target;
+      if (t.hasAttribute('data-m')) t.value = fmtN(get(TAB, t.dataset.t));
+      if (t.dataset.grupo != null) {
+        const x = TAB.itens[+t.dataset.grupo]; let g = t.value;
+        if (g === '__novo') { g = (prompt('Nome do novo grupo:') || '').trim(); if (!g) { t.value = x.grupo; return; } }
+        x.grupo = g; const resto = TAB.itens.filter(y => y !== x), at = resto.map(y => y.grupo).lastIndexOf(g);
+        resto.splice(at < 0 ? resto.length : at + 1, 0, x); TAB.itens = resto; tmudou(true);
+      }
+      if (t.dataset.gnome != null) { const de = t.dataset.gnome, para = t.value.trim(); if (!para || para === de) { t.value = de; return; } TAB.itens.forEach(x => { if (x.grupo === de) x.grupo = para; }); tmudou(true); }
+    };
     f.onclick = !on ? null : e => {
       const b = e.target.closest('button'); if (!b) return;
-      if (b.hasAttribute('data-tadd')) { TAB.itens.push({ id: 's' + Date.now().toString(36), grupo: TAB.itens.length ? TAB.itens[TAB.itens.length - 1].grupo : 'Serviços', nome: 'Novo serviço', desc: '', tabela: 0, parceiro: 0, un: '' }); return tmudou(true); }
-      if (b.dataset.del && b.dataset.del.startsWith('itens.')) { const i = +b.dataset.del.split('.')[1], x = TAB.itens[i]; if (!confirm('Tirar "' + x.nome + '" da tabela?')) return; TAB.itens.splice(i, 1); TAB.pacote.itens = TAB.pacote.itens.filter(id => id !== x.id); return tmudou(true); }
-      if (b.hasAttribute('data-restaura')) { if (!confirm('Voltar a tabela para os valores padrão de 2027?')) return; TAB = clone(TAB0); return tmudou(true); }
+      if (b.dataset.tadd != null) { const g = b.dataset.tadd, at = TAB.itens.map(x => x.grupo).lastIndexOf(g); TAB.itens.splice(at + 1, 0, { id: 's' + Date.now().toString(36), grupo: g, nome: 'Novo serviço', desc: '', tabela: 0, parceiro: 0, un: '' }); return tmudou(true); }
+      if (b.hasAttribute('data-tgrupo')) { const g = (prompt('Nome do novo grupo:') || '').trim(); if (!g) return; TAB.itens.push({ id: 's' + Date.now().toString(36), grupo: g, nome: 'Novo serviço', desc: '', tabela: 0, parceiro: 0, un: '' }); return tmudou(true); }
+      if (b.dataset.del && b.dataset.del.startsWith('itens.')) { const i = +b.dataset.del.split('.')[1], x = TAB.itens[i]; if (!confirm('Tirar "' + x.nome + '" da tabela?')) return; tAntes = clone(TAB); TAB.itens.splice(i, 1); TAB.pacote.itens = TAB.pacote.itens.filter(id => id !== x.id); tmudou(true); return mostraDesfazer(); }
+      if (b.dataset.tpadrao) {
+        const k = b.dataset.tpadrao;
+        if (k === 'tudo') { if (!confirm('Voltar a tabela inteira para os valores padrão de 2027?')) return; tAntes = clone(TAB); TAB = Object.assign(clone(TAB0), { pdfs: L(TAB.pdfs) }); }
+        else if (k === 'pacote') { tAntes = clone(TAB); TAB.pacote = clone(TAB0.pacote); }
+        else if (k === 'pagamento') { tAntes = clone(TAB); TAB.pagamento = clone(TAB0.pagamento); }
+        else if (k.startsWith('g:')) {
+          const g = k.slice(2), novos = clone(TAB0.itens.filter(x => x.grupo === g)), ids = new Set(novos.map(x => x.id));
+          tAntes = clone(TAB);
+          const at = TAB.itens.findIndex(x => x.grupo === g);
+          TAB.itens = TAB.itens.filter(x => x.grupo !== g && !ids.has(x.id));
+          TAB.itens.splice(at < 0 ? TAB.itens.length : Math.min(at, TAB.itens.length), 0, ...novos);
+        }
+        tmudou(true); return mostraDesfazer();
+      }
+      if (b.hasAttribute('data-tdesfazer')) { if (tAntes) { TAB = tAntes; tAntes = null; tmudou(true); } }
     };
   }
 
   /* ---------- lista ---------- */
+  const pdfChip = a => { a = L(a); return a.length ? '<span class="chipx">PDF baixado em ' + dataCurta(a[a.length - 1]) + (a.length > 1 ? ' · ' + a.length + 'x' : '') + '</span>' : ''; };
   async function lista() {
     const c = $('#cards'); c.innerHTML = '<p class="vazio">Carregando…</p>';
     let rows;
@@ -428,41 +502,70 @@
     // a proposta do BAS entra uma vez, de exemplo
     if (!rows.some(r => r.cliente === 'Bio Amazon Summit') && !lget(LSEM, false)) { await store.save(null, bas()); lset(LSEM, true); rows = await store.list(); }
     $('#lsub').textContent = rows.length ? rows.length + (rows.length === 1 ? ' proposta salva.' : ' propostas salvas.') + ' Tudo fica aqui até você excluir.' : 'Tudo o que você gerar fica salvo aqui até você excluir.';
-    if (!rows.length) { c.innerHTML = '<div class="vazio">Nenhuma proposta ainda. Clique em <b>Nova proposta</b>.</div>'; return; }
-    c.innerHTML = rows.map(r => '<article class="pc" data-id="' + esc(r.id) + '"><div class="lg" data-ed>' + (r.logo ? '<img src="' + esc(r.logo) + '" alt="">' : '<span>Sem logo</span>') + '</div>' +
-      '<div class="in"><h3>' + esc(r.titulo) + '</h3><p class="cl">' + esc(r.cliente) + '</p><div class="mt">' + (r.tipo ? '<span class="chipx">' + esc(r.tipo) + '</span>' : '') + (r.preco ? '<span class="chipx acc">' + esc(r.preco) + '</span>' : '') + '<span class="chipx">Editada em ' + dataCurta(r.atualizado) + '</span></div></div>' +
+    c.innerHTML = !rows.length ? '<div class="vazio">Nenhuma proposta ainda. Clique em <b>Nova proposta</b>.</div>' : rows.map(r => '<article class="pc" data-id="' + esc(r.id) + '"><div class="lg" data-ed>' + (r.logo ? '<img src="' + esc(r.logo) + '" alt="">' : '<span>Sem logo</span>') + '</div>' +
+      '<div class="in"><h3>' + esc(r.titulo) + '</h3><p class="cl">' + esc(r.cliente) + '</p><div class="mt">' + (r.tipo ? '<span class="chipx">' + esc(r.tipo) + '</span>' : '') + (r.preco ? '<span class="chipx acc">' + esc(r.preco) + '</span>' : '') + '<span class="chipx">Editada em ' + dataCurta(r.atualizado) + '</span>' + pdfChip(r.pdfs) + '</div></div>' +
       '<div class="ac"><button class="btn" type="button" data-ed>Editar</button><button class="btn" type="button" data-pdf>Baixar PDF</button><button class="btn" type="button" data-dup>Duplicar</button><button class="btn del" type="button" data-del>Excluir</button></div></article>').join('');
+    // tabela de preços
+    const pv = pacoteValores(TAB);
+    $('#tabcard').innerHTML = '<article class="pc"><div class="lg" data-ted><span class="tt">Tabela de preços<b>' + esc(String(TAB.titulo).replace(/\D+/g, '') || '2027') + '</b></span></div>' +
+      '<div class="in"><h3>' + esc(TAB.titulo) + '</h3><p class="cl">' + TAB.itens.length + ' serviços' + (pv.its.length ? ' + pacote da edição' : '') + '</p><div class="mt">' + (pv.its.length ? '<span class="chipx acc">Pacote ' + R(pv.tabela) + '</span>' : '') + (TAB.atualizado ? '<span class="chipx">Editada em ' + dataCurta(TAB.atualizado) + '</span>' : '<span class="chipx">Valores padrão 2027</span>') + pdfChip(TAB.pdfs) + '</div></div>' +
+      '<div class="ac"><button class="btn" type="button" data-ted>Editar</button><button class="btn" type="button" data-tpdf>Baixar PDF</button></div></article>';
+    // PDFs baixados
+    const hist = [];
+    rows.forEach(r => L(r.pdfs).forEach(d => hist.push({ d, nome: r.titulo + ' · ' + r.cliente, id: r.id })));
+    L(TAB.pdfs).forEach(d => hist.push({ d, nome: TAB.titulo, id: 'tabela' }));
+    hist.sort((a, b) => a.d < b.d ? 1 : -1);
+    $('#hist').innerHTML = hist.length ? '<ul class="hist">' + hist.slice(0, 30).map(h => '<li><svg viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 14h6M10 17h4"/></svg><div><b>' + esc(h.nome) + '</b><small>Baixado em ' + quando(h.d) + '</small></div><button class="btn" type="button" data-hpdf="' + esc(h.id) + '">Baixar de novo</button></li>').join('') + '</ul><p class="hnota">"Baixar de novo" gera o PDF com a versão atual da proposta.</p>' : '<p class="vazio">Os PDFs que você baixar aparecem aqui, com data e hora.</p>';
   }
   $('#cards').addEventListener('click', async e => {
     const card = e.target.closest('.pc'); if (!card) return; const id = card.dataset.id;
     const b = e.target.closest('[data-ed],[data-pdf],[data-dup],[data-del]'); if (!b) return;
     if (b.hasAttribute('data-ed')) return void (location.hash = '#/p/' + id);
     try {
-      if (b.hasAttribute('data-pdf')) { const p = await store.get(id); return pdf(doc(p.dados), nomePdf(p.dados)); }
-      if (b.hasAttribute('data-dup')) { const p = await store.get(id); const d = clone(p.dados); d.titulo = d.titulo + ' (cópia)'; const nid = await store.save(null, d); return void (location.hash = '#/p/' + nid); }
+      if (b.hasAttribute('data-pdf')) return pdfProposta(id);
+      if (b.hasAttribute('data-dup')) { const p = await store.get(id); const d = clone(p.dados); d.titulo = d.titulo + ' (cópia)'; d.pdfs = []; const nid = await store.save(null, d); return void (location.hash = '#/p/' + nid); }
       if (b.hasAttribute('data-del')) { if (!confirm('Excluir esta proposta? Não dá para desfazer.')) return; await store.del(id); lista(); }
     } catch (x) { alert(x.message); }
+  });
+  $('#tabcard').addEventListener('click', e => {
+    if (e.target.closest('[data-ted]')) location.hash = '#/tabela';
+    else if (e.target.closest('[data-tpdf]')) { pdfTabela(); setTimeout(lista, 800); }
+  });
+  $('#hist').addEventListener('click', async e => {
+    const b = e.target.closest('[data-hpdf]'); if (!b) return;
+    try { if (b.dataset.hpdf === 'tabela') { pdfTabela(); setTimeout(lista, 800); } else await pdfProposta(b.dataset.hpdf); } catch (x) { alert(x.message); }
   });
 
   /* ---------- telas ---------- */
   const tela = v => { $('#vlista').hidden = v !== 'lista'; $('#ved').hidden = v === 'lista'; document.querySelectorAll('.tabs a').forEach(a => a.classList.toggle('on', a.dataset.v === (v === 'tabela' ? 'tabela' : 'lista'))); };
   $('#ved').addEventListener('click', e => {
     if (!e.target.closest('[data-pdf]')) return;
-    if (D) pdf(doc(D), nomePdf(D)); else pdf(tdoc(TAB), 'Fyw - ' + TAB.titulo);
+    if (D) { D.pdfs = L(D.pdfs).concat(agora()).slice(-30); mudou(); pdf(doc(D), nomePdf(D)); }
+    else pdfTabela();
   });
+  function pdfTabela() { TAB.pdfs = L(TAB.pdfs).concat(agora()).slice(-30); salvarTabela(); pdf(tdoc(TAB), 'Fyw - ' + TAB.titulo); }
+  async function pdfProposta(id) {
+    const p = await store.get(id);
+    p.dados.pdfs = L(p.dados.pdfs).concat(agora()).slice(-30);
+    await store.save(id, p.dados);
+    await pdf(doc(p.dados), nomePdf(p.dados));
+    setTimeout(lista, 800);
+  }
   async function rota() {
     const h = location.hash.replace(/^#\/?/, '');
-    clearTimeout(tSalvar); clearTimeout(tTab);
-    if (!salvo && D) await salvar();
+    clearTimeout(tSalvar);
+    if (!salvo) { if (D) await salvar(); else if (VISTA === 'tabela') await salvarTabela(); }
+    clearTimeout(tTab);
     D = null; ID = null; salvo = true;
     await carregaTabela();
+    VISTA = h === 'tabela' ? 'tabela' : 'outra';
     if (h === 'tabela') { tela('tabela'); tabelaEventos(true); $('#pinfo').textContent = 'Prévia da tabela de preços (página única)'; tform(); preview(tdoc(TAB)); return; }
     tabelaEventos(false);
     if (h === 'nova') { tela('ed'); D = nova(); $('#pinfo').textContent = 'Prévia do PDF (página única, 1240 px de largura)'; form(); preview(doc(D)); await salvar(); return; }
     const m = /^p\/(.+)$/.exec(h);
     if (m) {
       tela('ed'); $('#form').innerHTML = '<p class="vazio">Carregando…</p>';
-      try { const p = await store.get(decodeURIComponent(m[1])); ID = p.id; D = Object.assign(nova(), p.dados); }
+      try { const p = await store.get(decodeURIComponent(m[1])); ID = p.id; D = Object.assign(nova(), { modelo: p.dados.cliente === 'Bio Amazon Summit' ? 'bas' : 'nova' }, p.dados); }
       catch (e) { $('#form').innerHTML = '<p class="vazio">' + esc(e.message) + '</p>'; return; }
       $('#pinfo').textContent = 'Prévia do PDF (página única, 1240 px de largura)'; form(); preview(doc(D)); return;
     }
@@ -471,7 +574,7 @@
   let tabOk = false;
   async function carregaTabela() {
     if (tabOk) return; tabOk = true;
-    try { const t = await store.tabela(); if (t && Array.isArray(t.itens)) { delete t.atualizado; TAB = Object.assign(clone(TAB0), t); if (!TAB.pacote || TAB.pacote.preco == null) TAB.pacote = Object.assign(clone(TAB0.pacote), TAB.pacote ? { nome: TAB.pacote.nome, titulo: TAB.pacote.titulo, itens: TAB.pacote.itens } : {}); delete TAB.pacote.desconto; } } catch (e) {}
+    try { const t = await store.tabela(); if (t && Array.isArray(t.itens)) { TAB = Object.assign(clone(TAB0), t); if (!TAB.pacote || TAB.pacote.preco == null) TAB.pacote = Object.assign(clone(TAB0.pacote), TAB.pacote ? { nome: TAB.pacote.nome, titulo: TAB.pacote.titulo, itens: TAB.pacote.itens } : {}); delete TAB.pacote.desconto; } } catch (e) {}
   }
   addEventListener('hashchange', rota);
   addEventListener('beforeunload', e => { if (!salvo) { e.preventDefault(); e.returnValue = ''; } });
