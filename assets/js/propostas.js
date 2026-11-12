@@ -21,7 +21,7 @@
       { id: 'hotsite', grupo: 'Eventos', nome: 'Hotsite de evento', desc: 'Home e até 3 páginas internas, seção de retrospectiva, até 2 rodadas de ajustes e 1 ajuste pós-evento.', tabela: 6500, parceiro: 5000, un: '' },
       { id: 'encerramento', grupo: 'Eventos', nome: 'Hotsite de encerramento', desc: 'Resultados e indicadores, palestrantes e atrações, galeria e retrospectiva, em até 3 idiomas.', tabela: 6500, parceiro: 5000, un: '' },
       { id: 'website', grupo: 'Eventos', nome: 'Website oficial do evento', desc: 'Agenda, palestrantes, patrocinadores, informações práticas e contato, com painel de edição e versão bilíngue.', tabela: 16000, parceiro: 12500, un: '' },
-      { id: 'agenda', grupo: 'Eventos', nome: 'Plataforma de agenda e programação', desc: 'Agenda em lista, grade e cards, filtros, sessões e palestrantes, painel administrativo e até 3 idiomas.', tabela: 12500, parceiro: 10000, un: '', rotulo: 'Proposta comercial para plataforma de programação' },
+      { id: 'agenda', grupo: 'Eventos', nome: 'Plataforma de agenda e programação', desc: 'Agenda em lista, grade e cards, filtros, sessões e palestrantes, painel administrativo e até 3 idiomas.', tabela: 8500, parceiro: 6500, un: '', rotulo: 'Proposta comercial para plataforma de programação' },
       { id: 'portal', grupo: 'Conteúdo', nome: 'Portal ou hub de conteúdo', desc: 'Até 6 páginas e página modelo, filtros por tema, painel de edição, formulário com LGPD e 30 dias de suporte.', tabela: 8600, parceiro: 7000, un: '' },
       { id: 'branding', grupo: 'Marca', nome: 'Branding completo', desc: 'Criação de marca do zero: estratégia, logo, identidade visual, manual da marca e arquivos finais editáveis.', tabela: 10700, parceiro: 8500, un: '' },
       { id: 'rebranding', grupo: 'Marca', nome: 'Rebranding completo', desc: 'Diagnóstico, estratégia de marca, novo logo, identidade visual, manual da marca e arquivos finais editáveis.', tabela: 10700, parceiro: 8500, un: '' },
@@ -67,6 +67,8 @@
     if (!r.ok) throw new Error(j.erro || ('Erro ' + r.status));
     return j;
   }
+  // agenda 2027 ficou mais barata: R$ 12.500 / 10.000 viraram R$ 8.500 / 6.500
+  const agendaNova = d => { if (d && d.tipoId === 'agenda' && d.precoTabela === 'R$ 12.500' && d.preco === 'R$ 10.000') { d.precoTabela = 'R$ 8.500'; d.preco = 'R$ 6.500'; } return d; };
   const lrow = p => ({ id: p.id, titulo: p.dados.titulo, cliente: p.dados.cliente, tipo: p.dados.tipo, preco: p.dados.preco, logo: p.dados.logo, pdfs: p.dados.pdfs, criado: p.criado, atualizado: p.atualizado });
   const store = {
     async list() {
@@ -152,7 +154,7 @@
         { t: 'Publicação', periodo: 'Dias 17 a 20', desc: 'Testes, configuração e publicação da plataforma.' }
       ],
       beneficios: ['Programação centralizada em uma única plataforma', 'Mais autonomia para a equipe organizadora', 'Menos erros operacionais durante o evento', 'Melhor experiência para participantes e palestrantes', 'Imagem mais forte para patrocinadores e parceiros', 'Estrutura pronta para as próximas edições'],
-      parceiro: true, precoTabela: 'R$ 12.500', preco: 'R$ 10.000',
+      parceiro: true, precoTabela: 'R$ 8.500', preco: 'R$ 6.500',
       escopo: ['Desenvolvimento completo da plataforma', 'Painel administrativo para a equipe', 'Versões em português, inglês e espanhol', 'Integração com Google Agenda', 'Configuração e publicação', 'Servidores, backup e recuperação de dados inclusos'],
       condicoes: [{ k: 'Entrada', v: '50% na aprovação' }, { k: 'Restante', v: 'Em 2x' }, { k: 'No cartão', v: 'Até 12x (juros da operadora)' }, { k: 'À vista no Pix', v: '10% de desconto' }],
       assinaturaCliente: 'Bio Amazon Summit'
@@ -325,7 +327,7 @@
     const crono = vin('Título', 'cronogramaTitulo') + D.etapas.map((e, i) => rep('Etapa ' + (i + 1), 'etapas.' + i, '<div class="g2">' + vin('Nome', 'etapas.' + i + '.t') + vin('Período', 'etapas.' + i + '.periodo') + '</div>' + vin('O que acontece', 'etapas.' + i + '.desc', { area: true, rows: 2 }))).join('') +
       '<button class="add" type="button" data-add="etapas">+ Adicionar etapa</button>' + vin('Nota', 'cronogramaNota', { area: true, rows: 2 });
     const ben = vin('Título', 'beneficiosTitulo') + vls('Benefícios', 'beneficios', 'Um por linha. Fica melhor com número par (2 colunas).', 6);
-    const inv = '<div class="g2">' + vin('Valor final', 'preco', { ph: 'R$ 10.000' }) + vin('Valor normal (riscado)', 'precoTabela', { ph: 'R$ 12.500', dica: 'Só aparece para parceiro.' }) + '</div>' + vin('Nota do valor de parceiro', 'precoNota', { area: true, rows: 2 }) +
+    const inv = '<div class="g2">' + vin('Valor final', 'preco', { ph: 'R$ 6.500' }) + vin('Valor normal (riscado)', 'precoTabela', { ph: 'R$ 8.500', dica: 'Só aparece para parceiro.' }) + '</div>' + vin('Nota do valor de parceiro', 'precoNota', { area: true, rows: 2 }) +
       vls('Escopo da entrega', 'escopo', 'Um item por linha.', 6) +
       D.condicoes.map((c, i) => rep('Condição ' + (i + 1), 'condicoes.' + i, '<div class="g2">' + vin('Título', 'condicoes.' + i + '.k') + vin('Valor', 'condicoes.' + i + '.v') + '</div>')).join('') +
       '<button class="add" type="button" data-add="condicoes">+ Adicionar condição</button>';
@@ -503,7 +505,7 @@
     if (!rows.some(r => r.cliente === 'Bio Amazon Summit') && !lget(LSEM, false)) { await store.save(null, bas()); lset(LSEM, true); rows = await store.list(); }
     $('#lsub').textContent = rows.length ? rows.length + (rows.length === 1 ? ' proposta salva.' : ' propostas salvas.') + ' Tudo fica aqui até você excluir.' : 'Tudo o que você gerar fica salvo aqui até você excluir.';
     c.innerHTML = !rows.length ? '<div class="vazio">Nenhuma proposta ainda. Clique em <b>Nova proposta</b>.</div>' : rows.map(r => '<article class="pc" data-id="' + esc(r.id) + '"><div class="lg" data-ed>' + (r.logo ? '<img src="' + esc(r.logo) + '" alt="">' : '<span>Sem logo</span>') + '</div>' +
-      '<div class="in"><h3>' + esc(r.titulo) + '</h3><p class="cl">' + esc(r.cliente) + '</p><div class="mt">' + (r.tipo ? '<span class="chipx">' + esc(r.tipo) + '</span>' : '') + (r.preco ? '<span class="chipx acc">' + esc(r.preco) + '</span>' : '') + '<span class="chipx">Editada em ' + dataCurta(r.atualizado) + '</span>' + pdfChip(r.pdfs) + '</div></div>' +
+      '<div class="in"><h3>' + esc(r.titulo) + '</h3><p class="cl">' + esc(r.cliente) + '</p><div class="mt">' + (r.tipo ? '<span class="chipx">' + esc(r.tipo) + '</span>' : '') + (r.preco ? '<span class="chipx acc">' + esc(r.preco === 'R$ 10.000' && /agenda/i.test(r.tipo || '') ? 'R$ 6.500' : r.preco) + '</span>' : '') + '<span class="chipx">Editada em ' + dataCurta(r.atualizado) + '</span>' + pdfChip(r.pdfs) + '</div></div>' +
       '<div class="ac"><button class="btn" type="button" data-ed>Editar</button><button class="btn" type="button" data-pdf>Baixar PDF</button><button class="btn" type="button" data-dup>Duplicar</button><button class="btn del" type="button" data-del>Excluir</button></div></article>').join('');
     // tabela de preços
     const pv = pacoteValores(TAB);
@@ -545,7 +547,7 @@
   });
   function pdfTabela() { TAB.pdfs = L(TAB.pdfs).concat(agora()).slice(-30); salvarTabela(); pdf(tdoc(TAB), 'Fyw - ' + TAB.titulo); }
   async function pdfProposta(id) {
-    const p = await store.get(id);
+    const p = await store.get(id); agendaNova(p.dados);
     p.dados.pdfs = L(p.dados.pdfs).concat(agora()).slice(-30);
     await store.save(id, p.dados);
     await pdf(doc(p.dados), nomePdf(p.dados));
@@ -565,7 +567,7 @@
     const m = /^p\/(.+)$/.exec(h);
     if (m) {
       tela('ed'); $('#form').innerHTML = '<p class="vazio">Carregando…</p>';
-      try { const p = await store.get(decodeURIComponent(m[1])); ID = p.id; D = Object.assign(nova(), { modelo: p.dados.cliente === 'Bio Amazon Summit' ? 'bas' : 'nova' }, p.dados); }
+      try { const p = await store.get(decodeURIComponent(m[1])); ID = p.id; D = Object.assign(nova(), { modelo: p.dados.cliente === 'Bio Amazon Summit' ? 'bas' : 'nova' }, agendaNova(p.dados)); }
       catch (e) { $('#form').innerHTML = '<p class="vazio">' + esc(e.message) + '</p>'; return; }
       $('#pinfo').textContent = 'Prévia do PDF (página única, 1240 px de largura)'; form(); preview(doc(D)); return;
     }
@@ -574,7 +576,7 @@
   let tabOk = false;
   async function carregaTabela() {
     if (tabOk) return; tabOk = true;
-    try { const t = await store.tabela(); if (t && Array.isArray(t.itens)) { TAB = Object.assign(clone(TAB0), t); if (!TAB.pacote || TAB.pacote.preco == null) TAB.pacote = Object.assign(clone(TAB0.pacote), TAB.pacote ? { nome: TAB.pacote.nome, titulo: TAB.pacote.titulo, itens: TAB.pacote.itens } : {}); delete TAB.pacote.desconto; } } catch (e) {}
+    try { const t = await store.tabela(); if (t && Array.isArray(t.itens)) { TAB = Object.assign(clone(TAB0), t); if (!TAB.pacote || TAB.pacote.preco == null) TAB.pacote = Object.assign(clone(TAB0.pacote), TAB.pacote ? { nome: TAB.pacote.nome, titulo: TAB.pacote.titulo, itens: TAB.pacote.itens } : {}); delete TAB.pacote.desconto; const ag = TAB.itens.find(x => x.id === 'agenda'); if (ag && +ag.tabela === 12500 && +ag.parceiro === 10000) { ag.tabela = 8500; ag.parceiro = 6500; } } } catch (e) {}
   }
   addEventListener('hashchange', rota);
   addEventListener('beforeunload', e => { if (!salvo) { e.preventDefault(); e.returnValue = ''; } });
