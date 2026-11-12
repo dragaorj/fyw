@@ -138,12 +138,14 @@
 .pdoc .pkg li { display: flex; align-items: center; gap: 12px; padding: 14px 0; box-shadow: inset 0 1px 0 rgba(238,237,233,.14); }
 .pdoc .pkg li i { flex: none; width: 8px; height: 8px; border-radius: 50%; background: #C8F53C; }
 .pdoc .pkg li span { flex: 1; color: rgba(238,237,233,.85); }
-.pdoc .pkg li small { color: rgba(238,237,233,.5); }
+.pdoc .pkg li small { display: flex; align-items: baseline; gap: 10px; color: rgba(238,237,233,.5); }
+.pdoc .pkg li small s { text-decoration-thickness: 1px; }
+.pdoc .pkg li small b { font-weight: 600; color: #C8F53C; }
 .pdoc .pkg .pr2 { display: grid; gap: 16px; justify-items: start; }
 .pdoc .pkg .sep { display: flex; align-items: center; gap: 12px; }
 .pdoc .pkg .off { padding: 8px 14px; border-radius: 99px; background: #C8F53C; color: #0B0B0B; }
 .pdoc .pkg .pg { font-size: 88px; line-height: 1; letter-spacing: -.04em; font-weight: 600; color: #C8F53C; white-space: nowrap; }
-.pdoc .pkg .pp2 { justify-self: stretch; display: grid; gap: 6px; padding: 18px 22px; border-radius: 20px; background: rgba(238,237,233,.08); }
+.pdoc .pkg .pp2 { justify-self: stretch; display: grid; gap: 6px; padding: 18px 22px; border-radius: 20px; background: rgba(238,237,233,.08); box-shadow: inset 0 0 0 1.5px #C8F53C; }
 .pdoc .pkg .pp2 b { font-size: 30px; line-height: 1.1; letter-spacing: -.02em; font-weight: 600; }
 .pdoc.tdoc .pgto { margin-top: 80px; }
 .pdoc.tdoc .ft { margin-top: 48px; }
