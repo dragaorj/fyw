@@ -1,8 +1,6 @@
 /* Hotwebinar · blog. Mesma base do site (hw.css): "u" = 1px do layout (celular sobre 440, computador sobre 1920). Gerar blog.css trocando Nu por calc(N * var(--u)). */
 .bp { position: relative; overflow: hidden; background: #000; min-height: 100vh; }
-.bl-bg { position: absolute; inset: 0 0 auto; height: 1400u; pointer-events: none; z-index: 0;
-  background: radial-gradient(60% 40% at 85% 0%, rgba(237,0,0,.45), transparent 70%), radial-gradient(40% 30% at 0% 18%, rgba(237,0,0,.22), transparent 70%); }
-.bl-ring { position: absolute; z-index: 0; right: -180u; top: -40u; width: 560u; opacity: .8; pointer-events: none; }
+/* fundo igual ao do site: anéis (com transparência) por baixo e manchas vermelhas por cima, a partir do topo */
 .bp > .hd, .bl-main, .bp > .ft { position: relative; z-index: 2; }
 .hd-blog.is-on { color: var(--red); }
 .bl-main { padding: 0 20u; }
@@ -159,7 +157,8 @@
 @media (min-width: 900px) {
   .bp > .hd { left: 0; right: 0; top: 0; margin: 53u 160u 0; }
   .bp > .ft { left: 0; top: 0; width: auto; max-width: 1330u; margin: 200u auto 0; padding: 0 0 90u; }
-  .bl-ring { right: -160u; top: -120u; width: 980u; }
+  .bp > .bgt-hero { left: auto; right: 0; }
+  .bp > .bgt-foot { top: auto; bottom: 0; left: 0; }
   .bl-main { width: 1600u; margin: 0 auto; padding: 0; }
   .bl-k { font-size: 16u; }
   .bl-hero { padding-top: 150u; }

@@ -5,6 +5,9 @@
   var $$ = function (s, c) { return [].slice.call((c || document).querySelectorAll(s)); };
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var wide = matchMedia('(min-width: 900px)');
+  // botões: a luz branca segue o mouse
+  document.addEventListener('pointermove', function (e) { var b = e.target.closest && e.target.closest('.btn, .mb-go'); if (!b) return; var r = b.getBoundingClientRect(); b.style.setProperty('--mx', (e.clientX - r.left) + 'px'); b.style.setProperty('--my', (e.clientY - r.top) + 'px'); }, { passive: true });
+
 
   // menu do celular
   var hd = $('.hd'), dr = $('.drawer'), bt = $('.hd-burger');
@@ -177,7 +180,7 @@
   var E = 'power3.out';
   // topo
   var tl = gsap.timeline({ defaults: { ease: E } });
-  tl.from('.hd > *', { y: -20, autoAlpha: 0, duration: .7, stagger: .06 })
+  tl.from('.hd > *', { y: -20, autoAlpha: 0, duration: .7, stagger: .06, clearProps: 'transform' })
     .from('.hero .h-xl', { y: 60, autoAlpha: 0, duration: 1.1 }, .1)
     .from('.hero .sub', { y: 30, autoAlpha: 0, duration: .9 }, .35)
     .from('.hero-cta', { y: 20, autoAlpha: 0, scale: .92, duration: .8, clearProps: 'transform' }, .5);

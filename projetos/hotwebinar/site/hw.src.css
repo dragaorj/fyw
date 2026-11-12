@@ -34,7 +34,7 @@ br.d, span.d { display: none; }
 
 /* ================= CELULAR (base, frame de 440) ================= */
 .bgt-hero { right: -120u; top: 0; width: 520u; }
-.bgt-foot { left: -361u; bottom: 0; width: 1256u; opacity: .9; }
+.bgt-foot { left: -361u; bottom: 0; width: 1256u; }
 .hd { position: relative; z-index: 5; display: flex; align-items: center; justify-content: space-between; padding: 64u 20u 0; }
 .hd-logo img { width: 105u; height: auto; }
 .hd-nav, .hd-blog, .hd-cta { display: none; }
@@ -291,14 +291,14 @@ br.d, span.d { display: none; }
   .bgt-foot { left: 0; top: 5579u; bottom: auto; width: 1920u; opacity: 1; }
 
   .hd { left: 160u; right: 160u; top: 53u; height: 62u; padding: 0; display: block; }
-  .hd > * { position: absolute; top: 50%; transform: translateY(-50%); }
+  .hd > * { position: absolute; top: 0; bottom: 0; height: fit-content; margin: auto 0; }
   .hd-logo { left: 0; } .hd-logo img { width: 135u; }
   .hd-nav { display: flex; left: 551u; gap: 25u; font: 500 20u/22u 'Montserrat', sans-serif; letter-spacing: -.06em; color: var(--w5); }
   .hd-nav a, .hd-blog { transition: color .3s; } .hd-nav a:hover { color: #fff; }
   .hd-blog { display: block; left: 1286u; font: 700 20u/22u 'Montserrat', sans-serif; letter-spacing: -.06em; }
   .hd-blog:hover { color: var(--red); }
   .hd-cta { display: inline-flex; right: 0; width: 231u; }
-  .hd-cta:hover { transform: translateY(calc(-50% - 2px)); }
+  .hd-cta:hover { transform: translateY(-2px); }
   .hd-burger, .drawer { display: none !important; }
 
   .hero > .h-xl { left: 0; right: 0; top: 211u; text-align: center; font-size: 120u; line-height: 120u; }
@@ -509,11 +509,8 @@ br.d, span.d { display: none; }
 .sk-funnel { animation: bobA 3.2s ease-in-out 1.2s infinite alternate; }
 .sk-offer { animation: bobB 3.6s ease-in-out 1.4s infinite alternate; }
 
-/* anéis de fundo atrás das funcionalidades e dos planos */
-.bgt-mid, .bgt-plans { display: none; }
+/* topo do botão do hero */
 @media (min-width: 900px) {
-  .bgt-mid { display: block; left: 760u; top: 2980u; width: 1300u; opacity: .9; }
-  .bgt-plans { display: block; left: 240u; top: 4640u; width: 1431u; transform: scaleX(-1); opacity: .9; }
   .hero > .hero-cta { top: 562u; }
 }
 
@@ -629,8 +626,6 @@ html .pl-badge { background: rgba(255,255,255,.07); border-color: rgba(255,255,2
   .pg main > .faq > * { margin-top: -400u; }
   .pg > .ft { margin-top: -400u; }
   .bgt-foot { top: 5179u; }
-  .bgt-mid { top: 3868u; }
-  .bgt-plans { top: 2910u; }
   .h-lg[id], .dash[id] { scroll-margin-top: 40px; }
 }
 
@@ -789,3 +784,33 @@ html .pl-badge { background: rgba(255,255,255,.06); -webkit-backdrop-filter: blu
 .cal-t button.on { background: rgba(237,0,0,.16); border-color: rgba(237,0,0,.7); }
 .cal-ok { margin-top: 16u; width: 100%; height: 44u; border-radius: 30u; background: var(--red); font-size: 15u; font-weight: 600; cursor: pointer; transition: transform .25s, box-shadow .25s; }
 .cal-ok:hover { transform: translateY(-2px); box-shadow: 0 12px 24px -10px rgba(237,0,0,.9); }
+
+/* ===== botões: luz branca que segue o mouse (o JS passa --mx / --my) ===== */
+@media (min-width: 900px) { .hd > .hd-cta { height: 62u; } }
+:where(.btn, .mb-go) { position: relative; }
+.btn, .mb-go { isolation: isolate; overflow: hidden; }
+.btn::before, .btn::after, .mb-go::before, .mb-go::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .4s ease; }
+/* brilho no vidro, embaixo do texto */
+.btn::after, .mb-go::after { z-index: -1; background: radial-gradient(150px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,.42), rgba(255,255,255,.12) 45%, transparent 72%); }
+/* fio de luz na borda acompanhando o mouse */
+.btn::before, .mb-go::before { inset: -1.5px; padding: 1.5px; background: radial-gradient(110px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,.95), transparent 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); }
+.btn:hover::before, .btn:hover::after, .mb-go:hover::before, .mb-go:hover::after, .btn:focus-visible::after, .mb-go:focus-visible::after { opacity: 1; }
+/* sem vermelho no hover: o vidro só clareia um pouco e a luz faz o resto */
+.btn:hover { background: radial-gradient(120% 160% at 100% 20%, rgba(255,255,255,.36), rgba(255,255,255,.12) 51%, rgba(255,255,255,.34)); border-color: rgba(255,255,255,.4); }
+
+/* telas das funcionalidades: nada sai do quadro; o gráfico encolhe para caber a lista */
+.scr > * { min-height: 0; }
+.scr[data-i="1"] .s-box:has(.s-bars) { flex: 1 1 0; min-height: 0; }
+.scr[data-i="1"] .s-bars { min-height: 0; flex: 1 1 0; height: auto; }
+.scr[data-i="1"] .s-list { flex: none; gap: 8u; }
+.scr[data-i="1"] .s-list li { padding: 10u 14u; }
+
+/* rodapé: só o Instagram (ícone + @) e o e-mail de contato */
+.ft-soc.ft-ig { width: auto; height: auto; }
+.ft-ig a { position: static; display: inline-flex; align-items: center; gap: 12u; width: auto; height: 31u; overflow: visible; font: 500 18u/1 'Montserrat', sans-serif; letter-spacing: -.04em; color: rgba(255,255,255,.75); transition: color .3s, transform .3s; }
+.ft-ig a i { position: relative; flex: none; width: 32u; height: 31u; overflow: hidden; transition: filter .3s; }
+.ft-ig a:hover { color: #fff; transform: translateY(-2px); filter: none; }
+.ft-ig a:hover i { filter: drop-shadow(0 0 10px rgba(237,0,0,.8)) brightness(1.1); }
+.ft-mail { transition: color .3s; } .ft-mail:hover { color: #fff; }
+@media (min-width: 900px) { .ft-soc.ft-ig { right: 0; } .ft-ig a { font-size: 24u; gap: 14u; } }

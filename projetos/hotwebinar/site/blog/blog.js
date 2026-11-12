@@ -3,6 +3,9 @@
   'use strict';
   var $ = function (s, c) { return (c || document).querySelector(s); };
   var $$ = function (s, c) { return [].slice.call((c || document).querySelectorAll(s)); };
+  // botões: a luz branca segue o mouse
+  document.addEventListener('pointermove', function (e) { var b = e.target.closest && e.target.closest('.btn, .mb-go'); if (!b) return; var r = b.getBoundingClientRect(); b.style.setProperty('--mx', (e.clientX - r.left) + 'px'); b.style.setProperty('--my', (e.clientY - r.top) + 'px'); }, { passive: true });
+
 
   // menu do celular
   var hd = $('.hd'), dr = $('.drawer'), bt = $('.hd-burger');
