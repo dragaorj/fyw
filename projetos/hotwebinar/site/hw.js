@@ -180,7 +180,7 @@
   var E = 'power3.out';
   // topo
   var tl = gsap.timeline({ defaults: { ease: E } });
-  tl.from('.hd > *', { y: -20, autoAlpha: 0, duration: .7, stagger: .06, clearProps: 'transform' })
+  tl.from('.hd > *', { autoAlpha: 0, duration: .8, stagger: .06 })
     .from('.hero .h-xl', { y: 60, autoAlpha: 0, duration: 1.1 }, .1)
     .from('.hero .sub', { y: 30, autoAlpha: 0, duration: .9 }, .35)
     .from('.hero-cta', { y: 20, autoAlpha: 0, scale: .92, duration: .8, clearProps: 'transform' }, .5);
