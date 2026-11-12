@@ -18,4 +18,12 @@ async function rpc(fn, args) {
   if (!r.ok) throw new Error('rpc ' + fn + ' ' + r.status + ' ' + (await r.text()).slice(0, 200));
   const t = await r.text(); return t ? JSON.parse(t) : null;
 }
-module.exports = { insert, rpc, ready, key };
+// acesso direto a uma tabela (ex.: propostas): rest('propostas?select=*', { method, body, prefer })
+async function rest(path, opt) {
+  opt = opt || {};
+  const h = H(); if (opt.prefer) h.Prefer = opt.prefer;
+  const r = await fetch(base() + '/rest/v1/' + path, { method: opt.method || 'GET', headers: h, body: opt.body ? JSON.stringify(opt.body) : undefined });
+  if (!r.ok) { const e = new Error('rest ' + r.status + ' ' + (await r.text()).slice(0, 200)); e.status = r.status; throw e; }
+  const t = await r.text(); return t ? JSON.parse(t) : null;
+}
+module.exports = { insert, rpc, rest, ready, key };

@@ -34,7 +34,8 @@
     perf: '<path d="M4 15a8 8 0 1 1 16 0"/><path d="M12 15l4-5"/>',
     erros: '<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/>',
     visitas: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/>',
-    mapa: '<circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>'
+    mapa: '<circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>',
+    propostas: '<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h4"/><path d="M4 7v14h11"/>'
   };
   const NETS = [['instagram', 'Instagram', 'IG'], ['facebook', 'Facebook', 'f'], ['linkedin', 'LinkedIn', 'in'], ['x', 'X (Twitter)', 'X'], ['youtube', 'YouTube', '▶'], ['tiktok', 'TikTok', 'TT'], ['whatsapp', 'WhatsApp', 'WA']];
   const WD = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
@@ -104,9 +105,10 @@
       card('Problemas ao carregar', errTable(s.errs), { w: 9, h: 9, sub: fmt(s.errtotal) + ' no período' })
     ] },
     visitas: { name: 'Visitas', icon: I.visitas, desc: 'Cada visita, passo a passo (só de quem aceitou os cookies).', special: 'visitas' },
-    mapa: { name: 'Mapa de cliques', icon: I.mapa, desc: 'Onde as pessoas clicam em cada página (computador).', special: 'mapa' }
+    mapa: { name: 'Mapa de cliques', icon: I.mapa, desc: 'Onde as pessoas clicam em cada página (computador).', special: 'mapa' },
+    propostas: { name: 'Criar proposta', icon: I.propostas, desc: 'Propostas comerciais e tabela de preços.', link: '/propostas' }
   };
-  const ORDER = ['geral', 'origem', 'redes', 'paginas', 'comp', 'publico', 'perf', 'erros', 'visitas', 'mapa'];
+  const ORDER = ['geral', 'origem', 'redes', 'paginas', 'comp', 'publico', 'perf', 'erros', 'visitas', 'mapa', 'propostas'];
 
   function socialTotal(s) { return (s.social || []).reduce((a, x) => a + (+x.n || 0), 0); }
   function netBars(s) { return bars(NETS.map(([k, n]) => ({ k: n, n: ((s.social || []).find(x => x.k === k) || {}).n || 0, c: SRC_C[k] })), { color: k => SRC_C[(NETS.find(x => x[1] === k) || [])[0]] }); }
@@ -287,15 +289,15 @@
 
   /* menu, período, tema, login */
   $('#nav').innerHTML = ORDER.map(k => '<button type="button" data-s="' + k + '"><svg viewBox="0 0 24 24">' + SECTIONS[k].icon + '</svg><span>' + SECTIONS[k].name + '</span>' + (k === 'erros' ? '<b hidden></b>' : '') + '</button>').join('');
-  $('#nav').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; cur = b.dataset.s; try { history.replaceState(null, '', '#' + cur); } catch (x) {} render(); });
-  if (SECTIONS[location.hash.slice(1)]) cur = location.hash.slice(1);
+  $('#nav').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; if (SECTIONS[b.dataset.s].link) { location.href = SECTIONS[b.dataset.s].link; return; } cur = b.dataset.s; try { history.replaceState(null, '', '#' + cur); } catch (x) {} render(); });
+  if (SECTIONS[location.hash.slice(1)] && !SECTIONS[location.hash.slice(1)].link) cur = location.hash.slice(1);
   document.querySelectorAll('#per button').forEach(b => b.addEventListener('click', () => { document.querySelectorAll('#per button').forEach(x => x.classList.toggle('on', x === b)); dias = +b.dataset.d; load(); }));
   try { const t = localStorage.getItem('fyw-painel-tema'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
   $('#theme').addEventListener('click', () => { const t = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light'; document.documentElement.dataset.theme = t; try { localStorage.setItem('fyw-painel-tema', t); } catch (e) {} });
   // este aparelho é seu: as suas visitas no site deixam de contar
   const marcaEu = () => { try { localStorage.setItem('fyw-eu', '1'); } catch (e) {} };
   const showLogin = () => { $('#login').hidden = false; $('#app').hidden = true; setTimeout(() => $('#senha').focus(), 50); };
-  const showApp = () => { marcaEu(); $('#login').hidden = true; $('#app').hidden = false; load(); };
+  const showApp = () => { if (/[?&]volta=propostas/.test(location.search)) { location.replace('/propostas'); return; } marcaEu(); $('#login').hidden = true; $('#app').hidden = false; load(); };
   $('#lform').addEventListener('submit', async e => {
     e.preventDefault(); $('#lerr').textContent = '';
     try { await api('login', '', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ senha: $('#senha').value }) }); $('#senha').value = ''; showApp(); }

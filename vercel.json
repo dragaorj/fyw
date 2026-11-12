@@ -15,11 +15,15 @@
     {
       "source": "/painel",
       "destination": "/painel.html"
+    },
+    {
+      "source": "/propostas",
+      "destination": "/propostas.html"
     }
   ],
   "headers": [
     {
-      "source": "/painel(.*)",
+      "source": "/(painel|propostas)(.*)",
       "headers": [
         {
           "key": "X-Robots-Tag",
