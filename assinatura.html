@@ -43,14 +43,14 @@ ol.nota { padding-left: 18px; display: grid; gap: 6px; }
 
   <section class="box">
     <h2>Prévia animada (SVG)</h2>
-    <div class="palco"><a href="https://fyw.com.br" target="_blank" rel="noopener"><img id="svgPrev" alt="Assinatura Fyw" width="320" height="92"></a></div>
+    <div class="palco"><a href="https://fyw.com.br" target="_blank" rel="noopener"><img id="svgPrev" alt="Assinatura Fyw" width="400" height="116"></a></div>
     <div class="url" id="svgUrl"></div>
     <div class="acoes"><button class="btn acc" data-copia="svgUrl">Copiar link do SVG</button><a class="btn" id="svgAbrir" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;text-decoration:none">Abrir o SVG</a></div>
   </section>
 
   <section class="box">
     <h2>SVG parado</h2>
-    <div class="palco"><a href="https://fyw.com.br" target="_blank" rel="noopener"><img id="estPrev" alt="Assinatura Fyw" width="320" height="92"></a></div>
+    <div class="palco"><a href="https://fyw.com.br" target="_blank" rel="noopener"><img id="estPrev" alt="Assinatura Fyw" width="400" height="116"></a></div>
     <div class="url" id="estUrl"></div>
     <div class="acoes"><button class="btn acc" data-copia="estUrl">Copiar link do SVG parado</button><a class="btn" id="estAbrir" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;text-decoration:none">Abrir o SVG</a></div>
   </section>
@@ -73,12 +73,12 @@ ol.nota { padding-left: 18px; display: grid; gap: 6px; }
 (async function () {
   try { const r = await fetch('/api/painel?a=me', { credentials: 'same-origin' }); if (r.status === 401) { location.href = '/painel?volta=assinatura'; return; } } catch (e) {}
   document.getElementById('app').hidden = false;
-  const base = location.origin, svg = base + '/assets/assinatura/assinatura-fyw.svg', png = base + '/assets/assinatura/assinatura-fyw.png?v=2';
+  const base = location.origin, svg = base + '/assets/assinatura/assinatura-fyw.svg?v=2', png = base + '/assets/assinatura/assinatura-fyw.png?v=3';
   const $ = id => document.getElementById(id), ok = t => { $('ok').textContent = t; setTimeout(() => { $('ok').textContent = ''; }, 2500); };
-  const est = base + '/assets/assinatura/assinatura-fyw-estatica.svg';
+  const est = base + '/assets/assinatura/assinatura-fyw-estatica.svg?v=2';
   $('svgPrev').src = svg; $('svgUrl').textContent = svg; $('svgAbrir').href = svg; $('pngUrl').textContent = png;
   $('estPrev').src = est; $('estUrl').textContent = est; $('estAbrir').href = est;
-  const html = '<a href="https://fyw.com.br" target="_blank"><img src="' + png + '" alt="Fyw · fyw.com.br" width="320" height="96" style="display:block;border:0;width:320px;height:96px"></a>';
+  const html = '<a href="https://fyw.com.br" target="_blank"><img src="' + png + '" alt="Fyw · fyw.com.br" width="400" height="117" style="display:block;border:0;width:400px;height:117px"></a>';
   $('gmail').innerHTML = html;
   document.querySelectorAll('[data-copia]').forEach(b => b.onclick = async () => { await navigator.clipboard.writeText($(b.dataset.copia).textContent); ok('Link copiado.'); });
   $('copiaGmail').onclick = async () => {
