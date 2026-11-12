@@ -98,17 +98,55 @@
 
   // cartões flutuantes do "Sobre nós": clique traz o de trás para a frente
   var tc = $('.tech-cards');
+  // como embaralhar duas cartas: a da frente desliza para o lado (para longe da outra), passa por trás no ponto
+  // mais afastado e volta ao lugar já atrás; a de trás avança um pouco e cresce até ficar na frente.
+  // O movimento é somado (composite: add) ao transform/flutuação que os cartões já têm, então nada pula.
+  var busy = false;
   if (tc) tc.addEventListener('click', function () {
+    if (busy) return;
     var sw = tc.classList.contains('is-swap'), front = $(sw ? '.sk-offer' : '.sk-funnel', tc), back = $(sw ? '.sk-funnel' : '.sk-offer', tc);
     if (reduce || !front.animate) { tc.classList.toggle('is-swap'); return; }
-    var o = { duration: 560, easing: 'cubic-bezier(.4,0,.2,1)' };
-    front.animate([{ scale: '1', opacity: 1 }, { scale: '.9', opacity: .55, offset: .5 }, { scale: '1', opacity: 1 }], o);
-    back.animate([{ scale: '1' }, { scale: '1.07', offset: .5 }, { scale: '1' }], o);
-    setTimeout(function () { tc.classList.toggle('is-swap'); }, 280);
+    var fr = $('.sk-in', front).getBoundingClientRect(), br = $('.sk-in', back).getBoundingClientRect();
+    var vx = (fr.left + fr.width / 2) - (br.left + br.width / 2), vy = (fr.top + fr.height / 2) - (br.top + br.height / 2), len = Math.hypot(vx, vy) || 1;
+    // sai mais para o lado do que para baixo, para não encostar na seção de baixo
+    var out = fr.width * .6, ox = (vx < 0 ? -1 : 1) * out, oy = (vy < 0 ? -1 : 1) * out * .14;
+    var D = 950, E = 'cubic-bezier(.65,0,.35,1)';
+    busy = true;
+    front.animate([
+      { transform: 'translate(0px, 0px) scale(1) rotate(0deg)' },
+      { transform: 'translate(' + ox + 'px, ' + oy + 'px) scale(.92) rotate(' + (ox < 0 ? -4 : 4) + 'deg)', offset: .45 },
+      { transform: 'translate(0px, 0px) scale(1) rotate(0deg)' }
+    ], { duration: D, easing: E, composite: 'add' });
+    back.animate([
+      { transform: 'translate(0px, 0px) scale(1)' },
+      { transform: 'translate(' + (-ox * .18) + 'px, ' + (-oy * .18) + 'px) scale(1.05)', offset: .45 },
+      { transform: 'translate(0px, 0px) scale(1)' }
+    ], { duration: D, easing: E, composite: 'add' });
+    // troca quem está na frente no ponto em que os dois estão mais afastados
+    setTimeout(function () { tc.classList.toggle('is-swap'); }, D * .45);
+    setTimeout(function () { busy = false; }, D);
   });
   var auto = $('.dash-auto'); if (auto) auto.addEventListener('click', function () { auto.setAttribute('aria-checked', String(auto.getAttribute('aria-checked') !== 'true')); });
   var ok = $('.js-ok'); if (ok) ok.addEventListener('click', function () { ok.classList.add('is-done'); ok.textContent = 'Salvo'; setTimeout(function () { ok.classList.remove('is-done'); ok.textContent = 'Confirmar'; }, 1600); });
   var nx = $('.js-next'); if (nx) nx.addEventListener('click', function () { var i = tabs.findIndex(function (b) { return b.classList.contains('on'); }); setTab(tabs[(i + 1) % tabs.length]); });
+  // perguntas do chat subindo por cima do vídeo do painel, uma atrás da outra
+  var dvc = $('.dv-chat');
+  if (dvc && !reduce) {
+    var Q = [['Juliana', 'Isso funciona pra quem está começando agora?'], ['Pedro', 'Tem certificado no final?'], ['Camila', 'Dá pra parcelar no cartão?'],
+      ['Rafael', 'Até quando vale essa condição?'], ['Lucas', 'Quanto tempo de acesso ao curso?'], ['Fernanda', 'Vocês têm suporte depois da compra?'],
+      ['Bruno', 'Consigo assistir pelo celular?'], ['Mariana', 'O bônus ainda está valendo?']];
+    var qi = 0, qt = 0, qon = false;
+    var push = function () {
+      var q = Q[qi++ % Q.length], m = document.createElement('p');
+      m.className = 'dv-msg'; m.innerHTML = '<i>' + q[0].charAt(0) + '</i><span><b>' + q[0] + '</b>' + q[1] + '</span>';
+      m.addEventListener('animationend', function () { m.remove(); });
+      dvc.appendChild(m);
+    };
+    var qgo = function (on) { if (on === qon) return; qon = on; clearInterval(qt); if (on) { push(); qt = setInterval(push, 2700); } };
+    if (window.self !== window.top || !('IntersectionObserver' in window)) qgo(true);
+    else new IntersectionObserver(function (es) { qgo(es[0].isIntersecting); }, { threshold: .2 }).observe(dvc.parentNode);
+  }
+
   // espectadores ao vivo mudando
   var vw = $('.viewers'), n = 2437;
   if (vw && !reduce) setInterval(function () { n += Math.round(Math.random() * 9 - 3); vw.textContent = n.toLocaleString('pt-BR'); }, 1800);
