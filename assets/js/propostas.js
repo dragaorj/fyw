@@ -17,12 +17,12 @@
   /* ---------- tabela de preços 2027 (padrão; editável em /propostas#/tabela) ---------- */
   const TAB0 = {
     titulo: 'Tabela de preços 2027',
-    versao: 8,
+    versao: 13,
     itens: [
       { id: 'landing', grupo: 'Sites', nome: 'Landing page', desc: 'Página única feita para converter: seções sob medida, formulário com LGPD e até 2 rodadas de ajustes.', tabela: 4500, parceiro: 3500, un: '' },
       { id: 'hotsite', grupo: 'Sites', nome: 'Hotsite', desc: 'Home e até 3 páginas internas, até 2 rodadas de ajustes e 1 ajuste depois da publicação.', tabela: 6500, parceiro: 5000, un: '' },
       { id: 'website', grupo: 'Sites', nome: 'Website', desc: 'Site completo com quantas páginas o projeto pedir, painel de edição e versão bilíngue.', tabela: 11000, parceiro: 8500, un: '' },
-      { id: 'agenda', grupo: 'Plataformas', nome: 'Plataforma web, sistema ou app', desc: 'Sistemas sob medida: agenda e programação de eventos, áreas restritas, painéis administrativos e apps, em até 3 idiomas.', tabela: 12500, parceiro: 10000, un: '', rotulo: 'Proposta comercial para plataforma web' },
+      { id: 'agenda', grupo: 'Plataformas', nome: 'Plataforma web, sistema ou app', desc: 'Sistemas sob medida: áreas restritas, painéis administrativos, agendas, cadastros e apps, em até 3 idiomas.', tabela: 12500, parceiro: 10000, un: '', rotulo: 'Proposta comercial para plataforma web' },
       { id: 'portal', grupo: 'Conteúdo', nome: 'Portal ou hub de conteúdo', desc: 'Até 6 páginas e página modelo, filtros por tema, painel de edição, formulário com LGPD e 30 dias de suporte.', tabela: 9000, parceiro: 7000, un: '' },
       { id: 'branding', grupo: 'Marca', nome: 'Branding ou rebranding completo', desc: 'Marca criada do zero ou renovada: diagnóstico, estratégia, logo, identidade visual, manual da marca e arquivos finais editáveis.', tabela: 12500, parceiro: 10000, un: '' },
       { id: 'manutencao', grupo: 'Continuidade', nome: 'Manutenção e suporte dos sistemas', desc: 'Disponibilidade diária, atualizações, infraestrutura em nuvem e manutenção dos sistemas por 12 meses.', tabela: 2500, parceiro: 2000, un: '/mês' },
@@ -30,9 +30,11 @@
     ],
     // pacote: seção própria no fim da tabela. Valor fixo (o que fechou com o Impact Minds 2026 & 2027, sem a manutenção);
     // parceiro paga o pacote com desconto
-    pacote: { nome: 'Pacote da edição', titulo: 'Toda a edição do evento\nem um só contrato', itens: ['hotsite', 'website', 'agenda'], preco: 25000, parceiroDesconto: 20 },
+    pacote: { nome: 'Pacote completo', titulo: 'Da marca à plataforma,\nem um só contrato', itens: ['branding', 'hotsite', 'website', 'agenda'], preco: 32000, parceiro: 25000 },
     // combo: website e plataforma fechados juntos saem por um valor menor
-    combo: { titulo: 'Website + plataforma juntos', texto: 'Fechando o website e a plataforma no mesmo contrato, os dois saem por um valor menor.', itens: ['website', 'agenda'], preco: 21000, parceiro: 16500 },
+    combo: { titulo: 'Website + plataforma juntos', texto: 'Fechando o website e a plataforma no mesmo contrato, os dois saem por um valor menor.', itens: ['website', 'agenda'], preco: 20000, parceiro: 16000 },
+    // escopo: deixa claro que cada serviço tem limite e que o valor muda conforme a demanda do contratante
+    escopo: { titulo: 'O valor vale para o escopo\ncombinado na proposta', itens: ['Cada serviço inclui só o que está descrito na proposta aprovada.', 'Páginas, funções, idiomas ou rodadas de ajuste a mais mudam o valor e o prazo.', 'Os valores podem mudar conforme a demanda de cada contratante.', 'Qualquer mudança de escopo é combinada antes, por escrito.'] },
     pagamento: ['50% na aprovação e 50% na entrega', 'Até 12x no cartão de crédito (juros da operadora)', '10% de desconto à vista no Pix', 'Valores fechados, sem cobrança por hora']
   };
   let TAB = clone(TAB0);
@@ -40,8 +42,8 @@
   const pacoteValores = T => {
     const p = T.pacote || {}, its = (p.itens || []).map(id => T.itens.find(x => x.id === id)).filter(Boolean);
     const st = its.reduce((a, x) => a + (+x.tabela || 0), 0), sp = its.reduce((a, x) => a + (+x.parceiro || 0), 0);
-    const tabela = +p.preco || st, parceiro = r500(tabela * (1 - (+p.parceiroDesconto || 0) / 100));
-    return { its, somaTabela: st, somaParceiro: sp, tabela, parceiro, economia: Math.max(0, st - tabela) };
+    const tabela = +p.preco || st, parceiro = +p.parceiro || r500(tabela * (1 - (+p.parceiroDesconto || 0) / 100));
+    return { its, somaTabela: st, somaParceiro: sp, tabela, parceiro, economia: Math.max(0, st - tabela), economiaParceiro: Math.max(0, sp - parceiro) };
   };
   const comboValores = T => {
     const c = T.combo || {}, its = (c.itens || []).map(id => T.itens.find(x => x.id === id)).filter(Boolean);
@@ -238,15 +240,16 @@
       '<div class="pp2"><span class="rot">Parceiro</span><b>' + R(cv.parceiro) + '</b></div></div></div>';
     const grp = nome => '<div class="grp"><b>' + String(++n).padStart(2, '0') + '</b><h2 class="t2">' + esc(nome) + '</h2></div>';
     return '<div class="pdoc tdoc"><header class="ph">' + glows.replace(/top:640px/, 'top:300px') + '<div class="in"><div class="top">' + logoFyw + '<span class="pill rot"><i></i>' + esc(T.titulo) + '</span></div>' +
-      '<div class="hx"><p class="rot lima">Valores fixos para 2027</p><h1 class="t1">Preços fixos para eventos,<br>sites, sistemas e marcas</h1><p class="co o7">Valor fechado, sem cobrança por hora. Clientes parceiros pagam menos em todos os serviços.</p></div></div></header>' +
+      '<div class="hx"><p class="rot lima">Valores fixos para 2027</p><h1 class="t1">Preços fixos para sites,<br>sistemas e marcas</h1><p class="co o7">Valor fechado, sem cobrança por hora. Clientes parceiros pagam menos em todos os serviços.</p></div></div></header>' +
       '<div class="pb"><div class="pbox"><div class="hd"><div><p class="rot">Condição parceiro</p><h2 class="t2">Como virar parceiro Fyw</h2></div><span class="bd rot">Preço de parceiro em todos os serviços</span></div>' +
       '<div class="op"><div><p class="rot">Opção 1</p><p class="t3">6 serviços em 12 meses</p><p class="cp">Um serviço fechado a cada 2 meses ao longo do ano.</p><div class="mes">' + meses + '</div></div>' +
       '<div><p class="rot">Opção 2</p><p class="t3">Um ano inteiro de uma vez</p><p class="cp">Fechar uma proposta que cubra os 12 meses do ano.</p><div class="ano"><span>Jan</span><span>12 meses</span><span>Dez</span></div></div></div></div>' +
       grupos.map(g => grp(g.n) + '<div class="svc">' + g.it.map(sv).join('') + '</div>' + (cv.its.length > 1 && g.it.includes(cv.its[cv.its.length - 1]) ? cmb : '')).join('') +
       (pv.its.length ? grp(pk.nome || 'Pacote') + '<div class="pkg">' + '<i class="gl" style="left:560px;top:-260px;width:620px;height:480px;background:#C8F53C;opacity:.3"></i><i class="gl" style="left:-260px;top:180px;width:600px;height:480px;background:#7B5CFF;opacity:.38"></i>' +
-        '<div class="pl"><p class="rot lima">Os ' + pv.its.length + ' serviços da edição, valor fixo</p><h3 class="t2">' + br(pk.titulo) + '</h3><ul>' + pv.its.map(x => '<li><i></i><span class="co">' + esc(x.nome) + '</span><small class="cp">' + R(x.tabela) + '</small></li>').join('') + '</ul></div>' +
+        '<div class="pl"><p class="rot lima">Os ' + pv.its.length + ' serviços juntos, valor fixo</p><h3 class="t2">' + br(pk.titulo) + '</h3><ul>' + pv.its.map(x => '<li><i></i><span class="co">' + esc(x.nome) + '</span><small class="cp">' + R(x.tabela) + '</small></li>').join('') + '</ul></div>' +
         '<div class="pr2"><p class="sep"><span class="rot o5">Separados</span><s class="co o5">' + R(pv.somaTabela) + '</s></p>' + (pv.economia ? '<span class="off rot">Economia de ' + R(pv.economia) + '</span>' : '') + '<p class="rot o6">Valor do pacote</p><p class="pg">' + R(pv.tabela) + '</p>' +
-        '<div class="pp2"><p class="rot lima">Parceiro Fyw</p><b>' + R(pv.parceiro) + '</b><p class="cp o6">' + (+pk.parceiroDesconto || 0) + '% off sobre o valor do pacote.</p></div></div></div>' : '') +
+        '<div class="pp2"><p class="rot lima">Parceiro Fyw</p><b>' + R(pv.parceiro) + '</b>' + (pv.economiaParceiro ? '<p class="cp o6">' + R(pv.economiaParceiro) + ' a menos que os serviços separados.</p>' : '') + '</div></div></div>' : '') +
+      (T.escopo && L(T.escopo.itens).length ? '<div class="esc"><div><p class="rot">Escopo e limites</p><h2 class="t2">' + br(T.escopo.titulo) + '</h2></div><ul class="cp">' + L(T.escopo.itens).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' : '') +
       '<div class="pgto"><div><p class="rot lima">Condições de pagamento</p><h2 class="t2">Do mesmo jeito em<br>todos os serviços</h2></div><ul class="cp">' + L(T.pagamento).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' +
       '<div class="ft cp"><span>fyw.com.br  ·  fyw.ggwp@gmail.com</span><span>CNPJ 27.354.079/0001-05</span></div></div></div>';
   }
@@ -438,14 +441,15 @@
     $('#form').innerHTML = '<div class="eh"><a class="btn" href="#/"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg>Propostas</a><button class="btn" type="button" data-tpadrao="tudo">Voltar tudo ao padrão</button><button class="x" type="button" id="undo" data-tdesfazer hidden>Desfazer</button><span class="st" id="st"></span></div>' +
       '<p class="soma">Os valores ficam salvos e aparecem na hora na prévia. Cada seção tem o botão <b>Voltar ao padrão</b> (valores de 2027).</p>' +
       blocos + '<button class="add" type="button" data-tgrupo>+ Novo grupo</button>' +
-      box(num(), 'Pacote da edição <small>fim da tabela</small>', tin('Nome', 'pacote.nome', pk.nome) + '<label class="f"><span>Título</span><textarea data-t="pacote.titulo" rows="2">' + esc(pk.titulo) + '</textarea></label>' +
+      box(num(), 'Pacote completo <small>fim da tabela</small>', tin('Nome', 'pacote.nome', pk.nome) + '<label class="f"><span>Título</span><textarea data-t="pacote.titulo" rows="2">' + esc(pk.titulo) + '</textarea></label>' +
         '<div class="f"><span>Serviços do pacote</span>' + TAB.itens.map(x => '<label class="chk"><input type="checkbox" data-pk="' + esc(x.id) + '"' + (pk.itens.includes(x.id) ? ' checked' : '') + '>' + esc(x.nome) + '</label>').join('') + '</div>' +
-        '<div class="g2">' + money('Valor fixo do pacote', 'pacote.preco', pk.preco) + tin('Desconto parceiro (%)', 'pacote.parceiroDesconto', pk.parceiroDesconto, 'inputmode="numeric"') + '</div>' +
+        '<div class="g2">' + money('Valor fixo do pacote', 'pacote.preco', pk.preco) + money('Valor para parceiro', 'pacote.parceiro', pk.parceiro) + '</div>' +
         '<p class="soma" data-pv>' + resumoPacote(pv) + '</p>', false, 'data-tpadrao="pacote"') +
       box(num(), 'Combo <small>' + esc(TAB.combo.titulo) + '</small>', tin('Título', 'combo.titulo', TAB.combo.titulo) + '<label class="f"><span>Texto</span><textarea data-t="combo.texto" rows="2">' + esc(TAB.combo.texto) + '</textarea></label>' +
         '<div class="f"><span>Serviços do combo</span>' + TAB.itens.map(x => '<label class="chk"><input type="checkbox" data-cb="' + esc(x.id) + '"' + (TAB.combo.itens.includes(x.id) ? ' checked' : '') + '>' + esc(x.nome) + '</label>').join('') + '</div>' +
         '<div class="g2">' + money('Valor do combo', 'combo.preco', TAB.combo.preco) + money('Valor para parceiro', 'combo.parceiro', TAB.combo.parceiro) + '</div>' +
         '<p class="soma" data-cv>' + resumoCombo(comboValores(TAB)) + '</p>', false, 'data-tpadrao="combo"') +
+      box(num(), 'Escopo e limites', '<label class="f"><span>Título</span><textarea data-t="escopo.titulo" rows="2">' + esc(TAB.escopo.titulo) + '</textarea></label><label class="f"><span>Itens</span><textarea data-tl="escopo.itens" rows="5">' + esc(L(TAB.escopo.itens).join('\n')) + '</textarea><small>Um por linha.</small></label>', false, 'data-tpadrao="escopo"') +
       box(num(), 'Condições de pagamento', '<label class="f"><span>Condições</span><textarea data-tl="pagamento" rows="4">' + esc(L(TAB.pagamento).join('\n')) + '</textarea><small>Uma por linha.</small></label>', false, 'data-tpadrao="pagamento"');
     const ds = document.querySelectorAll('#form details');
     ds.forEach((x, i) => { x.open = abertos.length ? !!abertos[i] : i === 0; });
@@ -501,6 +505,7 @@
         if (k === 'tudo') { if (!confirm('Voltar a tabela inteira para os valores padrão de 2027?')) return; tAntes = clone(TAB); TAB = Object.assign(clone(TAB0), { pdfs: L(TAB.pdfs) }); }
         else if (k === 'pacote') { tAntes = clone(TAB); TAB.pacote = clone(TAB0.pacote); }
         else if (k === 'combo') { tAntes = clone(TAB); TAB.combo = clone(TAB0.combo); }
+        else if (k === 'escopo') { tAntes = clone(TAB); TAB.escopo = clone(TAB0.escopo); }
         else if (k === 'pagamento') { tAntes = clone(TAB); TAB.pagamento = clone(TAB0.pagamento); }
         else if (k.startsWith('g:')) {
           const g = k.slice(2), novos = clone(TAB0.itens.filter(x => x.grupo === g)), ids = new Set(novos.map(x => x.id));
@@ -602,7 +607,12 @@
       if ((+t.versao || 1) < 5) { TAB.itens.forEach(x => { if ((x.id === 'branding' || x.id === 'rebranding') && +x.tabela === 10700) x.tabela = 10000; }); TAB.versao = 5; }
       if ((+t.versao || 1) < 6) { const b = TAB.itens.find(x => x.id === 'branding'), r = TAB.itens.find(x => x.id === 'rebranding'); if (b) Object.assign(b, { nome: 'Branding ou rebranding completo', desc: 'Marca criada do zero ou renovada: diagnóstico, estratégia, logo, identidade visual, manual da marca e arquivos finais editáveis.', tabela: 12500, parceiro: 10000 }); if (r) { TAB.itens = TAB.itens.filter(x => x !== r); if (TAB.pacote) TAB.pacote.itens = (TAB.pacote.itens || []).filter(id => id !== 'rebranding'); if (TAB.combo) TAB.combo.itens = (TAB.combo.itens || []).filter(id => id !== 'rebranding'); } TAB.versao = 6; }
       if ((+t.versao || 1) < 7) { const m = TAB.itens.find(x => x.id === 'manutencao'), c = TAB.itens.find(x => x.id === 'mensal'); if (m && +m.tabela === 2000 && +m.parceiro === 1500) { m.tabela = 2500; m.parceiro = 2000; } if (c && +c.tabela === 7000 && +c.parceiro === 5500) { c.tabela = 9000; c.parceiro = 7000; } TAB.versao = 7; }
-      if ((+t.versao || 1) < 8) { const o = TAB.itens.find(x => x.id === 'portal'); if (o && +o.tabela === 8600) o.tabela = 9000; if (TAB.pacote && +TAB.pacote.preco === 27500) TAB.pacote.preco = 25000; TAB.versao = 8; } const ag = TAB.itens.find(x => x.id === 'agenda'); if (ag && +ag.tabela === 8500 && +ag.parceiro === 6500) { ag.tabela = 12500; ag.parceiro = 10000; } } } catch (e) {}
+      if ((+t.versao || 1) < 8) { const o = TAB.itens.find(x => x.id === 'portal'); if (o && +o.tabela === 8600) o.tabela = 9000; if (TAB.pacote && +TAB.pacote.preco === 27500) TAB.pacote.preco = 25000; TAB.versao = 8; }
+      if ((+t.versao || 1) < 9) { if (TAB.combo && +TAB.combo.preco === 21000 && +TAB.combo.parceiro === 16500) { TAB.combo.preco = 20000; TAB.combo.parceiro = 16000; } TAB.versao = 9; }
+      if ((+t.versao || 1) < 10) { const a = TAB.itens.find(x => x.id === 'agenda'); if (a && a.desc === 'Sistemas sob medida: agenda e programação de eventos, áreas restritas, painéis administrativos e apps, em até 3 idiomas.') a.desc = 'Sistemas sob medida: áreas restritas, painéis administrativos, agendas, cadastros e apps, em até 3 idiomas.'; if (TAB.pacote) { if (TAB.pacote.nome === 'Pacote da edição') TAB.pacote.nome = 'Pacote completo'; if (/edição do evento|Hotsite, website e plataforma/.test(TAB.pacote.titulo || '')) TAB.pacote.titulo = 'Do site à plataforma,\nem um só contrato'; } TAB.versao = 10; }
+      if ((+t.versao || 1) < 11) { if (TAB.pacote && /Hotsite, website e plataforma/.test(TAB.pacote.titulo || '')) TAB.pacote.titulo = 'Do site à plataforma,\nem um só contrato'; TAB.versao = 11; }
+      if ((+t.versao || 1) < 12) { if (TAB.pacote && +TAB.pacote.preco === 25000) TAB.pacote = Object.assign(TAB.pacote, clone(TAB0.pacote)); TAB.versao = 12; }
+      if (!TAB.escopo) TAB.escopo = clone(TAB0.escopo); const ag = TAB.itens.find(x => x.id === 'agenda'); if (ag && +ag.tabela === 8500 && +ag.parceiro === 6500) { ag.tabela = 12500; ag.parceiro = 10000; } } } catch (e) {}
   }
   addEventListener('hashchange', rota);
   addEventListener('beforeunload', e => { if (!salvo) { e.preventDefault(); e.returnValue = ''; } });

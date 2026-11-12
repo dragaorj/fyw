@@ -154,9 +154,17 @@
 .pdoc .cmb .bd { padding: 8px 14px; border-radius: 99px; background: #0B0B0B; color: #C8F53C; }
 .pdoc .cmb .cl .cp { color: #5C5B56; max-width: 420px; }
 .pdoc .cmb .cr { display: grid; grid-template-columns: auto auto; gap: 8px 20px; align-items: end; }
-.pdoc .cmb .sep { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; color: #5C5B56; }
-.pdoc .cmb .pg { font-size: 44px; line-height: 1; letter-spacing: -.03em; font-weight: 600; white-space: nowrap; }
-.pdoc .cmb .off { grid-row: 3; justify-self: start; padding: 6px 12px; border-radius: 99px; background: #0B0B0B; color: #C8F53C; }
-.pdoc .cmb .pp2 { grid-row: 2 / span 2; grid-column: 2; display: grid; gap: 2px; justify-items: end; padding: 12px 16px; border-radius: 14px; background: #C8F53C; }
+.pdoc .cmb .sep { grid-column: 1; justify-self: end; display: flex; align-items: center; gap: 10px; color: #5C5B56; }
+.pdoc .cmb .pg { justify-self: end; font-size: 44px; line-height: 1; letter-spacing: -.03em; font-weight: 600; white-space: nowrap; }
+.pdoc .cmb .off { grid-row: 3; justify-self: end; padding: 6px 12px; border-radius: 99px; background: #0B0B0B; color: #C8F53C; }
+.pdoc .cmb .pp2 { grid-row: 1 / span 3; align-self: center; grid-column: 2; display: grid; gap: 2px; justify-items: end; padding: 12px 16px; border-radius: 14px; background: #C8F53C; }
 .pdoc .cmb .pp2 .rot { font-size: 11px; }
 .pdoc .cmb .pp2 b { font-size: 30px; line-height: 1.1; letter-spacing: -.02em; font-weight: 600; }
+/* escopo e limites: bloco claro antes das condições de pagamento */
+.pdoc .esc { margin-top: 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; padding: 48px; border-radius: 32px; background: rgba(255,255,255,.6); box-shadow: inset 0 0 0 1.5px rgba(11,11,11,.12); }
+.pdoc .esc > div:first-child { display: grid; gap: 14px; }
+.pdoc .esc .rot { color: #5C5B56; }
+.pdoc .esc ul { list-style: none; display: grid; gap: 16px; color: #0B0B0B; }
+.pdoc .esc li { display: flex; gap: 12px; align-items: flex-start; }
+.pdoc .esc li::before { content: ""; flex: none; width: 8px; height: 8px; margin-top: 8px; border-radius: 50%; background: #0B0B0B; }
+.pdoc.tdoc .esc + .pgto { margin-top: 20px; }
