@@ -147,4 +147,16 @@
 .pdoc .pkg .pp2 b { font-size: 30px; line-height: 1.1; letter-spacing: -.02em; font-weight: 600; }
 .pdoc.tdoc .pgto { margin-top: 80px; }
 .pdoc.tdoc .ft { margin-top: 48px; }
-.pdoc .svc > .sv:only-child { grid-column: 1 / -1; }
+.pdoc .svc > .sv:only-child, .pdoc .svc > .sv:last-child:nth-child(odd) { grid-column: 1 / -1; }
+/* combo website + plataforma: faixa logo depois do grupo da plataforma */
+.pdoc .cmb { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 40px; align-items: center; margin-top: 20px; padding: 32px; border-radius: 22px; background: rgba(255,255,255,.6); box-shadow: inset 0 0 0 1.5px #C8F53C; }
+.pdoc .cmb .cl { display: grid; gap: 10px; justify-items: start; }
+.pdoc .cmb .bd { padding: 8px 14px; border-radius: 99px; background: #0B0B0B; color: #C8F53C; }
+.pdoc .cmb .cl .cp { color: #5C5B56; max-width: 420px; }
+.pdoc .cmb .cr { display: grid; grid-template-columns: auto auto; gap: 8px 20px; align-items: end; }
+.pdoc .cmb .sep { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; color: #5C5B56; }
+.pdoc .cmb .pg { font-size: 44px; line-height: 1; letter-spacing: -.03em; font-weight: 600; white-space: nowrap; }
+.pdoc .cmb .off { grid-row: 3; justify-self: start; padding: 6px 12px; border-radius: 99px; background: #0B0B0B; color: #C8F53C; }
+.pdoc .cmb .pp2 { grid-row: 2 / span 2; grid-column: 2; display: grid; gap: 2px; justify-items: end; padding: 12px 16px; border-radius: 14px; background: #C8F53C; }
+.pdoc .cmb .pp2 .rot { font-size: 11px; }
+.pdoc .cmb .pp2 b { font-size: 30px; line-height: 1.1; letter-spacing: -.02em; font-weight: 600; }

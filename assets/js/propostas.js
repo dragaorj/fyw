@@ -17,29 +17,36 @@
   /* ---------- tabela de preços 2027 (padrão; editável em /propostas#/tabela) ---------- */
   const TAB0 = {
     titulo: 'Tabela de preços 2027',
+    versao: 8,
     itens: [
-      { id: 'hotsite', grupo: 'Eventos', nome: 'Hotsite de evento', desc: 'Home e até 3 páginas internas, seção de retrospectiva, até 2 rodadas de ajustes e 1 ajuste pós-evento.', tabela: 6500, parceiro: 5000, un: '' },
-      { id: 'encerramento', grupo: 'Eventos', nome: 'Hotsite de encerramento', desc: 'Resultados e indicadores, palestrantes e atrações, galeria e retrospectiva, em até 3 idiomas.', tabela: 6500, parceiro: 5000, un: '' },
-      { id: 'website', grupo: 'Eventos', nome: 'Website oficial do evento', desc: 'Agenda, palestrantes, patrocinadores, informações práticas e contato, com painel de edição e versão bilíngue.', tabela: 16000, parceiro: 12500, un: '' },
-      { id: 'agenda', grupo: 'Eventos', nome: 'Plataforma de agenda e programação', desc: 'Agenda em lista, grade e cards, filtros, sessões e palestrantes, painel administrativo e até 3 idiomas.', tabela: 12500, parceiro: 10000, un: '', rotulo: 'Proposta comercial para plataforma de programação' },
-      { id: 'portal', grupo: 'Conteúdo', nome: 'Portal ou hub de conteúdo', desc: 'Até 6 páginas e página modelo, filtros por tema, painel de edição, formulário com LGPD e 30 dias de suporte.', tabela: 8600, parceiro: 7000, un: '' },
-      { id: 'branding', grupo: 'Marca', nome: 'Branding completo', desc: 'Criação de marca do zero: estratégia, logo, identidade visual, manual da marca e arquivos finais editáveis.', tabela: 10700, parceiro: 8500, un: '' },
-      { id: 'rebranding', grupo: 'Marca', nome: 'Rebranding completo', desc: 'Diagnóstico, estratégia de marca, novo logo, identidade visual, manual da marca e arquivos finais editáveis.', tabela: 10700, parceiro: 8500, un: '' },
-      { id: 'manutencao', grupo: 'Continuidade', nome: 'Manutenção e suporte dos sistemas', desc: 'Disponibilidade diária, atualizações, infraestrutura em nuvem e manutenção dos sistemas por 12 meses.', tabela: 2000, parceiro: 1500, un: '/mês' },
-      { id: 'mensal', grupo: 'Continuidade', nome: 'Contrato mensal de tecnologia e design', desc: 'Demandas contínuas de sites, sistemas e design gráfico, sem contagem de horas. Mínimo de 3 meses.', tabela: 7000, parceiro: 5500, un: '/mês' }
+      { id: 'landing', grupo: 'Sites', nome: 'Landing page', desc: 'Página única feita para converter: seções sob medida, formulário com LGPD e até 2 rodadas de ajustes.', tabela: 4500, parceiro: 3500, un: '' },
+      { id: 'hotsite', grupo: 'Sites', nome: 'Hotsite', desc: 'Home e até 3 páginas internas, até 2 rodadas de ajustes e 1 ajuste depois da publicação.', tabela: 6500, parceiro: 5000, un: '' },
+      { id: 'website', grupo: 'Sites', nome: 'Website', desc: 'Site completo com quantas páginas o projeto pedir, painel de edição e versão bilíngue.', tabela: 11000, parceiro: 8500, un: '' },
+      { id: 'agenda', grupo: 'Plataformas', nome: 'Plataforma web, sistema ou app', desc: 'Sistemas sob medida: agenda e programação de eventos, áreas restritas, painéis administrativos e apps, em até 3 idiomas.', tabela: 12500, parceiro: 10000, un: '', rotulo: 'Proposta comercial para plataforma web' },
+      { id: 'portal', grupo: 'Conteúdo', nome: 'Portal ou hub de conteúdo', desc: 'Até 6 páginas e página modelo, filtros por tema, painel de edição, formulário com LGPD e 30 dias de suporte.', tabela: 9000, parceiro: 7000, un: '' },
+      { id: 'branding', grupo: 'Marca', nome: 'Branding ou rebranding completo', desc: 'Marca criada do zero ou renovada: diagnóstico, estratégia, logo, identidade visual, manual da marca e arquivos finais editáveis.', tabela: 12500, parceiro: 10000, un: '' },
+      { id: 'manutencao', grupo: 'Continuidade', nome: 'Manutenção e suporte dos sistemas', desc: 'Disponibilidade diária, atualizações, infraestrutura em nuvem e manutenção dos sistemas por 12 meses.', tabela: 2500, parceiro: 2000, un: '/mês' },
+      { id: 'mensal', grupo: 'Continuidade', nome: 'Contrato mensal de tecnologia e design', desc: 'Demandas contínuas de sites, sistemas e design gráfico, sem contagem de horas. Mínimo de 3 meses.', tabela: 9000, parceiro: 7000, un: '/mês' }
     ],
     // pacote: seção própria no fim da tabela. Valor fixo (o que fechou com o Impact Minds 2026 & 2027, sem a manutenção);
     // parceiro paga o pacote com desconto
-    pacote: { nome: 'Pacote da edição', titulo: 'Toda a edição do evento\nem um só contrato', itens: ['hotsite', 'website', 'agenda', 'encerramento'], preco: 35000, parceiroDesconto: 20 },
+    pacote: { nome: 'Pacote da edição', titulo: 'Toda a edição do evento\nem um só contrato', itens: ['hotsite', 'website', 'agenda'], preco: 25000, parceiroDesconto: 20 },
+    // combo: website e plataforma fechados juntos saem por um valor menor
+    combo: { titulo: 'Website + plataforma juntos', texto: 'Fechando o website e a plataforma no mesmo contrato, os dois saem por um valor menor.', itens: ['website', 'agenda'], preco: 21000, parceiro: 16500 },
     pagamento: ['50% na aprovação e 50% na entrega', 'Até 12x no cartão de crédito (juros da operadora)', '10% de desconto à vista no Pix', 'Valores fechados, sem cobrança por hora']
   };
   let TAB = clone(TAB0);
-  const r100 = n => Math.round(n / 100) * 100;
+  const r100 = n => Math.round(n / 100) * 100, r500 = n => Math.round(n / 500) * 500; // preços sempre de 500 em 500
   const pacoteValores = T => {
     const p = T.pacote || {}, its = (p.itens || []).map(id => T.itens.find(x => x.id === id)).filter(Boolean);
     const st = its.reduce((a, x) => a + (+x.tabela || 0), 0), sp = its.reduce((a, x) => a + (+x.parceiro || 0), 0);
-    const tabela = +p.preco || st, parceiro = r100(tabela * (1 - (+p.parceiroDesconto || 0) / 100));
+    const tabela = +p.preco || st, parceiro = r500(tabela * (1 - (+p.parceiroDesconto || 0) / 100));
     return { its, somaTabela: st, somaParceiro: sp, tabela, parceiro, economia: Math.max(0, st - tabela) };
+  };
+  const comboValores = T => {
+    const c = T.combo || {}, its = (c.itens || []).map(id => T.itens.find(x => x.id === id)).filter(Boolean);
+    const st = its.reduce((a, x) => a + (+x.tabela || 0), 0), sp = its.reduce((a, x) => a + (+x.parceiro || 0), 0);
+    return { its, somaTabela: st, somaParceiro: sp, tabela: +c.preco || st, parceiro: +c.parceiro || sp, economia: Math.max(0, st - (+c.preco || st)) };
   };
   const tipos = () => { const v = pacoteValores(TAB); return TAB.itens.concat(TAB.pacote && v.its.length ? [{ id: 'pacote', nome: TAB.pacote.nome, tabela: v.tabela, parceiro: v.parceiro, un: '' }] : []); };
 
@@ -225,13 +232,17 @@
     const meses = 'JFMAMJJASOND'.split('').map((m, i) => '<span class="' + (i % 2 ? 'on' : '') + '">' + m + '</span>').join('');
     const pv = pacoteValores(T), pk = T.pacote || {};
     const sv = x => '<div class="sv"><p class="t3">' + esc(x.nome) + '</p><p class="cp">' + esc(x.desc) + '</p><div class="pr"><div class="tb"><span class="rot">Tabela</span><s>' + R(x.tabela) + esc(x.un) + '</s></div><div class="pa"><span class="rot">Parceiro</span><b>' + R(x.parceiro) + esc(x.un) + '</b></div></div></div>';
+    const cv = comboValores(T), cb = T.combo || {};
+    const cmb = '<div class="cmb"><div class="cl"><span class="bd rot">Combo</span><h3 class="t3">' + esc(cb.titulo) + '</h3><p class="cp">' + esc(cb.texto) + '</p></div>' +
+      '<div class="cr"><p class="sep"><span class="rot o5">Separados</span><s class="co o5">' + R(cv.somaTabela) + '</s></p><p class="pg">' + R(cv.tabela) + '</p>' + (cv.economia ? '<span class="off rot">Economia de ' + R(cv.economia) + '</span>' : '') +
+      '<div class="pp2"><span class="rot">Parceiro</span><b>' + R(cv.parceiro) + '</b></div></div></div>';
     const grp = nome => '<div class="grp"><b>' + String(++n).padStart(2, '0') + '</b><h2 class="t2">' + esc(nome) + '</h2></div>';
     return '<div class="pdoc tdoc"><header class="ph">' + glows.replace(/top:640px/, 'top:300px') + '<div class="in"><div class="top">' + logoFyw + '<span class="pill rot"><i></i>' + esc(T.titulo) + '</span></div>' +
       '<div class="hx"><p class="rot lima">Valores fixos para 2027</p><h1 class="t1">Preços fixos para eventos,<br>sites, sistemas e marcas</h1><p class="co o7">Valor fechado, sem cobrança por hora. Clientes parceiros pagam menos em todos os serviços.</p></div></div></header>' +
       '<div class="pb"><div class="pbox"><div class="hd"><div><p class="rot">Condição parceiro</p><h2 class="t2">Como virar parceiro Fyw</h2></div><span class="bd rot">Preço de parceiro em todos os serviços</span></div>' +
       '<div class="op"><div><p class="rot">Opção 1</p><p class="t3">6 serviços em 12 meses</p><p class="cp">Um serviço fechado a cada 2 meses ao longo do ano.</p><div class="mes">' + meses + '</div></div>' +
       '<div><p class="rot">Opção 2</p><p class="t3">Um ano inteiro de uma vez</p><p class="cp">Fechar uma proposta que cubra os 12 meses do ano.</p><div class="ano"><span>Jan</span><span>12 meses</span><span>Dez</span></div></div></div></div>' +
-      grupos.map(g => grp(g.n) + '<div class="svc">' + g.it.map(sv).join('') + '</div>').join('') +
+      grupos.map(g => grp(g.n) + '<div class="svc">' + g.it.map(sv).join('') + '</div>' + (cv.its.length > 1 && g.it.includes(cv.its[cv.its.length - 1]) ? cmb : '')).join('') +
       (pv.its.length ? grp(pk.nome || 'Pacote') + '<div class="pkg">' + '<i class="gl" style="left:560px;top:-260px;width:620px;height:480px;background:#C8F53C;opacity:.3"></i><i class="gl" style="left:-260px;top:180px;width:600px;height:480px;background:#7B5CFF;opacity:.38"></i>' +
         '<div class="pl"><p class="rot lima">Os ' + pv.its.length + ' serviços da edição, valor fixo</p><h3 class="t2">' + br(pk.titulo) + '</h3><ul>' + pv.its.map(x => '<li><i></i><span class="co">' + esc(x.nome) + '</span><small class="cp">' + R(x.tabela) + '</small></li>').join('') + '</ul></div>' +
         '<div class="pr2"><p class="sep"><span class="rot o5">Separados</span><s class="co o5">' + R(pv.somaTabela) + '</s></p>' + (pv.economia ? '<span class="off rot">Economia de ' + R(pv.economia) + '</span>' : '') + '<p class="rot o6">Valor do pacote</p><p class="pg">' + R(pv.tabela) + '</p>' +
@@ -431,12 +442,17 @@
         '<div class="f"><span>Serviços do pacote</span>' + TAB.itens.map(x => '<label class="chk"><input type="checkbox" data-pk="' + esc(x.id) + '"' + (pk.itens.includes(x.id) ? ' checked' : '') + '>' + esc(x.nome) + '</label>').join('') + '</div>' +
         '<div class="g2">' + money('Valor fixo do pacote', 'pacote.preco', pk.preco) + tin('Desconto parceiro (%)', 'pacote.parceiroDesconto', pk.parceiroDesconto, 'inputmode="numeric"') + '</div>' +
         '<p class="soma" data-pv>' + resumoPacote(pv) + '</p>', false, 'data-tpadrao="pacote"') +
+      box(num(), 'Combo <small>' + esc(TAB.combo.titulo) + '</small>', tin('Título', 'combo.titulo', TAB.combo.titulo) + '<label class="f"><span>Texto</span><textarea data-t="combo.texto" rows="2">' + esc(TAB.combo.texto) + '</textarea></label>' +
+        '<div class="f"><span>Serviços do combo</span>' + TAB.itens.map(x => '<label class="chk"><input type="checkbox" data-cb="' + esc(x.id) + '"' + (TAB.combo.itens.includes(x.id) ? ' checked' : '') + '>' + esc(x.nome) + '</label>').join('') + '</div>' +
+        '<div class="g2">' + money('Valor do combo', 'combo.preco', TAB.combo.preco) + money('Valor para parceiro', 'combo.parceiro', TAB.combo.parceiro) + '</div>' +
+        '<p class="soma" data-cv>' + resumoCombo(comboValores(TAB)) + '</p>', false, 'data-tpadrao="combo"') +
       box(num(), 'Condições de pagamento', '<label class="f"><span>Condições</span><textarea data-tl="pagamento" rows="4">' + esc(L(TAB.pagamento).join('\n')) + '</textarea><small>Uma por linha.</small></label>', false, 'data-tpadrao="pagamento"');
     const ds = document.querySelectorAll('#form details');
     ds.forEach((x, i) => { x.open = abertos.length ? !!abertos[i] : i === 0; });
     status();
   }
   const resumoPacote = pv => 'Separados: ' + R(pv.somaTabela) + ' · Pacote: <b>' + R(pv.tabela) + '</b>' + (pv.economia ? ' (economia de ' + R(pv.economia) + ')' : '') + '<br>Pacote para parceiro: <b>' + R(pv.parceiro) + '</b>';
+  const resumoCombo = cv => 'Separados: ' + R(cv.somaTabela) + ' · Combo: <b>' + R(cv.tabela) + '</b>' + (cv.economia ? ' (economia de ' + R(cv.economia) + ')' : '') + '<br>Separados para parceiro: ' + R(cv.somaParceiro) + ' · Combo parceiro: <b>' + R(cv.parceiro) + '</b>';
   const tin = (lab, k, v, extra) => '<label class="f"><span>' + lab + '</span><input data-t="' + k + '" value="' + esc(v == null ? '' : v) + '" ' + (extra || '') + '></label>';
   const NUM = /\.(tabela|parceiro|preco|parceiroDesconto)$/;
   let VISTA = 'lista';
@@ -452,7 +468,7 @@
   }
   function tabelaEventos(on) {
     const f = $('#form');
-    const atualizaResumo = () => { const s = document.querySelector('#form [data-pv]'); if (s) s.innerHTML = resumoPacote(pacoteValores(TAB)); };
+    const atualizaResumo = () => { const s = document.querySelector('#form [data-pv]'); if (s) s.innerHTML = resumoPacote(pacoteValores(TAB)); const c = document.querySelector('#form [data-cv]'); if (c) c.innerHTML = resumoCombo(comboValores(TAB)); };
     f.oninput = !on ? null : e => {
       const t = e.target;
       if (t.dataset.t) {
@@ -461,6 +477,7 @@
         atualizaResumo(); tmudou(false);
       }
       else if (t.dataset.tl) { set(TAB, t.dataset.tl, t.value.split('\n').map(s => s.trim()).filter(Boolean)); tmudou(false); }
+      else if (t.dataset.cb) { const id = t.dataset.cb, a = TAB.combo.itens; if (t.checked) { if (!a.includes(id)) a.push(id); } else a.splice(a.indexOf(id), 1); tmudou(true); }
       else if (t.dataset.pk) { const id = t.dataset.pk, a = TAB.pacote.itens; if (t.checked) { if (!a.includes(id)) a.push(id); } else a.splice(a.indexOf(id), 1); tmudou(true); }
     };
     f.onchange = !on ? null : e => {
@@ -478,11 +495,12 @@
       const b = e.target.closest('button'); if (!b) return;
       if (b.dataset.tadd != null) { const g = b.dataset.tadd, at = TAB.itens.map(x => x.grupo).lastIndexOf(g); TAB.itens.splice(at + 1, 0, { id: 's' + Date.now().toString(36), grupo: g, nome: 'Novo serviço', desc: '', tabela: 0, parceiro: 0, un: '' }); return tmudou(true); }
       if (b.hasAttribute('data-tgrupo')) { const g = (prompt('Nome do novo grupo:') || '').trim(); if (!g) return; TAB.itens.push({ id: 's' + Date.now().toString(36), grupo: g, nome: 'Novo serviço', desc: '', tabela: 0, parceiro: 0, un: '' }); return tmudou(true); }
-      if (b.dataset.del && b.dataset.del.startsWith('itens.')) { const i = +b.dataset.del.split('.')[1], x = TAB.itens[i]; if (!confirm('Tirar "' + x.nome + '" da tabela?')) return; tAntes = clone(TAB); TAB.itens.splice(i, 1); TAB.pacote.itens = TAB.pacote.itens.filter(id => id !== x.id); tmudou(true); return mostraDesfazer(); }
+      if (b.dataset.del && b.dataset.del.startsWith('itens.')) { const i = +b.dataset.del.split('.')[1], x = TAB.itens[i]; if (!confirm('Tirar "' + x.nome + '" da tabela?')) return; tAntes = clone(TAB); TAB.itens.splice(i, 1); TAB.pacote.itens = TAB.pacote.itens.filter(id => id !== x.id); TAB.combo.itens = TAB.combo.itens.filter(id => id !== x.id); tmudou(true); return mostraDesfazer(); }
       if (b.dataset.tpadrao) {
         const k = b.dataset.tpadrao;
         if (k === 'tudo') { if (!confirm('Voltar a tabela inteira para os valores padrão de 2027?')) return; tAntes = clone(TAB); TAB = Object.assign(clone(TAB0), { pdfs: L(TAB.pdfs) }); }
         else if (k === 'pacote') { tAntes = clone(TAB); TAB.pacote = clone(TAB0.pacote); }
+        else if (k === 'combo') { tAntes = clone(TAB); TAB.combo = clone(TAB0.combo); }
         else if (k === 'pagamento') { tAntes = clone(TAB); TAB.pagamento = clone(TAB0.pagamento); }
         else if (k.startsWith('g:')) {
           const g = k.slice(2), novos = clone(TAB0.itens.filter(x => x.grupo === g)), ids = new Set(novos.map(x => x.id));
@@ -578,7 +596,13 @@
   let tabOk = false;
   async function carregaTabela() {
     if (tabOk) return; tabOk = true;
-    try { const t = await store.tabela(); if (t && Array.isArray(t.itens)) { TAB = Object.assign(clone(TAB0), t); if (!TAB.pacote || TAB.pacote.preco == null) TAB.pacote = Object.assign(clone(TAB0.pacote), TAB.pacote ? { nome: TAB.pacote.nome, titulo: TAB.pacote.titulo, itens: TAB.pacote.itens } : {}); delete TAB.pacote.desconto; const ag = TAB.itens.find(x => x.id === 'agenda'); if (ag && +ag.tabela === 8500 && +ag.parceiro === 6500) { ag.tabela = 12500; ag.parceiro = 10000; } } } catch (e) {}
+    try { const t = await store.tabela(); if (t && Array.isArray(t.itens)) { TAB = Object.assign(clone(TAB0), t); if (!TAB.pacote || TAB.pacote.preco == null) TAB.pacote = Object.assign(clone(TAB0.pacote), TAB.pacote ? { nome: TAB.pacote.nome, titulo: TAB.pacote.titulo, itens: TAB.pacote.itens } : {}); delete TAB.pacote.desconto; if ((+t.versao || 1) < 2) { const outros = TAB.itens.filter(x => !TAB0.itens.some(y => y.id === x.id)); TAB.itens = clone(TAB0.itens).concat(outros); TAB.versao = 2; } if (!TAB.combo) TAB.combo = clone(TAB0.combo);
+      if ((+t.versao || 1) < 3) { const w = TAB.itens.find(x => x.id === 'website'); if (w && +w.tabela === 16000 && +w.parceiro === 12500) { w.tabela = 11000; w.parceiro = 8500; } if (+TAB.combo.preco === 25000 && +TAB.combo.parceiro === 20000) { TAB.combo.preco = 21000; TAB.combo.parceiro = 16500; } if (TAB.pacote && +TAB.pacote.preco === 35000) TAB.pacote.preco = 32500; TAB.versao = 3; }
+      if ((+t.versao || 1) < 4) { TAB.itens = TAB.itens.filter(x => x.id !== 'encerramento'); if (TAB.pacote) { TAB.pacote.itens = (TAB.pacote.itens || []).filter(id => id !== 'encerramento'); if ([32500, 35000].includes(+TAB.pacote.preco)) TAB.pacote.preco = 27500; } TAB.versao = 4; }
+      if ((+t.versao || 1) < 5) { TAB.itens.forEach(x => { if ((x.id === 'branding' || x.id === 'rebranding') && +x.tabela === 10700) x.tabela = 10000; }); TAB.versao = 5; }
+      if ((+t.versao || 1) < 6) { const b = TAB.itens.find(x => x.id === 'branding'), r = TAB.itens.find(x => x.id === 'rebranding'); if (b) Object.assign(b, { nome: 'Branding ou rebranding completo', desc: 'Marca criada do zero ou renovada: diagnóstico, estratégia, logo, identidade visual, manual da marca e arquivos finais editáveis.', tabela: 12500, parceiro: 10000 }); if (r) { TAB.itens = TAB.itens.filter(x => x !== r); if (TAB.pacote) TAB.pacote.itens = (TAB.pacote.itens || []).filter(id => id !== 'rebranding'); if (TAB.combo) TAB.combo.itens = (TAB.combo.itens || []).filter(id => id !== 'rebranding'); } TAB.versao = 6; }
+      if ((+t.versao || 1) < 7) { const m = TAB.itens.find(x => x.id === 'manutencao'), c = TAB.itens.find(x => x.id === 'mensal'); if (m && +m.tabela === 2000 && +m.parceiro === 1500) { m.tabela = 2500; m.parceiro = 2000; } if (c && +c.tabela === 7000 && +c.parceiro === 5500) { c.tabela = 9000; c.parceiro = 7000; } TAB.versao = 7; }
+      if ((+t.versao || 1) < 8) { const o = TAB.itens.find(x => x.id === 'portal'); if (o && +o.tabela === 8600) o.tabela = 9000; if (TAB.pacote && +TAB.pacote.preco === 27500) TAB.pacote.preco = 25000; TAB.versao = 8; } const ag = TAB.itens.find(x => x.id === 'agenda'); if (ag && +ag.tabela === 8500 && +ag.parceiro === 6500) { ag.tabela = 12500; ag.parceiro = 10000; } } } catch (e) {}
   }
   addEventListener('hashchange', rota);
   addEventListener('beforeunload', e => { if (!salvo) { e.preventDefault(); e.returnValue = ''; } });
