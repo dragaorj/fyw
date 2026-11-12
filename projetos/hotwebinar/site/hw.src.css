@@ -1,7 +1,7 @@
 /* Hotwebinar · site recriado do Figma (New Hotwebinar V1).
    Medidas em "u" = 1px do Figma: desktop sobre 1920 (ver build: "12u" vira calc(12 * var(--u))), celular sobre 440. */
 :root { --red: #ED0000; --w5: rgba(255,255,255,.5); --line: rgba(255,255,255,.2); --u: calc(min(100vw, 560px) / 440); }
-@media (min-width: 900px) { :root { --u: calc(min(100vw, 1920px) / 1920); } }
+@media (min-width: 900px) { :root { --u: calc(min(100vw, 2240px) / 1920); } }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scrollbar-width: none; scroll-behavior: smooth; background: #000; }
 html::-webkit-scrollbar { display: none; }
@@ -841,3 +841,23 @@ html .pl-badge { background: rgba(255,255,255,.06); -webkit-backdrop-filter: blu
   .dv-msg b { font-size: 12u; margin-bottom: 2u; }
 }
 @media (prefers-reduced-motion: reduce) { .lv-1, .lv-2, .lv-d { animation: none; opacity: 1; } }
+
+/* ===== telas largas (ultrawide etc.): o fundo continua dos lados do site, sem esticar =====
+   brilhos: cópia espelhada do próprio fundo, desfocada e sumindo no preto; anéis: as imagens inteiras do Figma, que passam da borda */
+body { position: relative; }
+.pg { z-index: 1; }
+.pg-ext { display: none; }
+@media (min-width: 900px) {
+  .pg-ext { display: block; position: absolute; z-index: 0; left: 0; right: 0; top: 0; height: 7304u; overflow: hidden; pointer-events: none; }
+  .pg-ext i { position: absolute; top: 0; width: 1920u; height: 100%; transform: scaleX(-1); filter: blur(28px);
+    background: url(img/bg-d-over.webp) top center / 100% auto no-repeat, url(img/bg-d.webp) top center / 100% auto no-repeat; }
+  .ext-l { right: calc(50% + 960u - 80px); -webkit-mask: linear-gradient(to right, #000 8%, transparent 70%); mask: linear-gradient(to right, #000 8%, transparent 70%); }
+  .ext-r { left: calc(50% + 960u - 80px); -webkit-mask: linear-gradient(to left, #000 8%, transparent 70%); mask: linear-gradient(to left, #000 8%, transparent 70%); }
+  .pg-ext img { position: absolute; max-width: none; }
+  .ext-ring-t { left: calc(50% - 471u); top: 0; width: 1779u; }
+  .ext-ring-f { left: calc(50% - 2024u); top: 5179u; width: 4228u; }
+}
+/* com espaço dos lados (tela mais larga que o site), o vídeo do apresentador some aos poucos nas bordas em vez de cortar reto */
+@media (min-width: 2241px) {
+  .pg main > .tech > .tech-bg { -webkit-mask: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent); mask: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent); }
+}
