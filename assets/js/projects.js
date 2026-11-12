@@ -7,6 +7,7 @@
 window.FYW_PROJECTS = {
   'beta-online': { name: 'Beta Online', type: 'Design System', color: '#0F1115', title: 'Beta Online', sub: 'Design System · UI/UX & Web', svc: [3, 1], img: 'assets/img/projetos/beta-online/thumb.webp?v=3' },
   'jogo-pela-integridade': { name: 'SPFC', type: 'UI/UX & Web', color: '#DC1414', title: 'São Paulo FC', sub: 'Jogo pela Integridade', svc: [1], img: 'assets/img/projetos/jogo-pela-integridade/thumb.webp?v=c1' },
+  'hotwebinar':  { name: 'Hotwebinar', type: 'UI/UX & Web', color: '#ED0000', title: 'Hotwebinar', sub: 'SaaS · UI/UX & Web', svc: [1], img: 'assets/img/projetos/hotwebinar/thumb.webp' },
   'cimed':       { name: 'Cimed', type: 'UI/UX & Web', color: '#FFC600', ink: '#0B0B0B', title: 'Cimed', sub: 'UI/UX & Web', svc: [1], img: 'assets/img/projetos/cimed/thumb.webp?v=c2' },
   'let-me-be':   { hidden: true /* OCULTO let-me-be: tirar para mostrar de novo */, name: 'Let Me Be', type: 'Rebranding', color: '#008575', title: 'Let Me Be', sub: 'Rebranding · Cosméticos', svc: [4, 0], img: 'assets/img/projetos/let-me-be/thumb.webp' },
   'kyoto':       { name: 'Kyoto',         type: 'Branding', color: '#0178FF', title: 'Kyoto Rice', sub: 'Branding · UI/UX & Web', svc: [0, 1], img: 'assets/img/projetos/kyoto/thumb.webp?v=3' },

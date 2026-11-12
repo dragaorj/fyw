@@ -37,6 +37,7 @@ Empresas de qualquer nicho que precisam de um site que explique o que fazem, mos
 - [Pacto Global da ONU – Rede Brasil](https://fyw.com.br/projetos/pacto-global.html): site para a COP30, em Belém.
 - [Kyoto](https://fyw.com.br/projetos/kyoto.html): marca, embalagens e site para um arroz premium japonês.
 - [Cimed](https://fyw.com.br/projetos/cimed.html): site institucional com produtos, marcas e busca.
+- [Hotwebinar](https://fyw.com.br/projetos/hotwebinar.html): site da plataforma de webinários automáticos, com painel do produto, integrações e planos.
 - [Beta Online](https://fyw.com.br/projetos/beta-online.html): design system e site novo para uma escola de Perícia Judicial.
 - [Jogo pela Integridade (São Paulo FC)](https://fyw.com.br/projetos/jogo-pela-integridade.html): site oficial do jogo.
 - [Todos os projetos](https://fyw.com.br/projetos.html)

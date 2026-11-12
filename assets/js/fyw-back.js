@@ -18,7 +18,7 @@
 })();
 // Assinatura no fim de cada página dos sites de projeto: "Website / Design system / Brand desenvolvido por Marlon Dias" (LinkedIn)
 (function () {
-  if (document.querySelector('a[href*="linkedin.com/in/marlonwebdesigner"]')) return;
+  if (document.querySelector('a[href*="linkedin.com/in/marlonwebdesigner"]') || document.documentElement.hasAttribute('data-no-credit')) return;
   var slug = (location.pathname.match(/\/projetos\/([^\/]+)\//) || [])[1] || '';
   // tipo de trabalho de cada projeto: [pt, en, es]
   var K = {
