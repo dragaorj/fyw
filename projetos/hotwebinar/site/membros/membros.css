@@ -1,6 +1,6 @@
 /* Hotwebinar · Área de membros (tela de login demonstrativa). Mesma base do site (hw.css). Gerar membros.css trocando Nu por calc(N * var(--u)). */
 .mp { position: relative; overflow: hidden; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; background: #000; }
-.mp > .bgt-foot { top: auto; bottom: 0; }
+.mp .bgt-foot { top: auto; bottom: 0; }
 .mb-hd, .mb-main, .mb-ft { position: relative; z-index: 2; }
 .mb-hd { display: flex; align-items: center; justify-content: space-between; padding: calc(40 * var(--u)) calc(20 * var(--u)) 0; }
 .mb-logo img { width: calc(112 * var(--u)); height: auto; }
@@ -86,6 +86,9 @@
   .mb-new { font-size: calc(16 * var(--u)); padding-top: calc(22 * var(--u)); }
   .mb-ft { grid-auto-flow: column; justify-content: space-between; padding: 0 calc(160 * var(--u)) calc(40 * var(--u)); font-size: calc(15 * var(--u)); text-align: left; }
   .mp > .bgt-hero { left: auto; right: 0; }
-  .mp > .bgt-foot { left: 0; }
+  .mp .bgt-foot { left: calc(50% - calc(2114 * var(--u))); width: calc(4228 * var(--u)); }
 }
 @media (prefers-reduced-motion: reduce) { .mb-card, .mb-txt > *, .mb-msg { animation: none; } }
+
+/* anel de baixo: a imagem tem um leve tom em toda a área, então some aos poucos no topo e nos lados (sem borda reta) */
+.mp .bgt-foot { -webkit-mask: linear-gradient(to bottom, transparent, #000 22%), linear-gradient(to right, transparent, #000 15%, #000 85%, transparent); -webkit-mask-composite: source-in; mask: linear-gradient(to bottom, transparent, #000 22%), linear-gradient(to right, transparent, #000 15%, #000 85%, transparent); mask-composite: intersect; }

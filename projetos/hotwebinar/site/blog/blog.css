@@ -147,7 +147,7 @@
   .bp > .hd { left: 0; right: 0; top: 0; margin: calc(53 * var(--u)) calc(160 * var(--u)) 0; }
   .bp > .ft { left: 0; top: 0; width: auto; max-width: calc(1330 * var(--u)); margin: calc(200 * var(--u)) auto 0; padding: 0 0 calc(90 * var(--u)); }
   .bp > .bgt-hero { left: auto; right: 0; }
-  .bp > .bgt-foot { top: auto; bottom: 0; left: 0; }
+  .bp .bgt-foot { top: auto; bottom: 0; left: calc(50% - calc(2114 * var(--u))); width: calc(4228 * var(--u)); }
   .bl-main { width: calc(1600 * var(--u)); margin: 0 auto; padding: 0; }
   .bl-k { font-size: calc(16 * var(--u)); }
   .bl-hero { padding-top: calc(150 * var(--u)); }
@@ -233,3 +233,6 @@
 @media (min-width: 900px) {
   .bl-pcv .cv-916 { padding: 1.8cqw 2.6cqw; border-radius: 1.8cqw; } .bl-pcv .cv-916 b { font-size: 4.8cqw; } .bl-pcv .cv-916 small { font-size: 1.6cqw; }
 }
+
+/* anel de baixo: a imagem tem um leve tom em toda a área, então some aos poucos no topo e nos lados (sem borda reta) */
+.bp .bgt-foot { -webkit-mask: linear-gradient(to bottom, transparent, #000 22%), linear-gradient(to right, transparent, #000 15%, #000 85%, transparent); -webkit-mask-composite: source-in; mask: linear-gradient(to bottom, transparent, #000 22%), linear-gradient(to right, transparent, #000 15%, #000 85%, transparent); mask-composite: intersect; }

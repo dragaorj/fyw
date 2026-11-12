@@ -866,6 +866,11 @@ body { position: relative; }
   .pg main > .tech > .tech-bg { -webkit-mask: linear-gradient(to bottom, transparent, #000 22%, #000 86%, transparent), linear-gradient(to right, transparent, #000 14%, #000 86%, transparent); -webkit-mask-composite: source-in; mask: linear-gradient(to bottom, transparent, #000 22%, #000 86%, transparent), linear-gradient(to right, transparent, #000 14%, #000 86%, transparent); mask-composite: intersect; }
 }
 /* anel do topo: some aos poucos embaixo em vez de terminar numa linha reta */
-.bgt-hero, .ext-ring-t { -webkit-mask: linear-gradient(to bottom, #000 50%, transparent 96%); mask: linear-gradient(to bottom, #000 50%, transparent 96%); }
+/* a imagem do anel tem um leve tom até as bordas: ela some aos poucos embaixo e nas laterais (mesma medida dentro e fora do site, sem emenda) */
+.bgt-hero { -webkit-mask: linear-gradient(to bottom, #000 50%, transparent 96%), linear-gradient(to right, transparent, #000 18%); -webkit-mask-composite: source-in; mask: linear-gradient(to bottom, #000 50%, transparent 96%), linear-gradient(to right, transparent, #000 18%); mask-composite: intersect; }
+@media (min-width: 900px) {
+  .bgt-hero { -webkit-mask: linear-gradient(to bottom, #000 50%, transparent 96%), linear-gradient(to right, transparent, #000 calc(260 * var(--u))); -webkit-mask-composite: source-in; mask: linear-gradient(to bottom, #000 50%, transparent 96%), linear-gradient(to right, transparent, #000 calc(260 * var(--u))); mask-composite: intersect; }
+  .ext-ring-t { -webkit-mask: linear-gradient(to bottom, #000 50%, transparent 96%), linear-gradient(to right, transparent, #000 calc(260 * var(--u)), #000 calc(100% - calc(260 * var(--u))), transparent); -webkit-mask-composite: source-in; mask: linear-gradient(to bottom, #000 50%, transparent 96%), linear-gradient(to right, transparent, #000 calc(260 * var(--u)), #000 calc(100% - calc(260 * var(--u))), transparent); mask-composite: intersect; }
+}
 /* anel de baixo: surge aos poucos no topo em vez de começar numa linha reta (dentro do site e nas laterais) */
 .bgt-foot, .ext-ring-f { -webkit-mask: linear-gradient(to bottom, transparent, #000 22%); mask: linear-gradient(to bottom, transparent, #000 22%); }
