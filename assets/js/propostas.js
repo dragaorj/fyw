@@ -28,16 +28,18 @@
       { id: 'manutencao', grupo: 'Continuidade', nome: 'Manutenção e suporte dos sistemas', desc: 'Disponibilidade diária, atualizações, infraestrutura em nuvem e manutenção dos sistemas por 12 meses.', tabela: 2000, parceiro: 1500, un: '/mês' },
       { id: 'mensal', grupo: 'Continuidade', nome: 'Contrato mensal de tecnologia e design', desc: 'Demandas contínuas de sites, sistemas e design gráfico, sem contagem de horas. Mínimo de 3 meses.', tabela: 7000, parceiro: 5500, un: '/mês' }
     ],
-    // pacote: seção própria no fim da tabela, soma dos serviços escolhidos com desconto
-    pacote: { nome: 'Pacote da edição', titulo: 'Toda a edição do evento\nem um só contrato', itens: ['hotsite', 'website', 'agenda', 'encerramento'], desconto: 20 },
+    // pacote: seção própria no fim da tabela. Valor fixo (o que fechou com o Impact Minds 2026 & 2027, sem a manutenção);
+    // parceiro paga o pacote com desconto
+    pacote: { nome: 'Pacote da edição', titulo: 'Toda a edição do evento\nem um só contrato', itens: ['hotsite', 'website', 'agenda', 'encerramento'], preco: 35000, parceiroDesconto: 20 },
     pagamento: ['50% na aprovação e 50% na entrega', 'Até 12x no cartão de crédito (juros da operadora)', '10% de desconto à vista no Pix', 'Valores fechados, sem cobrança por hora']
   };
   let TAB = clone(TAB0);
   const r100 = n => Math.round(n / 100) * 100;
   const pacoteValores = T => {
-    const p = T.pacote || {}, its = (p.itens || []).map(id => T.itens.find(x => x.id === id)).filter(Boolean), k = 1 - (+p.desconto || 0) / 100;
+    const p = T.pacote || {}, its = (p.itens || []).map(id => T.itens.find(x => x.id === id)).filter(Boolean);
     const st = its.reduce((a, x) => a + (+x.tabela || 0), 0), sp = its.reduce((a, x) => a + (+x.parceiro || 0), 0);
-    return { its, somaTabela: st, somaParceiro: sp, tabela: r100(st * k), parceiro: r100(sp * k) };
+    const tabela = +p.preco || st, parceiro = r100(tabela * (1 - (+p.parceiroDesconto || 0) / 100));
+    return { its, somaTabela: st, somaParceiro: sp, tabela, parceiro, economia: Math.max(0, st - tabela) };
   };
   const tipos = () => { const v = pacoteValores(TAB); return TAB.itens.concat(TAB.pacote && v.its.length ? [{ id: 'pacote', nome: TAB.pacote.nome, tabela: v.tabela, parceiro: v.parceiro, un: '' }] : []); };
 
@@ -225,9 +227,9 @@
       '<div><p class="rot">Opção 2</p><p class="t3">Um ano inteiro de uma vez</p><p class="cp">Fechar uma proposta que cubra os 12 meses do ano.</p><div class="ano"><span>Jan</span><span>12 meses</span><span>Dez</span></div></div></div></div>' +
       grupos.map(g => grp(g.n) + '<div class="svc">' + g.it.map(sv).join('') + '</div>').join('') +
       (pv.its.length ? grp(pk.nome || 'Pacote') + '<div class="pkg">' + '<i class="gl" style="left:560px;top:-260px;width:620px;height:480px;background:#C8F53C;opacity:.3"></i><i class="gl" style="left:-260px;top:180px;width:600px;height:480px;background:#7B5CFF;opacity:.38"></i>' +
-        '<div class="pl"><p class="rot lima">Os ' + pv.its.length + ' serviços juntos</p><h3 class="t2">' + br(pk.titulo) + '</h3><ul>' + pv.its.map(x => '<li><i></i><span class="co">' + esc(x.nome) + '</span><small class="cp">' + R(x.tabela) + '</small></li>').join('') + '</ul></div>' +
-        '<div class="pr2"><p class="sep"><span class="rot o5">Separados</span><s class="co o5">' + R(pv.somaTabela) + '</s></p><span class="off rot">' + (+pk.desconto || 0) + '% off no pacote</span><p class="rot o6">Valor do pacote</p><p class="pg">' + R(pv.tabela) + '</p>' +
-        '<div class="pp2"><p class="rot lima">Parceiro Fyw</p><b>' + R(pv.parceiro) + '</b><p class="cp o6">Soma dos preços de parceiro com ' + (+pk.desconto || 0) + '% off.</p></div></div></div>' : '') +
+        '<div class="pl"><p class="rot lima">Os ' + pv.its.length + ' serviços da edição, valor fixo</p><h3 class="t2">' + br(pk.titulo) + '</h3><ul>' + pv.its.map(x => '<li><i></i><span class="co">' + esc(x.nome) + '</span><small class="cp">' + R(x.tabela) + '</small></li>').join('') + '</ul></div>' +
+        '<div class="pr2"><p class="sep"><span class="rot o5">Separados</span><s class="co o5">' + R(pv.somaTabela) + '</s></p>' + (pv.economia ? '<span class="off rot">Economia de ' + R(pv.economia) + '</span>' : '') + '<p class="rot o6">Valor do pacote</p><p class="pg">' + R(pv.tabela) + '</p>' +
+        '<div class="pp2"><p class="rot lima">Parceiro Fyw</p><b>' + R(pv.parceiro) + '</b><p class="cp o6">' + (+pk.parceiroDesconto || 0) + '% off sobre o valor do pacote.</p></div></div></div>' : '') +
       '<div class="pgto"><div><p class="rot lima">Condições de pagamento</p><h2 class="t2">Do mesmo jeito em<br>todos os serviços</h2></div><ul class="cp">' + L(T.pagamento).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' +
       '<div class="ft cp"><span>fyw.com.br  ·  fyw.ggwp@gmail.com</span><span>CNPJ 27.354.079/0001-05</span></div></div></div>';
   }
@@ -388,14 +390,15 @@
       box('01', 'Serviços', TAB.itens.map(linha).join('') + '<button class="add" type="button" data-tadd>+ Adicionar serviço</button><small class="soma">Valores em reais, só números (ex.: 12500). Serviços com o mesmo grupo ficam juntos na tabela.</small>', true) +
       box('02', 'Pacote (seção própria no fim)', tin('Nome', 'pacote.nome', pk.nome) + '<label class="f"><span>Título</span><textarea data-t="pacote.titulo" rows="2">' + esc(pk.titulo) + '</textarea></label>' +
         '<div class="f"><span>Serviços do pacote</span>' + TAB.itens.map(x => '<label class="chk"><input type="checkbox" data-pk="' + esc(x.id) + '"' + (pk.itens.includes(x.id) ? ' checked' : '') + '>' + esc(x.nome) + '</label>').join('') + '</div>' +
-        tin('Desconto do pacote (%)', 'pacote.desconto', pk.desconto, 'inputmode="numeric"') +
-        '<p class="soma">Separados: ' + R(pv.somaTabela) + ' · Pacote: <b>' + R(pv.tabela) + '</b><br>Parceiro separados: ' + R(pv.somaParceiro) + ' · Pacote parceiro: <b>' + R(pv.parceiro) + '</b></p>', true) +
+        '<div class="g2">' + tin('Valor fixo do pacote', 'pacote.preco', pk.preco, 'inputmode="numeric"') + tin('Desconto parceiro (%)', 'pacote.parceiroDesconto', pk.parceiroDesconto, 'inputmode="numeric"') + '</div>' +
+        '<p class="soma">' + resumoPacote(pv) + '</p>', true) +
       box('03', 'Condições de pagamento', '<label class="f"><span>Condições</span><textarea data-tl="pagamento" rows="4">' + esc(L(TAB.pagamento).join('\n')) + '</textarea><small>Uma por linha.</small></label>');
     document.querySelectorAll('#form details').forEach((x, i) => { if (abertos.length) x.open = !!abertos[i]; });
     status();
   }
+  const resumoPacote = pv => 'Separados: ' + R(pv.somaTabela) + ' · Pacote: <b>' + R(pv.tabela) + '</b>' + (pv.economia ? ' (economia de ' + R(pv.economia) + ')' : '') + '<br>Pacote para parceiro: <b>' + R(pv.parceiro) + '</b>';
   const tin = (lab, k, v, extra) => '<label class="f"><span>' + lab + '</span><input data-t="' + k + '" value="' + esc(v == null ? '' : v) + '" ' + (extra || '') + '></label>';
-  const NUM = /\.(tabela|parceiro|desconto)$/;
+  const NUM = /\.(tabela|parceiro|preco|parceiroDesconto)$/;
   function tmudou(refaz) {
     salvo = false; status(); if (refaz) tform();
     clearTimeout(tPrev); tPrev = setTimeout(() => preview(tdoc(TAB)), refaz ? 0 : 120);
@@ -405,7 +408,7 @@
     const f = $('#form');
     f.oninput = !on ? null : e => {
       const t = e.target;
-      if (t.dataset.t) { const v = NUM.test(t.dataset.t) ? +String(t.value).replace(/\D/g, '') || 0 : t.value; set(TAB, t.dataset.t, v); tmudou(false); if (NUM.test(t.dataset.t)) { const s = document.querySelector('#form .bx:nth-of-type(2) .soma'); const pv = pacoteValores(TAB); if (s) s.innerHTML = 'Separados: ' + R(pv.somaTabela) + ' · Pacote: <b>' + R(pv.tabela) + '</b><br>Parceiro separados: ' + R(pv.somaParceiro) + ' · Pacote parceiro: <b>' + R(pv.parceiro) + '</b>'; } }
+      if (t.dataset.t) { const v = NUM.test(t.dataset.t) ? +String(t.value).replace(/\D/g, '') || 0 : t.value; set(TAB, t.dataset.t, v); tmudou(false); if (NUM.test(t.dataset.t)) { const s = document.querySelector('#form .bx:nth-of-type(2) .soma'); const pv = pacoteValores(TAB); if (s) s.innerHTML = resumoPacote(pv); } }
       else if (t.dataset.tl) { set(TAB, t.dataset.tl, t.value.split('\n').map(s => s.trim()).filter(Boolean)); tmudou(false); }
       else if (t.dataset.pk) { const id = t.dataset.pk, a = TAB.pacote.itens; if (t.checked) { if (!a.includes(id)) a.push(id); } else a.splice(a.indexOf(id), 1); tmudou(true); }
     };
@@ -468,7 +471,7 @@
   let tabOk = false;
   async function carregaTabela() {
     if (tabOk) return; tabOk = true;
-    try { const t = await store.tabela(); if (t && Array.isArray(t.itens)) { delete t.atualizado; TAB = Object.assign(clone(TAB0), t); } } catch (e) {}
+    try { const t = await store.tabela(); if (t && Array.isArray(t.itens)) { delete t.atualizado; TAB = Object.assign(clone(TAB0), t); if (!TAB.pacote || TAB.pacote.preco == null) TAB.pacote = Object.assign(clone(TAB0.pacote), TAB.pacote ? { nome: TAB.pacote.nome, titulo: TAB.pacote.titulo, itens: TAB.pacote.itens } : {}); delete TAB.pacote.desconto; } } catch (e) {}
   }
   addEventListener('hashchange', rota);
   addEventListener('beforeunload', e => { if (!salvo) { e.preventDefault(); e.returnValue = ''; } });
