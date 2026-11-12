@@ -207,7 +207,7 @@
     }
     const px = L(d.proximos);
     const fim = '<section class="sec">' + (px.length ? '<p class="rot pxl">Próximos passos</p><div class="nx">' + px.map((p, i) => '<div><i class="co">' + (i + 1) + '</i><span class="co">' + esc(p) + '</span></div>').join('') + '</div>' : '') +
-      '<div class="sg"><div><p class="cp">' + esc(d.assinaturaCliente || d.cliente) + '  ·  Contratante</p></div><div><p class="cp">Fyw  ·  CNPJ 27.354.079/0001-05</p></div></div>' +
+      '<div class="sg"><div><p class="cp">' + esc(d.assinaturaCliente || d.cliente) + '  ·  Contratante</p></div><div class="fy"><img class="ass" src="/assets/img/propostas/assinatura-fyw.svg?v=2" alt="Assinatura Fyw" width="314" height="283"><p class="cp">Fyw  ·  CNPJ 27.354.079/0001-05</p></div></div>' +
       (d.legal ? '<p class="lg cp">' + esc(d.legal) + '</p>' : '') + '<div class="ft cp"><span>fyw.com.br  ·  fyw.ggwp@gmail.com</span><span>' + esc(d.codigo) + '</span></div></section>';
     const meta = [['Data', d.data], ['Código', d.codigo], ['Prazo', d.prazo], ['Contato', d.contato]].filter(m => m[1]);
     return '<div class="pdoc"><header class="ph">' + glows + '<div class="in"><div class="top">' + logoFyw + '<span class="pill rot"><i></i>Proposta comercial</span></div><div class="grow"></div>' +

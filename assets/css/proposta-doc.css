@@ -88,8 +88,10 @@
 .pdoc .pxl { color: #5C5B56; }
 .pdoc .nx > div { display: flex; align-items: center; gap: 14px; }
 .pdoc .nx i { flex: none; width: 36px; height: 36px; border-radius: 50%; background: #C8F53C; display: grid; place-items: center; font-style: normal; }
-.pdoc .sg { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 80px; }
+.pdoc .sg { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 170px; }
 .pdoc .sg > div { display: grid; gap: 12px; color: #5C5B56; }
+.pdoc .sg .fy { position: relative; }
+.pdoc .sg .ass { position: absolute; left: 147px; bottom: calc(100% - 65px); width: auto; height: 150px; pointer-events: none; }
 .pdoc .sg > div::before { content: ""; height: 1px; background: rgba(11,11,11,.35); }
 .pdoc .lg { margin-top: 40px; color: #5C5B56; }
 .pdoc .ft { display: flex; justify-content: space-between; margin-top: 48px; color: #5C5B56; }
