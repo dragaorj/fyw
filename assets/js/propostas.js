@@ -68,7 +68,9 @@
     return j;
   }
   // a agenda chegou a ir para R$ 8.500 / 6.500 por engano; quem gravou assim volta para R$ 12.500 / 10.000
-  const agendaNova = d => { if (d && d.tipoId === 'agenda' && d.precoTabela === 'R$ 8.500' && d.preco === 'R$ 6.500') { d.precoTabela = 'R$ 12.500'; d.preco = 'R$ 10.000'; } return d; };
+  const agendaNova = d => { if (d && d.tipoId === 'agenda' && d.precoTabela === 'R$ 8.500' && d.preco === 'R$ 6.500') { d.precoTabela = 'R$ 12.500'; d.preco = 'R$ 10.000'; }
+    if (d && d.tipoId === 'agenda' && d.preco === 'R$ 10.000') (d.condicoes || []).forEach(c => { if (c && c.k === 'Restante' && c.v === 'Em 2x') c.v = '2x de R$ 2.500 nos meses seguintes'; });
+    return d; };
   const lrow = p => ({ id: p.id, titulo: p.dados.titulo, cliente: p.dados.cliente, tipo: p.dados.tipo, preco: p.dados.preco, logo: p.dados.logo, pdfs: p.dados.pdfs, criado: p.criado, atualizado: p.atualizado });
   const store = {
     async list() {
@@ -156,7 +158,7 @@
       beneficios: ['Programação centralizada em uma única plataforma', 'Mais autonomia para a equipe organizadora', 'Menos erros operacionais durante o evento', 'Melhor experiência para participantes e palestrantes', 'Imagem mais forte para patrocinadores e parceiros', 'Estrutura pronta para as próximas edições'],
       parceiro: true, precoTabela: 'R$ 12.500', preco: 'R$ 10.000',
       escopo: ['Desenvolvimento completo da plataforma', 'Painel administrativo para a equipe', 'Versões em português, inglês e espanhol', 'Integração com Google Agenda', 'Configuração e publicação', 'Servidores, backup e recuperação de dados inclusos'],
-      condicoes: [{ k: 'Entrada', v: '50% na aprovação' }, { k: 'Restante', v: 'Em 2x' }, { k: 'No cartão', v: 'Até 12x (juros da operadora)' }, { k: 'À vista no Pix', v: '10% de desconto' }],
+      condicoes: [{ k: 'Entrada', v: '50% na aprovação' }, { k: 'Restante', v: '2x de R$ 2.500 nos meses seguintes' }, { k: 'No cartão', v: 'Até 12x (juros da operadora)' }, { k: 'À vista no Pix', v: '10% de desconto' }],
       assinaturaCliente: 'Bio Amazon Summit'
     });
   }
@@ -203,7 +205,7 @@
         (d.parceiro ? '<span class="sp rot">Valor exclusivo para parceiros Fyw</span>' + (d.precoTabela ? '<p class="co o7">Valor normal: <s>' + esc(d.precoTabela) + '</s></p>' : '') : '') +
         '<p class="pg">' + esc(d.preco) + '</p>' + (d.parceiro && d.precoNota ? '<p class="cp o7">' + esc(d.precoNota) + '</p>' : '') + '</div>' +
         (L(d.escopo).length ? '<div class="vl"><p class="rot o6">Escopo da entrega</p><ul class="co">' + L(d.escopo).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' : '<div></div>') + '</div>' +
-        (cd.length ? '<div class="cd">' + cd.map(c => '<div><p class="rot o5">' + esc(c.k) + '</p><p class="t3">' + esc(c.v) + '</p></div>').join('') + '</div>' : '') + '</div></section>');
+        (cd.length ? '<div class="cd">' + cd.map(c => '<div><p class="rot o5">' + esc(c.k) + '</p><p class="cv">' + esc(c.v) + '</p></div>').join('') + '</div>' : '') + '</div></section>');
     }
     const px = L(d.proximos);
     const fim = '<section class="sec">' + (px.length ? '<p class="rot pxl">Próximos passos</p><div class="nx">' + px.map((p, i) => '<div><i class="co">' + (i + 1) + '</i><span class="co">' + esc(p) + '</span></div>').join('') + '</div>' : '') +

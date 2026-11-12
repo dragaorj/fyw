@@ -83,6 +83,7 @@
 .pdoc .inv li::before { content: ""; flex: none; width: 8px; height: 8px; margin-top: 10px; border-radius: 50%; background: #C8F53C; }
 .pdoc .inv .cd { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 16px; }
 .pdoc .inv .cd > div { display: grid; gap: 8px; align-content: start; padding: 22px 24px; border-radius: 20px; background: rgba(238,237,233,.07); }
+.pdoc .inv .cd .cv { font-size: 16px; line-height: 1.4; font-weight: 500; }
 /* fechamento */
 .pdoc .nx { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; }
 .pdoc .pxl { color: #5C5B56; }
