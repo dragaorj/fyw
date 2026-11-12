@@ -935,6 +935,7 @@ window.__fywTagBg = function (hex) { var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''
     // segue o mouse sem atraso, como a seta do sistema (1 atualização por quadro, só transform)
     let mx = -50, my = -50, craf = 0;
     const place = () => { craf = 0; cur.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0)'; };
+    place(); // começa fora da tela (nunca aparece no canto antes do primeiro movimento)
     addEventListener('pointermove', e => { if (e.pointerType && e.pointerType !== 'mouse') { off(); return; } mx = e.clientX; my = e.clientY; on(); if (!craf) craf = requestAnimationFrame(place); }, { passive: true });
     addEventListener('pointerdown', e => { if (e.pointerType && e.pointerType !== 'mouse') off(); }, { passive: true });
     addEventListener('blur', off);
@@ -1596,7 +1597,9 @@ window.__fywTagBg = function (hex) { var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''
   (function () {
     const PJ = window.FYW_PROJECTS || {}, TC = ['t-o', 't-v', 't-b'];
     // fotos dos cards só depois da primeira pintura (ficam por trás da tela de carregamento e não atrasam o título)
-    const loadImgs = () => $$('.hf-card img[data-src], .wr-thumb img[data-src]').forEach(im => { im.src = im.dataset.src; im.removeAttribute('data-src'); });
+    // se a rede falhar numa foto, tenta de novo sozinha (até 3 vezes, com pausa crescente)
+    const retry = im => { let n = 0; const base = im.dataset.src; im.addEventListener('error', () => { if (++n > 3) return; setTimeout(() => { im.src = base + (base.indexOf('?') > -1 ? '&' : '?') + 'r=' + n; }, 600 * n); }); };
+    const loadImgs = () => $$('.hf-card img[data-src], .wr-thumb img[data-src]').forEach(im => { retry(im); im.src = im.dataset.src; im.removeAttribute('data-src'); });
     let imgsGo = false; const goImgs = () => { if (imgsGo) return; imgsGo = true; requestAnimationFrame(() => setTimeout(loadImgs, 0)); };
     try { new PerformanceObserver(l => { if (l.getEntries().some(e => e.name === 'first-contentful-paint')) goImgs(); }).observe({ type: 'paint', buffered: true }); } catch (e) {}
     setTimeout(goImgs, 1200);

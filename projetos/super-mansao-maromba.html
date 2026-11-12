@@ -34,7 +34,7 @@
       for (var k = 1; k <= 4; k++) { s('--g' + k, hues[k - 1]); }
     })();
   </script>
-  <link rel="stylesheet" href="../assets/css/style.min.css?v=20261132u" />
+  <link rel="stylesheet" href="../assets/css/style.min.css?v=20261132y" />
   <link rel="stylesheet" href="../assets/css/smm.min.css?v=9" />
   <script>
     // Paleta sorteada a cada visita (não fica salva): cor de destaque + cores/posições das manchas
@@ -366,7 +366,7 @@
     <span class="sr-only" data-i18n="bf.sr">Black Friday Fyw: todos os projetos fechados em novembro têm até 30% de desconto.</span>
     <a class="bf-cta" href="/black-friday.html"><span data-i18n="bf.cta">Saiba mais</span><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 5.5 19.5 12 13 18.5"/></svg></i></a>
   </div>
-  <script>(function () { var s = document.currentScript.previousElementSibling; if (new Date().getMonth() !== 10 && !document.body.classList.contains('bf-page')) { s.remove(); return; } document.documentElement.classList.add('bf-on'); })();</script>
+  <script>(function () { var s = document.currentScript.previousElementSibling; if (new Date().getMonth() !== 10 && !document.body.classList.contains('bf-page')) { s.remove(); return; } document.documentElement.classList.add('bf-on'); var raf = 0; function chk() { raf = 0; s.classList.toggle('is-away', (window.scrollY || 0) < 40); } function soon() { if (!raf) raf = requestAnimationFrame(chk); } addEventListener('scroll', soon, { passive: true }); ['wheel', 'touchmove', 'keydown'].forEach(function (ev) { addEventListener(ev, function () { setTimeout(soon, 150); setTimeout(soon, 600); }, { passive: true }); }); addEventListener('load', soon); s.classList.add('is-away'); soon(); })();</script>
   <div class="dock" aria-label="Navegação rápida">
     <a href="/" class="dock-btn dock-logo" aria-label="Fyw · página inicial"><svg viewBox="0 0 804 513" aria-hidden="true"><use href="#fyw-logo"/></svg></a>
     <button class="dock-btn dock-menu" aria-controls="mobile-menu" aria-expanded="false" aria-label="Abrir menu"><span></span><span></span><span></span></button>

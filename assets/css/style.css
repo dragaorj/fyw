@@ -6549,3 +6549,17 @@ html body .bfp-wrap > .bfp-sec { padding: 0 !important; margin: 0; max-width: no
   .bfp-faq details[open] summary:hover::after { transform: rotate(45deg) scale(1.1); }
   .bfp-btn:hover { box-shadow: 0 16px 34px -14px rgba(200,245,60,.6); }
 }
+
+/* Black Friday: a faixa fixa só aparece depois que a pessoa rola a página (no topo ela fica escondida) */
+/* faixa mais baixa: 48px no computador, 44px no celular */
+html.bf-on { --bfh: 48px; }
+.bf-strip.is-fixed .bf-it { font-size: .9375rem; gap: 14px; padding-right: 14px; }
+.bf-strip.is-fixed .bf-it i { width: 8px; height: 8px; }
+.bf-strip.is-fixed .bf-cta { height: 36px; margin-right: 6px; padding-left: 16px; gap: 8px; }
+.bf-strip.is-fixed .bf-cta i { width: 26px; height: 26px; } .bf-strip.is-fixed .bf-cta svg { width: 14px; height: 14px; }
+@media (max-width: 599px) { html.bf-on { --bfh: 44px; } .bf-strip.is-fixed .bf-cta { height: 32px; padding-left: 12px; } .bf-strip.is-fixed .bf-cta i { width: 24px; height: 24px; } .bf-strip.is-fixed .bf-it { font-size: .8125rem; } }
+/* escondida no topo (desce para fora da tela) e sobe quando a pessoa rola */
+.bf-strip.is-fixed { transition: transform .45s cubic-bezier(.2,.8,.2,1); }
+.bf-strip.is-fixed.is-away { transform: translateY(110%); }
+/* bolinha do mouse: só aparece depois de um movimento de verdade (antes disso ficaria parada no canto da tela) */
+html:not(.has-cursor) .cursor { opacity: 0 !important; }
