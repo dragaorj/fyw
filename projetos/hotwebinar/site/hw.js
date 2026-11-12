@@ -254,7 +254,7 @@
   gsap.from('.ft > *', { y: 30, autoAlpha: 0, duration: .8, ease: E, stagger: .08, scrollTrigger: { trigger: '.ft', start: 'top 92%' } });
   // profundidade ao rolar: painéis e imagens de fundo em velocidades diferentes
   if (wide.matches) {
-    gsap.to('.bgt-hero', { y: 140, ease: 'none', scrollTrigger: { trigger: document.body, start: 'top top', end: '+=1200', scrub: true } });
+    gsap.to(['.bgt-hero', '.ext-ring-t'], { y: 140, ease: 'none', scrollTrigger: { trigger: document.body, start: 'top top', end: '+=1200', scrub: true } });
   }
   addEventListener('load', function () { ScrollTrigger.refresh(); });
 })();

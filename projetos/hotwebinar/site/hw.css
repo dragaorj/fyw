@@ -849,15 +849,21 @@ body { position: relative; }
 .pg-ext { display: none; }
 @media (min-width: 900px) {
   .pg-ext { display: block; position: absolute; z-index: 0; left: 0; right: 0; top: 0; height: calc(7304 * var(--u)); overflow: hidden; pointer-events: none; }
-  .pg-ext i { position: absolute; top: 0; width: calc(1920 * var(--u)); height: 100%; transform: scaleX(-1); filter: blur(28px);
-    background: url(img/bg-d-over.webp) top center / 100% auto no-repeat, url(img/bg-d.webp) top center / 100% auto no-repeat; }
-  .ext-l { right: calc(50% + calc(960 * var(--u)) - 80px); -webkit-mask: linear-gradient(to right, #000 8%, transparent 70%); mask: linear-gradient(to right, #000 8%, transparent 70%); }
-  .ext-r { left: calc(50% + calc(960 * var(--u)) - 80px); -webkit-mask: linear-gradient(to left, #000 8%, transparent 70%); mask: linear-gradient(to left, #000 8%, transparent 70%); }
+  /* brilhos: as mesmas elipses do Figma desenhadas numa tela mais larga (1000px a mais de cada lado), então continuam de verdade, sem espelho */
+  .ext-g { position: absolute; top: 0; left: calc(50% - calc(1960 * var(--u))); width: calc(3920 * var(--u)); height: 100%; background: url(img/bg-d-over-wide.webp) top center / 100% auto no-repeat, url(img/bg-d-wide.webp) top center / 100% auto no-repeat; }
+  .pg-ext { -webkit-mask: linear-gradient(to right, transparent 0, #000 calc(50% - calc(1460 * var(--u))), #000 calc(50% + calc(1460 * var(--u))), transparent 100%); mask: linear-gradient(to right, transparent 0, #000 calc(50% - calc(1460 * var(--u))), #000 calc(50% + calc(1460 * var(--u))), transparent 100%); }
+  /* dentro do site, o mesmo arquivo largo mostrando só o meio: a junção com a lateral é exata */
+  .pg > .bgu { background-image: url(img/bg-d-wide.webp); background-size: 204.1667% auto; background-position: 50% 0; }
+  .pg > .bgo { background-image: url(img/bg-d-over-wide.webp); background-size: 204.1667% auto; background-position: 50% 0; }
   .pg-ext img { position: absolute; max-width: none; }
   .ext-ring-t { left: calc(50% - calc(471 * var(--u))); top: 0; width: calc(1779 * var(--u)); }
   .ext-ring-f { left: calc(50% - calc(2024 * var(--u))); top: calc(5179 * var(--u)); width: calc(4228 * var(--u)); }
 }
 /* com espaço dos lados (tela mais larga que o site), o vídeo do apresentador some aos poucos nas bordas em vez de cortar reto */
+/* vídeo do apresentador: entra e sai aos poucos em cima e embaixo, sem linha de corte */
+.tech > .tech-bg { -webkit-mask: linear-gradient(to bottom, transparent, #000 22%, #000 86%, transparent); mask: linear-gradient(to bottom, transparent, #000 22%, #000 86%, transparent); }
 @media (min-width: 2241px) {
-  .pg main > .tech > .tech-bg { -webkit-mask: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent); mask: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent); }
+  .pg main > .tech > .tech-bg { -webkit-mask: linear-gradient(to bottom, transparent, #000 22%, #000 86%, transparent), linear-gradient(to right, transparent, #000 14%, #000 86%, transparent); -webkit-mask-composite: source-in; mask: linear-gradient(to bottom, transparent, #000 22%, #000 86%, transparent), linear-gradient(to right, transparent, #000 14%, #000 86%, transparent); mask-composite: intersect; }
 }
+/* anel do topo: some aos poucos embaixo em vez de terminar numa linha reta */
+.bgt-hero, .ext-ring-t { -webkit-mask: linear-gradient(to bottom, #000 50%, transparent 96%); mask: linear-gradient(to bottom, #000 50%, transparent 96%); }
