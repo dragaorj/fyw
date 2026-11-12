@@ -17,14 +17,14 @@
   /* ---------- tabela de preços 2027 (padrão; editável em /propostas#/tabela) ---------- */
   const TAB0 = {
     titulo: 'Tabela de preços 2027',
-    versao: 13,
+    versao: 14,
     itens: [
       { id: 'landing', grupo: 'Sites', nome: 'Landing page', desc: 'Página única feita para converter: seções sob medida, formulário com LGPD e até 2 rodadas de ajustes.', tabela: 4500, parceiro: 3500, un: '' },
       { id: 'hotsite', grupo: 'Sites', nome: 'Hotsite', desc: 'Home e até 3 páginas internas, até 2 rodadas de ajustes e 1 ajuste depois da publicação.', tabela: 6500, parceiro: 5000, un: '' },
       { id: 'website', grupo: 'Sites', nome: 'Website', desc: 'Site completo com quantas páginas o projeto pedir, painel de edição e versão bilíngue.', tabela: 11000, parceiro: 8500, un: '' },
       { id: 'agenda', grupo: 'Plataformas', nome: 'Plataforma web, sistema ou app', desc: 'Sistemas sob medida: áreas restritas, painéis administrativos, agendas, cadastros e apps, em até 3 idiomas.', tabela: 12500, parceiro: 10000, un: '', rotulo: 'Proposta comercial para plataforma web' },
       { id: 'portal', grupo: 'Conteúdo', nome: 'Portal ou hub de conteúdo', desc: 'Até 6 páginas e página modelo, filtros por tema, painel de edição, formulário com LGPD e 30 dias de suporte.', tabela: 9000, parceiro: 7000, un: '' },
-      { id: 'branding', grupo: 'Marca', nome: 'Branding ou rebranding completo', desc: 'Marca criada do zero ou renovada: diagnóstico, estratégia, logo, identidade visual, manual da marca e arquivos finais editáveis.', tabela: 12500, parceiro: 10000, un: '' },
+      { id: 'branding', grupo: 'Marca', nome: 'Branding', desc: 'Marca criada do zero ou renovada: diagnóstico, estratégia, logo, identidade visual, manual da marca e arquivos finais editáveis.', tabela: 12500, parceiro: 10000, un: '' },
       { id: 'manutencao', grupo: 'Continuidade', nome: 'Manutenção e suporte dos sistemas', desc: 'Disponibilidade diária, atualizações, infraestrutura em nuvem e manutenção dos sistemas por 12 meses.', tabela: 2500, parceiro: 2000, un: '/mês' },
       { id: 'mensal', grupo: 'Continuidade', nome: 'Contrato mensal de tecnologia e design', desc: 'Demandas contínuas de sites, sistemas e design gráfico, sem contagem de horas. Mínimo de 3 meses.', tabela: 9000, parceiro: 7000, un: '/mês' }
     ],
@@ -612,7 +612,8 @@
       if ((+t.versao || 1) < 10) { const a = TAB.itens.find(x => x.id === 'agenda'); if (a && a.desc === 'Sistemas sob medida: agenda e programação de eventos, áreas restritas, painéis administrativos e apps, em até 3 idiomas.') a.desc = 'Sistemas sob medida: áreas restritas, painéis administrativos, agendas, cadastros e apps, em até 3 idiomas.'; if (TAB.pacote) { if (TAB.pacote.nome === 'Pacote da edição') TAB.pacote.nome = 'Pacote completo'; if (/edição do evento|Hotsite, website e plataforma/.test(TAB.pacote.titulo || '')) TAB.pacote.titulo = 'Do site à plataforma,\nem um só contrato'; } TAB.versao = 10; }
       if ((+t.versao || 1) < 11) { if (TAB.pacote && /Hotsite, website e plataforma/.test(TAB.pacote.titulo || '')) TAB.pacote.titulo = 'Do site à plataforma,\nem um só contrato'; TAB.versao = 11; }
       if ((+t.versao || 1) < 12) { if (TAB.pacote && +TAB.pacote.preco === 25000) TAB.pacote = Object.assign(TAB.pacote, clone(TAB0.pacote)); TAB.versao = 12; }
-      if (!TAB.escopo) TAB.escopo = clone(TAB0.escopo); const ag = TAB.itens.find(x => x.id === 'agenda'); if (ag && +ag.tabela === 8500 && +ag.parceiro === 6500) { ag.tabela = 12500; ag.parceiro = 10000; } } } catch (e) {}
+      if (!TAB.escopo) TAB.escopo = clone(TAB0.escopo);
+      if ((+t.versao || 1) < 14) { const b = TAB.itens.find(x => x.id === 'branding'); if (b && b.nome === 'Branding ou rebranding completo') b.nome = 'Branding'; TAB.versao = 14; } const ag = TAB.itens.find(x => x.id === 'agenda'); if (ag && +ag.tabela === 8500 && +ag.parceiro === 6500) { ag.tabela = 12500; ag.parceiro = 10000; } } } catch (e) {}
   }
   addEventListener('hashchange', rota);
   addEventListener('beforeunload', e => { if (!salvo) { e.preventDefault(); e.returnValue = ''; } });
