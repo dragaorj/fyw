@@ -106,9 +106,10 @@
     ] },
     visitas: { name: 'Visitas', icon: I.visitas, desc: 'Cada visita, passo a passo (só de quem aceitou os cookies).', special: 'visitas' },
     mapa: { name: 'Mapa de cliques', icon: I.mapa, desc: 'Onde as pessoas clicam em cada página (computador).', special: 'mapa' },
-    propostas: { name: 'Criar proposta', icon: I.propostas, desc: 'Propostas comerciais e tabela de preços.', link: '/propostas' }
+    propostas: { name: 'Criar proposta', icon: I.propostas, desc: 'Propostas comerciais e tabela de preços.', link: '/propostas' },
+    assinatura: { name: 'Assinatura de e-mail', icon: I.propostas, desc: 'Assinatura da Fyw para o e-mail, com o link do site.', link: '/assinatura' }
   };
-  const ORDER = ['geral', 'origem', 'redes', 'paginas', 'comp', 'publico', 'perf', 'erros', 'visitas', 'mapa', 'propostas'];
+  const ORDER = ['geral', 'origem', 'redes', 'paginas', 'comp', 'publico', 'perf', 'erros', 'visitas', 'mapa', 'propostas', 'assinatura'];
 
   function socialTotal(s) { return (s.social || []).reduce((a, x) => a + (+x.n || 0), 0); }
   function netBars(s) { return bars(NETS.map(([k, n]) => ({ k: n, n: ((s.social || []).find(x => x.k === k) || {}).n || 0, c: SRC_C[k] })), { color: k => SRC_C[(NETS.find(x => x[1] === k) || [])[0]] }); }
@@ -297,7 +298,7 @@
   // este aparelho é seu: as suas visitas no site deixam de contar
   const marcaEu = () => { try { localStorage.setItem('fyw-eu', '1'); } catch (e) {} };
   const showLogin = () => { $('#login').hidden = false; $('#app').hidden = true; setTimeout(() => $('#senha').focus(), 50); };
-  const showApp = () => { if (/[?&]volta=propostas/.test(location.search)) { location.replace('/propostas'); return; } marcaEu(); $('#login').hidden = true; $('#app').hidden = false; load(); };
+  const showApp = () => { const volta = /[?&]volta=(propostas|assinatura)/.exec(location.search); if (volta) { location.replace('/' + volta[1]); return; } marcaEu(); $('#login').hidden = true; $('#app').hidden = false; load(); };
   $('#lform').addEventListener('submit', async e => {
     e.preventDefault(); $('#lerr').textContent = '';
     try { await api('login', '', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ senha: $('#senha').value }) }); $('#senha').value = ''; showApp(); }

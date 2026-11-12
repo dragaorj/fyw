@@ -19,11 +19,15 @@
     {
       "source": "/propostas",
       "destination": "/propostas.html"
+    },
+    {
+      "source": "/assinatura",
+      "destination": "/assinatura.html"
     }
   ],
   "headers": [
     {
-      "source": "/(painel|propostas)(.*)",
+      "source": "/(painel|propostas|assinatura)(.*)",
       "headers": [
         {
           "key": "X-Robots-Tag",
@@ -32,6 +36,15 @@
         {
           "key": "Cache-Control",
           "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/assets/assinatura/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
         }
       ]
     }
