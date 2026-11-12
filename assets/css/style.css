@@ -6561,5 +6561,3 @@ html.bf-on { --bfh: 48px; }
 /* escondida no topo (desce para fora da tela) e sobe quando a pessoa rola */
 .bf-strip.is-fixed { transition: transform .45s cubic-bezier(.2,.8,.2,1); }
 .bf-strip.is-fixed.is-away { transform: translateY(110%); }
-/* bolinha do mouse: só aparece depois de um movimento de verdade (antes disso ficaria parada no canto da tela) */
-html:not(.has-cursor) .cursor { opacity: 0 !important; }
