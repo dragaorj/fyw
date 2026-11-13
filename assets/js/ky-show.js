@@ -1,8 +1,12 @@
 /* Kyoto · apresentação da marca. Dá a cada bloco [data-ky-p] o quanto ele já passou pela tela (--p, 0 a 1),
    faz o kit seguir o mouse (--mx/--my) e alterna os pesos da tipografia. Respeita o movimento reduzido. */
 (function () {
+  // a planificação em 3D precisa saber o tamanho da unidade do desenho, mesmo sem animação
+  var fold = document.querySelector('.ky-fold');
+  function mede() { if (fold) { var u = fold.clientWidth / 1632; fold.style.setProperty('--u', u + 'px'); fold.style.setProperty('--uu', u.toFixed(4)); } }
+  mede();
   var reduz = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduz || document.documentElement.classList.contains('a11y-motion')) return;
+  if (reduz || document.documentElement.classList.contains('a11y-motion')) { addEventListener('resize', mede); return; }
   var els = [].slice.call(document.querySelectorAll('[data-ky-p]'));
   var raf = 0;
   function tick() {
@@ -13,11 +17,17 @@
       if (r.bottom < -200 || r.top > vh + 200) continue;
       var p = (vh - r.top) / (vh + r.height);
       els[i].style.setProperty('--p', Math.max(0, Math.min(1, p)).toFixed(4));
+      if (fold && els[i].contains(fold)) {
+        // aberta quando entra na tela, vai dobrando com a rolagem e termina na embalagem pronta
+        var k = Math.max(0, Math.min(1, (p - .28) / .3)), f = k * k * (3 - 2 * k);
+        var g = Math.max(0, Math.min(1, (p - .58) / .1));
+        fold.style.setProperty('--a', (f * 90).toFixed(2) + 'deg'); fold.style.setProperty('--f', f.toFixed(4)); fold.style.setProperty('--g', g.toFixed(3));
+      }
     }
   }
   function pede() { if (!raf) raf = requestAnimationFrame(tick); }
   addEventListener('scroll', pede, { passive: true });
-  addEventListener('resize', pede);
+  addEventListener('resize', function () { mede(); pede(); });
   document.addEventListener('click', function (e) { if (e.target.closest && e.target.closest('.pp2-svc-b')) setTimeout(tick, 60); });
   tick();
 
