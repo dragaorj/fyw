@@ -1,0 +1,118 @@
+/* Kyoto · apresentação da marca (aba Branding). Peças do Figma "Kyoto Project", animadas pela rolagem (--p, de 0 a 1)
+   e pelo mouse (--mx/--my). ky-show.js liga tudo; sem JS ou com movimento reduzido, tudo fica parado e visível. */
+.ky-show { --kb: #00224A; --kb2: #0166D9; --ke: #0178FF; --kn: #003575; --r: clamp(20px, 2.4vw, 32px); }
+.ky-show .pp2-label { color: var(--muted); }
+.ky-h { margin: 0 0 clamp(20px, 3vw, 36px); max-width: 26ch; font-size: clamp(1.5rem, 2.6vw, 2.25rem); line-height: 1.15; letter-spacing: -.03em; font-weight: 500; color: var(--ink); }
+.ky-cap { position: absolute; left: clamp(14px, 2vw, 24px); bottom: clamp(14px, 2vw, 24px); z-index: 3; display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 14px 0 8px; border-radius: 99px; background: rgba(11,11,11,.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: #EEEDE9; font-size: .75rem; white-space: nowrap; }
+.ky-cap i { width: 16px; height: 16px; border-radius: 50%; background: linear-gradient(#EEEDE9 0 50%, transparent 50% 58%, #EEEDE9 58% 66%, transparent 66% 74%, #EEEDE9 74% 82%, transparent 82%); }
+
+/* 1 · abertura: embalagens sobre o "Kyoto" pontilhado */
+.ky-open { position: relative; overflow: hidden; overflow: clip; border-radius: var(--r); min-height: clamp(440px, 52vw, 760px); display: grid; place-items: center; background: radial-gradient(120% 90% at 50% 20%, #0A6BE0 0%, var(--kb2) 30%, #00306B 70%, var(--kb) 100%); isolation: isolate; }
+.ky-open-word { position: absolute; left: 50%; top: 50%; width: 132%; max-width: none; height: auto; opacity: .32; transform: translate(calc(-50% + (.5 - var(--p, .5)) * 22%), -58%); z-index: 0; pointer-events: none; }
+.ky-open-bags { position: relative; z-index: 2; width: min(86%, 1180px); height: auto; filter: drop-shadow(0 40px 60px rgba(0,10,40,.55)); transform: translateY(calc((.55 - var(--p, .55)) * 24%)) scale(calc(.92 + var(--p, .55) * .1)); }
+.ky-open-kana { position: absolute; z-index: 1; right: clamp(18px, 3vw, 44px); top: 50%; transform: translateY(-50%); writing-mode: vertical-rl; font-size: clamp(.75rem, 1vw, 1rem); letter-spacing: .6em; color: rgba(238,237,233,.7); margin: 0; }
+.ky-open-sun { position: absolute; z-index: 1; left: clamp(18px, 3vw, 44px); top: clamp(18px, 3vw, 40px); width: clamp(36px, 4vw, 56px); aspect-ratio: 1; border-radius: 50%; background: linear-gradient(#EEEDE9 0 52%, transparent 52% 58%, #EEEDE9 58% 64%, transparent 64% 70%, #EEEDE9 70% 76%, transparent 76% 82%, #EEEDE9 82% 88%, transparent 88%); animation: kySunRise 6s cubic-bezier(.45,0,.55,1) infinite alternate; }
+@keyframes kySunRise { from { translate: 0 6px; } to { translate: 0 -6px; } }
+
+/* 2 · sistema de marca */
+.ky-logos { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 14px; }
+@media (min-width: 760px) { .ky-logos { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.ky-logo-card { position: relative; margin: 0; border-radius: var(--r); overflow: hidden; overflow: clip; transition: transform .6s cubic-bezier(.16,1,.3,1), box-shadow .6s; }
+.ky-logo-card img { display: block; width: 100%; height: auto; transition: transform .8s cubic-bezier(.16,1,.3,1); }
+.ky-logo-card figcaption { position: absolute; left: 16px; bottom: 14px; font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; color: rgba(238,237,233,.8); }
+.ky-logo-card:first-child figcaption { color: rgba(1,120,255,.85); }
+@media (hover: hover) { .ky-logo-card:hover { transform: translateY(-6px); box-shadow: 0 24px 48px -24px rgba(1,120,255,.6); } .ky-logo-card:hover img { transform: scale(1.04); } }
+.ky-logos [data-rv]:nth-child(2) { transition-delay: .12s; } .ky-logos [data-rv]:nth-child(3) { transition-delay: .24s; }
+
+/* 4 · origem: três fotos em profundidade */
+.ky-origin { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 900px) { .ky-origin { grid-template-columns: .9fr 1.3fr .9fr; grid-template-rows: auto auto; align-items: stretch; } .ky-origin .is-field { grid-row: span 2; } .ky-origin .is-grain { grid-row: span 2; } }
+.ky-ph { position: relative; margin: 0; border-radius: var(--r); overflow: hidden; overflow: clip; background: #0d1a2c; min-height: 220px; }
+.ky-ph img { position: absolute; left: 0; top: -12%; width: 100%; height: 124%; object-fit: cover; transform: translateY(calc((var(--p, .5) - .5) * var(--s, -10%))); }
+.ky-origin .is-field { aspect-ratio: 3 / 4; } .ky-origin .is-farmer { aspect-ratio: 16 / 10; } .ky-origin .is-grain { aspect-ratio: 3 / 4; }
+.ky-origin .is-field img { --s: -14%; } .ky-origin .is-farmer img { --s: 10%; } .ky-origin .is-grain img { --s: -20%; }
+.ky-origin-txt { display: flex; flex-direction: column; justify-content: flex-end; gap: 10px; padding: clamp(18px, 2.4vw, 32px); border-radius: var(--r); background: var(--kb); color: #EEEDE9; }
+.ky-origin-txt p { margin: 0; font-size: clamp(1rem, 1.3vw, 1.25rem); line-height: 1.35; letter-spacing: -.01em; }
+.ky-origin-txt small { font-size: .75rem; letter-spacing: .5em; color: rgba(238,237,233,.6); }
+@media (min-width: 900px) { .ky-origin .is-field, .ky-origin .is-grain { aspect-ratio: auto; min-height: 560px; } }
+
+/* 5 · tipografia */
+.ky-type { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 900px) { .ky-type { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.ky-type-card { position: relative; border-radius: var(--r); padding: clamp(20px, 2.6vw, 36px); min-height: clamp(300px, 30vw, 440px); display: flex; flex-direction: column; justify-content: space-between; gap: 24px; overflow: hidden; overflow: clip; font-family: 'Koh Santepheap', Georgia, serif; }
+.ky-type-card.is-name { background: var(--kn); color: #EEEDE9; }
+.ky-type-card.is-aa { background: #FFFFFF; color: var(--ke); }
+.ky-type-tag { font-family: inherit; margin: 0; font-size: .8125rem; letter-spacing: .08em; text-transform: uppercase; opacity: .75; }
+.ky-type-abc { margin: 0; font-size: clamp(.95rem, 1.3vw, 1.2rem); line-height: 1.5; letter-spacing: .2em; word-break: break-all; opacity: .85; }
+.ky-type-name { margin: 0; font-size: clamp(2.6rem, 5.4vw, 5rem); line-height: .95; font-weight: 400; letter-spacing: -.01em; }
+.ky-type-name b { display: block; font-weight: 700; }
+.ky-aa { margin: 0; font-size: clamp(8rem, 16vw, 15rem); line-height: .8; font-weight: var(--w, 400); transition: font-weight .5s ease; }
+.ky-weights { list-style: none; margin: 0; padding: 0; position: absolute; right: clamp(20px, 2.6vw, 36px); top: clamp(20px, 2.6vw, 36px); text-align: right; font-size: .875rem; line-height: 1.6; color: #7FB8FF; }
+.ky-weights li { transition: color .4s, transform .4s; }
+.ky-weights li.on { color: var(--ke); transform: translateX(-6px); }
+.ky-weights li:nth-child(1) { font-weight: 100; } .ky-weights li:nth-child(2) { font-weight: 300; } .ky-weights li:nth-child(3) { font-weight: 400; } .ky-weights li:nth-child(4) { font-weight: 700; } .ky-weights li:nth-child(5) { font-weight: 900; }
+.ky-show .ky-palette { margin-top: 14px; }
+.ky-show .ky-palette li { transition: transform .5s cubic-bezier(.16,1,.3,1); }
+@media (hover: hover) { .ky-show .ky-palette li:hover { transform: translateY(-6px); } }
+.ky-show .ky-palette em { font-style: normal; font-size: .75rem; opacity: .6; font-variant-numeric: tabular-nums; }
+
+/* 6 · fachada e 9 · ponto de venda: abrem de perto para inteiras */
+.ky-wide { position: relative; margin: 0; border-radius: var(--r); overflow: hidden; overflow: clip; aspect-ratio: 16 / 9; background: #0d1a2c; }
+.ky-wide img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(calc(1.28 - var(--p, .7) * .32)); transform-origin: 50% 40%; }
+@media (max-width: 699px) { .ky-wide { aspect-ratio: 4 / 5; } .ky-wide.is-facade img { object-position: 62% 50%; } .ky-wide.is-pos img { object-position: 50% 50%; } }
+
+/* 7 · kit de boas-vindas: peças flutuando, seguem o mouse */
+.ky-kit { position: relative; overflow: hidden; overflow: clip; border-radius: var(--r); min-height: clamp(520px, 50vw, 760px); background: radial-gradient(90% 80% at 70% 30%, #EAF1FB 0%, #DCE6F3 55%, #C9D7EA 100%); color: #0B0B0B; isolation: isolate; }
+.ky-kit-txt { position: relative; z-index: 3; padding: clamp(20px, 2.6vw, 36px); max-width: 420px; }
+.ky-kit-txt h2 { margin: 0 0 12px; font-size: clamp(1.5rem, 2.4vw, 2.125rem); line-height: 1.1; letter-spacing: -.03em; font-weight: 500; }
+.ky-kit-txt ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: .9375rem; color: rgba(11,11,11,.7); }
+.ky-kit-txt li::before { content: ""; display: inline-block; width: 6px; height: 6px; margin-right: 10px; border-radius: 50%; background: var(--ke); vertical-align: middle; }
+.ky-kit-it { position: absolute; z-index: 2; height: auto; filter: drop-shadow(0 30px 40px rgba(0,30,80,.25)); transform: translate(calc(var(--mx, 0) * var(--d, 10px)), calc(var(--my, 0) * var(--d, 10px))); transition: transform .9s cubic-bezier(.16,1,.3,1); }
+.ky-kit-it > img { display: block; width: 100%; height: auto; animation: kyFloat 6s ease-in-out infinite alternate; animation-delay: var(--fd, 0s); }
+@keyframes kyFloat { from { translate: 0 -8px; rotate: -1.2deg; } to { translate: 0 10px; rotate: 1.2deg; } }
+.ky-kit .is-badge { --d: 18px; --fd: -1s; width: clamp(150px, 17vw, 270px); left: 8%; bottom: -6%; }
+.ky-kit .is-bag { --d: 10px; --fd: -3s; width: clamp(210px, 26vw, 420px); left: 36%; top: 14%; }
+.ky-kit .is-bottles { --d: 24px; --fd: -5s; width: clamp(210px, 26vw, 420px); right: 2%; bottom: -4%; }
+@media (max-width: 699px) {
+  .ky-kit { min-height: 640px; }
+  .ky-kit .is-badge { width: 32%; left: 4%; bottom: -4%; }
+  .ky-kit .is-bag { width: 50%; left: 30%; top: 38%; }
+  .ky-kit .is-bottles { width: 46%; right: -2%; bottom: -2%; }
+}
+
+/* 8 · linha kraft + planificação que se desdobra */
+.ky-pack { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 900px) { .ky-pack { grid-template-columns: 1.25fr .75fr; } }
+.ky-kraft { position: relative; margin: 0; border-radius: var(--r); overflow: hidden; overflow: clip; min-height: clamp(360px, 40vw, 600px); display: grid; place-items: center; background: radial-gradient(80% 70% at 50% 40%, #F3EDE3 0%, #E6DCCB 70%, #D8CBB4 100%); }
+.ky-kraft img { width: min(78%, 620px); height: auto; filter: drop-shadow(0 30px 40px rgba(60,40,10,.3)); transform: translateY(calc((.5 - var(--p, .5)) * 10%)); }
+.ky-pack-side { display: grid; gap: 14px; }
+.ky-bowl { position: relative; margin: 0; border-radius: var(--r); background: var(--kb); display: grid; place-items: center; overflow: hidden; overflow: clip; min-height: 260px; }
+.ky-bowl img { width: 70%; height: auto; transform: rotate(calc(var(--p, .5) * 60deg)); }
+.ky-best { border-radius: var(--r); padding: clamp(20px, 2.4vw, 32px); background: #EEEDE9; color: #0B0B0B; display: grid; gap: 10px; align-content: end; }
+.ky-best p { margin: 0; }
+.ky-best .ky-jp { font-size: clamp(1.6rem, 2.6vw, 2.4rem); letter-spacing: .04em; color: var(--kb); font-weight: 600; }
+.ky-best .ky-best-t { font-size: .9375rem; line-height: 1.45; color: rgba(11,11,11,.7); }
+.ky-die { position: relative; margin: 14px 0 0; border-radius: var(--r); background: #F1F3F4; padding: clamp(18px, 3vw, 48px); overflow: hidden; overflow: clip; perspective: 1600px; }
+.ky-die img { display: block; width: 100%; height: auto; --k: clamp(0, (var(--p, .7) - .18) * 2.4, 1); transform: rotateX(calc((1 - var(--k)) * 58deg)) scale(calc(.82 + var(--k) * .18)); clip-path: inset(0 calc((1 - var(--k)) * 38%) 0 calc((1 - var(--k)) * 38%) round 12px); transform-origin: 50% 70%; }
+.ky-die .ky-cap { background: rgba(0,34,74,.82); }
+
+/* movimento reduzido: tudo parado na posição final */
+@media (prefers-reduced-motion: reduce) {
+  .ky-show *, .ky-show *::before { animation: none !important; }
+  .ky-open-word, .ky-open-bags, .ky-ph img, .ky-wide img, .ky-kraft img, .ky-bowl img, .ky-kit-it { transform: none !important; }
+  .ky-open-word { transform: translate(-50%, -58%) !important; }
+  .ky-die img { transform: none !important; clip-path: none !important; }
+}
+html.a11y-motion .ky-show *, html.a11y-motion .ky-show *::before { animation: none !important; }
+html.a11y-motion .ky-die img { transform: none !important; clip-path: none !important; }
+
+/* ajustes: celular na abertura, zoom mais suave nas fotos largas */
+.ky-wide img { transform: scale(calc(1.16 - var(--p, .7) * .16)); transform-origin: 50% 50%; }
+@media (max-width: 699px) {
+  .ky-open { min-height: 0; aspect-ratio: 4 / 3.4; }
+  .ky-open-bags { width: 112%; max-width: none; }
+  .ky-open-word { width: 220%; }
+  .ky-open-kana { display: none; }
+  .ky-open-sun { width: 32px; }
+  .ky-logo-card figcaption { font-size: .6875rem; }
+}
