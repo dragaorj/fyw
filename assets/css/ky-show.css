@@ -116,19 +116,9 @@ html.a11y-motion .ky-show *, html.a11y-motion .ky-show *::before { animation: no
 
 /* planificação em 3D: 5 painéis presos nos vincos (x = 328,6 · 817,5 · 1307,1 · 1568 de 1632).
    --u = 1 unidade do desenho em px; --a = ângulo da dobra (90° caixa montada, 0° aberta); --f = 1 montada, 0 aberta */
-.ky-fold { --u: .5px; --a: 0deg; --f: 0; position: relative; width: 100%; aspect-ratio: 1632 / 981; perspective: 2200px; perspective-origin: 50% 40%; }
-.kf-stage { position: absolute; inset: 0; transform-style: preserve-3d; transform-origin: calc(1062 * var(--u)) 50% calc(-244 * var(--u)); transform: translateX(calc(var(--f) * -246 * var(--u))) scale(calc(1 + var(--f) * .12)) rotateX(calc(var(--f) * -8deg)) rotateY(calc(var(--f) * 58deg)); opacity: calc(1 - var(--g, 0)); }
-.kf { position: absolute; top: 0; height: 100%; transform-style: preserve-3d; background-image: url(../img/projetos/kyoto/b/planificacao.svg); background-repeat: no-repeat; background-size: calc(1632 * var(--u)) calc(981 * var(--u)); }
-.kf::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: #001A39; opacity: calc(var(--f) * var(--sh, 0)); -webkit-mask: inherit; }
-.kf-b { left: calc(817.5 * var(--u)); width: calc(489.6 * var(--u)); background-position: calc(-817.5 * var(--u)) 0; }
-.kf-a { right: 100%; width: calc(488.9 * var(--u)); background-position: calc(-328.6 * var(--u)) 0; transform-origin: 100% 50%; transform: rotateY(calc(var(--a) * -1)); --sh: .28; }
-.kf-l { right: 100%; width: calc(328.6 * var(--u)); background-position: 0 0; transform-origin: 100% 50%; transform: rotateY(calc(var(--a) * -1)); --sh: .45; }
-.kf-r { left: 100%; width: calc(260.9 * var(--u)); background-position: calc(-1307.1 * var(--u)) 0; transform-origin: 0 50%; transform: rotateY(var(--a)); --sh: .32; }
-.kf-t { left: 100%; width: calc(64 * var(--u)); background-position: calc(-1568 * var(--u)) 0; transform-origin: 0 50%; transform: rotateY(var(--a)); --sh: .5; }
-.kf::after { -webkit-mask: none; mask: none; background: linear-gradient(90deg, rgba(0,26,57,1), rgba(0,26,57,.6)); }
-
-/* fim da dobra: a caixa vira a embalagem de verdade */
-.kf-final { position: absolute; left: 50%; top: 50%; height: 88%; width: auto; max-width: none; transform: translate(-50%, -50%) scale(calc(.94 + var(--g, 0) * .06)); opacity: var(--g, 0); filter: drop-shadow(0 30px 40px rgba(0,20,60,.35)); pointer-events: none; }
-@media (prefers-reduced-motion: reduce) { .kf-final { opacity: 0; } }
-html.a11y-motion .kf-final { opacity: 0; }
+/* planificação: os painéis (lateral, frente, verso, lateral, aba) entram um a um com a rolagem, na ordem da embalagem */
+.ky-fold { --u: .5px; position: relative; width: 100%; aspect-ratio: 1632 / 981; }
+.ky-fold .kf { --r: clamp(0, (var(--p, 1) - .1 - var(--i) * .06) * 6, 1); position: absolute; top: 0; height: 100%; left: calc(var(--x) * var(--u)); width: calc(var(--w) * var(--u) + 1px); background: url(../img/projetos/kyoto/b/planificacao.svg) no-repeat calc(var(--x) * -1 * var(--u)) 0 / calc(1632 * var(--u)) calc(981 * var(--u)); opacity: var(--r); transform: translateY(calc((1 - var(--r)) * 60 * var(--u))) scale(calc(.96 + var(--r) * .04)); transform-origin: 50% 100%; will-change: transform, opacity; }
+@media (prefers-reduced-motion: reduce) { .ky-fold .kf { opacity: 1; transform: none; } }
+html.a11y-motion .ky-fold .kf { opacity: 1; transform: none; }
 @media (max-width: 699px) { .ky-die { padding: 14px 10px; } .ky-die .ky-cap { display: none; } }
