@@ -267,6 +267,8 @@
     'Linha kraft': ['Kraft line', 'Línea kraft'],
     'Papel kraft de alta gramatura, 100% sustentável e reciclado.': ['High-weight kraft paper, 100% sustainable and recycled.', 'Papel kraft de alto gramaje, 100% sostenible y reciclado.'],
     'Planificação da embalagem': ['Packaging dieline', 'Troquel del empaque'],
+    'O melhor material': ['The best material', 'El mejor material'],
+    'O Kyoto usa papel kraft de alta gramatura, 100% sustentável e reciclado, número 1 no mundo.': ['Kyoto uses high-weight, 100% sustainable recycled kraft paper, number 1 in the world.', 'Kyoto usa papel kraft de alto gramaje, 100% sostenible y reciclado, número 1 del mundo.'],
     'Display no ponto de venda': ['Point-of-sale display', 'Display en el punto de venta'],
     // ---------- Latimpacto ----------
     'Investimento de impacto · Evento': ['Impact investing · Event', 'Inversión de impacto · Evento'],

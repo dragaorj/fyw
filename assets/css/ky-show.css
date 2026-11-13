@@ -80,25 +80,20 @@
   .ky-kit .is-bottles { width: 46%; right: -2%; bottom: -2%; }
 }
 
-/* 8 · linha kraft + planificação que se desdobra */
-.ky-pack { display: grid; grid-template-columns: 1fr; gap: 14px; }
-@media (min-width: 900px) { .ky-pack { grid-template-columns: 1.25fr .75fr; } }
-.ky-kraft { position: relative; margin: 0; border-radius: var(--r); overflow: hidden; overflow: clip; min-height: clamp(360px, 40vw, 600px); display: grid; place-items: center; background: radial-gradient(80% 70% at 50% 40%, #F3EDE3 0%, #E6DCCB 70%, #D8CBB4 100%); }
-.ky-kraft img { width: min(78%, 620px); height: auto; filter: drop-shadow(0 30px 40px rgba(60,40,10,.3)); transform: translateY(calc((.5 - var(--p, .5)) * 10%)); }
-.ky-pack-side { display: grid; gap: 14px; }
-.ky-bowl { position: relative; margin: 0; border-radius: var(--r); background: var(--kb); display: grid; place-items: center; overflow: hidden; overflow: clip; min-height: 260px; }
-.ky-bowl img { width: 70%; height: auto; transform: rotate(calc(var(--p, .5) * 60deg)); }
-.ky-best { border-radius: var(--r); padding: clamp(20px, 2.4vw, 32px); background: #EEEDE9; color: #0B0B0B; display: grid; gap: 10px; align-content: end; }
-.ky-best p { margin: 0; }
-.ky-best .ky-jp { font-size: clamp(1.6rem, 2.6vw, 2.4rem); letter-spacing: .04em; color: var(--kb); font-weight: 600; }
-.ky-best .ky-best-t { font-size: .9375rem; line-height: 1.45; color: rgba(11,11,11,.7); }
-.ky-die { position: relative; margin: 14px 0 0; border-radius: var(--r); background: #F1F3F4; padding: clamp(18px, 3vw, 48px); overflow: hidden; overflow: clip; }
-.ky-die .ky-cap { background: rgba(0,34,74,.82); }
+/* 8 · linha kraft + planificação, num painel claro só, como no Figma */
+.ky-kp { margin: 0; border-radius: var(--r); background: #F1F3F4; color: #343434; padding: clamp(28px, 5.8vw, 110px) clamp(16px, 3.3vw, 64px) clamp(28px, 4.6vw, 88px); display: grid; justify-items: center; overflow: hidden; overflow: clip; }
+.ky-kp-bags { width: min(64.6%, 1240px); height: auto; filter: drop-shadow(0 30px 40px rgba(60,40,10,.22)); transform: translateY(calc((.5 - var(--p, .5)) * 8%)); }
+.ky-kp-jp { margin: clamp(20px, 4.6vw, 88px) 0 clamp(20px, 4.4vw, 84px); font-family: "Koh Santepheap", serif; font-weight: 700; font-size: clamp(1.75rem, 3.33vw, 4rem); line-height: 1; letter-spacing: .02em; white-space: nowrap; }
+.ky-kp .ky-fold { width: 83%; }
+.ky-kp-t { justify-self: end; margin-top: clamp(24px, 4.6vw, 88px); display: grid; gap: clamp(8px, .95vw, 18px); text-align: right; font-family: "Koh Santepheap", serif; }
+.ky-kp-t b { font-weight: 700; font-size: clamp(1.125rem, 1.67vw, 2rem); }
+.ky-kp-t span { font-weight: 300; font-size: clamp(.9375rem, 1.25vw, 1.5rem); line-height: 1.35; max-width: 543px; }
+@media (max-width: 699px) { .ky-kp .ky-fold { width: 100%; } .ky-kp-bags { width: 92%; } }
 
 /* movimento reduzido: tudo parado na posição final */
 @media (prefers-reduced-motion: reduce) {
   .ky-show *, .ky-show *::before { animation: none !important; }
-  .ky-open-word, .ky-open-bags, .ky-ph img, .ky-wide img, .ky-kraft img, .ky-bowl img, .ky-kit-it { transform: none !important; }
+  .ky-open-word, .ky-open-bags, .ky-ph img, .ky-wide img, .ky-kp-bags, .ky-kit-it { transform: none !important; }
   .ky-open-word { transform: translate(-50%, -58%) !important; }
 }
 html.a11y-motion .ky-show *, html.a11y-motion .ky-show *::before { animation: none !important; }
@@ -121,4 +116,3 @@ html.a11y-motion .ky-show *, html.a11y-motion .ky-show *::before { animation: no
 .ky-fold .kf { --r: clamp(0, (var(--p, 1) - .1 - var(--i) * .06) * 6, 1); position: absolute; top: 0; height: 100%; left: calc(var(--x) * var(--u)); width: calc(var(--w) * var(--u) + 1px); background: url(../img/projetos/kyoto/b/planificacao.svg) no-repeat calc(var(--x) * -1 * var(--u)) 0 / calc(1632 * var(--u)) calc(981 * var(--u)); opacity: var(--r); transform: translateY(calc((1 - var(--r)) * 60 * var(--u))) scale(calc(.96 + var(--r) * .04)); transform-origin: 50% 100%; will-change: transform, opacity; }
 @media (prefers-reduced-motion: reduce) { .ky-fold .kf { opacity: 1; transform: none; } }
 html.a11y-motion .ky-fold .kf { opacity: 1; transform: none; }
-@media (max-width: 699px) { .ky-die { padding: 14px 10px; } .ky-die .ky-cap { display: none; } }
