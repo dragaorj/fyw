@@ -53,7 +53,7 @@
   const tipos = () => { const v = pacoteValores(TAB); return TAB.itens.concat(TAB.pacote && v.its.length ? [{ id: 'pacote', nome: TAB.pacote.nome, tabela: v.tabela, parceiro: v.parceiro, un: '' }] : []); };
 
   /* ---------- armazenamento: servidor (Supabase) ou este navegador ---------- */
-  const LK = 'fyw-propostas', LT = 'fyw-tabela-precos', LSEM = 'fyw-propostas-bas';
+  const LK = 'fyw-propostas', LT = 'fyw-tabela-precos', LSEM = 'fyw-propostas-bas', LSEM2 = 'fyw-propostas-pacto';
   const lget = (k, d) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } };
   const lset = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } };
   let MODO = 'api';
@@ -169,6 +169,40 @@
       escopo: ['Desenvolvimento completo da plataforma', 'Painel administrativo para a equipe', 'Versões em português, inglês e espanhol', 'Integração com Google Agenda', 'Configuração e publicação', 'Servidores, backup e recuperação de dados inclusos'],
       condicoes: [{ k: 'Entrada', v: '50% na aprovação' }, { k: 'Restante', v: '2x de R$ 2.500 nos meses seguintes' }, { k: 'No cartão', v: 'Até 12x (juros da operadora)' }, { k: 'À vista no Pix', v: '10% de desconto' }],
       assinaturaCliente: 'Bio Amazon Summit'
+    });
+  }
+
+  const PG = '/assets/img/propostas/pacto/', PACTO = 'Pacto Global Rede Brasil';
+  function pacto() {
+    const d = nova();
+    return Object.assign(d, {
+      modelo: 'pacto',
+      tipoId: 'portal', tipo: 'Portal ou hub de conteúdo', rotulo: 'Proposta comercial para hub de conteúdo', titulo: 'Portal Pacto Global', cliente: PACTO, logo: PG + 'logo.svg',
+      data: '23 de novembro de 2026', codigo: 'PCF23112026', prazo: 'Até 30 dias',
+      objetivo: 'Todas as frentes de engajamento da Rede Brasil em um único portal.',
+      objetivoTexto: ['Um hub que reúne Plataformas de Ação, Movimentos, GTs & HUBs e Programas do Pacto Global da ONU no Brasil, com navegação por tema, tipo e nível de compromisso.', 'O portal substitui a comunicação dispersa por e-mails e PDFs e conduz a empresa por uma jornada clara: descobrir, entender, manifestar interesse e acompanhar. Desenvolvido em Next.js, com conteúdo estruturado para crescer sem retrabalho no código.'],
+      publico: ['Empresas participantes da Rede Brasil', 'Pontos focais de sustentabilidade e ESG', 'Empresas em processo de adesão', 'Pequenas e médias empresas (SPARK)', 'Lideranças e C-level dos Movimentos', 'Time interno do Pacto Global'],
+      estruturaTag: 'Estrutura do projeto',
+      estrutura: [
+        { t: 'Diagnóstico e conteúdo', itens: ['Levantamento de materiais', 'Padronização das iniciativas', 'Regras do diagnóstico'] },
+        { t: 'Arquitetura do hub', itens: ['6 páginas do portal', 'Página modelo de iniciativa', 'Filtros por tema, tipo e compromisso', 'Painel administrativo (CMS)'] },
+        { t: 'Design e desenvolvimento', itens: ['Layout responsivo por ODS', 'Desenvolvimento em Next.js', 'Formulário e LGPD', 'Performance e SEO'] },
+        { t: 'Entrega e ajustes', itens: ['Duas rodadas de ajustes', 'Ajuste pós-publicação', '30 dias de suporte técnico'] }
+      ],
+      funcionalidades: ['Responsivo (celular, tablet e desktop)', 'Painel de edição (CMS)', 'Segurança (SSL e LGPD)', 'Publicação na Vercel'],
+      cronogramaTitulo: 'No ar em até 30 dias',
+      etapas: [
+        { t: 'Planejamento', periodo: '', desc: 'Recebimento do conteúdo, consolidação das informações e aprovação do direcionamento.' },
+        { t: 'Desenvolvimento', periodo: '', desc: 'Criação do layout, desenvolvimento do portal e ajustes solicitados pelo cliente.' },
+        { t: 'Publicação e suporte', periodo: '', desc: 'Testes, validação do DPO, publicação e suporte técnico por 30 dias.' }
+      ],
+      cronogramaNota: 'Prazo de 30 dias contado a partir da aprovação da proposta, com suporte técnico por 30 dias após a publicação.',
+      beneficiosTitulo: 'O que a Rede Brasil ganha',
+      beneficios: ['Visão única do ecossistema de engajamento da Rede Brasil', 'Menos dúvidas recorrentes e trocas manuais de e-mail', 'Recomendação de iniciativas conforme a maturidade ESG da empresa', 'Leads qualificados, já com o contexto da iniciativa de interesse', 'Novas iniciativas, temas e eventos sem desenvolvimento adicional', 'Experiência alinhada à identidade do Pacto Global e dos ODS'],
+      parceiro: false, precoTabela: 'R$ 9.000', preco: 'R$ 7.500',
+      escopo: ['Planejamento e validação do conteúdo', 'Layout das 6 páginas e do modelo de iniciativa', 'Desenvolvimento em Next.js com filtros, diagnóstico e formulário', 'Testes, validação do DPO e publicação na Vercel', 'Ajustes finais e 30 dias de suporte'],
+      condicoes: [{ k: 'Entrada', v: '50% na aprovação' }, { k: 'Restante', v: 'Na entrega do projeto' }, { k: 'No cartão', v: 'Até 12x (juros da operadora)' }, { k: 'À vista no Pix', v: '10% de desconto' }],
+      assinaturaCliente: PACTO
     });
   }
 
@@ -311,7 +345,7 @@
     estrutura: ['estruturaTag', 'estruturaTitulo', 'estrutura', 'funcionalidades'], crono: ['cronogramaTitulo', 'etapas', 'cronogramaNota'],
     ben: ['beneficiosTitulo', 'beneficios'], inv: ['parceiro', 'precoTabela', 'preco', 'precoNota', 'escopo', 'condicoes'], fim: ['proximos', 'assinaturaCliente', 'legal']
   };
-  const modeloDe = d => d.modelo === 'bas' ? bas() : nova();
+  const modeloDe = d => d.modelo === 'bas' ? bas() : d.modelo === 'pacto' ? pacto() : nova();
   let antes = null, tAntes = null, tUndo = 0;
   const mostraDesfazer = () => { const u = $('#undo'); if (!u) return; u.hidden = false; clearTimeout(tUndo); tUndo = setTimeout(() => { const v = $('#undo'); if (v) v.hidden = true; }, 20000); };
   const agora = () => new Date().toISOString();
@@ -528,6 +562,7 @@
     try { rows = await store.list(); } catch (e) { c.innerHTML = '<p class="vazio">' + esc(e.message) + '</p>'; return; }
     // a proposta do BAS entra uma vez, de exemplo
     if (!rows.some(r => r.cliente === 'Bio Amazon Summit') && !lget(LSEM, false)) { await store.save(null, bas()); lset(LSEM, true); rows = await store.list(); }
+    if (!rows.some(r => r.cliente === PACTO) && !lget(LSEM2, false)) { await store.save(null, pacto()); lset(LSEM2, true); rows = await store.list(); }
     $('#lsub').textContent = rows.length ? rows.length + (rows.length === 1 ? ' proposta salva.' : ' propostas salvas.') + ' Tudo fica aqui até você excluir.' : 'Tudo o que você gerar fica salvo aqui até você excluir.';
     c.innerHTML = !rows.length ? '<div class="vazio">Nenhuma proposta ainda. Clique em <b>Nova proposta</b>.</div>' : rows.map(r => '<article class="pc" data-id="' + esc(r.id) + '"><div class="lg" data-ed>' + (r.logo ? '<img src="' + esc(r.logo) + '" alt="">' : '<span>Sem logo</span>') + '</div>' +
       '<div class="in"><h3>' + esc(r.titulo) + '</h3><p class="cl">' + esc(r.cliente) + '</p><div class="mt">' + (r.tipo ? '<span class="chipx">' + esc(r.tipo) + '</span>' : '') + (r.preco ? '<span class="chipx acc">' + esc(r.preco === 'R$ 6.500' && /agenda/i.test(r.tipo || '') ? 'R$ 10.000' : r.preco) + '</span>' : '') + '<span class="chipx">Editada em ' + dataCurta(r.atualizado) + '</span>' + pdfChip(r.pdfs) + '</div></div>' +
@@ -592,7 +627,7 @@
     const m = /^p\/(.+)$/.exec(h);
     if (m) {
       tela('ed'); $('#form').innerHTML = '<p class="vazio">Carregando…</p>';
-      try { const p = await store.get(decodeURIComponent(m[1])); ID = p.id; D = Object.assign(nova(), { modelo: p.dados.cliente === 'Bio Amazon Summit' ? 'bas' : 'nova' }, agendaNova(p.dados)); }
+      try { const p = await store.get(decodeURIComponent(m[1])); ID = p.id; D = Object.assign(nova(), { modelo: p.dados.cliente === 'Bio Amazon Summit' ? 'bas' : p.dados.cliente === PACTO ? 'pacto' : 'nova' }, agendaNova(p.dados)); }
       catch (e) { $('#form').innerHTML = '<p class="vazio">' + esc(e.message) + '</p>'; return; }
       $('#pinfo').textContent = 'Prévia do PDF (página única, 1240 px de largura)'; form(); preview(doc(D)); return;
     }
