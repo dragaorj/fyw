@@ -178,7 +178,7 @@
     return Object.assign(d, {
       modelo: 'pacto',
       tipoId: 'portal', tipo: 'Portal ou hub de conteúdo', rotulo: 'Proposta comercial para hub de conteúdo', titulo: 'Portal Pacto Global', cliente: PACTO, logo: PG + 'logo.svg',
-      data: '23 de novembro de 2026', codigo: 'PCF23112026', prazo: 'Até 30 dias',
+      data: '23 de novembro de 2026', codigo: 'PCF23112026', prazo: 'Até 10 dias',
       objetivo: 'Todas as frentes de engajamento da Rede Brasil em um único portal.',
       objetivoTexto: ['Um hub que reúne Plataformas de Ação, Movimentos, GTs & HUBs e Programas do Pacto Global da ONU no Brasil, com navegação por tema, tipo e nível de compromisso.', 'O portal substitui a comunicação dispersa por e-mails e PDFs e conduz a empresa por uma jornada clara: descobrir, entender, manifestar interesse e acompanhar. Desenvolvido em Next.js, com conteúdo estruturado para crescer sem retrabalho no código.'],
       publico: ['Empresas participantes da Rede Brasil', 'Pontos focais de sustentabilidade e ESG', 'Empresas em processo de adesão', 'Pequenas e médias empresas (SPARK)', 'Lideranças e C-level dos Movimentos', 'Time interno do Pacto Global'],
@@ -190,16 +190,16 @@
         { t: 'Entrega e ajustes', itens: ['Duas rodadas de ajustes', 'Ajuste pós-publicação', '30 dias de suporte técnico'] }
       ],
       funcionalidades: ['Responsivo (celular, tablet e desktop)', 'Painel de edição (CMS)', 'Segurança (SSL e LGPD)', 'Publicação na Vercel'],
-      cronogramaTitulo: 'No ar em até 30 dias',
+      cronogramaTitulo: 'No ar em até 10 dias',
       etapas: [
         { t: 'Planejamento', periodo: '', desc: 'Recebimento do conteúdo, consolidação das informações e aprovação do direcionamento.' },
         { t: 'Desenvolvimento', periodo: '', desc: 'Criação do layout, desenvolvimento do portal e ajustes solicitados pelo cliente.' },
         { t: 'Publicação e suporte', periodo: '', desc: 'Testes, validação do DPO, publicação e suporte técnico por 30 dias.' }
       ],
-      cronogramaNota: 'Prazo de 30 dias contado a partir da aprovação da proposta, com suporte técnico por 30 dias após a publicação.',
+      cronogramaNota: 'Prazo de 10 dias contado a partir da aprovação da proposta, com suporte técnico por 30 dias após a publicação.',
       beneficiosTitulo: 'O que a Rede Brasil ganha',
       beneficios: ['Visão única do ecossistema de engajamento da Rede Brasil', 'Menos dúvidas recorrentes e trocas manuais de e-mail', 'Recomendação de iniciativas conforme a maturidade ESG da empresa', 'Leads qualificados, já com o contexto da iniciativa de interesse', 'Novas iniciativas, temas e eventos sem desenvolvimento adicional', 'Experiência alinhada à identidade do Pacto Global e dos ODS'],
-      parceiro: false, precoTabela: 'R$ 9.000', preco: 'R$ 7.500',
+      parceiro: false, precoTabela: 'R$ 8.600', preco: 'R$ 7.500',
       escopo: ['Planejamento e validação do conteúdo', 'Layout das 6 páginas e do modelo de iniciativa', 'Desenvolvimento em Next.js com filtros, diagnóstico e formulário', 'Testes, validação do DPO e publicação na Vercel', 'Ajustes finais e 30 dias de suporte'],
       condicoes: [{ k: 'Entrada', v: '50% na aprovação' }, { k: 'Restante', v: 'Na entrega do projeto' }, { k: 'No cartão', v: 'Até 12x (juros da operadora)' }, { k: 'À vista no Pix', v: '10% de desconto' }],
       assinaturaCliente: PACTO
@@ -244,8 +244,9 @@
     if (L(d.beneficios).length) S.push('<section class="sec">' + tag('Benefícios') + '<h2 class="t1">' + br(d.beneficiosTitulo) + '</h2><div class="ben" style="--r:' + Math.ceil(L(d.beneficios).length / 2) + '">' + L(d.beneficios).map(b => '<div>' + IC.check + '<span class="co">' + esc(b) + '</span></div>').join('') + '</div></section>');
     if (d.preco || L(d.escopo).length) {
       const cd = (d.condicoes || []).filter(c => c.k || c.v);
+      const num = v => +String(v || '').replace(/[^\d,]/g, '').replace(',', '.') || 0, desc = !d.parceiro && num(d.precoTabela) > num(d.preco) && num(d.preco) ? num(d.precoTabela) - num(d.preco) : 0;
       S.push('<section class="sec">' + tag('Investimento') + '<div class="inv"><div class="vr"><div class="vl"><p class="rot o6">Investimento total</p>' +
-        (d.parceiro ? '<span class="sp rot">Valor exclusivo para parceiros Fyw</span>' + (d.precoTabela ? '<p class="co o7">Valor normal: <s>' + esc(d.precoTabela) + '</s></p>' : '') : '') +
+        (d.parceiro ? '<span class="sp rot">Valor exclusivo para parceiros Fyw</span>' + (d.precoTabela ? '<p class="co o7">Valor normal: <s>' + esc(d.precoTabela) + '</s></p>' : '') : desc ? '<span class="sp rot">Desconto de ' + R(desc) + '</span><p class="co o7">Valor anterior: <s>' + esc(d.precoTabela) + '</s></p>' : '') +
         '<p class="pg">' + esc(d.preco) + '</p>' + (d.parceiro && d.precoNota ? '<p class="cp o7">' + esc(d.precoNota) + '</p>' : '') + '</div>' +
         (L(d.escopo).length ? '<div class="vl"><p class="rot o6">Escopo da entrega</p><ul class="co">' + L(d.escopo).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' : '<div></div>') + '</div>' +
         (cd.length ? '<div class="cd">' + cd.map(c => '<div><p class="rot o5">' + esc(c.k) + '</p><p class="cv">' + esc(c.v) + '</p></div>').join('') + '</div>' : '') + '</div></section>');
@@ -377,7 +378,7 @@
     const crono = vin('Título', 'cronogramaTitulo') + D.etapas.map((e, i) => rep('Etapa ' + (i + 1), 'etapas.' + i, '<div class="g2">' + vin('Nome', 'etapas.' + i + '.t') + vin('Período', 'etapas.' + i + '.periodo') + '</div>' + vin('O que acontece', 'etapas.' + i + '.desc', { area: true, rows: 2 }))).join('') +
       '<button class="add" type="button" data-add="etapas">+ Adicionar etapa</button>' + vin('Nota', 'cronogramaNota', { area: true, rows: 2 });
     const ben = vin('Título', 'beneficiosTitulo') + vls('Benefícios', 'beneficios', 'Um por linha. Fica melhor com número par (2 colunas).', 6);
-    const inv = '<div class="g2">' + vin('Valor final', 'preco', { ph: 'R$ 10.000' }) + vin('Valor normal (riscado)', 'precoTabela', { ph: 'R$ 12.500', dica: 'Só aparece para parceiro.' }) + '</div>' + vin('Nota do valor de parceiro', 'precoNota', { area: true, rows: 2 }) +
+    const inv = '<div class="g2">' + vin('Valor final', 'preco', { ph: 'R$ 10.000' }) + vin('Valor anterior (riscado)', 'precoTabela', { ph: 'R$ 12.500', dica: 'Aparece riscado sempre que for maior que o valor final, com o desconto ao lado.' }) + '</div>' + vin('Nota do valor de parceiro', 'precoNota', { area: true, rows: 2 }) +
       vls('Escopo da entrega', 'escopo', 'Um item por linha.', 6) +
       D.condicoes.map((c, i) => rep('Condição ' + (i + 1), 'condicoes.' + i, '<div class="g2">' + vin('Título', 'condicoes.' + i + '.k') + vin('Valor', 'condicoes.' + i + '.v') + '</div>')).join('') +
       '<button class="add" type="button" data-add="condicoes">+ Adicionar condição</button>';
@@ -562,6 +563,7 @@
     try { rows = await store.list(); } catch (e) { c.innerHTML = '<p class="vazio">' + esc(e.message) + '</p>'; return; }
     // a proposta do BAS entra uma vez, de exemplo
     if (!rows.some(r => r.cliente === 'Bio Amazon Summit') && !lget(LSEM, false)) { await store.save(null, bas()); lset(LSEM, true); rows = await store.list(); }
+    for (const r of rows.filter(r => r.cliente === PACTO)) { try { const p = await store.get(r.id), d = p.dados; if (d.codigo === 'PCF23112026' && d.prazo === 'Até 30 dias') { Object.assign(d, { prazo: 'Até 10 dias', cronogramaTitulo: 'No ar em até 10 dias', cronogramaNota: pacto().cronogramaNota, precoTabela: 'R$ 8.600', preco: 'R$ 7.500' }); await store.save(r.id, d); } } catch (e) {} }
     if (!rows.some(r => r.cliente === PACTO) && !lget(LSEM2, false)) { await store.save(null, pacto()); lset(LSEM2, true); rows = await store.list(); }
     $('#lsub').textContent = rows.length ? rows.length + (rows.length === 1 ? ' proposta salva.' : ' propostas salvas.') + ' Tudo fica aqui até você excluir.' : 'Tudo o que você gerar fica salvo aqui até você excluir.';
     c.innerHTML = !rows.length ? '<div class="vazio">Nenhuma proposta ainda. Clique em <b>Nova proposta</b>.</div>' : rows.map(r => '<article class="pc" data-id="' + esc(r.id) + '"><div class="lg" data-ed>' + (r.logo ? '<img src="' + esc(r.logo) + '" alt="">' : '<span>Sem logo</span>') + '</div>' +
