@@ -128,7 +128,7 @@
       etapas: [{ t: 'Planejamento', periodo: 'Dias 1 a 5', desc: '' }, { t: 'Desenvolvimento', periodo: 'Dias 6 a 16', desc: '' }, { t: 'Publicação', periodo: 'Dias 17 a 20', desc: '' }],
       cronogramaNota: 'Prazo contado a partir da aprovação da proposta, da definição do escopo e do recebimento dos materiais.',
       beneficiosTitulo: 'O que o evento ganha', beneficios: [],
-      parceiro: false, precoTabela: '', preco: '', precoNota: 'Condição parceiro Fyw 2027, para quem fecha 6 serviços no ano ou uma proposta anual.',
+      parceiro: false, precoTabela: '', preco: '', selo: '', precoNota: 'Condição parceiro Fyw 2027, para quem fecha 6 serviços no ano ou uma proposta anual.',
       escopo: [],
       condicoes: [{ k: 'Entrada', v: '50% na aprovação' }, { k: 'Restante', v: 'Na entrega' }, { k: 'No cartão', v: 'Até 12x (juros da operadora)' }, { k: 'À vista no Pix', v: '10% de desconto' }],
       proximos: ['Aprovação da proposta', 'Pagamento da entrada', 'Reunião de início do projeto'],
@@ -234,7 +234,7 @@
       cronogramaNota: 'Prazo de 7 dias contado a partir da aprovação da proposta e do pagamento da entrada. O domínio fica registrado no Registro.br em nome da clínica.',
       beneficiosTitulo: 'O que a LUME ganha',
       beneficios: ['Presença profissional no Google e nas buscas por IA', 'Pedidos de avaliação direto no WhatsApp da clínica', 'Pacientes que já chegam entendendo o tratamento', 'Menos dúvidas repetidas, com as respostas no site', 'A nota 5,0 do Google à vista de quem pesquisa', 'Site leve, que abre rápido no celular'],
-      parceiro: false, precoTabela: 'R$ 4.375', preco: 'R$ 3.500', // valor cheio com 20% de desconto da Black Friday da Fyw (novembro de 2026)
+      parceiro: false, precoTabela: 'R$ 4.375', preco: 'R$ 3.500', selo: 'Black Friday · 20% de desconto', // valor cheio com 20% de desconto da Black Friday da Fyw (novembro de 2026)
       escopo: ['Site completo e sob medida, já pronto', 'Sorriso em 3D, galeria de vídeos e antes e depois', 'Agendamento pelo formulário e pelo WhatsApp', 'SEO, dados estruturados e política de privacidade', 'Publicação no domínio oficial e 30 dias de suporte'],
       condicoes: [{ k: 'Entrada', v: '50% na aprovação' }, { k: 'Restante', v: 'Na publicação do site' }, { k: 'No cartão', v: 'Até 12x (juros da operadora)' }, { k: 'À vista no Pix', v: '10% de desconto' }],
       proximos: ['Aprovação da proposta', 'Pagamento da entrada', 'Ajustes e publicação do site'],
@@ -282,7 +282,7 @@
       const cd = (d.condicoes || []).filter(c => c.k || c.v);
       const num = v => +String(v || '').replace(/[^\d,]/g, '').replace(',', '.') || 0, desc = !d.parceiro && num(d.precoTabela) > num(d.preco) && num(d.preco) ? num(d.precoTabela) - num(d.preco) : 0;
       S.push('<section class="sec">' + tag('Investimento') + '<div class="inv"><div class="vr"><div class="vl"><p class="rot o6">Investimento total</p>' +
-        (d.parceiro ? '<span class="sp rot">Valor exclusivo para parceiros Fyw</span>' + (d.precoTabela ? '<p class="co o7">Valor normal: <s>' + esc(d.precoTabela) + '</s></p>' : '') : desc ? '<span class="sp rot">Desconto de ' + R(desc) + '</span><p class="co o7">Valor anterior: <s>' + esc(d.precoTabela) + '</s></p>' : '') +
+        (d.parceiro ? '<span class="sp rot">Valor exclusivo para parceiros Fyw</span>' + (d.precoTabela ? '<p class="co o7">Valor normal: <s>' + esc(d.precoTabela) + '</s></p>' : '') : desc ? '<span class="sp rot">' + (d.selo ? esc(d.selo) : 'Desconto de ' + R(desc)) + '</span><p class="co o7">Valor anterior: <s>' + esc(d.precoTabela) + '</s></p>' : '') +
         '<p class="pg">' + esc(d.preco) + '</p>' + (d.parceiro && d.precoNota ? '<p class="cp o7">' + esc(d.precoNota) + '</p>' : '') + '</div>' +
         (L(d.escopo).length ? '<div class="vl"><p class="rot o6">Escopo da entrega</p><ul class="co">' + L(d.escopo).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' : '<div></div>') + '</div>' +
         (cd.length ? '<div class="cd">' + cd.map(c => '<div><p class="rot o5">' + esc(c.k) + '</p><p class="cv">' + esc(c.v) + '</p></div>').join('') + '</div>' : '') + '</div></section>');
@@ -380,7 +380,7 @@
     capa: ['logo', 'tipoId', 'tipo', 'rotulo', 'titulo', 'cliente', 'data', 'codigo', 'prazo', 'contato'],
     objetivo: ['objetivo', 'objetivoTexto'], publico: ['publicoTitulo', 'publico'], demo: ['demo'],
     estrutura: ['estruturaTag', 'estruturaTitulo', 'estrutura', 'funcionalidades'], crono: ['cronogramaTitulo', 'etapas', 'cronogramaNota'],
-    ben: ['beneficiosTitulo', 'beneficios'], inv: ['parceiro', 'precoTabela', 'preco', 'precoNota', 'escopo', 'condicoes'], fim: ['proximos', 'assinaturaCliente', 'legal']
+    ben: ['beneficiosTitulo', 'beneficios'], inv: ['parceiro', 'precoTabela', 'preco', 'selo', 'precoNota', 'escopo', 'condicoes'], fim: ['proximos', 'assinaturaCliente', 'legal']
   };
   const modeloDe = d => d.modelo === 'bas' ? bas() : d.modelo === 'pacto' ? pacto() : d.modelo === 'lume' ? lume() : nova();
   let antes = null, tAntes = null, tUndo = 0;
@@ -414,7 +414,7 @@
     const crono = vin('Título', 'cronogramaTitulo') + D.etapas.map((e, i) => rep('Etapa ' + (i + 1), 'etapas.' + i, '<div class="g2">' + vin('Nome', 'etapas.' + i + '.t') + vin('Período', 'etapas.' + i + '.periodo') + '</div>' + vin('O que acontece', 'etapas.' + i + '.desc', { area: true, rows: 2 }))).join('') +
       '<button class="add" type="button" data-add="etapas">+ Adicionar etapa</button>' + vin('Nota', 'cronogramaNota', { area: true, rows: 2 });
     const ben = vin('Título', 'beneficiosTitulo') + vls('Benefícios', 'beneficios', 'Um por linha. Fica melhor com número par (2 colunas).', 6);
-    const inv = '<div class="g2">' + vin('Valor final', 'preco', { ph: 'R$ 10.000' }) + vin('Valor anterior (riscado)', 'precoTabela', { ph: 'R$ 12.500', dica: 'Aparece riscado sempre que for maior que o valor final, com o desconto ao lado.' }) + '</div>' + vin('Nota do valor de parceiro', 'precoNota', { area: true, rows: 2 }) +
+    const inv = '<div class="g2">' + vin('Valor final', 'preco', { ph: 'R$ 10.000' }) + vin('Valor anterior (riscado)', 'precoTabela', { ph: 'R$ 12.500', dica: 'Aparece riscado sempre que for maior que o valor final, com o desconto ao lado.' }) + '</div>' + vin('Selo do desconto', 'selo', { ph: 'Desconto de R$ 2.500', dica: 'Em branco, o selo mostra o valor do desconto. Ex.: Black Friday · 20% de desconto.' }) + vin('Nota do valor de parceiro', 'precoNota', { area: true, rows: 2 }) +
       vls('Escopo da entrega', 'escopo', 'Um item por linha.', 6) +
       D.condicoes.map((c, i) => rep('Condição ' + (i + 1), 'condicoes.' + i, '<div class="g2">' + vin('Título', 'condicoes.' + i + '.k') + vin('Valor', 'condicoes.' + i + '.v') + '</div>')).join('') +
       '<button class="add" type="button" data-add="condicoes">+ Adicionar condição</button>';
@@ -601,6 +601,8 @@
     if (!rows.some(r => r.cliente === 'Bio Amazon Summit') && !lget(LSEM, false)) { await store.save(null, bas()); lset(LSEM, true); rows = await store.list(); }
     for (const r of rows.filter(r => r.cliente === PACTO)) { try { const p = await store.get(r.id), d = p.dados; if (d.codigo === 'PCF23112026' && d.prazo === 'Até 30 dias') { Object.assign(d, { prazo: 'Até 10 dias', cronogramaTitulo: 'No ar em até 10 dias', cronogramaNota: pacto().cronogramaNota, precoTabela: 'R$ 8.600', preco: 'R$ 7.500' }); await store.save(r.id, d); } } catch (e) {} }
     if (!rows.some(r => r.cliente === PACTO) && !lget(LSEM2, false)) { await store.save(null, pacto()); lset(LSEM2, true); rows = await store.list(); }
+    // a proposta da LUME que já entrou no banco antes do selo da Black Friday ganha o selo uma vez
+    for (const r of rows.filter(r => r.cliente === LUME)) { try { const p = await store.get(r.id), d = p.dados; if (d.codigo === 'PCF24112026' && d.selo === undefined) { d.selo = lume().selo; await store.save(r.id, d); } } catch (e) {} }
     if (!rows.some(r => r.cliente === LUME) && !lget(LSEM3, false)) { await store.save(null, lume()); lset(LSEM3, true); rows = await store.list(); }
     $('#lsub').textContent = rows.length ? rows.length + (rows.length === 1 ? ' proposta salva.' : ' propostas salvas.') + ' Tudo fica aqui até você excluir.' : 'Tudo o que você gerar fica salvo aqui até você excluir.';
     c.innerHTML = !rows.length ? '<div class="vazio">Nenhuma proposta ainda. Clique em <b>Nova proposta</b>.</div>' : rows.map(r => '<article class="pc" data-id="' + esc(r.id) + '"><div class="lg" data-ed>' + (r.logo ? '<img src="' + esc(r.logo) + '" alt="">' : '<span>Sem logo</span>') + '</div>' +
