@@ -53,7 +53,7 @@
   const tipos = () => { const v = pacoteValores(TAB); return TAB.itens.concat(TAB.pacote && v.its.length ? [{ id: 'pacote', nome: TAB.pacote.nome, tabela: v.tabela, parceiro: v.parceiro, un: '' }] : []); };
 
   /* ---------- armazenamento: servidor (Supabase) ou este navegador ---------- */
-  const LK = 'fyw-propostas', LT = 'fyw-tabela-precos', LSEM = 'fyw-propostas-bas', LSEM2 = 'fyw-propostas-pacto';
+  const LK = 'fyw-propostas', LT = 'fyw-tabela-precos', LSEM = 'fyw-propostas-bas', LSEM2 = 'fyw-propostas-pacto', LSEM3 = 'fyw-propostas-lume';
   const lget = (k, d) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } };
   const lset = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } };
   let MODO = 'api';
@@ -206,6 +206,42 @@
     });
   }
 
+  // site da clínica LUME Sorrisos (Nova Iguaçu): o site já está pronto em lumesorrisos.pages.dev; a proposta cobre ajustes, domínio oficial e suporte
+  const LU = '/assets/img/propostas/lume/', LUME = 'LUME Sorrisos Personalizados';
+  function lume() {
+    const d = nova();
+    return Object.assign(d, {
+      modelo: 'lume',
+      tipoId: 'landing', tipo: 'Landing page', rotulo: 'Proposta comercial para site', titulo: 'Site oficial da LUME', cliente: LUME, logo: LU + 'logo.svg',
+      data: '24 de novembro de 2026', codigo: 'PCF24112026', prazo: 'Até 7 dias',
+      objetivo: 'Um site à altura dos sorrisos que a LUME devolve.',
+      objetivoTexto: ['O site apresenta a clínica, os tratamentos e a equipe, mostra resultados reais e leva o paciente direto para o agendamento, pelo formulário ou pelo WhatsApp. Foi pensado primeiro para o celular, onde a maioria dos pacientes pesquisa.', 'Feito sob medida, leve e rápido, com o sorriso em 3D para explorar, galeria de vídeos da clínica e estrutura pronta para o Google e para as buscas por IA. A versão completa já está no ar para avaliação em lumesorrisos.pages.dev.'],
+      publico: ['Pacientes de Nova Iguaçu e região', 'Quem busca lentes, facetas ou clareamento', 'Quem pensa em alinhadores ou ortodontia', 'Quem precisa de reabilitação oral', 'Pacientes que chegam pelo Google e pelo Instagram', 'Quem prefere agendar pelo WhatsApp'],
+      estruturaTag: 'Estrutura do site', estruturaTitulo: 'O que já está pronto',
+      estrutura: [
+        { t: 'Primeira impressão', itens: ['Abertura com o antes e depois do sorriso', 'Os 6 tratamentos explicados', 'Depoimentos e nota 5,0 no Google'] },
+        { t: 'A clínica', itens: ['História da LUME', 'Equipe e doutores, com o Instagram de cada um', 'Galeria com 8 vídeos da clínica'] },
+        { t: 'Planejamento e resultados', itens: ['Sorriso em 3D para explorar', 'Etapas do planejamento', 'Antes e depois de clareamento', 'Dúvidas frequentes'] },
+        { t: 'Agendamento', itens: ['Formulário que abre em qualquer botão do site', 'Pedido enviado direto no WhatsApp', 'Mapa e como chegar', 'Política de privacidade (LGPD)'] }
+      ],
+      funcionalidades: ['Responsivo (celular, tablet e desktop)', 'Menu de acessibilidade', 'SEO e buscas por IA', 'Segurança (SSL e LGPD)', 'Publicação na Cloudflare'],
+      cronogramaTitulo: 'No ar em até 7 dias',
+      etapas: [
+        { t: 'Ajustes', periodo: '', desc: 'Revisão do site com a equipe da LUME, com até 2 rodadas de ajustes em textos, fotos e tratamentos.' },
+        { t: 'Domínio e publicação', periodo: '', desc: 'Ligação do lumesorrisos.com.br, certificado de segurança (SSL) e publicação no domínio oficial.' },
+        { t: 'Google e suporte', periodo: '', desc: 'Cadastro no Google Search Console, link do site no Perfil da Empresa no Google e suporte técnico por 30 dias.' }
+      ],
+      cronogramaNota: 'Prazo de 7 dias contado a partir da aprovação da proposta e do pagamento da entrada. O domínio fica registrado no Registro.br em nome da clínica.',
+      beneficiosTitulo: 'O que a LUME ganha',
+      beneficios: ['Presença profissional no Google e nas buscas por IA', 'Pedidos de avaliação direto no WhatsApp da clínica', 'Pacientes que já chegam entendendo o tratamento', 'Menos dúvidas repetidas, com as respostas no site', 'A nota 5,0 do Google à vista de quem pesquisa', 'Site leve, que abre rápido no celular'],
+      parceiro: false, precoTabela: '', preco: 'R$ 3.500',
+      escopo: ['Site completo e sob medida, já pronto', 'Sorriso em 3D, galeria de vídeos e antes e depois', 'Agendamento pelo formulário e pelo WhatsApp', 'SEO, dados estruturados e política de privacidade', 'Publicação no domínio oficial e 30 dias de suporte'],
+      condicoes: [{ k: 'Entrada', v: '50% na aprovação' }, { k: 'Restante', v: 'Na publicação do site' }, { k: 'No cartão', v: 'Até 12x (juros da operadora)' }, { k: 'À vista no Pix', v: '10% de desconto' }],
+      proximos: ['Aprovação da proposta', 'Pagamento da entrada', 'Ajustes e publicação do site'],
+      assinaturaCliente: LUME
+    });
+  }
+
   /* ---------- documento (HTML igual ao modelo de página única do Figma) ---------- */
   const IC = {
     clock: '<svg class="ico" width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
@@ -346,7 +382,7 @@
     estrutura: ['estruturaTag', 'estruturaTitulo', 'estrutura', 'funcionalidades'], crono: ['cronogramaTitulo', 'etapas', 'cronogramaNota'],
     ben: ['beneficiosTitulo', 'beneficios'], inv: ['parceiro', 'precoTabela', 'preco', 'precoNota', 'escopo', 'condicoes'], fim: ['proximos', 'assinaturaCliente', 'legal']
   };
-  const modeloDe = d => d.modelo === 'bas' ? bas() : d.modelo === 'pacto' ? pacto() : nova();
+  const modeloDe = d => d.modelo === 'bas' ? bas() : d.modelo === 'pacto' ? pacto() : d.modelo === 'lume' ? lume() : nova();
   let antes = null, tAntes = null, tUndo = 0;
   const mostraDesfazer = () => { const u = $('#undo'); if (!u) return; u.hidden = false; clearTimeout(tUndo); tUndo = setTimeout(() => { const v = $('#undo'); if (v) v.hidden = true; }, 20000); };
   const agora = () => new Date().toISOString();
@@ -565,6 +601,7 @@
     if (!rows.some(r => r.cliente === 'Bio Amazon Summit') && !lget(LSEM, false)) { await store.save(null, bas()); lset(LSEM, true); rows = await store.list(); }
     for (const r of rows.filter(r => r.cliente === PACTO)) { try { const p = await store.get(r.id), d = p.dados; if (d.codigo === 'PCF23112026' && d.prazo === 'Até 30 dias') { Object.assign(d, { prazo: 'Até 10 dias', cronogramaTitulo: 'No ar em até 10 dias', cronogramaNota: pacto().cronogramaNota, precoTabela: 'R$ 8.600', preco: 'R$ 7.500' }); await store.save(r.id, d); } } catch (e) {} }
     if (!rows.some(r => r.cliente === PACTO) && !lget(LSEM2, false)) { await store.save(null, pacto()); lset(LSEM2, true); rows = await store.list(); }
+    if (!rows.some(r => r.cliente === LUME) && !lget(LSEM3, false)) { await store.save(null, lume()); lset(LSEM3, true); rows = await store.list(); }
     $('#lsub').textContent = rows.length ? rows.length + (rows.length === 1 ? ' proposta salva.' : ' propostas salvas.') + ' Tudo fica aqui até você excluir.' : 'Tudo o que você gerar fica salvo aqui até você excluir.';
     c.innerHTML = !rows.length ? '<div class="vazio">Nenhuma proposta ainda. Clique em <b>Nova proposta</b>.</div>' : rows.map(r => '<article class="pc" data-id="' + esc(r.id) + '"><div class="lg" data-ed>' + (r.logo ? '<img src="' + esc(r.logo) + '" alt="">' : '<span>Sem logo</span>') + '</div>' +
       '<div class="in"><h3>' + esc(r.titulo) + '</h3><p class="cl">' + esc(r.cliente) + '</p><div class="mt">' + (r.tipo ? '<span class="chipx">' + esc(r.tipo) + '</span>' : '') + (r.preco ? '<span class="chipx acc">' + esc(r.preco === 'R$ 6.500' && /agenda/i.test(r.tipo || '') ? 'R$ 10.000' : r.preco) + '</span>' : '') + '<span class="chipx">Editada em ' + dataCurta(r.atualizado) + '</span>' + pdfChip(r.pdfs) + '</div></div>' +
@@ -629,7 +666,7 @@
     const m = /^p\/(.+)$/.exec(h);
     if (m) {
       tela('ed'); $('#form').innerHTML = '<p class="vazio">Carregando…</p>';
-      try { const p = await store.get(decodeURIComponent(m[1])); ID = p.id; D = Object.assign(nova(), { modelo: p.dados.cliente === 'Bio Amazon Summit' ? 'bas' : p.dados.cliente === PACTO ? 'pacto' : 'nova' }, agendaNova(p.dados)); }
+      try { const p = await store.get(decodeURIComponent(m[1])); ID = p.id; D = Object.assign(nova(), { modelo: p.dados.cliente === 'Bio Amazon Summit' ? 'bas' : p.dados.cliente === PACTO ? 'pacto' : p.dados.cliente === LUME ? 'lume' : 'nova' }, agendaNova(p.dados)); }
       catch (e) { $('#form').innerHTML = '<p class="vazio">' + esc(e.message) + '</p>'; return; }
       $('#pinfo').textContent = 'Prévia do PDF (página única, 1240 px de largura)'; form(); preview(doc(D)); return;
     }
