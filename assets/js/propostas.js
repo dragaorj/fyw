@@ -234,7 +234,7 @@
       cronogramaNota: 'Prazo de 7 dias contado a partir da aprovação da proposta e do pagamento da entrada. O domínio fica registrado no Registro.br em nome da clínica.',
       beneficiosTitulo: 'O que a LUME ganha',
       beneficios: ['Presença profissional no Google e nas buscas por IA', 'Pedidos de avaliação direto no WhatsApp da clínica', 'Pacientes que já chegam entendendo o tratamento', 'Menos dúvidas repetidas, com as respostas no site', 'A nota 5,0 do Google à vista de quem pesquisa', 'Site leve, que abre rápido no celular'],
-      parceiro: false, precoTabela: '', preco: 'R$ 3.500',
+      parceiro: false, precoTabela: 'R$ 4.375', preco: 'R$ 3.500', // valor cheio com 20% de desconto da Black Friday da Fyw (novembro de 2026)
       escopo: ['Site completo e sob medida, já pronto', 'Sorriso em 3D, galeria de vídeos e antes e depois', 'Agendamento pelo formulário e pelo WhatsApp', 'SEO, dados estruturados e política de privacidade', 'Publicação no domínio oficial e 30 dias de suporte'],
       condicoes: [{ k: 'Entrada', v: '50% na aprovação' }, { k: 'Restante', v: 'Na publicação do site' }, { k: 'No cartão', v: 'Até 12x (juros da operadora)' }, { k: 'À vista no Pix', v: '10% de desconto' }],
       proximos: ['Aprovação da proposta', 'Pagamento da entrada', 'Ajustes e publicação do site'],
