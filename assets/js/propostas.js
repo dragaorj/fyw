@@ -50,10 +50,10 @@
     const st = its.reduce((a, x) => a + (+x.tabela || 0), 0), sp = its.reduce((a, x) => a + (+x.parceiro || 0), 0);
     return { its, somaTabela: st, somaParceiro: sp, tabela: +c.preco || st, parceiro: +c.parceiro || sp, economia: Math.max(0, st - (+c.preco || st)) };
   };
-  const tipos = () => { const v = pacoteValores(TAB); return TAB.itens.concat(TAB.pacote && v.its.length ? [{ id: 'pacote', nome: TAB.pacote.nome, tabela: v.tabela, parceiro: v.parceiro, un: '' }] : []); };
+  const tipos = () => { const v = pacoteValores(TAB), c = comboValores(TAB); return TAB.itens.concat(TAB.combo && c.its.length > 1 ? [{ id: 'combo', nome: TAB.combo.titulo, tabela: c.tabela, parceiro: c.parceiro, un: '', rotulo: 'Proposta comercial para website e plataforma' }] : [], TAB.pacote && v.its.length ? [{ id: 'pacote', nome: TAB.pacote.nome, tabela: v.tabela, parceiro: v.parceiro, un: '' }] : []); };
 
   /* ---------- armazenamento: servidor (Supabase) ou este navegador ---------- */
-  const LK = 'fyw-propostas', LT = 'fyw-tabela-precos', LSEM = 'fyw-propostas-bas', LSEM2 = 'fyw-propostas-pacto', LSEM3 = 'fyw-propostas-lume';
+  const LK = 'fyw-propostas', LT = 'fyw-tabela-precos', LSEM = 'fyw-propostas-bas', LSEM2 = 'fyw-propostas-pacto', LSEM3 = 'fyw-propostas-lume', LSEM4 = 'fyw-propostas-impacta';
   const lget = (k, d) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } };
   const lset = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } };
   let MODO = 'api';
@@ -242,6 +242,42 @@
     });
   }
 
+  // Impacta Mais 2027 (Fórum de Economia de Impacto, organizado com a Yellow Eventos): mesmo combo website + plataforma da edição 2026
+  const IMG = '/assets/img/propostas/impacta/', IMPACTA = 'Impacta Mais';
+  function impacta() {
+    const d = nova();
+    return Object.assign(d, {
+      modelo: 'impacta',
+      tipoId: 'combo', tipo: 'Website + plataforma juntos', rotulo: 'Proposta comercial para website e plataforma', titulo: 'Site oficial e plataforma do Impacta Mais 2027', cliente: IMPACTA, logo: IMG + 'logo.svg',
+      data: '25 de novembro de 2026', codigo: 'PCF25112026', prazo: 'Lançamento em 14/12',
+      objetivo: 'O site e a plataforma do Impacta Mais 2027, do lançamento ao encerramento.',
+      objetivoTexto: ['Uma nova versão do site oficial, só em português, com abas de conteúdo na mesma estrutura da edição 2026, e a plataforma em que a equipe cadastra palestrantes e sessões.', 'O projeto acompanha a edição inteira: lançamento com local, data e convocatória de conteúdo, abertura das vendas, programação completa durante o evento e ajustes finais até o encerramento, em junho de 2027.'],
+      publico: ['Investidores', 'Empreendedores de impacto', 'Aceleradoras', 'Lideranças corporativas', 'Lideranças periféricas', 'Institutos e fundações', 'Academia', 'Gestores públicos'],
+      demo: { ativo: true, titulo: 'A agenda de 2026, pronta para 2027', nota: 'Exemplo real da agenda do Impacta Mais 2026, desenvolvida pela Fyw.', sessoes: bas().demo.sessoes },
+      estruturaTag: 'Estrutura do projeto',
+      estrutura: [
+        { t: 'Site oficial', itens: ['Página inicial com local, data e chamadas', 'Abas de conteúdo como no site de 2026', 'Informações práticas e como chegar', 'Contato e imprensa'] },
+        { t: 'Plataforma de programação', itens: ['Cadastro de palestrantes e sessões pela equipe', 'Agenda com busca e filtros', 'Perfil de cada palestrante', 'Atualização em tempo real'] },
+        { t: 'Patrocinadores', itens: ['Logos dos patrocinadores e apoiadores', 'Links para os sites das marcas', 'Novas marcas entram ao longo do projeto'] },
+        { t: 'Manutenção e administração', itens: ['Atualizações até o encerramento do projeto', 'Acompanhamento das demandas com a equipe', 'Servidores, backup e segurança'] }
+      ],
+      funcionalidades: ['Site em português', 'Responsivo (celular, tablet e desktop)', 'Painel de edição para a equipe', 'Segurança (SSL e LGPD)', 'Integração com a plataforma de vendas'],
+      cronogramaTitulo: 'No ar em 14 de dezembro',
+      etapas: [
+        { t: 'Lançamento do site', periodo: 'Até 14/12/2026', desc: 'Local, data e conteúdo básico para a convocatória de conteúdo, com a identidade visual recebida até 04/12.' },
+        { t: 'Abertura das vendas', periodo: 'Até 15/02/2027', desc: 'Página de vendas no ar e conteúdo do evento construído junto com a equipe.' },
+        { t: 'Evento e encerramento', periodo: 'Até o fim de junho de 2027', desc: 'Programação completa na plataforma durante o evento e ajustes finais até o encerramento.' }
+      ],
+      cronogramaNota: 'Datas combinadas com a equipe do Impacta Mais. O evento deve acontecer entre a última semana de maio e a primeira semana de junho de 2027.',
+      beneficiosTitulo: 'O que o Impacta Mais ganha',
+      beneficios: ['Todas as informações do evento em um só lugar', 'Atualização contínua até o encerramento', 'Equipe com autonomia para cadastrar palestrantes e sessões', 'Mais visibilidade para patrocinadores e parceiros', 'Estrutura já testada na edição 2026', 'Site e plataforma com o mesmo time, num só contrato'],
+      parceiro: true, precoTabela: 'R$ 20.000', preco: 'R$ 16.000',
+      escopo: ['Site oficial da edição 2027, em português', 'Plataforma de palestrantes e sessões', 'Área de patrocinadores com os logos', 'Manutenção e administração até o encerramento', 'Servidores, backup e segurança inclusos'],
+      condicoes: [{ k: 'Entrada (50%)', v: 'R$ 8.000 na aprovação' }, { k: 'Restante', v: '3x de R$ 2.666,67' }, { k: 'No cartão', v: 'Até 12x (juros da operadora)' }, { k: 'À vista no Pix', v: '10% de desconto' }],
+      assinaturaCliente: IMPACTA
+    });
+  }
+
   /* ---------- documento (HTML igual ao modelo de página única do Figma) ---------- */
   const IC = {
     clock: '<svg class="ico" width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
@@ -250,7 +286,7 @@
     check: '<svg class="ck" viewBox="0 0 28 28"><circle cx="14" cy="14" r="14" fill="#C8F53C"/><path d="M9 14.5l3.2 3.2L19 11" fill="none" stroke="#0B0B0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
   };
   const logoFyw = '<svg viewBox="0 0 804 513" aria-label="Fyw"><use href="#fyw-logo"/></svg>';
-  const glows = '<i class="gl" style="left:660px;top:-300px;width:760px;height:680px;background:#C8F53C;opacity:.36"></i><i class="gl" style="left:-340px;top:440px;width:760px;height:700px;background:#7B5CFF;opacity:.42"></i><i class="gl" style="left:720px;top:640px;width:640px;height:520px;background:#2F6BFF;opacity:.3"></i>';
+  const glows = '<i class="gl" style="left:660px;top:-300px;width:760px;height:680px;background:#C8F53C;--c:rgba(200,245,60,.36);opacity:.36"></i><i class="gl" style="left:-340px;top:440px;width:760px;height:700px;background:#7B5CFF;--c:rgba(123,92,255,.42);opacity:.42"></i><i class="gl" style="left:720px;top:640px;width:640px;height:520px;background:#2F6BFF;--c:rgba(47,107,255,.3);opacity:.3"></i>';
   const chips = a => '<div class="chips">' + L(a).map(x => '<span class="chip co"><i class="dot"></i>' + esc(x) + '</span>').join('') + '</div>';
   const br = s => esc(s).replace(/\n/g, '<br>');
 
@@ -316,7 +352,7 @@
       '<div class="op"><div><p class="rot">Opção 1</p><p class="t3">6 serviços em 12 meses</p><p class="cp">Um serviço fechado a cada 2 meses ao longo do ano.</p><div class="mes">' + meses + '</div></div>' +
       '<div><p class="rot">Opção 2</p><p class="t3">Um ano inteiro de uma vez</p><p class="cp">Fechar uma proposta que cubra os 12 meses do ano.</p><div class="ano"><span>Jan</span><span>12 meses</span><span>Dez</span></div></div></div></div>' +
       grupos.map(g => grp(g.n) + '<div class="svc">' + g.it.map(sv).join('') + '</div>' + (cv.its.length > 1 && g.it.includes(cv.its[cv.its.length - 1]) ? cmb : '')).join('') +
-      (pv.its.length ? grp(pk.nome || 'Pacote') + '<div class="pkg">' + '<i class="gl" style="left:560px;top:-260px;width:620px;height:480px;background:#C8F53C;opacity:.3"></i><i class="gl" style="left:-260px;top:180px;width:600px;height:480px;background:#7B5CFF;opacity:.38"></i>' +
+      (pv.its.length ? grp(pk.nome || 'Pacote') + '<div class="pkg">' + '<i class="gl" style="left:560px;top:-260px;width:620px;height:480px;background:#C8F53C;--c:rgba(200,245,60,.3);opacity:.3"></i><i class="gl" style="left:-260px;top:180px;width:600px;height:480px;background:#7B5CFF;--c:rgba(123,92,255,.38);opacity:.38"></i>' +
         '<div class="pl"><p class="rot lima">Os ' + pv.its.length + ' serviços juntos, valor fixo</p><h3 class="t2">' + br(pk.titulo) + '</h3><ul>' + pv.its.map(x => '<li><i></i><span class="co">' + esc(x.nome) + '</span><small class="cp"><s>' + R(x.tabela) + '</s><b>' + R(x.parceiro) + '</b></small></li>').join('') + '</ul></div>' +
         '<div class="pr2"><p class="sep"><span class="rot o5">Separados</span><s class="co o5">' + R(pv.somaTabela) + '</s></p>' + (pv.economia ? '<span class="off rot">Economia de ' + R(pv.economia) + '</span>' : '') + '<p class="rot o6">Valor do pacote</p><p class="pg">' + R(pv.tabela) + '</p>' +
         '<div class="pp2"><p class="rot lima">Parceiro Fyw</p><b>' + R(pv.parceiro) + '</b>' + (pv.economiaParceiro ? '<p class="cp o6">' + R(pv.economiaParceiro) + ' a menos que os serviços separados.</p>' : '') + '</div></div></div>' : '') +
@@ -382,7 +418,7 @@
     estrutura: ['estruturaTag', 'estruturaTitulo', 'estrutura', 'funcionalidades'], crono: ['cronogramaTitulo', 'etapas', 'cronogramaNota'],
     ben: ['beneficiosTitulo', 'beneficios'], inv: ['parceiro', 'precoTabela', 'preco', 'selo', 'precoNota', 'escopo', 'condicoes'], fim: ['proximos', 'assinaturaCliente', 'legal']
   };
-  const modeloDe = d => d.modelo === 'bas' ? bas() : d.modelo === 'pacto' ? pacto() : d.modelo === 'lume' ? lume() : nova();
+  const modeloDe = d => d.modelo === 'bas' ? bas() : d.modelo === 'pacto' ? pacto() : d.modelo === 'lume' ? lume() : d.modelo === 'impacta' ? impacta() : nova();
   let antes = null, tAntes = null, tUndo = 0;
   const mostraDesfazer = () => { const u = $('#undo'); if (!u) return; u.hidden = false; clearTimeout(tUndo); tUndo = setTimeout(() => { const v = $('#undo'); if (v) v.hidden = true; }, 20000); };
   const agora = () => new Date().toISOString();
@@ -604,6 +640,7 @@
     // a proposta da LUME que já entrou no banco antes do selo da Black Friday ganha o selo uma vez
     for (const r of rows.filter(r => r.cliente === LUME)) { try { const p = await store.get(r.id), d = p.dados; if (d.codigo === 'PCF24112026' && d.selo === undefined) { d.selo = lume().selo; await store.save(r.id, d); } } catch (e) {} }
     if (!rows.some(r => r.cliente === LUME) && !lget(LSEM3, false)) { await store.save(null, lume()); lset(LSEM3, true); rows = await store.list(); }
+    if (!rows.some(r => r.cliente === IMPACTA) && !lget(LSEM4, false)) { await store.save(null, impacta()); lset(LSEM4, true); rows = await store.list(); }
     $('#lsub').textContent = rows.length ? rows.length + (rows.length === 1 ? ' proposta salva.' : ' propostas salvas.') + ' Tudo fica aqui até você excluir.' : 'Tudo o que você gerar fica salvo aqui até você excluir.';
     c.innerHTML = !rows.length ? '<div class="vazio">Nenhuma proposta ainda. Clique em <b>Nova proposta</b>.</div>' : rows.map(r => '<article class="pc" data-id="' + esc(r.id) + '"><div class="lg" data-ed>' + (r.logo ? '<img src="' + esc(r.logo) + '" alt="">' : '<span>Sem logo</span>') + '</div>' +
       '<div class="in"><h3>' + esc(r.titulo) + '</h3><p class="cl">' + esc(r.cliente) + '</p><div class="mt">' + (r.tipo ? '<span class="chipx">' + esc(r.tipo) + '</span>' : '') + (r.preco ? '<span class="chipx acc">' + esc(r.preco === 'R$ 6.500' && /agenda/i.test(r.tipo || '') ? 'R$ 10.000' : r.preco) + '</span>' : '') + '<span class="chipx">Editada em ' + dataCurta(r.atualizado) + '</span>' + pdfChip(r.pdfs) + '</div></div>' +
@@ -668,7 +705,7 @@
     const m = /^p\/(.+)$/.exec(h);
     if (m) {
       tela('ed'); $('#form').innerHTML = '<p class="vazio">Carregando…</p>';
-      try { const p = await store.get(decodeURIComponent(m[1])); ID = p.id; D = Object.assign(nova(), { modelo: p.dados.cliente === 'Bio Amazon Summit' ? 'bas' : p.dados.cliente === PACTO ? 'pacto' : p.dados.cliente === LUME ? 'lume' : 'nova' }, agendaNova(p.dados)); }
+      try { const p = await store.get(decodeURIComponent(m[1])); ID = p.id; D = Object.assign(nova(), { modelo: p.dados.cliente === 'Bio Amazon Summit' ? 'bas' : p.dados.cliente === PACTO ? 'pacto' : p.dados.cliente === LUME ? 'lume' : p.dados.cliente === IMPACTA ? 'impacta' : 'nova' }, agendaNova(p.dados)); }
       catch (e) { $('#form').innerHTML = '<p class="vazio">' + esc(e.message) + '</p>'; return; }
       $('#pinfo').textContent = 'Prévia do PDF (página única, 1240 px de largura)'; form(); preview(doc(D)); return;
     }

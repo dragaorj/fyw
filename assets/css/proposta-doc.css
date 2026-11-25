@@ -170,3 +170,8 @@
 .pdoc .esc li { display: flex; gap: 12px; align-items: flex-start; }
 .pdoc .esc li::before { content: ""; flex: none; width: 8px; height: 8px; margin-top: 8px; border-radius: 50%; background: #0B0B0B; }
 .pdoc.tdoc .esc + .pgto { margin-top: 20px; }
+
+/* Brilhos sem filtro de desfoque: o Chrome transforma o blur em imagens recortadas no PDF e alguns leitores mostram as bordas como linhas.
+   O degradê radial fica igual na tela e sai como vetor no PDF. */
+.pdoc .gl { filter: none !important; opacity: 1 !important; background: radial-gradient(closest-side, var(--c) 60%, transparent 100%) !important; transform: scale(1.7); }
+.pdoc .pkg .gl { transform: scale(1.5); }
