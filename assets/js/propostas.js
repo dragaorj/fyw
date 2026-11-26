@@ -467,7 +467,7 @@
   }
   // o #print precisa ter altura medida: fica fora da tela, mas com layout
   $('#print').style.cssText = 'position:absolute;left:-99999px;top:0;display:block';
-  const nomePdf = d => 'Proposta Fyw - ' + (d.cliente || 'Cliente') + ' - ' + (d.titulo || 'Projeto').replace(/\n/g, ' ');
+  const nomePdf = d => (d.en ? 'Fyw Commercial Proposal - ' : 'Proposta Fyw - ') + (d.cliente || 'Cliente') + ' - ' + (d.titulo || 'Projeto').replace(/\n/g, ' ');
 
   /* ---------- imagens enviadas (logo e fotos) ---------- */
   const lerArquivo = f => new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(r.result); r.onerror = no; r.readAsDataURL(f); });
@@ -509,14 +509,31 @@
   const quando = iso => { try { const d = new Date(iso); return d.toLocaleDateString('pt-BR') + ' às ' + d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }); } catch (e) { return ''; } };
   const rep = (t, del, html) => '<div class="rep"><div class="rh"><span>' + t + '</span><button class="x" type="button" data-del="' + del + '">Remover</button></div>' + html + '</div>';
 
+  /* ---------- idioma: PT | EN na mesma proposta ---------- */
+  function idiomaUI() {
+    const box = $('#lang'); if (!box) return;
+    if (!D) { box.hidden = true; return; }
+    box.hidden = false; const at = D.en ? 'en' : 'pt';
+    box.innerHTML = [['pt', 'PT'], ['en', 'EN']].map(([k, t]) => '<button type="button" data-lang="' + k + '" class="' + (k === at ? 'on' : '') + '" title="' + (k === at ? 'Idioma atual' : (D.outro ? 'Trocar para ' : 'Criar versão em ') + t) + '">' + t + '</button>').join('');
+  }
+  function trocaIdioma(para) {
+    if (!D || (D.en ? 'en' : 'pt') === para) return;
+    if (!D.outro) {
+      if (!confirm('Criar a versão em ' + (para === 'en' ? 'inglês' : 'português') + ' desta proposta? Ela começa com o mesmo texto, para você traduzir.')) return;
+      const c = clone(D); c.en = para === 'en'; c.pdfs = []; D.outro = c;
+    }
+    const o = D.outro, cur = clone(D); delete cur.outro; delete o.outro; o.outro = cur; D = o;
+    mudou(true);
+  }
+  document.addEventListener('click', e => { const b = e.target.closest('#lang [data-lang]'); if (b) trocaIdioma(b.dataset.lang); });
   function form() {
+    idiomaUI();
     const abertos = [...document.querySelectorAll('#form details')].map(x => x.open);
     const tp = tipos();
     const capa =
       '<div class="up"><div class="th">' + (D.logo ? '<img src="' + esc(D.logo) + '" alt="">' : '<span>Sem logo</span>') + '</div><div class="bt"><label class="btn">Enviar logo<input type="file" accept="image/svg+xml,image/png,image/webp,image/jpeg" data-up="logo"></label>' + (D.logo ? '<button class="x" type="button" data-nologo>Tirar logo</button>' : '') + '</div></div>' +
       '<label class="f"><span>Tipo de projeto</span><select data-tipo>' + '<option value="">Personalizado (sem tabela)</option>' + tp.map(x => '<option value="' + esc(x.id) + '"' + (x.id === D.tipoId ? ' selected' : '') + '>' + esc(x.nome) + ' · ' + R(x.tabela) + esc(x.un || '') + '</option>').join('') + '</select><small>Puxa o valor da tabela de preços. Dá para mudar o valor depois, em Investimento.</small></label>' +
       '<label class="chk"><input type="checkbox" data-k="parceiro"' + (D.parceiro ? ' checked' : '') + '>Cliente parceiro Fyw (preço de parceiro)</label>' +
-      '<label class="chk"><input type="checkbox" data-k="en"' + (D.en ? ' checked' : '') + '>Proposta em inglês (títulos do documento em inglês)</label>' +
       vin('Nome do projeto', 'titulo', { area: true, rows: 2 }) + vin('Cliente (para quem é a proposta)', 'cliente') + vin('Frase acima do nome do projeto', 'rotulo') +
       '<div class="g2">' + vin('Data', 'data') + vin('Código', 'codigo') + vin('Prazo', 'prazo') + vin('Contato', 'contato') + '</div>';
     const objetivo = vin('Objetivo (título grande)', 'objetivo', { area: true, rows: 2 }) + vin('Texto 1', 'objetivoTexto.0', { area: true }) + vin('Texto 2', 'objetivoTexto.1', { area: true });
@@ -729,8 +746,10 @@
     if (!rows.some(r => r.cliente === LUME) && !lget(LSEM3, false)) { await store.save(null, lume()); lset(LSEM3, true); rows = await store.list(); }
     if (!rows.some(r => r.cliente === IMPACTA) && !lget(LSEM4, false)) { await store.save(null, impacta()); lset(LSEM4, true); rows = await store.list(); }
     for (const r of rows.filter(r => r.cliente === ZVY)) { try { const p = await store.get(r.id), d = p.dados; if (d.codigo === 'PCF26112026' && !d.valores) { const z = d.en ? zvy() : zvyPt(); if (/^(R\$ 65[.,]000|US\$ 11,028|\$12,000)$/.test(d.preco || '')) { d.preco = z.preco; d.precoObs = z.precoObs; d.valores = z.valores; d.condicoes = z.condicoes; await store.save(r.id, d); } } } catch (e) {} }
-    if (!rows.some(r => r.cliente === ZVY) && !lget(LSEM5, false)) { await store.save(null, zvy()); lset(LSEM5, true); rows = await store.list(); }
-    if (!rows.some(r => r.cliente === ZVY && r.titulo === ZVY_PT) && !lget(LSEM6, false)) { await store.save(null, zvyPt()); lset(LSEM6, true); rows = await store.list(); }
+    // as versões em inglês e em português da ZVY viram uma proposta só (a em português fica dentro, em "outro")
+    { const zs = rows.filter(r => r.cliente === ZVY); if (zs.length > 1) { try { const ps = await Promise.all(zs.map(r => store.get(r.id))); const en = ps.find(p => p.dados.en && !p.dados.outro), pt = ps.find(p => !p.dados.en && p !== en);
+      if (en && pt) { const o = clone(pt.dados); delete o.outro; en.dados.outro = o; await store.save(en.id, en.dados); await store.del(pt.id); rows = await store.list(); } } catch (e) {} } }
+    if (!rows.some(r => r.cliente === ZVY) && !lget(LSEM5, false)) { const z = zvy(); z.outro = zvyPt(); await store.save(null, z); lset(LSEM5, true); rows = await store.list(); }
     $('#lsub').textContent = rows.length ? rows.length + (rows.length === 1 ? ' proposta salva.' : ' propostas salvas.') + ' Tudo fica aqui até você excluir.' : 'Tudo o que você gerar fica salvo aqui até você excluir.';
     c.innerHTML = !rows.length ? '<div class="vazio">Nenhuma proposta ainda. Clique em <b>Nova proposta</b>.</div>' : rows.map(r => '<article class="pc" data-id="' + esc(r.id) + '"><div class="lg" data-ed>' + (r.logo ? '<img src="' + esc(r.logo) + '" alt="">' : '<span>Sem logo</span>') + '</div>' +
       '<div class="in"><h3>' + esc(r.titulo) + '</h3><p class="cl">' + esc(r.cliente) + '</p><div class="mt">' + (r.tipo ? '<span class="chipx">' + esc(r.tipo) + '</span>' : '') + (r.preco ? '<span class="chipx acc">' + esc(r.preco === 'R$ 6.500' && /agenda/i.test(r.tipo || '') ? 'R$ 10.000' : r.preco) + '</span>' : '') + '<span class="chipx">Editada em ' + dataCurta(r.atualizado) + '</span>' + pdfChip(r.pdfs) + '</div></div>' +
@@ -789,7 +808,7 @@
     D = null; ID = null; salvo = true;
     await carregaTabela();
     VISTA = h === 'tabela' ? 'tabela' : 'outra';
-    if (h === 'tabela') { tela('tabela'); tabelaEventos(true); $('#pinfo').textContent = 'Prévia da tabela de preços (página única)'; tform(); preview(tdoc(TAB)); return; }
+    if (h === 'tabela') { if ($('#lang')) $('#lang').hidden = true; tela('tabela'); tabelaEventos(true); $('#pinfo').textContent = 'Prévia da tabela de preços (página única)'; tform(); preview(tdoc(TAB)); return; }
     tabelaEventos(false);
     if (h === 'nova') { tela('ed'); D = nova(); $('#pinfo').textContent = 'Prévia do PDF (página única, 1240 px de largura)'; form(); preview(doc(D)); await salvar(); return; }
     const m = /^p\/(.+)$/.exec(h);
