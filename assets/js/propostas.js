@@ -307,7 +307,7 @@
       cronogramaNota: 'Timeline counted from proposal approval, scope definition and receipt of brand materials and product content. App store review times depend on Google and Apple.',
       beneficiosTitulo: 'What ZVY gains',
       beneficios: ['Two stores selling online, each with its own identity', 'Products shown in 3D, closer to the real thing', 'An app that brings perfume customers back', 'One team for the stores, the 3D work and the app', 'Autonomy to manage products and orders', 'A structure ready to grow with new products'],
-      parceiro: false, precoTabela: '', preco: 'R$ 65,000', selo: '',
+      parceiro: false, precoTabela: '', preco: 'US$ 11,028', precoObs: 'Equivalent to R$ 65,000.00 at the Central Bank of Brazil PTAX rate of Nov 25, 2026 (R$ 5.894 per US$).', selo: '',
       escopo: ['ZVY online perfume store', 'Online cleaning products store', '3D modeling and animations', 'ZVY app for Android and iOS', 'Publishing and 30 days of support'],
       condicoes: [{ k: 'Down payment', v: '50% on approval' }, { k: 'Balance', v: 'On delivery' }, { k: 'Credit card', v: 'Up to 12x (card fees apply)' }, { k: 'Pix, paid upfront', v: '10% discount' }],
       proximos: ['Proposal approval', 'Down payment', 'Project kickoff meeting'],
@@ -361,7 +361,7 @@
       const num = v => +String(v || '').replace(/[^\d,]/g, '').replace(',', '.') || 0, desc = !d.parceiro && num(d.precoTabela) > num(d.preco) && num(d.preco) ? num(d.precoTabela) - num(d.preco) : 0;
       S.push('<section class="sec">' + tag(T.inv) + '<div class="inv"><div class="vr"><div class="vl"><p class="rot o6">' + T.invT + '</p>' +
         (d.parceiro ? '<span class="sp rot">' + T.parc + '</span>' + (d.precoTabela ? '<p class="co o7">' + T.normal + ': <s>' + esc(d.precoTabela) + '</s></p>' : '') : desc ? '<span class="sp rot">' + (d.selo ? esc(d.selo) : T.desc + R(desc)) + '</span><p class="co o7">' + T.ant + ': <s>' + esc(d.precoTabela) + '</s></p>' : '') +
-        '<p class="pg">' + esc(d.preco) + '</p>' + (d.parceiro && d.precoNota ? '<p class="cp o7">' + esc(d.precoNota) + '</p>' : '') + '</div>' +
+        '<p class="pg">' + esc(d.preco) + '</p>' + (d.parceiro && d.precoNota ? '<p class="cp o7">' + esc(d.precoNota) + '</p>' : '') + (d.precoObs ? '<p class="cp o7">' + br(d.precoObs) + '</p>' : '') + '</div>' +
         (L(d.escopo).length ? '<div class="vl"><p class="rot o6">' + T.esc + '</p><ul class="co">' + L(d.escopo).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' : '<div></div>') + '</div>' +
         (cd.length ? '<div class="cd">' + cd.map(c => '<div><p class="rot o5">' + esc(c.k) + '</p><p class="cv">' + esc(c.v) + '</p></div>').join('') + '</div>' : '') + '</div></section>');
     }
@@ -415,9 +415,13 @@
   addEventListener('resize', () => preview.fit && preview.fit());
   async function pdf(html, nome) {
     const p = $('#print'); p.innerHTML = html;
+    // mede com o documento renderizado fora da tela (escondido, a altura sai zerada e o rodapé cai numa 2ª página)
+    p.style.cssText = 'display:block;position:absolute;left:-99999px;top:0;width:1240px';
     await (document.fonts ? document.fonts.ready : Promise.resolve());
     await Promise.all([...p.querySelectorAll('img')].map(i => i.complete ? 0 : new Promise(r => { i.onload = i.onerror = r; })));
-    const h = Math.ceil(p.firstElementChild.getBoundingClientRect().height) || p.firstElementChild.scrollHeight;
+    await new Promise(r => setTimeout(r, 80));
+    const h = Math.ceil(p.firstElementChild.getBoundingClientRect().height) + 2; // 2 px de folga: nunca sobra conteúdo para outra página
+    p.style.cssText = '';
     let st = $('#pagesz'); if (!st) { st = document.createElement('style'); st.id = 'pagesz'; document.head.appendChild(st); }
     st.textContent = '@page { size: 1240px ' + h + 'px; margin: 0 }';
     const t = document.title; document.title = nome.replace(/[\\/:*?"<>|]/g, '-');
@@ -458,7 +462,7 @@
     capa: ['logo', 'tipoId', 'tipo', 'rotulo', 'titulo', 'cliente', 'data', 'codigo', 'prazo', 'contato'],
     objetivo: ['objetivo', 'objetivoTexto'], publico: ['publicoTitulo', 'publico'], demo: ['demo'],
     estrutura: ['estruturaTag', 'estruturaTitulo', 'estrutura', 'funcionalidades'], crono: ['cronogramaTitulo', 'etapas', 'cronogramaNota'],
-    ben: ['beneficiosTitulo', 'beneficios'], inv: ['parceiro', 'precoTabela', 'preco', 'selo', 'precoNota', 'escopo', 'condicoes'], fim: ['proximos', 'assinaturaCliente', 'legal']
+    ben: ['beneficiosTitulo', 'beneficios'], inv: ['parceiro', 'precoTabela', 'preco', 'precoObs', 'selo', 'precoNota', 'escopo', 'condicoes'], fim: ['proximos', 'assinaturaCliente', 'legal']
   };
   const modeloDe = d => d.modelo === 'bas' ? bas() : d.modelo === 'pacto' ? pacto() : d.modelo === 'lume' ? lume() : d.modelo === 'impacta' ? impacta() : d.modelo === 'zvy' ? zvy() : nova();
   let antes = null, tAntes = null, tUndo = 0;
@@ -493,7 +497,7 @@
     const crono = vin('Título', 'cronogramaTitulo') + D.etapas.map((e, i) => rep('Etapa ' + (i + 1), 'etapas.' + i, '<div class="g2">' + vin('Nome', 'etapas.' + i + '.t') + vin('Período', 'etapas.' + i + '.periodo') + '</div>' + vin('O que acontece', 'etapas.' + i + '.desc', { area: true, rows: 2 }))).join('') +
       '<button class="add" type="button" data-add="etapas">+ Adicionar etapa</button>' + vin('Nota', 'cronogramaNota', { area: true, rows: 2 });
     const ben = vin('Título', 'beneficiosTitulo') + vls('Benefícios', 'beneficios', 'Um por linha. Fica melhor com número par (2 colunas).', 6);
-    const inv = '<div class="g2">' + vin('Valor final', 'preco', { ph: 'R$ 10.000' }) + vin('Valor anterior (riscado)', 'precoTabela', { ph: 'R$ 12.500', dica: 'Aparece riscado sempre que for maior que o valor final, com o desconto ao lado.' }) + '</div>' + vin('Selo do desconto', 'selo', { ph: 'Desconto de R$ 2.500', dica: 'Em branco, o selo mostra o valor do desconto. Ex.: Black Friday · 20% de desconto.' }) + vin('Nota do valor de parceiro', 'precoNota', { area: true, rows: 2 }) +
+    const inv = '<div class="g2">' + vin('Valor final', 'preco', { ph: 'R$ 10.000' }) + vin('Valor anterior (riscado)', 'precoTabela', { ph: 'R$ 12.500', dica: 'Aparece riscado sempre que for maior que o valor final, com o desconto ao lado.' }) + '</div>' + vin('Observação do valor (ex.: conversão de moeda)', 'precoObs', { area: true, rows: 2 }) + vin('Selo do desconto', 'selo', { ph: 'Desconto de R$ 2.500', dica: 'Em branco, o selo mostra o valor do desconto. Ex.: Black Friday · 20% de desconto.' }) + vin('Nota do valor de parceiro', 'precoNota', { area: true, rows: 2 }) +
       vls('Escopo da entrega', 'escopo', 'Um item por linha.', 6) +
       D.condicoes.map((c, i) => rep('Condição ' + (i + 1), 'condicoes.' + i, '<div class="g2">' + vin('Título', 'condicoes.' + i + '.k') + vin('Valor', 'condicoes.' + i + '.v') + '</div>')).join('') +
       '<button class="add" type="button" data-add="condicoes">+ Adicionar condição</button>';
@@ -684,6 +688,7 @@
     for (const r of rows.filter(r => r.cliente === LUME)) { try { const p = await store.get(r.id), d = p.dados; if (d.codigo === 'PCF24112026' && d.selo === undefined) { d.selo = lume().selo; await store.save(r.id, d); } } catch (e) {} }
     if (!rows.some(r => r.cliente === LUME) && !lget(LSEM3, false)) { await store.save(null, lume()); lset(LSEM3, true); rows = await store.list(); }
     if (!rows.some(r => r.cliente === IMPACTA) && !lget(LSEM4, false)) { await store.save(null, impacta()); lset(LSEM4, true); rows = await store.list(); }
+    for (const r of rows.filter(r => r.cliente === ZVY)) { try { const p = await store.get(r.id), d = p.dados; if (d.codigo === 'PCF26112026' && /^R\$ 65,000/.test(d.preco || '')) { d.preco = zvy().preco; d.precoObs = zvy().precoObs; await store.save(r.id, d); } } catch (e) {} }
     if (!rows.some(r => r.cliente === ZVY) && !lget(LSEM5, false)) { await store.save(null, zvy()); lset(LSEM5, true); rows = await store.list(); }
     $('#lsub').textContent = rows.length ? rows.length + (rows.length === 1 ? ' proposta salva.' : ' propostas salvas.') + ' Tudo fica aqui até você excluir.' : 'Tudo o que você gerar fica salvo aqui até você excluir.';
     c.innerHTML = !rows.length ? '<div class="vazio">Nenhuma proposta ainda. Clique em <b>Nova proposta</b>.</div>' : rows.map(r => '<article class="pc" data-id="' + esc(r.id) + '"><div class="lg" data-ed>' + (r.logo ? '<img src="' + esc(r.logo) + '" alt="">' : '<span>Sem logo</span>') + '</div>' +
