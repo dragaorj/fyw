@@ -53,7 +53,7 @@
   const tipos = () => { const v = pacoteValores(TAB), c = comboValores(TAB); return TAB.itens.concat(TAB.combo && c.its.length > 1 ? [{ id: 'combo', nome: TAB.combo.titulo, tabela: c.tabela, parceiro: c.parceiro, un: '', rotulo: 'Proposta comercial para website e plataforma' }] : [], TAB.pacote && v.its.length ? [{ id: 'pacote', nome: TAB.pacote.nome, tabela: v.tabela, parceiro: v.parceiro, un: '' }] : []); };
 
   /* ---------- armazenamento: servidor (Supabase) ou este navegador ---------- */
-  const LK = 'fyw-propostas', LT = 'fyw-tabela-precos', LSEM = 'fyw-propostas-bas', LSEM2 = 'fyw-propostas-pacto', LSEM3 = 'fyw-propostas-lume', LSEM4 = 'fyw-propostas-impacta', LSEM5 = 'fyw-propostas-zvy';
+  const LK = 'fyw-propostas', LT = 'fyw-tabela-precos', LSEM = 'fyw-propostas-bas', LSEM2 = 'fyw-propostas-pacto', LSEM3 = 'fyw-propostas-lume', LSEM4 = 'fyw-propostas-impacta', LSEM5 = 'fyw-propostas-zvy', LSEM6 = 'fyw-propostas-zvy-pt';
   const lget = (k, d) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } };
   const lset = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } };
   let MODO = 'api';
@@ -307,12 +307,48 @@
       cronogramaNota: 'Timeline counted from proposal approval, scope definition and receipt of brand materials and product content. App store review times depend on Google and Apple.',
       beneficiosTitulo: 'What ZVY gains',
       beneficios: ['Two stores selling online, each with its own identity', 'Products shown in 3D, closer to the real thing', 'An app that brings perfume customers back', 'One team for the stores, the 3D work and the app', 'Autonomy to manage products and orders', 'A structure ready to grow with new products'],
-      parceiro: false, precoTabela: '', preco: 'US$ 11,028', precoObs: 'Equivalent to R$ 65,000.00 at the Central Bank of Brazil PTAX rate of Nov 25, 2026 (R$ 5.894 per US$).', selo: '',
+      parceiro: false, precoTabela: '', preco: '$12,000', precoObs: '', selo: '',
       escopo: ['ZVY online perfume store', 'Online cleaning products store', '3D modeling and animations', 'ZVY app for Android and iOS', 'Publishing and 30 days of support'],
-      condicoes: [{ k: 'Down payment', v: '50% on approval' }, { k: 'Balance', v: 'On delivery' }, { k: 'Credit card', v: 'Up to 12x (card fees apply)' }, { k: 'Pix, paid upfront', v: '10% discount' }],
+      condicoes: [{ k: 'Down payment', v: '50% on approval' }, { k: 'Balance', v: 'On delivery' }, { k: 'Credit card', v: 'Up to 12 monthly installments (card fees apply)' }, { k: 'Paid upfront', v: '10% discount' }],
       proximos: ['Proposal approval', 'Down payment', 'Project kickoff meeting'],
       assinaturaCliente: ZVY,
       legal: 'The information in this proposal is formal and illustrative. Timelines, resources and prices may be adjusted in later meetings or due to needs identified during the project. By signing, both parties agree to all the terms described here. This proposal is confidential and intended solely for the requesting company; it may not be shared without the express authorization of Fyw.'
+    });
+  }
+
+  const ZVY_PT = 'Duas lojas virtuais, 3D e o app da ZVY';
+  function zvyPt() {
+    const d = nova();
+    return Object.assign(d, {
+      modelo: 'zvypt', en: false,
+      tipoId: '', tipo: 'Lojas virtuais, 3D e aplicativo', rotulo: 'Proposta comercial para lojas virtuais, 3D e aplicativo', titulo: ZVY_PT, cliente: ZVY, logo: ZV + 'logo.svg',
+      data: '26 de novembro de 2026', codigo: 'PCF26112026', prazo: 'Até 90 dias',
+      objetivo: 'Duas lojas virtuais, produtos em 3D e um aplicativo, num único ecossistema digital para a ZVY.',
+      objetivoTexto: ['A ZVY ganha uma loja virtual de perfumes e uma segunda loja virtual de produtos de limpeza, como sabão em pó. Cada loja tem seu próprio catálogo, checkout e painel administrativo.', 'Os produtos ganham vida com modelagem e animações em 3D, e a loja de perfumes ganha também um aplicativo próprio para Android e iOS, para o cliente navegar e comprar pelo celular.'],
+      publicoTitulo: 'Para quem estamos construindo',
+      publico: ['Quem compra perfumes', 'Famílias que compram produtos de limpeza', 'Clientes que compram pelo celular', 'Clientes que voltam a comprar', 'A equipe da ZVY que cuida de produtos e pedidos'],
+      estruturaTag: 'Estrutura do projeto', estruturaTitulo: 'O que vamos construir',
+      estrutura: [
+        { t: 'Loja de perfumes da ZVY', itens: ['Catálogo de produtos e coleções', 'Páginas de produto com tamanhos e detalhes', 'Carrinho e checkout seguro', 'Painel administrativo de produtos e pedidos'] },
+        { t: 'Loja de produtos de limpeza', itens: ['Catálogo por categoria', 'Páginas de produto com tamanhos e quantidades', 'Carrinho e checkout seguro', 'Painel administrativo de produtos e pedidos'] },
+        { t: 'Modelagem e animação 3D', itens: ['Modelos 3D dos produtos', 'Animações dos produtos para as lojas', 'Visualização em 3D nas páginas de produto', 'Imagens para redes sociais e anúncios'] },
+        { t: 'App da ZVY para Android e iOS', itens: ['Catálogo de perfumes e busca', 'Carrinho, checkout e acompanhamento do pedido', 'Notificações push', 'Publicação no Google Play e na App Store'] }
+      ],
+      funcionalidades: ['Responsivo (celular, tablet e desktop)', 'Pagamento com Pix e cartão de crédito', 'Segurança (SSL e LGPD)', 'SEO e análise de dados'],
+      cronogramaTitulo: 'No ar em até 90 dias',
+      etapas: [
+        { t: 'Planejamento e design', periodo: 'Semanas 1 a 3', desc: 'Requisitos, layouts das lojas e do app, lista de produtos para o 3D e aprovação do escopo.' },
+        { t: 'Desenvolvimento e 3D', periodo: 'Semanas 4 a 10', desc: 'As duas lojas, o app, os modelos e animações em 3D e as integrações de pagamento.' },
+        { t: 'Testes e lançamento', periodo: 'Semanas 11 a 13', desc: 'Testes, publicação das lojas, envio do app ao Google Play e à App Store e lançamento.' }
+      ],
+      cronogramaNota: 'Prazo contado a partir da aprovação da proposta, da definição do escopo e do recebimento dos materiais da marca e do conteúdo dos produtos. O tempo de análise das lojas de aplicativos depende do Google e da Apple.',
+      beneficiosTitulo: 'O que a ZVY ganha',
+      beneficios: ['Duas lojas vendendo online, cada uma com sua identidade', 'Produtos em 3D, mais perto do real', 'Um app que traz o cliente de perfumes de volta', 'Um só time para as lojas, o 3D e o app', 'Autonomia para cuidar de produtos e pedidos', 'Estrutura pronta para crescer com novos produtos'],
+      parceiro: false, precoTabela: '', preco: 'R$ 65.000', precoObs: '', selo: '',
+      escopo: ['Loja virtual de perfumes da ZVY', 'Loja virtual de produtos de limpeza', 'Modelagem e animações em 3D', 'App da ZVY para Android e iOS', 'Publicação e 30 dias de suporte'],
+      condicoes: [{ k: 'Entrada', v: '50% na aprovação' }, { k: 'Restante', v: 'Na entrega' }, { k: 'No cartão', v: 'Até 12x (juros da operadora)' }, { k: 'À vista no Pix', v: '10% de desconto' }],
+      proximos: ['Aprovação da proposta', 'Pagamento da entrada', 'Reunião de início do projeto'],
+      assinaturaCliente: ZVY
     });
   }
 
@@ -464,7 +500,7 @@
     estrutura: ['estruturaTag', 'estruturaTitulo', 'estrutura', 'funcionalidades'], crono: ['cronogramaTitulo', 'etapas', 'cronogramaNota'],
     ben: ['beneficiosTitulo', 'beneficios'], inv: ['parceiro', 'precoTabela', 'preco', 'precoObs', 'selo', 'precoNota', 'escopo', 'condicoes'], fim: ['proximos', 'assinaturaCliente', 'legal']
   };
-  const modeloDe = d => d.modelo === 'bas' ? bas() : d.modelo === 'pacto' ? pacto() : d.modelo === 'lume' ? lume() : d.modelo === 'impacta' ? impacta() : d.modelo === 'zvy' ? zvy() : nova();
+  const modeloDe = d => d.modelo === 'bas' ? bas() : d.modelo === 'pacto' ? pacto() : d.modelo === 'lume' ? lume() : d.modelo === 'impacta' ? impacta() : d.modelo === 'zvy' ? zvy() : d.modelo === 'zvypt' ? zvyPt() : nova();
   let antes = null, tAntes = null, tUndo = 0;
   const mostraDesfazer = () => { const u = $('#undo'); if (!u) return; u.hidden = false; clearTimeout(tUndo); tUndo = setTimeout(() => { const v = $('#undo'); if (v) v.hidden = true; }, 20000); };
   const agora = () => new Date().toISOString();
@@ -688,8 +724,9 @@
     for (const r of rows.filter(r => r.cliente === LUME)) { try { const p = await store.get(r.id), d = p.dados; if (d.codigo === 'PCF24112026' && d.selo === undefined) { d.selo = lume().selo; await store.save(r.id, d); } } catch (e) {} }
     if (!rows.some(r => r.cliente === LUME) && !lget(LSEM3, false)) { await store.save(null, lume()); lset(LSEM3, true); rows = await store.list(); }
     if (!rows.some(r => r.cliente === IMPACTA) && !lget(LSEM4, false)) { await store.save(null, impacta()); lset(LSEM4, true); rows = await store.list(); }
-    for (const r of rows.filter(r => r.cliente === ZVY)) { try { const p = await store.get(r.id), d = p.dados; if (d.codigo === 'PCF26112026' && /^R\$ 65,000/.test(d.preco || '')) { d.preco = zvy().preco; d.precoObs = zvy().precoObs; await store.save(r.id, d); } } catch (e) {} }
+    for (const r of rows.filter(r => r.cliente === ZVY)) { try { const p = await store.get(r.id), d = p.dados; if (d.codigo === 'PCF26112026' && d.en && /^(R\$ 65,000|US\$ 11,028)/.test(d.preco || '')) { const z = zvy(); d.preco = z.preco; d.precoObs = z.precoObs; d.condicoes = z.condicoes; await store.save(r.id, d); } } catch (e) {} }
     if (!rows.some(r => r.cliente === ZVY) && !lget(LSEM5, false)) { await store.save(null, zvy()); lset(LSEM5, true); rows = await store.list(); }
+    if (!rows.some(r => r.cliente === ZVY && r.titulo === ZVY_PT) && !lget(LSEM6, false)) { await store.save(null, zvyPt()); lset(LSEM6, true); rows = await store.list(); }
     $('#lsub').textContent = rows.length ? rows.length + (rows.length === 1 ? ' proposta salva.' : ' propostas salvas.') + ' Tudo fica aqui até você excluir.' : 'Tudo o que você gerar fica salvo aqui até você excluir.';
     c.innerHTML = !rows.length ? '<div class="vazio">Nenhuma proposta ainda. Clique em <b>Nova proposta</b>.</div>' : rows.map(r => '<article class="pc" data-id="' + esc(r.id) + '"><div class="lg" data-ed>' + (r.logo ? '<img src="' + esc(r.logo) + '" alt="">' : '<span>Sem logo</span>') + '</div>' +
       '<div class="in"><h3>' + esc(r.titulo) + '</h3><p class="cl">' + esc(r.cliente) + '</p><div class="mt">' + (r.tipo ? '<span class="chipx">' + esc(r.tipo) + '</span>' : '') + (r.preco ? '<span class="chipx acc">' + esc(r.preco === 'R$ 6.500' && /agenda/i.test(r.tipo || '') ? 'R$ 10.000' : r.preco) + '</span>' : '') + '<span class="chipx">Editada em ' + dataCurta(r.atualizado) + '</span>' + pdfChip(r.pdfs) + '</div></div>' +
@@ -754,7 +791,7 @@
     const m = /^p\/(.+)$/.exec(h);
     if (m) {
       tela('ed'); $('#form').innerHTML = '<p class="vazio">Carregando…</p>';
-      try { const p = await store.get(decodeURIComponent(m[1])); ID = p.id; D = Object.assign(nova(), { modelo: p.dados.cliente === 'Bio Amazon Summit' ? 'bas' : p.dados.cliente === PACTO ? 'pacto' : p.dados.cliente === LUME ? 'lume' : p.dados.cliente === IMPACTA ? 'impacta' : p.dados.cliente === ZVY ? 'zvy' : 'nova' }, agendaNova(p.dados)); }
+      try { const p = await store.get(decodeURIComponent(m[1])); ID = p.id; D = Object.assign(nova(), { modelo: p.dados.cliente === 'Bio Amazon Summit' ? 'bas' : p.dados.cliente === PACTO ? 'pacto' : p.dados.cliente === LUME ? 'lume' : p.dados.cliente === IMPACTA ? 'impacta' : p.dados.cliente === ZVY ? (p.dados.en ? 'zvy' : 'zvypt') : 'nova' }, agendaNova(p.dados)); }
       catch (e) { $('#form').innerHTML = '<p class="vazio">' + esc(e.message) + '</p>'; return; }
       $('#pinfo').textContent = 'Prévia do PDF (página única, 1240 px de largura)'; form(); preview(doc(D)); return;
     }
