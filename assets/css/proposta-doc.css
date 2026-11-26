@@ -175,3 +175,9 @@
    O degradê radial fica igual na tela e sai como vetor no PDF. */
 .pdoc .gl { filter: none !important; opacity: 1 !important; background: radial-gradient(closest-side, var(--c) 60%, transparent 100%) !important; transform: scale(1.7); }
 .pdoc .pkg .gl { transform: scale(1.5); }
+/* valores por item: nome à esquerda, valor à direita, linha fina entre eles */
+.pdoc .inv .vl:has(.vals) { justify-items: stretch; }
+.pdoc .inv .vals { display: grid; width: 100%; }
+.pdoc .inv .vals > div { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 13px 0; border-top: 1px solid rgba(238,237,233,.14); }
+.pdoc .inv .vals > div:last-child { border-bottom: 1px solid rgba(238,237,233,.14); }
+.pdoc .inv .vals dd { white-space: nowrap; font-weight: 600; color: #C8F53C; }

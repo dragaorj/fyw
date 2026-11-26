@@ -307,7 +307,8 @@
       cronogramaNota: 'Timeline counted from proposal approval, scope definition and receipt of brand materials and product content. App store review times depend on Google and Apple.',
       beneficiosTitulo: 'What ZVY gains',
       beneficios: ['Two stores selling online, each with its own identity', 'Products shown in 3D, closer to the real thing', 'An app that brings perfume customers back', 'One team for the stores, the 3D work and the app', 'Autonomy to manage products and orders', 'A structure ready to grow with new products'],
-      parceiro: false, precoTabela: '', preco: '$12,000', precoObs: '', selo: '',
+      parceiro: false, precoTabela: '', preco: '$70,000', precoObs: '', selo: '',
+      valores: [{ k: 'ZVY online perfume store', v: '$20,000' }, { k: 'Online cleaning products store', v: '$20,000' }, { k: 'ZVY app for Android and iOS', v: '$30,000' }, { k: '3D modeling and animations', v: 'Included' }, { k: 'Publishing and 30 days of support', v: 'Included' }],
       escopo: ['ZVY online perfume store', 'Online cleaning products store', '3D modeling and animations', 'ZVY app for Android and iOS', 'Publishing and 30 days of support'],
       condicoes: [{ k: 'Down payment', v: '50% on approval' }, { k: 'Balance', v: 'On delivery' }, { k: 'Credit card', v: 'Up to 12 monthly installments (card fees apply)' }, { k: 'Paid upfront', v: '10% discount' }],
       proximos: ['Proposal approval', 'Down payment', 'Project kickoff meeting'],
@@ -344,7 +345,8 @@
       cronogramaNota: 'Prazo contado a partir da aprovação da proposta, da definição do escopo e do recebimento dos materiais da marca e do conteúdo dos produtos. O tempo de análise das lojas de aplicativos depende do Google e da Apple.',
       beneficiosTitulo: 'O que a ZVY ganha',
       beneficios: ['Duas lojas vendendo online, cada uma com sua identidade', 'Produtos em 3D, mais perto do real', 'Um app que traz o cliente de perfumes de volta', 'Um só time para as lojas, o 3D e o app', 'Autonomia para cuidar de produtos e pedidos', 'Estrutura pronta para crescer com novos produtos'],
-      parceiro: false, precoTabela: '', preco: 'R$ 65.000', precoObs: '', selo: '',
+      parceiro: false, precoTabela: '', preco: 'R$ 402.500', precoObs: 'Valores convertidos de dólar pela PTAX do Banco Central de 26/11/2026 (R$ 5,7446 por US$), arredondados.', selo: '',
+      valores: [{ k: 'Loja virtual de perfumes da ZVY', v: 'R$ 115.000' }, { k: 'Loja virtual de produtos de limpeza', v: 'R$ 115.000' }, { k: 'App da ZVY para Android e iOS', v: 'R$ 172.500' }, { k: 'Modelagem e animações em 3D', v: 'Incluso' }, { k: 'Publicação e 30 dias de suporte', v: 'Incluso' }],
       escopo: ['Loja virtual de perfumes da ZVY', 'Loja virtual de produtos de limpeza', 'Modelagem e animações em 3D', 'App da ZVY para Android e iOS', 'Publicação e 30 dias de suporte'],
       condicoes: [{ k: 'Entrada', v: '50% na aprovação' }, { k: 'Restante', v: 'Na entrega' }, { k: 'No cartão', v: 'Até 12x (juros da operadora)' }, { k: 'À vista no Pix', v: '10% de desconto' }],
       proximos: ['Aprovação da proposta', 'Pagamento da entrada', 'Reunião de início do projeto'],
@@ -365,8 +367,8 @@
   const br = s => esc(s).replace(/\n/g, '<br>');
 
   const TXT = {
-    pt: { obj: 'Objetivo', pub: 'Público-alvo', demo: 'Demonstração', est: 'Estrutura do projeto', func: 'Funcionalidades', crono: 'Cronograma', ben: 'Benefícios', inv: 'Investimento', invT: 'Investimento total', parc: 'Valor exclusivo para parceiros Fyw', normal: 'Valor normal', desc: 'Desconto de ', ant: 'Valor anterior', esc: 'Escopo da entrega', prox: 'Próximos passos', contr: 'Contratante', data: 'Data', cod: 'Código', prazo: 'Prazo', cont: 'Contato', prop: 'Proposta comercial', logo: 'Logo do cliente', para: 'Preparada para ' },
-    en: { obj: 'Objective', pub: 'Target audience', demo: 'Demo', est: 'Project structure', func: 'Features', crono: 'Timeline', ben: 'Benefits', inv: 'Investment', invT: 'Total investment', parc: 'Exclusive Fyw partner price', normal: 'Regular price', desc: 'Discount of ', ant: 'Previous price', esc: 'Delivery scope', prox: 'Next steps', contr: 'Client', data: 'Date', cod: 'Code', prazo: 'Delivery', cont: 'Contact', prop: 'Commercial proposal', logo: 'Client logo', para: 'Prepared for ' }
+    pt: { obj: 'Objetivo', pub: 'Público-alvo', demo: 'Demonstração', est: 'Estrutura do projeto', func: 'Funcionalidades', crono: 'Cronograma', ben: 'Benefícios', inv: 'Investimento', invT: 'Investimento total', parc: 'Valor exclusivo para parceiros Fyw', normal: 'Valor normal', desc: 'Desconto de ', ant: 'Valor anterior', esc: 'Escopo da entrega', vals: 'Valores por item', prox: 'Próximos passos', contr: 'Contratante', data: 'Data', cod: 'Código', prazo: 'Prazo', cont: 'Contato', prop: 'Proposta comercial', logo: 'Logo do cliente', para: 'Preparada para ' },
+    en: { obj: 'Objective', pub: 'Target audience', demo: 'Demo', est: 'Project structure', func: 'Features', crono: 'Timeline', ben: 'Benefits', inv: 'Investment', invT: 'Total investment', parc: 'Exclusive Fyw partner price', normal: 'Regular price', desc: 'Discount of ', ant: 'Previous price', esc: 'Delivery scope', vals: 'Itemized pricing', prox: 'Next steps', contr: 'Client', data: 'Date', cod: 'Code', prazo: 'Delivery', cont: 'Contact', prop: 'Commercial proposal', logo: 'Client logo', para: 'Prepared for ' }
   };
   function doc(d) {
     let n = 0; const T = TXT[d.en ? 'en' : 'pt'];
@@ -398,7 +400,7 @@
       S.push('<section class="sec">' + tag(T.inv) + '<div class="inv"><div class="vr"><div class="vl"><p class="rot o6">' + T.invT + '</p>' +
         (d.parceiro ? '<span class="sp rot">' + T.parc + '</span>' + (d.precoTabela ? '<p class="co o7">' + T.normal + ': <s>' + esc(d.precoTabela) + '</s></p>' : '') : desc ? '<span class="sp rot">' + (d.selo ? esc(d.selo) : T.desc + R(desc)) + '</span><p class="co o7">' + T.ant + ': <s>' + esc(d.precoTabela) + '</s></p>' : '') +
         '<p class="pg">' + esc(d.preco) + '</p>' + (d.parceiro && d.precoNota ? '<p class="cp o7">' + esc(d.precoNota) + '</p>' : '') + (d.precoObs ? '<p class="cp o7">' + br(d.precoObs) + '</p>' : '') + '</div>' +
-        (L(d.escopo).length ? '<div class="vl"><p class="rot o6">' + T.esc + '</p><ul class="co">' + L(d.escopo).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' : '<div></div>') + '</div>' +
+        ((d.valores || []).filter(v => v.k || v.v).length ? '<div class="vl"><p class="rot o6">' + T.vals + '</p><dl class="vals">' + d.valores.filter(v => v.k || v.v).map(v => '<div><dt class="co">' + esc(v.k) + '</dt><dd class="co">' + esc(v.v) + '</dd></div>').join('') + '</dl></div>' : L(d.escopo).length ? '<div class="vl"><p class="rot o6">' + T.esc + '</p><ul class="co">' + L(d.escopo).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' : '<div></div>') + '</div>' +
         (cd.length ? '<div class="cd">' + cd.map(c => '<div><p class="rot o5">' + esc(c.k) + '</p><p class="cv">' + esc(c.v) + '</p></div>').join('') + '</div>' : '') + '</div></section>');
     }
     const px = L(d.proximos);
@@ -498,7 +500,7 @@
     capa: ['logo', 'tipoId', 'tipo', 'rotulo', 'titulo', 'cliente', 'data', 'codigo', 'prazo', 'contato'],
     objetivo: ['objetivo', 'objetivoTexto'], publico: ['publicoTitulo', 'publico'], demo: ['demo'],
     estrutura: ['estruturaTag', 'estruturaTitulo', 'estrutura', 'funcionalidades'], crono: ['cronogramaTitulo', 'etapas', 'cronogramaNota'],
-    ben: ['beneficiosTitulo', 'beneficios'], inv: ['parceiro', 'precoTabela', 'preco', 'precoObs', 'selo', 'precoNota', 'escopo', 'condicoes'], fim: ['proximos', 'assinaturaCliente', 'legal']
+    ben: ['beneficiosTitulo', 'beneficios'], inv: ['parceiro', 'precoTabela', 'preco', 'precoObs', 'selo', 'precoNota', 'escopo', 'valores', 'condicoes'], fim: ['proximos', 'assinaturaCliente', 'legal']
   };
   const modeloDe = d => d.modelo === 'bas' ? bas() : d.modelo === 'pacto' ? pacto() : d.modelo === 'lume' ? lume() : d.modelo === 'impacta' ? impacta() : d.modelo === 'zvy' ? zvy() : d.modelo === 'zvypt' ? zvyPt() : nova();
   let antes = null, tAntes = null, tUndo = 0;
@@ -535,6 +537,8 @@
     const ben = vin('Título', 'beneficiosTitulo') + vls('Benefícios', 'beneficios', 'Um por linha. Fica melhor com número par (2 colunas).', 6);
     const inv = '<div class="g2">' + vin('Valor final', 'preco', { ph: 'R$ 10.000' }) + vin('Valor anterior (riscado)', 'precoTabela', { ph: 'R$ 12.500', dica: 'Aparece riscado sempre que for maior que o valor final, com o desconto ao lado.' }) + '</div>' + vin('Observação do valor (ex.: conversão de moeda)', 'precoObs', { area: true, rows: 2 }) + vin('Selo do desconto', 'selo', { ph: 'Desconto de R$ 2.500', dica: 'Em branco, o selo mostra o valor do desconto. Ex.: Black Friday · 20% de desconto.' }) + vin('Nota do valor de parceiro', 'precoNota', { area: true, rows: 2 }) +
       vls('Escopo da entrega', 'escopo', 'Um item por linha.', 6) +
+      (D.valores = D.valores || []).map((c, i) => rep('Item ' + (i + 1), 'valores.' + i, '<div class="g2">' + vin('Item', 'valores.' + i + '.k') + vin('Valor', 'valores.' + i + '.v') + '</div>')).join('') +
+      '<button class="add" type="button" data-add="valores">+ Adicionar item com valor</button>' +
       D.condicoes.map((c, i) => rep('Condição ' + (i + 1), 'condicoes.' + i, '<div class="g2">' + vin('Título', 'condicoes.' + i + '.k') + vin('Valor', 'condicoes.' + i + '.v') + '</div>')).join('') +
       '<button class="add" type="button" data-add="condicoes">+ Adicionar condição</button>';
     const fim = vls('Próximos passos', 'proximos', 'Um por linha (até 3 ficam lado a lado).', 3) + vin('Nome na assinatura do cliente', 'assinaturaCliente', { ph: D.cliente }) + vin('Texto legal', 'legal', { area: true, rows: 5 });
@@ -587,7 +591,7 @@
     for (const f of files) { const v = await imagem(f, 'foto'); if (v) s.fotos = L(s.fotos).concat(v); }
     mudou(true);
   });
-  const NOVOS = { 'demo.sessoes': () => ({ hora: '', titulo: '', pessoas: '', fotos: [], dur: '', trilha: '', local: '', cor: '#FF6A2B' }), estrutura: () => ({ t: '', itens: [] }), etapas: () => ({ t: '', periodo: '', desc: '' }), condicoes: () => ({ k: '', v: '' }) };
+  const NOVOS = { 'demo.sessoes': () => ({ hora: '', titulo: '', pessoas: '', fotos: [], dur: '', trilha: '', local: '', cor: '#FF6A2B' }), estrutura: () => ({ t: '', itens: [] }), etapas: () => ({ t: '', periodo: '', desc: '' }), valores: () => ({ k: '', v: '' }), condicoes: () => ({ k: '', v: '' }) };
   $('#form').addEventListener('click', async e => {
     if (!D) return;
     const b = e.target.closest('button'); if (!b) return;
@@ -724,7 +728,7 @@
     for (const r of rows.filter(r => r.cliente === LUME)) { try { const p = await store.get(r.id), d = p.dados; if (d.codigo === 'PCF24112026' && d.selo === undefined) { d.selo = lume().selo; await store.save(r.id, d); } } catch (e) {} }
     if (!rows.some(r => r.cliente === LUME) && !lget(LSEM3, false)) { await store.save(null, lume()); lset(LSEM3, true); rows = await store.list(); }
     if (!rows.some(r => r.cliente === IMPACTA) && !lget(LSEM4, false)) { await store.save(null, impacta()); lset(LSEM4, true); rows = await store.list(); }
-    for (const r of rows.filter(r => r.cliente === ZVY)) { try { const p = await store.get(r.id), d = p.dados; if (d.codigo === 'PCF26112026' && d.en && /^(R\$ 65,000|US\$ 11,028)/.test(d.preco || '')) { const z = zvy(); d.preco = z.preco; d.precoObs = z.precoObs; d.condicoes = z.condicoes; await store.save(r.id, d); } } catch (e) {} }
+    for (const r of rows.filter(r => r.cliente === ZVY)) { try { const p = await store.get(r.id), d = p.dados; if (d.codigo === 'PCF26112026' && !d.valores) { const z = d.en ? zvy() : zvyPt(); if (/^(R\$ 65[.,]000|US\$ 11,028|\$12,000)$/.test(d.preco || '')) { d.preco = z.preco; d.precoObs = z.precoObs; d.valores = z.valores; d.condicoes = z.condicoes; await store.save(r.id, d); } } } catch (e) {} }
     if (!rows.some(r => r.cliente === ZVY) && !lget(LSEM5, false)) { await store.save(null, zvy()); lset(LSEM5, true); rows = await store.list(); }
     if (!rows.some(r => r.cliente === ZVY && r.titulo === ZVY_PT) && !lget(LSEM6, false)) { await store.save(null, zvyPt()); lset(LSEM6, true); rows = await store.list(); }
     $('#lsub').textContent = rows.length ? rows.length + (rows.length === 1 ? ' proposta salva.' : ' propostas salvas.') + ' Tudo fica aqui até você excluir.' : 'Tudo o que você gerar fica salvo aqui até você excluir.';
