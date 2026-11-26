@@ -345,8 +345,8 @@
       cronogramaNota: 'Prazo contado a partir da aprovação da proposta, da definição do escopo e do recebimento dos materiais da marca e do conteúdo dos produtos. O tempo de análise das lojas de aplicativos depende do Google e da Apple.',
       beneficiosTitulo: 'O que a ZVY ganha',
       beneficios: ['Duas lojas vendendo online, cada uma com sua identidade', 'Produtos em 3D, mais perto do real', 'Um app que traz o cliente de perfumes de volta', 'Um só time para as lojas, o 3D e o app', 'Autonomia para cuidar de produtos e pedidos', 'Estrutura pronta para crescer com novos produtos'],
-      parceiro: false, precoTabela: '', preco: 'R$ 402.500', precoObs: 'Valores convertidos de dólar pela PTAX do Banco Central de 26/11/2026 (R$ 5,7446 por US$), arredondados.', selo: '',
-      valores: [{ k: 'Loja virtual de perfumes da ZVY', v: 'R$ 115.000' }, { k: 'Loja virtual de produtos de limpeza', v: 'R$ 115.000' }, { k: 'App da ZVY para Android e iOS', v: 'R$ 172.500' }, { k: 'Modelagem e animações em 3D', v: 'Incluso' }, { k: 'Publicação e 30 dias de suporte', v: 'Incluso' }],
+      parceiro: false, precoTabela: '', preco: 'R$ 100.000', precoObs: '', selo: '',
+      valores: [{ k: 'Loja virtual de perfumes da ZVY', v: 'R$ 25.000' }, { k: 'Loja virtual de produtos de limpeza', v: 'R$ 25.000' }, { k: 'App da ZVY para Android e iOS', v: 'R$ 50.000' }, { k: 'Modelagem e animações em 3D', v: 'Incluso' }, { k: 'Publicação e 30 dias de suporte', v: 'Incluso' }],
       escopo: ['Loja virtual de perfumes da ZVY', 'Loja virtual de produtos de limpeza', 'Modelagem e animações em 3D', 'App da ZVY para Android e iOS', 'Publicação e 30 dias de suporte'],
       condicoes: [{ k: 'Entrada', v: '50% na aprovação' }, { k: 'Restante', v: 'Na entrega' }, { k: 'No cartão', v: 'Até 12x (juros da operadora)' }, { k: 'À vista no Pix', v: '10% de desconto' }],
       proximos: ['Aprovação da proposta', 'Pagamento da entrada', 'Reunião de início do projeto'],
@@ -746,6 +746,8 @@
     if (!rows.some(r => r.cliente === LUME) && !lget(LSEM3, false)) { await store.save(null, lume()); lset(LSEM3, true); rows = await store.list(); }
     if (!rows.some(r => r.cliente === IMPACTA) && !lget(LSEM4, false)) { await store.save(null, impacta()); lset(LSEM4, true); rows = await store.list(); }
     for (const r of rows.filter(r => r.cliente === ZVY)) { try { const p = await store.get(r.id), d = p.dados; if (d.codigo === 'PCF26112026' && !d.valores) { const z = d.en ? zvy() : zvyPt(); if (/^(R\$ 65[.,]000|US\$ 11,028|\$12,000)$/.test(d.preco || '')) { d.preco = z.preco; d.precoObs = z.precoObs; d.valores = z.valores; d.condicoes = z.condicoes; await store.save(r.id, d); } } } catch (e) {} }
+    // a versão em português da ZVY (aberta ou guardada em "outro") passa a R$ 25.000 por loja e R$ 50.000 o app
+    for (const r of rows.filter(r => r.cliente === ZVY)) { try { const p = await store.get(r.id), d = p.dados, z = zvyPt(); let mud = false; for (const x of [d, d.outro]) if (x && !x.en && x.preco === 'R$ 402.500') { x.preco = z.preco; x.precoObs = z.precoObs; x.valores = z.valores; mud = true; } if (mud) await store.save(r.id, d); } catch (e) {} }
     // as versões em inglês e em português da ZVY viram uma proposta só (a em português fica dentro, em "outro")
     { const zs = rows.filter(r => r.cliente === ZVY); if (zs.length > 1) { try { const ps = await Promise.all(zs.map(r => store.get(r.id))); const en = ps.find(p => p.dados.en && !p.dados.outro), pt = ps.find(p => !p.dados.en && p !== en);
       if (en && pt) { const o = clone(pt.dados); delete o.outro; en.dados.outro = o; await store.save(en.id, en.dados); await store.del(pt.id); rows = await store.list(); } } catch (e) {} } }
