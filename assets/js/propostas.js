@@ -53,7 +53,7 @@
   const tipos = () => { const v = pacoteValores(TAB), c = comboValores(TAB); return TAB.itens.concat(TAB.combo && c.its.length > 1 ? [{ id: 'combo', nome: TAB.combo.titulo, tabela: c.tabela, parceiro: c.parceiro, un: '', rotulo: 'Proposta comercial para website e plataforma' }] : [], TAB.pacote && v.its.length ? [{ id: 'pacote', nome: TAB.pacote.nome, tabela: v.tabela, parceiro: v.parceiro, un: '' }] : []); };
 
   /* ---------- armazenamento: servidor (Supabase) ou este navegador ---------- */
-  const LK = 'fyw-propostas', LT = 'fyw-tabela-precos', LSEM = 'fyw-propostas-bas', LSEM2 = 'fyw-propostas-pacto', LSEM3 = 'fyw-propostas-lume', LSEM4 = 'fyw-propostas-impacta';
+  const LK = 'fyw-propostas', LT = 'fyw-tabela-precos', LSEM = 'fyw-propostas-bas', LSEM2 = 'fyw-propostas-pacto', LSEM3 = 'fyw-propostas-lume', LSEM4 = 'fyw-propostas-impacta', LSEM5 = 'fyw-propostas-zvy';
   const lget = (k, d) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } };
   const lset = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } };
   let MODO = 'api';
@@ -278,6 +278,44 @@
     });
   }
 
+  // ZVY: loja de perfumes com app (Android e iOS) e uma segunda loja de produtos de limpeza; proposta em inglês
+  const ZV = '/assets/img/propostas/zvy/', ZVY = 'ZVY';
+  function zvy() {
+    const d = nova();
+    return Object.assign(d, {
+      modelo: 'zvy', en: true,
+      tipoId: '', tipo: 'E-commerce, 3D and mobile app', rotulo: 'Commercial proposal for e-commerce, 3D and mobile app', titulo: 'Two online stores, 3D and the ZVY app', cliente: ZVY, logo: ZV + 'logo.svg',
+      data: 'November 26, 2026', codigo: 'PCF26112026', prazo: 'Up to 90 days',
+      objetivo: 'Two online stores, 3D product visuals and a mobile app, built as one digital ecosystem for ZVY.',
+      objetivoTexto: ['ZVY gets an online perfume store and a second online store for cleaning products, such as laundry detergent. Each store has its own catalog, checkout and admin panel.', 'The products come to life with 3D modeling and animations, and the perfume store also gets its own app for Android and iOS, so customers can browse and buy from their phones.'],
+      publicoTitulo: 'Who we are building for',
+      publico: ['Perfume shoppers', 'Households buying cleaning products', 'Customers who shop on their phones', 'Repeat buyers', 'The ZVY team managing products and orders'],
+      estruturaTag: 'Project structure', estruturaTitulo: 'What we will build',
+      estrutura: [
+        { t: 'ZVY perfume store', itens: ['Product catalog and collections', 'Product pages with sizes and details', 'Cart and secure checkout', 'Admin panel for products and orders'] },
+        { t: 'Cleaning products store', itens: ['Catalog by category', 'Product pages with sizes and quantities', 'Cart and secure checkout', 'Admin panel for products and orders'] },
+        { t: '3D modeling and animation', itens: ['3D models of the products', 'Product animations for the stores', '3D viewing on the product pages', 'Renders for social media and ads'] },
+        { t: 'ZVY app for Android and iOS', itens: ['Perfume catalog and search', 'Cart, checkout and order tracking', 'Push notifications', 'Publishing on Google Play and the App Store'] }
+      ],
+      funcionalidades: ['Responsive (mobile, tablet and desktop)', 'Payments with Pix and credit card', 'Security (SSL and LGPD)', 'SEO and analytics'],
+      cronogramaTitulo: 'Live in up to 90 days',
+      etapas: [
+        { t: 'Planning and design', periodo: 'Weeks 1 to 3', desc: 'Requirements, store and app layouts, the product list for the 3D work and scope approval.' },
+        { t: 'Development and 3D', periodo: 'Weeks 4 to 10', desc: 'Both stores, the app, the 3D models and animations, and the payment integrations.' },
+        { t: 'Testing and launch', periodo: 'Weeks 11 to 13', desc: 'Testing, store publishing, app submission to Google Play and the App Store, and launch.' }
+      ],
+      cronogramaNota: 'Timeline counted from proposal approval, scope definition and receipt of brand materials and product content. App store review times depend on Google and Apple.',
+      beneficiosTitulo: 'What ZVY gains',
+      beneficios: ['Two stores selling online, each with its own identity', 'Products shown in 3D, closer to the real thing', 'An app that brings perfume customers back', 'One team for the stores, the 3D work and the app', 'Autonomy to manage products and orders', 'A structure ready to grow with new products'],
+      parceiro: false, precoTabela: '', preco: 'R$ 65,000', selo: '',
+      escopo: ['ZVY online perfume store', 'Online cleaning products store', '3D modeling and animations', 'ZVY app for Android and iOS', 'Publishing and 30 days of support'],
+      condicoes: [{ k: 'Down payment', v: '50% on approval' }, { k: 'Balance', v: 'On delivery' }, { k: 'Credit card', v: 'Up to 12x (card fees apply)' }, { k: 'Pix, paid upfront', v: '10% discount' }],
+      proximos: ['Proposal approval', 'Down payment', 'Project kickoff meeting'],
+      assinaturaCliente: ZVY,
+      legal: 'The information in this proposal is formal and illustrative. Timelines, resources and prices may be adjusted in later meetings or due to needs identified during the project. By signing, both parties agree to all the terms described here. This proposal is confidential and intended solely for the requesting company; it may not be shared without the express authorization of Fyw.'
+    });
+  }
+
   /* ---------- documento (HTML igual ao modelo de página única do Figma) ---------- */
   const IC = {
     clock: '<svg class="ico" width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
@@ -290,16 +328,20 @@
   const chips = a => '<div class="chips">' + L(a).map(x => '<span class="chip co"><i class="dot"></i>' + esc(x) + '</span>').join('') + '</div>';
   const br = s => esc(s).replace(/\n/g, '<br>');
 
+  const TXT = {
+    pt: { obj: 'Objetivo', pub: 'Público-alvo', demo: 'Demonstração', est: 'Estrutura do projeto', func: 'Funcionalidades', crono: 'Cronograma', ben: 'Benefícios', inv: 'Investimento', invT: 'Investimento total', parc: 'Valor exclusivo para parceiros Fyw', normal: 'Valor normal', desc: 'Desconto de ', ant: 'Valor anterior', esc: 'Escopo da entrega', prox: 'Próximos passos', contr: 'Contratante', data: 'Data', cod: 'Código', prazo: 'Prazo', cont: 'Contato', prop: 'Proposta comercial', logo: 'Logo do cliente', para: 'Preparada para ' },
+    en: { obj: 'Objective', pub: 'Target audience', demo: 'Demo', est: 'Project structure', func: 'Features', crono: 'Timeline', ben: 'Benefits', inv: 'Investment', invT: 'Total investment', parc: 'Exclusive Fyw partner price', normal: 'Regular price', desc: 'Discount of ', ant: 'Previous price', esc: 'Delivery scope', prox: 'Next steps', contr: 'Client', data: 'Date', cod: 'Code', prazo: 'Delivery', cont: 'Contact', prop: 'Commercial proposal', logo: 'Client logo', para: 'Prepared for ' }
+  };
   function doc(d) {
-    let n = 0;
+    let n = 0; const T = TXT[d.en ? 'en' : 'pt'];
     const tag = nome => '<div class="tag"><b class="rot">' + String(++n).padStart(2, '0') + '</b><span class="rot">' + esc(nome) + '</span></div>';
     const S = [];
     const obj = L(d.objetivoTexto);
-    if (d.objetivo || obj.length) S.push('<section class="sec">' + tag('Objetivo') + (d.objetivo ? '<h2 class="t1">' + br(d.objetivo) + '</h2>' : '') + (obj.length ? '<div class="two co">' + obj.map(p => '<p>' + br(p) + '</p>').join('') + '</div>' : '') + '</section>');
-    if (L(d.publico).length) S.push('<section class="sec">' + tag('Público-alvo') + '<h2 class="t1">' + br(d.publicoTitulo) + '</h2>' + chips(d.publico) + '</section>');
+    if (d.objetivo || obj.length) S.push('<section class="sec">' + tag(T.obj) + (d.objetivo ? '<h2 class="t1">' + br(d.objetivo) + '</h2>' : '') + (obj.length ? '<div class="two co">' + obj.map(p => '<p>' + br(p) + '</p>').join('') + '</div>' : '') + '</section>');
+    if (L(d.publico).length) S.push('<section class="sec">' + tag(T.pub) + '<h2 class="t1">' + br(d.publicoTitulo) + '</h2>' + chips(d.publico) + '</section>');
     const dm = d.demo || {};
     if (dm.ativo && (dm.sessoes || []).length) {
-      S.push('<section class="sec">' + tag('Demonstração') + '<h2 class="t1">' + br(dm.titulo) + '</h2><div class="demo">' + dm.sessoes.map(s => {
+      S.push('<section class="sec">' + tag(T.demo) + '<h2 class="t1">' + br(dm.titulo) + '</h2><div class="demo">' + dm.sessoes.map(s => {
         const c = s.cor || '#FF6A2B', f = L(s.fotos);
         return '<div class="hora cp">' + IC.clock + '<span>' + esc(s.hora) + '</span></div>' +
           '<div class="ss" style="--c:' + esc(c) + '">' + (f.length ? '<div class="av">' + f.map(u => '<img src="' + esc(u) + '" alt="">').join('') + '</div>' : '') +
@@ -308,29 +350,29 @@
       }).join('') + '</div>' + (dm.nota ? '<p class="note cp">' + esc(dm.nota) + '</p>' : '') + '</section>');
     }
     const est = (d.estrutura || []).filter(c => c.t || L(c.itens).length), fn = L(d.funcionalidades);
-    if (est.length || fn.length) S.push('<section class="sec">' + tag(d.estruturaTag || 'Estrutura do projeto') + '<h2 class="t1">' + br(d.estruturaTitulo) + '</h2>' +
+    if (est.length || fn.length) S.push('<section class="sec">' + tag(d.estruturaTag || T.est) + '<h2 class="t1">' + br(d.estruturaTitulo) + '</h2>' +
       (est.length ? '<div class="grid" style="--n:' + (est.length % 3 === 0 && est.length % 2 ? 3 : est.length === 1 ? 1 : 2) + '">' + est.map(c => '<div class="card"><i class="dot"></i><p class="t3">' + esc(c.t) + '</p><ul class="cp">' + L(c.itens).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>').join('') + '</div>' : '') +
-      (fn.length ? '<p class="rot flab">Funcionalidades</p>' + chips(fn) : '') + '</section>');
+      (fn.length ? '<p class="rot flab">' + T.func + '</p>' + chips(fn) : '') + '</section>');
     const et = (d.etapas || []).filter(e => e.t || e.desc);
-    if (et.length) S.push('<section class="sec">' + tag('Cronograma') + '<h2 class="t1">' + br(d.cronogramaTitulo) + '</h2><div class="tl">' + et.map((e, i) => '<div><b class="n rot">' + String(i + 1).padStart(2, '0') + '</b><p class="t3">' + esc(e.t) + '</p>' + (e.periodo ? '<p class="rot mut">' + esc(e.periodo) + '</p>' : '') + (e.desc ? '<p class="cp mut">' + esc(e.desc) + '</p>' : '') + '</div>').join('') + '</div>' + (d.cronogramaNota ? '<p class="note cp">' + esc(d.cronogramaNota) + '</p>' : '') + '</section>');
-    if (L(d.beneficios).length) S.push('<section class="sec">' + tag('Benefícios') + '<h2 class="t1">' + br(d.beneficiosTitulo) + '</h2><div class="ben" style="--r:' + Math.ceil(L(d.beneficios).length / 2) + '">' + L(d.beneficios).map(b => '<div>' + IC.check + '<span class="co">' + esc(b) + '</span></div>').join('') + '</div></section>');
+    if (et.length) S.push('<section class="sec">' + tag(T.crono) + '<h2 class="t1">' + br(d.cronogramaTitulo) + '</h2><div class="tl">' + et.map((e, i) => '<div><b class="n rot">' + String(i + 1).padStart(2, '0') + '</b><p class="t3">' + esc(e.t) + '</p>' + (e.periodo ? '<p class="rot mut">' + esc(e.periodo) + '</p>' : '') + (e.desc ? '<p class="cp mut">' + esc(e.desc) + '</p>' : '') + '</div>').join('') + '</div>' + (d.cronogramaNota ? '<p class="note cp">' + esc(d.cronogramaNota) + '</p>' : '') + '</section>');
+    if (L(d.beneficios).length) S.push('<section class="sec">' + tag(T.ben) + '<h2 class="t1">' + br(d.beneficiosTitulo) + '</h2><div class="ben" style="--r:' + Math.ceil(L(d.beneficios).length / 2) + '">' + L(d.beneficios).map(b => '<div>' + IC.check + '<span class="co">' + esc(b) + '</span></div>').join('') + '</div></section>');
     if (d.preco || L(d.escopo).length) {
       const cd = (d.condicoes || []).filter(c => c.k || c.v);
       const num = v => +String(v || '').replace(/[^\d,]/g, '').replace(',', '.') || 0, desc = !d.parceiro && num(d.precoTabela) > num(d.preco) && num(d.preco) ? num(d.precoTabela) - num(d.preco) : 0;
-      S.push('<section class="sec">' + tag('Investimento') + '<div class="inv"><div class="vr"><div class="vl"><p class="rot o6">Investimento total</p>' +
-        (d.parceiro ? '<span class="sp rot">Valor exclusivo para parceiros Fyw</span>' + (d.precoTabela ? '<p class="co o7">Valor normal: <s>' + esc(d.precoTabela) + '</s></p>' : '') : desc ? '<span class="sp rot">' + (d.selo ? esc(d.selo) : 'Desconto de ' + R(desc)) + '</span><p class="co o7">Valor anterior: <s>' + esc(d.precoTabela) + '</s></p>' : '') +
+      S.push('<section class="sec">' + tag(T.inv) + '<div class="inv"><div class="vr"><div class="vl"><p class="rot o6">' + T.invT + '</p>' +
+        (d.parceiro ? '<span class="sp rot">' + T.parc + '</span>' + (d.precoTabela ? '<p class="co o7">' + T.normal + ': <s>' + esc(d.precoTabela) + '</s></p>' : '') : desc ? '<span class="sp rot">' + (d.selo ? esc(d.selo) : T.desc + R(desc)) + '</span><p class="co o7">' + T.ant + ': <s>' + esc(d.precoTabela) + '</s></p>' : '') +
         '<p class="pg">' + esc(d.preco) + '</p>' + (d.parceiro && d.precoNota ? '<p class="cp o7">' + esc(d.precoNota) + '</p>' : '') + '</div>' +
-        (L(d.escopo).length ? '<div class="vl"><p class="rot o6">Escopo da entrega</p><ul class="co">' + L(d.escopo).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' : '<div></div>') + '</div>' +
+        (L(d.escopo).length ? '<div class="vl"><p class="rot o6">' + T.esc + '</p><ul class="co">' + L(d.escopo).map(x => '<li>' + esc(x) + '</li>').join('') + '</ul></div>' : '<div></div>') + '</div>' +
         (cd.length ? '<div class="cd">' + cd.map(c => '<div><p class="rot o5">' + esc(c.k) + '</p><p class="cv">' + esc(c.v) + '</p></div>').join('') + '</div>' : '') + '</div></section>');
     }
     const px = L(d.proximos);
-    const fim = '<section class="sec">' + (px.length ? '<p class="rot pxl">Próximos passos</p><div class="nx">' + px.map((p, i) => '<div><i class="co">' + (i + 1) + '</i><span class="co">' + esc(p) + '</span></div>').join('') + '</div>' : '') +
-      '<div class="sg"><div><p class="cp">' + esc(d.assinaturaCliente || d.cliente) + '  ·  Contratante</p></div><div class="fy"><img class="ass" src="/assets/img/propostas/assinatura-fyw.svg?v=2" alt="Assinatura Fyw" width="314" height="283"><p class="cp">Fyw  ·  CNPJ 27.354.079/0001-05</p></div></div>' +
+    const fim = '<section class="sec">' + (px.length ? '<p class="rot pxl">' + T.prox + '</p><div class="nx">' + px.map((p, i) => '<div><i class="co">' + (i + 1) + '</i><span class="co">' + esc(p) + '</span></div>').join('') + '</div>' : '') +
+      '<div class="sg"><div><p class="cp">' + esc(d.assinaturaCliente || d.cliente) + '  ·  ' + T.contr + '</p></div><div class="fy"><img class="ass" src="/assets/img/propostas/assinatura-fyw.svg?v=2" alt="Assinatura Fyw" width="314" height="283"><p class="cp">Fyw  ·  CNPJ 27.354.079/0001-05</p></div></div>' +
       (d.legal ? '<p class="lg cp">' + esc(d.legal) + '</p>' : '') + '<div class="ft cp"><span>fyw.com.br  ·  fyw.ggwp@gmail.com</span><span>' + esc(d.codigo) + '</span></div></section>';
-    const meta = [['Data', d.data], ['Código', d.codigo], ['Prazo', d.prazo], ['Contato', d.contato]].filter(m => m[1]);
-    return '<div class="pdoc"><header class="ph">' + glows + '<div class="in"><div class="top">' + logoFyw + '<span class="pill rot"><i></i>Proposta comercial</span></div><div class="grow"></div>' +
-      '<div class="row"><div class="lgbox' + (d.logo ? '' : ' vazio') + '">' + (d.logo ? '<img src="' + esc(d.logo) + '" alt="' + esc(d.cliente) + '">' : '<span class="rot o5">Logo do cliente</span>') + '</div><i class="div"></i>' +
-      '<div class="col"><p class="rot lima">' + esc(d.rotulo) + '</p><h1 class="t1">' + br(d.titulo) + '</h1><p class="co o7">Preparada para ' + esc(d.cliente) + '</p></div></div>' +
+    const meta = [[T.data, d.data], [T.cod, d.codigo], [T.prazo, d.prazo], [T.cont, d.contato]].filter(m => m[1]);
+    return '<div class="pdoc"><header class="ph">' + glows + '<div class="in"><div class="top">' + logoFyw + '<span class="pill rot"><i></i>' + T.prop + '</span></div><div class="grow"></div>' +
+      '<div class="row"><div class="lgbox' + (d.logo ? '' : ' vazio') + '">' + (d.logo ? '<img src="' + esc(d.logo) + '" alt="' + esc(d.cliente) + '">' : '<span class="rot o5">' + T.logo + '</span>') + '</div><i class="div"></i>' +
+      '<div class="col"><p class="rot lima">' + esc(d.rotulo) + '</p><h1 class="t1">' + br(d.titulo) + '</h1><p class="co o7">' + T.para + esc(d.cliente) + '</p></div></div>' +
       '<div class="line"></div><div class="meta">' + meta.map(m => '<div><p class="rot o5">' + m[0] + '</p><p class="co">' + esc(m[1]) + '</p></div>').join('') + '</div></div></header>' +
       '<div class="pb">' + S.join('') + fim + '</div></div>';
   }
@@ -418,7 +460,7 @@
     estrutura: ['estruturaTag', 'estruturaTitulo', 'estrutura', 'funcionalidades'], crono: ['cronogramaTitulo', 'etapas', 'cronogramaNota'],
     ben: ['beneficiosTitulo', 'beneficios'], inv: ['parceiro', 'precoTabela', 'preco', 'selo', 'precoNota', 'escopo', 'condicoes'], fim: ['proximos', 'assinaturaCliente', 'legal']
   };
-  const modeloDe = d => d.modelo === 'bas' ? bas() : d.modelo === 'pacto' ? pacto() : d.modelo === 'lume' ? lume() : d.modelo === 'impacta' ? impacta() : nova();
+  const modeloDe = d => d.modelo === 'bas' ? bas() : d.modelo === 'pacto' ? pacto() : d.modelo === 'lume' ? lume() : d.modelo === 'impacta' ? impacta() : d.modelo === 'zvy' ? zvy() : nova();
   let antes = null, tAntes = null, tUndo = 0;
   const mostraDesfazer = () => { const u = $('#undo'); if (!u) return; u.hidden = false; clearTimeout(tUndo); tUndo = setTimeout(() => { const v = $('#undo'); if (v) v.hidden = true; }, 20000); };
   const agora = () => new Date().toISOString();
@@ -432,6 +474,7 @@
       '<div class="up"><div class="th">' + (D.logo ? '<img src="' + esc(D.logo) + '" alt="">' : '<span>Sem logo</span>') + '</div><div class="bt"><label class="btn">Enviar logo<input type="file" accept="image/svg+xml,image/png,image/webp,image/jpeg" data-up="logo"></label>' + (D.logo ? '<button class="x" type="button" data-nologo>Tirar logo</button>' : '') + '</div></div>' +
       '<label class="f"><span>Tipo de projeto</span><select data-tipo>' + '<option value="">Personalizado (sem tabela)</option>' + tp.map(x => '<option value="' + esc(x.id) + '"' + (x.id === D.tipoId ? ' selected' : '') + '>' + esc(x.nome) + ' · ' + R(x.tabela) + esc(x.un || '') + '</option>').join('') + '</select><small>Puxa o valor da tabela de preços. Dá para mudar o valor depois, em Investimento.</small></label>' +
       '<label class="chk"><input type="checkbox" data-k="parceiro"' + (D.parceiro ? ' checked' : '') + '>Cliente parceiro Fyw (preço de parceiro)</label>' +
+      '<label class="chk"><input type="checkbox" data-k="en"' + (D.en ? ' checked' : '') + '>Proposta em inglês (títulos do documento em inglês)</label>' +
       vin('Nome do projeto', 'titulo', { area: true, rows: 2 }) + vin('Cliente (para quem é a proposta)', 'cliente') + vin('Frase acima do nome do projeto', 'rotulo') +
       '<div class="g2">' + vin('Data', 'data') + vin('Código', 'codigo') + vin('Prazo', 'prazo') + vin('Contato', 'contato') + '</div>';
     const objetivo = vin('Objetivo (título grande)', 'objetivo', { area: true, rows: 2 }) + vin('Texto 1', 'objetivoTexto.0', { area: true }) + vin('Texto 2', 'objetivoTexto.1', { area: true });
@@ -641,6 +684,7 @@
     for (const r of rows.filter(r => r.cliente === LUME)) { try { const p = await store.get(r.id), d = p.dados; if (d.codigo === 'PCF24112026' && d.selo === undefined) { d.selo = lume().selo; await store.save(r.id, d); } } catch (e) {} }
     if (!rows.some(r => r.cliente === LUME) && !lget(LSEM3, false)) { await store.save(null, lume()); lset(LSEM3, true); rows = await store.list(); }
     if (!rows.some(r => r.cliente === IMPACTA) && !lget(LSEM4, false)) { await store.save(null, impacta()); lset(LSEM4, true); rows = await store.list(); }
+    if (!rows.some(r => r.cliente === ZVY) && !lget(LSEM5, false)) { await store.save(null, zvy()); lset(LSEM5, true); rows = await store.list(); }
     $('#lsub').textContent = rows.length ? rows.length + (rows.length === 1 ? ' proposta salva.' : ' propostas salvas.') + ' Tudo fica aqui até você excluir.' : 'Tudo o que você gerar fica salvo aqui até você excluir.';
     c.innerHTML = !rows.length ? '<div class="vazio">Nenhuma proposta ainda. Clique em <b>Nova proposta</b>.</div>' : rows.map(r => '<article class="pc" data-id="' + esc(r.id) + '"><div class="lg" data-ed>' + (r.logo ? '<img src="' + esc(r.logo) + '" alt="">' : '<span>Sem logo</span>') + '</div>' +
       '<div class="in"><h3>' + esc(r.titulo) + '</h3><p class="cl">' + esc(r.cliente) + '</p><div class="mt">' + (r.tipo ? '<span class="chipx">' + esc(r.tipo) + '</span>' : '') + (r.preco ? '<span class="chipx acc">' + esc(r.preco === 'R$ 6.500' && /agenda/i.test(r.tipo || '') ? 'R$ 10.000' : r.preco) + '</span>' : '') + '<span class="chipx">Editada em ' + dataCurta(r.atualizado) + '</span>' + pdfChip(r.pdfs) + '</div></div>' +
@@ -705,7 +749,7 @@
     const m = /^p\/(.+)$/.exec(h);
     if (m) {
       tela('ed'); $('#form').innerHTML = '<p class="vazio">Carregando…</p>';
-      try { const p = await store.get(decodeURIComponent(m[1])); ID = p.id; D = Object.assign(nova(), { modelo: p.dados.cliente === 'Bio Amazon Summit' ? 'bas' : p.dados.cliente === PACTO ? 'pacto' : p.dados.cliente === LUME ? 'lume' : p.dados.cliente === IMPACTA ? 'impacta' : 'nova' }, agendaNova(p.dados)); }
+      try { const p = await store.get(decodeURIComponent(m[1])); ID = p.id; D = Object.assign(nova(), { modelo: p.dados.cliente === 'Bio Amazon Summit' ? 'bas' : p.dados.cliente === PACTO ? 'pacto' : p.dados.cliente === LUME ? 'lume' : p.dados.cliente === IMPACTA ? 'impacta' : p.dados.cliente === ZVY ? 'zvy' : 'nova' }, agendaNova(p.dados)); }
       catch (e) { $('#form').innerHTML = '<p class="vazio">' + esc(e.message) + '</p>'; return; }
       $('#pinfo').textContent = 'Prévia do PDF (página única, 1240 px de largura)'; form(); preview(doc(D)); return;
     }
